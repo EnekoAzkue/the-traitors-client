@@ -1,19 +1,31 @@
-import { useState } from "react";
-// import Home from "../components/screens/Home";
-// import Login from "./screens/Login";
-import { View } from "react-native";
-import { SafeAreaFrameContext, SafeAreaView } from "react-native-safe-area-context";
+import { useEffect, useState } from "react";
 import { Text } from "react-native/";
-// import Login from "./Login";
+import Login from "./screens/Login";
+import Main from "./Main";
+import Splash from "./screens/Splash";
 
 function App() {
 
   const [user, setUser] = useState<any>(null);
-  // const [] = useState();
+
+
+  useEffect((() => {
+    console.log("Hello")
+  }), []);
 
   return (
     <>
-      <Text> TEST </Text>
+      {
+        !user ?
+        <>
+          <Login/>
+        </>
+        :
+        <>
+          <Main/>
+        </>
+
+      }
     </>
   );
 }

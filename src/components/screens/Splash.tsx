@@ -1,10 +1,21 @@
+import React from "react";
+import {ImageBackground, StyleSheet, Text, View } from "react-native";
+import styled from "styled-components/native";
 
-function Splash(){
-    return(
+const LoginScreen = styled.View`
+  background-color: papayawhip;
+  width: 100%;
+  height: 100%;
+`
+
+function Splash() {
+    return (
         <>
-            <h1>Splash Screen</h1>
+            <LoginScreen>
+                <ImageBackground source={require('../../assets/images/SplashScreen.png')} resizeMode="cover" style={{width:'100%', height:'100%'}}>
+                </ImageBackground>
+            </LoginScreen>
         </>
     );
 }
-
 export default Splash;
