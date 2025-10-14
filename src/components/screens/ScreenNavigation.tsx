@@ -6,7 +6,7 @@ import Home from './Home';
 import Settings from './Settings';
 import Lab from './Lab';
 import React from 'react';
-import { Screens } from '../../helpers/constants/constants';
+import { Images, Screens } from '../../helpers/constants/constants';
 
 const TabIcon = styled.Image`
   width: 25px;
@@ -24,15 +24,15 @@ const Navigator = createBottomTabNavigator({
 
                 switch (route.name) {
                     case Screens.HOME:
-                        // tabIconSource = require('../assets/images/home-icon.png');
+                        tabIconSource = Images.BUTTON;
                         break;
 
                     case Screens.SETTINGS:
-                        // tabIconSource = require('../assets/images/settings-icon.png');
+                        tabIconSource = Images.BUTTON;
                         break;
 
                     case Screens.LAB:
-                        // tabIconSource = require('../assets/images/lab-icon.png');
+                        tabIconSource = Images.BUTTON;
                         break;
                 }
 
