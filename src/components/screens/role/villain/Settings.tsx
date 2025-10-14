@@ -1,14 +1,14 @@
 import { View, Text } from "react-native";
 
 
-function Settings(){
+function VillainSettings(){
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Settings Screen</Text>
+      <Text>Villain Settings</Text>
     </View>
   );
 }
 
 
-export default Settings;
+export default VillainSettings;

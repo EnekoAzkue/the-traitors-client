@@ -1,14 +1,14 @@
 import { View, Text } from "react-native";
 
 
-function Settings(){
+function AcolyteSettings(){
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Settings Screen</Text>
+      <Text>Acolyte Settings</Text>
     </View>
   );
 }
 
 
-export default Settings;
+export default AcolyteSettings;

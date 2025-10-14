@@ -1,14 +1,13 @@
 import { View, Text } from "react-native";
 
-
-function Settings(){
+function MortimerHome() {
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Settings Screen</Text>
+      <Text>Mortimer Home</Text>
     </View>
   );
 }
 
 
-export default Settings;
+export default MortimerHome;
