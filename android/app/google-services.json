@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "158827850165",
+    "project_id": "the-traitors-server",
+    "storage_bucket": "the-traitors-server.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:158827850165:android:f4209da776ae59249651fc",
+        "android_client_info": {
+          "package_name": "com.thetclient"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApcc3H9u-gcfx_mywKuJdo1SnMjwtfaNM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
