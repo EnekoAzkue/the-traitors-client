@@ -5,6 +5,8 @@ import { createStaticNavigation } from '@react-navigation/native';
 import Home from './Home';
 import Settings from './Settings';
 import Lab from './Lab';
+import React from 'react';
+import { Screens } from '../../helpers/constants/constants';
 
 const TabIcon = styled.Image`
   width: 25px;
@@ -21,15 +23,15 @@ const Navigator = createBottomTabNavigator({
                 let tabIconSource;
 
                 switch (route.name) {
-                    case 'Home':
+                    case Screens.HOME:
                         // tabIconSource = require('../assets/images/home-icon.png');
                         break;
 
-                    case 'Settings':
+                    case Screens.SETTINGS:
                         // tabIconSource = require('../assets/images/settings-icon.png');
                         break;
 
-                    case 'Lab':
+                    case Screens.LAB:
                         // tabIconSource = require('../assets/images/lab-icon.png');
                         break;
                 }

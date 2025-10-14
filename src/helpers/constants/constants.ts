@@ -1,6 +1,39 @@
 
 
 
-const Modalmessages = {
-  ERROR_USER_COULD_NOT_VERIFY : 'You usurper! You have been spelled from this land.',
+enum ModalMessages {
+  ERROR_USER_COULD_NOT_VERIFY = 'You usurper! You have been spelled from this land.',
 }
+
+enum ApiEndpoints {
+  LOGGED_IN = 'logged-in',
+}
+
+enum ClientID {
+  WEB = '158827850165-tfs4dej72osh9sfqstdaurec9e6nfcdc.apps.googleusercontent.com'
+}
+
+enum Logs {
+  FAILED_CONFIGURATION = 'Configuration failed:',
+  SUCCESSFUL_CONFIGURATION = 'Google Auth configured successfully',
+}
+
+enum Images {
+  LOGGING_SCREEN = require('../../assets/images/LoginScreen.png'),
+  BUTTON = require('../../assets/images/Button_1.png'),
+  SPLASH_SCREEN = require('../../assets/images/SplashScreen.png'),
+}
+
+enum Screens {
+  HOME = 'Home',
+  SETTINGS = 'Settings',
+  LAB = 'Lab',
+}
+
+enum Routes {
+  LOCALHOST = 'http://localhost:3000/',
+  RENDER = 'https://the-traitors-server.onrender.com/player',
+  PORTAINER = 'http://10.50.0.50:6001/player/',
+}
+
+export { ModalMessages, ApiEndpoints, ClientID, Logs, Images, Screens, Routes };

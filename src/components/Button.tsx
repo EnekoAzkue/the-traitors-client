@@ -2,6 +2,7 @@ import styled from "styled-components/native";
 import React from "react";
 import { ButtonProps } from "../helpers/interfaces/ButtonInterfaces";
 import { ImageBackground } from "react-native";
+import { Images } from "../helpers/constants/constants";
 
 const ButtonContainer = styled.TouchableHighlight`
     justify-content: center;
@@ -23,7 +24,7 @@ const Button = ({ buttonText, onPress }: ButtonProps) => {
     return (
         <>
             <ButtonContainer onPress={onPress}>
-                <ImageBackground source={require('../assets/images/Button_1.png')} resizeMode="cover" style={{ width: "100%", height:"100%", alignItems: "center"}} >
+                <ImageBackground source={Images.BUTTON} resizeMode="cover" style={{ width: "100%", height:"100%", alignItems: "center"}} >
 
                     <ButtonStyledText>{buttonText}</ButtonStyledText>
                 </ImageBackground>

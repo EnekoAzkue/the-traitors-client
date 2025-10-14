@@ -2,6 +2,7 @@ import { ImageBackground, StyleSheet, Text, View } from "react-native";
 import styled from "styled-components/native";
 import Button from "../Button";
 import React from "react";
+import { Images } from "../../helpers/constants/constants";
 
 const LoginScreen = styled.View`
   width: 100%;
@@ -19,7 +20,7 @@ function Login({setUser, setIsLoading} : any) {
   return (
     <>
       <LoginScreen>
-        <ImageBackground source={require('../../assets/images/LoginScreen.png')} resizeMode="cover" style={{ width: '100%', height: '100%', alignItems: "center" }}>
+        <ImageBackground source={Images.LOGGING_SCREEN} resizeMode="cover" style={{ width: '100%', height: '100%', alignItems: "center" }}>
           <Button buttonText="Sign In" onPress={signIn} />
         </ImageBackground>
       </LoginScreen>
