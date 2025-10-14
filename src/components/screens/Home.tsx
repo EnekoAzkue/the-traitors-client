@@ -1,11 +1,12 @@
-
-
+import { View, Text } from "react-native";
 
 function Home() {
 
-    return (
-        <h1>Home Screen</h1>
-    );
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Home Screen</Text>
+    </View>
+  );
 }
 
 
