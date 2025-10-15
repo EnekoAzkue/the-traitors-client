@@ -57,8 +57,15 @@ function App() {
   async function getIdToken(): Promise<string> {
     let tokens = await GoogleAuth.getTokens();
 
+    const tokenAlmostExpired : number = 300000;
+    let tokenExpirationMillisecs = 0;
+    
+    if(tokens.expiresAt){
+      tokenExpirationMillisecs = tokens.expiresAt - Date.now();
+    }
+
     // Si el token ha expirado o va a expirar
-    const isTokenExpired: boolean = (tokens.expiresAt) ? (tokens.expiresAt - Date.now() <= 300000) : true;
+    const isTokenExpired : boolean = tokenExpirationMillisecs <= tokenAlmostExpired;
 
     if (isTokenExpired) {
       tokens = await GoogleAuth.refreshTokens();
@@ -68,11 +75,6 @@ function App() {
 
     return idToken;
   }
-
-
-  useEffect((() => {
-
-  }), []);
 
 
   return (

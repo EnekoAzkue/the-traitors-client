@@ -6,7 +6,9 @@ enum ModalMessages {
 }
 
 enum ApiEndpoints {
+  LOG_IN = 'log-in',
   LOGGED_IN = 'logged-in',
+
 }
 
 enum ClientID {
@@ -32,7 +34,7 @@ enum Screens {
 
 enum Routes {
   LOCALHOST = 'http://localhost:3000/',
-  RENDER = 'https://the-traitors-server.onrender.com/player',
+  RENDER = 'https://the-traitors-server.onrender.com/player/',
   PORTAINER = 'http://10.50.0.50:6001/player/',
 }
 
