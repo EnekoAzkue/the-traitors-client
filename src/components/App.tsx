@@ -36,8 +36,9 @@ function App() {
       const currentUser: User | null = await GoogleAuth.getCurrentUser();
 
       if (currentUser) {
+        console.log("user logged in: ", currentUser.name)
         const idToken: string = await getIdToken();
-
+        console.log(idToken)
         const authenticationAttempt: { statusCode: number, player: KaotikaPlayer | null } = await authenticatePlayer(ApiEndpoints.LOGGED_IN, idToken);
 
         if (authenticationAttempt.statusCode === 200) {
@@ -56,10 +57,10 @@ function App() {
 
   async function getIdToken(): Promise<string> {
     let tokens = await GoogleAuth.getTokens();
-
+    
     const tokenAlmostExpired : number = 300000;
     let tokenExpirationMillisecs = 0;
-    
+    console.log(tokens)
     if(tokens.expiresAt){
       tokenExpirationMillisecs = tokens.expiresAt - Date.now();
     }
@@ -67,9 +68,11 @@ function App() {
     // Si el token ha expirado o va a expirar
     const isTokenExpired : boolean = tokenExpirationMillisecs <= tokenAlmostExpired;
 
-    if (isTokenExpired) {
-      tokens = await GoogleAuth.refreshTokens();
-    }
+    // if (isTokenExpired) {
+    //   console.log("Is token expired? ", isTokenExpired);
+    //   tokens = await GoogleAuth.refreshTokens();
+    //   console.log("Maybe")
+    // }
 
     const { idToken } = tokens;
 

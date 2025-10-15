@@ -12,7 +12,7 @@ enum ApiEndpoints {
 }
 
 enum ClientID {
-  WEB = '158827850165-tfs4dej72osh9sfqstdaurec9e6nfcdc.apps.googleusercontent.com'
+  WEB = '158827850165-66bprlqqtt0k58n387i9kq6cqtdluo47.apps.googleusercontent.com'
 }
 
 enum Logs {
@@ -33,7 +33,7 @@ enum Screens {
 }
 
 enum Routes {
-  LOCALHOST = 'http://localhost:3000/',
+  LOCALHOST = 'http://localhost:3000/player/',
   RENDER = 'https://the-traitors-server.onrender.com/player/',
   PORTAINER = 'http://10.50.0.50:6001/player/',
 }
