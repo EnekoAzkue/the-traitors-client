@@ -2,5 +2,5 @@
 
 export interface ButtonProps {
     setUser: () => void;
-    setIsLoading: () => void;
+    setModalMessage: () => void;
 };
