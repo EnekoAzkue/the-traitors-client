@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 import Button from "../Button";
 import React from "react";
 import { Images } from "../../helpers/constants/constants";
+import { LoginProps } from "../../helpers/interfaces/LoginProps";
 
 const LoginScreen = styled.View`
   width: 100%;
@@ -12,11 +13,12 @@ const LoginScreen = styled.View`
 
 const signIn = () => {
   console.log('Sign In pressed');
+
 };
 
 
-function Login({setUser, setIsLoading} : any) {
-
+function Login({setUser, setIsLoading} : LoginProps) {
+  setUser('eneko.azkue@ikasle.aeg.eus')
   return (
     <>
       <LoginScreen>
