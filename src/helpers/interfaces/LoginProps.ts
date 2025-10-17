@@ -1,6 +1,6 @@
 
 
-export interface LoginProps {
-    setUser: (mail: string) => void;
-    setIsLoading: () => void;
+export interface ButtonProps {
+    setUser: () => void;
+    setModalMessage: () => void;
 };

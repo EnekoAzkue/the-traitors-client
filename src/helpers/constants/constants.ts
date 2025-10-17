@@ -25,6 +25,7 @@ enum Images {
   ACOLYTE_HOME = require('../../assets/images/AcolyteHome.png'), 
   ACOLYTE_SETTINGS = require('../../assets/images/AcolyteSettings.png'),
   ACOLYTE_LAB = require('../../assets/images/AcolyteLab.png'),
+  MODAL = require('../../assets/images/Modal.png'),
 }
 
 enum Screens {
