@@ -18,7 +18,6 @@ const signIn = () => {
 
 
 function Login({setUser, setIsLoading} : LoginProps) {
-  setUser('eneko.azkue@ikasle.aeg.eus')
   return (
     <>
       <LoginScreen>
