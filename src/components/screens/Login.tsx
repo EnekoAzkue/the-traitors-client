@@ -17,7 +17,7 @@ const signIn = () => {
 };
 
 
-function Login({setUser, setIsLoading} : LoginProps) {
+function Login({setUser, setModalMessage} : LoginProps) {
   return (
     <>
       <LoginScreen>

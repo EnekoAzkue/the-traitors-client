@@ -10,6 +10,7 @@ import React from 'react';
 import { ApiEndpoints, ClientID, Logs, ModalMessages } from '../helpers/constants/constants';
 import KaotikaPlayer from '../helpers/interfaces/KaotikaPlayer';
 import GeneralModal from './Modal';
+import { ModalContext } from '../helpers/interfaces/MoldalContext';
 
 function App() {
 
@@ -91,7 +92,9 @@ function App() {
             <Login setUser={setUser} setModalMessage={setModalMessage} />
           </>
         ) : (
-          <Main />
+          <ModalContext value={setModalMessage}>
+            <Main />
+          </ModalContext>
         )
       ) : (
         <Splash />
