@@ -1,13 +1,17 @@
+import React from "react";
 import { View, Text } from "react-native";
+import ScreenContainer from "../../ScreenContainer";
+import { Images } from "../../../../helpers/constants/constants";
 
 function VillainHome() {
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Villain Home</Text>
-    </View>
+    <ScreenContainer backgroundImg={Images.ACOLYTE_HOME}>{/* -- CAMBIAR LA IMAGEN DEL ACOLITO A LA DEL VILLANO -- */}
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text style ={{ color: "white" }}>Villain Home</Text>
+      </View>
+    </ScreenContainer>
   );
 }
-
 
 export default VillainHome;
