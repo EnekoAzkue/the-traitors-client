@@ -1,7 +1,7 @@
 import { GoogleAuth } from 'react-native-google-auth';
 import styled from 'styled-components/native';
 import { useContext } from 'react';
-import { ModalContext } from '../../helpers/interfaces/MoldalContext';
+import { ModalContext } from '../../helpers/contexts/contexts';
 import Button from '../Button';
 import React from 'react';
 

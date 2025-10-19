@@ -42,4 +42,13 @@ enum Routes {
   PORTAINER = 'http://10.50.0.50:6001/player/',
 }
 
-export { ModalMessages, ApiEndpoints, ClientID, Logs, Images, Screens, Routes };
+
+
+enum Roles {
+  ACOLYTE  = 'ACOLYTE',
+  VILLAIN  = 'VILLAIN',
+  MORTIMER = 'MORTIMER',
+  ISTVAN   = 'ISTVAN'
+}
+
+export { ModalMessages, ApiEndpoints, ClientID, Logs, Images, Screens, Routes, Roles};

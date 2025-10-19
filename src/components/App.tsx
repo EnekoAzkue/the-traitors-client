@@ -1,16 +1,25 @@
+// --- Constants ---
+import React from 'react';
+import { ApiEndpoints, ClientID, Logs, ModalMessages } from '../helpers/constants/constants';
 import { User, GoogleAuth, GoogleAuthScopes } from 'react-native-google-auth';
-import { useEffect, useState } from "react";
-import { Text } from "react-native/";
+
+// --- Components ---
 import Login from './screens/Login';
 import Main from './screens/Main';
 import Splash from "./screens/Splash";
-import { authenticatePlayer } from '../helpers/userTokenVerification/authenticatePlayer';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import React from 'react';
-import { ApiEndpoints, ClientID, Logs, ModalMessages } from '../helpers/constants/constants';
-import KaotikaPlayer from '../helpers/interfaces/KaotikaPlayer';
 import GeneralModal from './Modal';
-import { ModalContext } from '../helpers/interfaces/MoldalContext';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+// --- Interfaces ---
+import KaotikaPlayer from '../helpers/interfaces/KaotikaPlayer';
+
+// --- Contexts ---
+import { ModalContext, UserContext } from '../helpers/contexts/contexts';
+
+// --- Functions & Hooks ---
+import { authenticatePlayer } from '../helpers/userTokenVerification/authenticatePlayer';
+import { useEffect, useState } from "react";
+
 
 function App() {
 
@@ -26,7 +35,7 @@ function App() {
 
   async function authClient(fixed: boolean) {
     if (!fixed) {
-      getUser(); 
+      getUser();
     } else {
       try {
         await GoogleAuth.configure({
@@ -63,7 +72,7 @@ function App() {
     }
   }
 
-    const userHandler = (newUser: KaotikaPlayer) => {
+  const userHandler = (newUser: KaotikaPlayer) => {
     setUser(newUser);
   }
 
@@ -78,8 +87,8 @@ function App() {
         userHandler({ ...data.data, rol: "ACOLYTE" });
       }
     }
-        setInitialConf(true);
-    
+    setInitialConf(true);
+
   };
 
 
@@ -96,11 +105,11 @@ function App() {
     // Si el token ha expirado o va a expirar
     const isTokenExpired: boolean = tokenExpirationMillisecs <= tokenAlmostExpired;
 
-    // if (isTokenExpired) {
-    //   console.log("Is token expired? ", isTokenExpired);
-    //   tokens = await GoogleAuth.refreshTokens();
-    //   console.log("Maybe")
-    // }
+    if (isTokenExpired) {
+      console.log("Is token expired? ", isTokenExpired);
+      tokens = await GoogleAuth.refreshTokens();
+      console.log("Maybe")
+    }
 
     const { idToken } = tokens;
 
@@ -120,9 +129,11 @@ function App() {
             <Login setUser={setUser} setModalMessage={setModalMessage} />
           </>
         ) : (
-          <ModalContext value={setModalMessage}>
-            <Main />
-          </ModalContext>
+          <UserContext.Provider value={[user, setUser]}>
+            <ModalContext value={setModalMessage}>
+              <Main />
+            </ModalContext>
+          </UserContext.Provider>
         )
       ) : (
         <Splash />
