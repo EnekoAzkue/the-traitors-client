@@ -24,6 +24,10 @@ enum Images {
   LOGGING_SCREEN = require('../../assets/images/LoginScreen.png'),
   BUTTON = require('../../assets/images/Button_1.png'),
   SPLASH_SCREEN = require('../../assets/images/SplashScreen.png'),
+  ACOLYTE_HOME = require('../../assets/images/AcolyteHome.png'), 
+  ACOLYTE_SETTINGS = require('../../assets/images/AcolyteSettings.png'),
+  ACOLYTE_LAB = require('../../assets/images/AcolyteLab.png'),
+  MODAL = require('../../assets/images/Modal.png'),
 }
 
 enum Screens {

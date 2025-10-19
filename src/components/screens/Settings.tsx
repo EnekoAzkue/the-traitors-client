@@ -1,12 +1,15 @@
 import { View, Text } from "react-native";
+import ScreenContainer from "./ScreenContainer";
+import { Images } from "../../helpers/constants/constants";
+import React from "react";
+import Logout from "./Logout";
 
-
-function Settings(){
+function Settings() {
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Settings Screen</Text>
-    </View>
+    <ScreenContainer backgroundImg={Images.ACOLYTE_SETTINGS}>
+      <Logout />
+    </ScreenContainer>
   );
 }
 

@@ -7,13 +7,16 @@ import Splash from "./screens/Splash";
 import { authenticatePlayer } from '../helpers/userTokenVerification/authenticatePlayer';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React from 'react';
-import { ApiEndpoints, ClientID, Logs } from '../helpers/constants/constants';
+import { ApiEndpoints, ClientID, Logs, ModalMessages } from '../helpers/constants/constants';
 import KaotikaPlayer from '../helpers/interfaces/KaotikaPlayer';
+import GeneralModal from './Modal';
+import { ModalContext } from '../helpers/interfaces/MoldalContext';
 
 function App() {
 
   const [user, setUser] = useState<any>(null);
   const [initialConf, setInitialConf] = useState<boolean>(false);
+  const [modalMessage, setModalMessage] = useState<string>('')
 
   useEffect(() => {
     setTimeout(() => {
@@ -45,6 +48,8 @@ function App() {
           setUser(authenticationAttempt.player);
         } else {
           await GoogleAuth.signOut();
+          setModalMessage(
+            ModalMessages.ERROR_USER_COULD_NOT_VERIFY);
         }
       };
 
@@ -82,14 +87,19 @@ function App() {
 
   return (
     <SafeAreaView>
-
+      <GeneralModal
+        message={modalMessage}
+        setMessage={setModalMessage}
+      />
       {initialConf ? (
         !user ? (
           <>
-            <Login setUser={setUser} setIsLoading={() => { }} /> 
+            <Login setUser={setUser} setModalMessage={setModalMessage} />
           </>
         ) : (
-          <Main />
+          <ModalContext value={setModalMessage}>
+            <Main />
+          </ModalContext>
         )
       ) : (
         <Splash />

@@ -58,8 +58,8 @@ const Navigator = createBottomTabNavigator({
     },
     screens: {
         Home,
-        Settings,
         Lab,
+        Settings,
     },
 });
 
