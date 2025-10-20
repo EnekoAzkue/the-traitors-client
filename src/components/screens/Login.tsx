@@ -7,7 +7,7 @@ import { LoginProps } from "../../helpers/interfaces/LoginProps";
 
 
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { GoogleAuthProvider, getAuth, signInWithCredential } from '@react-native-firebase/auth';
+import { GoogleAuthProvider, getAuth, signInWithCredential, signOut } from '@react-native-firebase/auth';
 import { authenticatePlayer } from "../../helpers/userTokenVerification/authenticatePlayer";
 
 const LoginScreen = styled.View`

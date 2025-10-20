@@ -27,6 +27,9 @@ const Message = styled.Text`
   padding-inline: 90px;
   text-align: center;
   text-shadow: 0 0 2.5px rgb(0 0 0 / 1);
+  fontFamily: 'KochAltschrift';
+
+  fontSize: 22px;
 `;
 
 const DismissButton = styled.Pressable`
@@ -41,6 +44,7 @@ const DismissButton = styled.Pressable`
 const DismissButtonText = styled(Message)`
   padding: 0;
   color: rgb(177 164 144);
+  fontFamily: 'KochAltschrift';
 `;
 
 const GeneralModal = ({ message, setMessage }: ModalProps) => {

@@ -26,9 +26,12 @@ import { GoogleAuthProvider, getAuth, signInWithCredential } from '@react-native
 import { AuthenticatePlayerReturnValue } from '../helpers/interfaces/auth.helpers';
 import CircleSpinner from './Spinner';
 
+import styled from 'styled-components/native';
+import { signOut } from '../helpers/googleSignInUtils/googleSignInUtils';
+
 function App() {
 
-  const [user, setUser] = useState<KaotikaPlayer|null >(null);
+  const [user, setUser] = useState<KaotikaPlayer | null>(null);
   const [initialConf, setInitialConf] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -43,7 +46,7 @@ function App() {
     }, 1000);
   }, []);
 
- 
+
 
   const hasPreviousSignIn = async () => {
     const hasPreviousSignIn = GoogleSignin.hasPreviousSignIn();
@@ -56,11 +59,11 @@ function App() {
       const currentUser = GoogleSignin.getCurrentUser();
       const currentUserIdToken = (currentUser?.idToken) ? currentUser.idToken : '';
 
-      const userAuthResponse : AuthenticatePlayerReturnValue = await authenticatePlayer(ApiEndpoints.LOGGED_IN, currentUserIdToken);
+      const userAuthResponse: AuthenticatePlayerReturnValue = await authenticatePlayer(ApiEndpoints.LOGGED_IN, currentUserIdToken);
 
-      if (userAuthResponse.statusCode === 200 || userAuthResponse.statusCode === 201){
+      if (userAuthResponse.statusCode === 200 || userAuthResponse.statusCode === 201) {
         setUser(userAuthResponse.player);
-      }else{
+      } else {
         return setModalMessage(`The runes of destiny have answered! But they don't rocognite you!`)
       }
     }
@@ -78,9 +81,9 @@ function App() {
 
         await getCurrentUser();
 
-        if(user){
+        if (user) {
 
-        }else{
+        } else {
 
         }
 
@@ -127,7 +130,7 @@ function App() {
     if (isTokenExpired) {
       console.log("Is token expired? ", isTokenExpired);
       tokens = await GoogleAuth.refreshTokens();
-      console.log("Maybe")
+      console.log("Maybe");
     }
 
     const { idToken } = tokens;
@@ -136,29 +139,37 @@ function App() {
   }
 
 
+  const StyledView = styled.View`
+    fontFamily: "KochAltschrift";
+  `;
+
   return (
     <SafeAreaView>
-      <GeneralModal
-        message={modalMessage}
-        setMessage={setModalMessage}
-      />
-      {initialConf ? (
-        !user ? (
-          <>
-            <Login setUser={setUser} setModalMessage={setModalMessage} setIsLoading={setIsLoading} />
+      <StyledView>
+        <GeneralModal
+          message={modalMessage}
+          setMessage={setModalMessage}
+        />
+        {
+                
+        initialConf ? (
+          !user ? (
+            <>
+              <Login setUser={setUser} setModalMessage={setModalMessage} setIsLoading={setIsLoading} />
 
-          {isLoading ? <CircleSpinner /> : null}
-          </>
+              {isLoading ? <CircleSpinner /> : null}
+            </>
+          ) : (
+            <UserContext.Provider value={[user, setUser]}>
+              <ModalContext value={setModalMessage}>
+                <Main />
+              </ModalContext>
+            </UserContext.Provider>
+          )
         ) : (
-          <UserContext.Provider value={[user, setUser]}>
-            <ModalContext value={setModalMessage}>
-              <Main />
-            </ModalContext>
-          </UserContext.Provider>
-        )
-      ) : (
-        <Splash />
-      )}
+          <Splash />
+        )}
+      </StyledView>
     </SafeAreaView>
   );
 

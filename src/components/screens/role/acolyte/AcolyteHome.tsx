@@ -8,12 +8,9 @@ function AcolyteHome() {
   return (
     <ScreenContainer backgroundImg={Images.ACOLYTE_HOME}> 
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text style ={{ color: "white" }}>Acolyte Home</Text>
       </View>
     </ScreenContainer>
   );
-
-
 }
 
 
