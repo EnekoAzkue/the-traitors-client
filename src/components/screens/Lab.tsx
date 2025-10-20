@@ -9,7 +9,7 @@ function Lab() {
 
   return (
     <ScreenContainer backgroundImg={Images.ACOLYTE_LAB}>
-      <QRCode />
+      <ScanQR />
     </ScreenContainer>
   );
 }

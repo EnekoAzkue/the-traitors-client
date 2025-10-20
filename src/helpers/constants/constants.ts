@@ -27,6 +27,9 @@ enum Images {
   ACOLYTE_HOME = require('../../assets/images/AcolyteHome.png'), 
   ACOLYTE_SETTINGS = require('../../assets/images/AcolyteSettings.png'),
   ACOLYTE_LAB = require('../../assets/images/AcolyteLab.png'),
+  ISTVAN_HOME = require('../../assets/images/IstvanHome.png'),
+  ISTVAN_SETTINGS = require('../../assets/images/IstvanSettings.png'),
+  ISTVAN_LAB = require('../../assets/images/IstvanLab.png'),
   MODAL = require('../../assets/images/Modal.png'),
 
   HOME_ICON = require('../../assets/images/logos/home_icon.png'),
@@ -40,6 +43,7 @@ enum Screens {
   HOME = 'Home',
   SETTINGS = 'Settings',
   LAB = 'Lab',
+  ISTVAN_LAB = 'IstvanLab',
 }
 
 enum Routes {

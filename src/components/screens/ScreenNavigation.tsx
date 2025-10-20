@@ -7,6 +7,7 @@ import Settings from './Settings';
 import Lab from './Lab';
 import React from 'react';
 import { Images, Screens } from '../../helpers/constants/constants';
+import IstvanLab from './role/istvan/IstvanLab';
 
 const TabIcon = styled.Image`
   position: relative;
@@ -36,6 +37,10 @@ const Navigator = createBottomTabNavigator({
                     case Screens.LAB:
                         tabIconSource = Images.LAB_ICON;
                         break;
+
+                    case Screens.ISTVAN_LAB:
+                        tabIconSource = Images.LAB_ICON;
+                        break;
                 }
 
                 return <TabIcon source={tabIconSource} $focused={focused} />;
@@ -59,7 +64,7 @@ const Navigator = createBottomTabNavigator({
         };
     },
     screens: {
-        Lab,
+        IstvanLab,
         Home,
         Settings,
     },
