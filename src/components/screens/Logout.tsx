@@ -5,6 +5,11 @@ import { ModalContext } from '../../helpers/contexts/contexts';
 import Button from '../Button';
 import React from 'react';
 
+
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { GoogleAuthProvider, getAuth, signInWithCredential } from '@react-native-firebase/auth';
+
+
 const Container = styled.View`
   justify-content: center;
   align-items: center;
@@ -12,6 +17,7 @@ const Container = styled.View`
 `;
 
 const Logout = () => {
+
 //   const { setUser } = useContext(UserContext);
   const setModalMessage = useContext(ModalContext)!;
 

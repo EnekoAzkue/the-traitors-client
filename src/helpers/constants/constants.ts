@@ -12,7 +12,7 @@ enum ApiEndpoints {
 }
 
 enum ClientID {
-  WEB = '158827850165-66bprlqqtt0k58n387i9kq6cqtdluo47.apps.googleusercontent.com'
+  WEB = '158827850165-tfs4dej72osh9sfqstdaurec9e6nfcdc.apps.googleusercontent.com'
 }
 
 enum Logs {
@@ -28,6 +28,12 @@ enum Images {
   ACOLYTE_SETTINGS = require('../../assets/images/AcolyteSettings.png'),
   ACOLYTE_LAB = require('../../assets/images/AcolyteLab.png'),
   MODAL = require('../../assets/images/Modal.png'),
+
+  HOME_ICON = require('../../assets/images/logos/home_icon.png'),
+  LAB_ICON = require('../../assets/images/logos/lab_icon.png'),
+  SETTINGS_ICON = require('../../assets/images/logos/settings_icon.png'),
+  
+
 }
 
 enum Screens {
@@ -45,10 +51,10 @@ enum Routes {
 
 
 enum Roles {
-  ACOLYTE  = 'ACOLYTE',
-  VILLAIN  = 'VILLAIN',
-  MORTIMER = 'MORTIMER',
-  ISTVAN   = 'ISTVAN'
+  ACOLYTE  = 'acolyte',
+  VILLAIN  = 'villain',
+  MORTIMER = 'mortimer',
+  ISTVAN   = 'istvan'
 }
 
 export { ModalMessages, ApiEndpoints, ClientID, Logs, Images, Screens, Routes, Roles};

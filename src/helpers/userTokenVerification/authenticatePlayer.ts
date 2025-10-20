@@ -4,7 +4,7 @@ import { AuthenticatePlayerReturnValue } from "../interfaces/auth.helpers";
 export async function authenticatePlayer(endpoint: string,idToken: string,): Promise<AuthenticatePlayerReturnValue> {
   console.log("Login button pressed to authenticate");
   const response = await fetch(
-    `${Routes.LOCALHOST}${endpoint}`,
+    `${Routes.RENDER}${endpoint}`,
     {
       method: 'POST',
       body: JSON.stringify({ idToken }),

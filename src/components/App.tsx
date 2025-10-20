@@ -9,6 +9,8 @@ import Main from './screens/Main';
 import Splash from "./screens/Splash";
 import GeneralModal from './Modal';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Button } from 'react-native';
+
 
 // --- Interfaces ---
 import KaotikaPlayer from '../helpers/interfaces/KaotikaPlayer';
@@ -19,51 +21,68 @@ import { ModalContext, UserContext } from '../helpers/contexts/contexts';
 // --- Functions & Hooks ---
 import { authenticatePlayer } from '../helpers/userTokenVerification/authenticatePlayer';
 import { useEffect, useState } from "react";
-
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { GoogleAuthProvider, getAuth, signInWithCredential } from '@react-native-firebase/auth';
+import { AuthenticatePlayerReturnValue } from '../helpers/interfaces/auth.helpers';
 
 function App() {
 
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<KaotikaPlayer|null >(null);
   const [initialConf, setInitialConf] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string>('')
 
+  const userHandler = (newUser: KaotikaPlayer | null) => {
+    setUser(newUser);
+  }
+
   useEffect(() => {
     setTimeout(() => {
-      authClient(false);
+      authClient(true);
     }, 1000);
   }, []);
+
+ 
+
+  const hasPreviousSignIn = async () => {
+    const hasPreviousSignIn = GoogleSignin.hasPreviousSignIn();
+    return hasPreviousSignIn;
+  };
+
+  const getCurrentUser = async () => {
+    const hasPreviouslySignedIn = await hasPreviousSignIn();
+    if (hasPreviouslySignedIn) {
+      const currentUser = GoogleSignin.getCurrentUser();
+      const currentUserIdToken = (currentUser?.idToken) ? currentUser.idToken : '';
+
+      const userAuthResponse : AuthenticatePlayerReturnValue = await authenticatePlayer(ApiEndpoints.LOGGED_IN, currentUserIdToken);
+
+      if (userAuthResponse.statusCode === 200 || userAuthResponse.statusCode === 201){
+        setUser(userAuthResponse.player);
+      }else{
+        return setModalMessage(`The runes of destiny have answered! But they don't rocognite you!`)
+      }
+    }
+  };
 
   async function authClient(fixed: boolean) {
     if (!fixed) {
       getUser();
     } else {
+
       try {
-        await GoogleAuth.configure({
-
-          webClientId: ClientID.WEB,
-          scopes: [
-            GoogleAuthScopes.EMAIL,
-          ]
+        GoogleSignin.configure({
+          webClientId: '158827850165-tfs4dej72osh9sfqstdaurec9e6nfcdc.apps.googleusercontent.com',
         });
+
+        await getCurrentUser();
+
+        if(user){
+
+        }else{
+
+        }
+
         console.log(Logs.SUCCESSFUL_CONFIGURATION);
-
-
-        const currentUser: User | null = await GoogleAuth.getCurrentUser();
-
-        if (currentUser) {
-          console.log("user logged in: ", currentUser.name)
-          const idToken: string = await getIdToken();
-          console.log(idToken)
-          const authenticationAttempt: { statusCode: number, player: KaotikaPlayer | null } = await authenticatePlayer(ApiEndpoints.LOGGED_IN, idToken);
-
-          if (authenticationAttempt.statusCode === 200) {
-            setUser(authenticationAttempt.player);
-          } else {
-            await GoogleAuth.signOut();
-            setModalMessage(
-              ModalMessages.ERROR_USER_COULD_NOT_VERIFY);
-          }
-        };
 
         setInitialConf(true);
       } catch (error) {
@@ -72,9 +91,7 @@ function App() {
     }
   }
 
-  const userHandler = (newUser: KaotikaPlayer) => {
-    setUser(newUser);
-  }
+
 
   const getUser = async () => {
     const response = await fetch("https://kaotika-server.fly.dev/players/email/ignacio.ayaso@ikasle.aeg.eus");

@@ -16,6 +16,7 @@ function Home() {
 
   const [user, setUser] = userContext;
 
+  console.log(user);
 
   switch (user.rol) {
     case (Roles.MORTIMER):
@@ -31,7 +32,7 @@ function Home() {
       return (<AcolyteHome/>);
 
     default: 
-      return (<Text>Error! Rol Not found</Text>)
+      return (<Text>{`Error! Rol: ${user.rol} Not found`}</Text>)
   }
 }
 

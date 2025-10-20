@@ -1,6 +1,7 @@
+import KaotikaPlayer from "./KaotikaPlayer";
 
 
 export interface LoginProps {
-    setUser: (mail: string) => void;
+    setUser: (user: KaotikaPlayer) => void;
     setModalMessage: (message: string) => void;
 };
