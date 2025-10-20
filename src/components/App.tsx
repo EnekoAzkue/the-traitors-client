@@ -24,12 +24,14 @@ import { useEffect, useState } from "react";
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { GoogleAuthProvider, getAuth, signInWithCredential } from '@react-native-firebase/auth';
 import { AuthenticatePlayerReturnValue } from '../helpers/interfaces/auth.helpers';
+import CircleSpinner from './Spinner';
 
 function App() {
 
   const [user, setUser] = useState<KaotikaPlayer|null >(null);
   const [initialConf, setInitialConf] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string>('')
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const userHandler = (newUser: KaotikaPlayer | null) => {
     setUser(newUser);
@@ -143,7 +145,9 @@ function App() {
       {initialConf ? (
         !user ? (
           <>
-            <Login setUser={setUser} setModalMessage={setModalMessage} />
+            <Login setUser={setUser} setModalMessage={setModalMessage} setIsLoading={setIsLoading} />
+
+          {isLoading ? <CircleSpinner /> : null}
           </>
         ) : (
           <UserContext.Provider value={[user, setUser]}>

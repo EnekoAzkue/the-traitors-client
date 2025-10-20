@@ -16,12 +16,13 @@ const LoginScreen = styled.View`
   justify-content: center;
 `
 
-function Login({ setUser, setModalMessage }: LoginProps) {
+function Login({ setUser, setModalMessage, setIsLoading }: LoginProps) {
 
   async function onGoogleButtonPress() {
     // Check if your device supports Google Play
     await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
     // Get the users ID token
+    setIsLoading(true)
     const signInResult = await GoogleSignin.signIn();
 
     // Try the new style of google-sign in result, from v13+ of that module
@@ -43,6 +44,8 @@ function Login({ setUser, setModalMessage }: LoginProps) {
     if (!idToken) {
       throw new Error('No ID token found');
     }
+
+    setIsLoading(false)
 
     // Create a Google credential with the token
     const googleCredential = await GoogleAuthProvider.credential(signInData?.idToken);
