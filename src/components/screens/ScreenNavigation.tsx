@@ -59,8 +59,8 @@ const Navigator = createBottomTabNavigator({
         };
     },
     screens: {
-        Home,
         Lab,
+        Home,
         Settings,
     },
 });
