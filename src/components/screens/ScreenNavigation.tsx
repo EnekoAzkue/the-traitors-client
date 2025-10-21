@@ -64,7 +64,7 @@ const Navigator = createBottomTabNavigator({
         };
     },
     screens: {
-        IstvanLab,
+        Lab,
         Home,
         Settings,
     },
