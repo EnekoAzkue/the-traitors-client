@@ -1,17 +1,39 @@
 import { View, Text } from "react-native";
 import ScreenContainer from "./ScreenContainer";
-import { Images } from "../../helpers/constants/constants";
-import React from "react";
-import ScanQR from "./ScanQR";
-import QRCode from "./QR";
+import { Images, Roles } from "../../helpers/constants/constants";
+import React, { useContext } from "react";
+import { UserContext } from "../../helpers/contexts/contexts";
+import MortimerLab from "./role/mortimer/MortimerLab";
+import VillainLab from "./role/villain/VillainLab";
+import IstvanLab from "./role/istvan/IstvanLab";
+import AcolyteLab from "./role/acolyte/AcolyteLab";
 
 function Lab() {
+  const userContext = useContext(UserContext);
 
-  return (
-    <ScreenContainer backgroundImg={Images.ACOLYTE_LAB}>
-      <ScanQR />
-    </ScreenContainer>
-  );
+  if (!userContext) return <Text>User context is null at Home Component!!!"</Text>;
+
+  const [user, setUser] = userContext;
+
+  console.log(user);
+
+    switch (user.rol) {
+    case (Roles.MORTIMER):
+      return (<MortimerLab />);
+
+    case (Roles.VILLAIN):
+      return (<VillainLab />);
+
+    case (Roles.ISTVAN):
+      return (<IstvanLab/>);
+
+    case (Roles.ACOLYTE):
+      return (<AcolyteLab/>);
+
+    default: 
+      return (<Text>{`Error! Rol: ${user.rol} Not found`}</Text>);
+  }
+
 }
 
 
