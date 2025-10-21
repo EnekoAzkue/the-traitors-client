@@ -1,4 +1,3 @@
-import { GoogleAuth } from 'react-native-google-auth';
 import styled from 'styled-components/native';
 import { useContext, useState } from 'react';
 import { ModalContext, UserContext } from '../../helpers/contexts/contexts';
@@ -66,12 +65,14 @@ const QRCodeContainer = () => {
     top: 38%
   `;
 
+  let logoFromFile = Images.LOGO;
+
   return (
 
     (!showingQR) ?
       <Container>
         <Text style={{ color: 'white', fontFamily: 'KochAltschrift', fontSize: 20 }}>Show the Rune!</Text>
-        {/* <Button onPress={showQR} buttonText={'Are you sure?'} />             */}
+        <Button onPress={showQR} buttonText={'Are you sure?'} />
 
         <ButtonContainer onPress={showQR}>
           <ImageBackground source={Images.BUTTON} resizeMode="cover" style={{ width: "100%", height: "100%", alignItems: "center" }} >
@@ -86,14 +87,14 @@ const QRCodeContainer = () => {
             <StyledQRText>Observe the rune and you will be worthy in Angelo's eyes.</StyledQRText>
           </StyledQRTextContainer>
           <View>
-            <QRCode value={`email:x&isInside:bool`} />
+            <QRCode value={`email:${user.email}&isInside${user.isInside}`} logo={logoFromFile} size={200} />
           </View>
 
           <ButtonContainer onPress={showQR}>
-           <ImageBackground source={Images.BUTTON} resizeMode="cover" style={{ width: "100%", height: "100%", alignItems: "center" }} >
+            <ImageBackground source={Images.BUTTON} resizeMode="cover" style={{ width: "100%", height: "100%", alignItems: "center" }} >
               <ButtonText>{'Hide the rune'}</ButtonText>
             </ImageBackground>
-      
+
           </ButtonContainer>
         </Container>
 

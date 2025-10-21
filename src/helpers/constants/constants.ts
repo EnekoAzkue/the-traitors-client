@@ -32,6 +32,8 @@ enum Images {
   HOME_ICON = require('../../assets/images/logos/home_icon.png'),
   LAB_ICON = require('../../assets/images/logos/lab_icon.png'),
   SETTINGS_ICON = require('../../assets/images/logos/settings_icon.png'),
+
+  LOGO = require('../../assets/images/logo.png'),
   
 
 }
