@@ -14,9 +14,10 @@ const ButtonContainer = styled.TouchableHighlight`
 
 const ButtonStyledText = styled.Text`
     color: white;
-    font-size: 16px;
+    font-size: 25px;
     position: relative;
-    top: 42%
+    top: 38%;
+    fontFamily: 'KochAltschrift';
 `;
 
 
