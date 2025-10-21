@@ -74,4 +74,17 @@ enum Roles {
   ISTVAN   = 'istvan'
 }
 
-export { ModalMessages, ApiEndpoints, ClientID, Logs, Images, Screens, Routes, Roles};
+enum SocketGeneralEvents {
+  CONNECT = 'connect'
+}
+
+enum SocketServerToClientEvents {
+  ACOLYTE_INSIDE_OUTSIDE_LAB = 'acolyte inside/outside lab',
+}
+
+enum SocketClientToServerEvents {
+  CONNECTION_OPEN = 'connection open',
+  ACCESS_TO_EXIT_FROM_LAB = 'access to/exit from lab',
+}
+
+export { ModalMessages, ApiEndpoints, ClientID, Logs, Images, Screens, Routes, Roles, SocketClientToServerEvents, SocketServerToClientEvents, SocketGeneralEvents};

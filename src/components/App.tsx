@@ -29,6 +29,8 @@ import CircleSpinner from './Spinner';
 import styled from 'styled-components/native';
 import { signOut } from '../helpers/googleSignInUtils/googleSignInUtils';
 
+import { initSocket, performSocketCleanUp } from '../helpers/socket/socket';
+
 function App() {
 
   const [user, setUser] = useState<KaotikaPlayer | null>(null);
@@ -45,6 +47,14 @@ function App() {
       authClient(true);
     }, 1000);
   }, []);
+
+    useEffect(() => {
+    if (user) {
+      initSocket(user.email);
+
+      return performSocketCleanUp;
+    }
+  }, [user]);
 
 
 
