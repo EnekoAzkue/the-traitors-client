@@ -59,6 +59,8 @@ enum Screens {
 
 }
 
+
+/* --- For local testing, watch: https://docs.google.com/document/d/13t7nvg5CSuUsB5qj1wBU4TsW03_TMxP_6RhYqBUEwcI/edit?tab=t.0 --- */
 enum Routes {
   LOCALHOST = 'http://localhost:3000/player/',
   RENDER = 'https://the-traitors-server.onrender.com/player/',
@@ -75,7 +77,8 @@ enum Roles {
 }
 
 enum SocketGeneralEvents {
-  CONNECT = 'connect'
+  CONNECT = 'connect',
+  DISCONNECT = 'disconnect',
 }
 
 enum SocketServerToClientEvents {
@@ -86,5 +89,7 @@ enum SocketClientToServerEvents {
   CONNECTION_OPEN = 'connection open',
   ACCESS_TO_EXIT_FROM_LAB = 'access to/exit from lab',
 }
+
+
 
 export { ModalMessages, ApiEndpoints, ClientID, Logs, Images, Screens, Routes, Roles, SocketClientToServerEvents, SocketServerToClientEvents, SocketGeneralEvents};

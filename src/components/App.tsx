@@ -1,6 +1,6 @@
 // --- Constants ---
 import React from 'react';
-import { ApiEndpoints, ClientID, Logs, ModalMessages } from '../helpers/constants/constants';
+import { ApiEndpoints, ClientID, Logs, ModalMessages, SocketClientToServerEvents, SocketGeneralEvents } from '../helpers/constants/constants';
 import { User, GoogleAuth, GoogleAuthScopes } from 'react-native-google-auth';
 
 // --- Components ---
@@ -29,7 +29,7 @@ import CircleSpinner from './Spinner';
 import styled from 'styled-components/native';
 import { signOut } from '../helpers/googleSignInUtils/googleSignInUtils';
 
-import { initSocket, performSocketCleanUp } from '../helpers/socket/socket';
+import { initSocket, performSocketCleanUp, socket } from '../helpers/socket/socket';
 
 function App() {
 
@@ -53,6 +53,8 @@ function App() {
       initSocket(user.email);
 
       return performSocketCleanUp;
+    } else {
+      // En caso de que se se haga logout ( user === null | user === undefined ) 
     }
   }, [user]);
 
@@ -101,6 +103,7 @@ function App() {
 
         setInitialConf(true);
       } catch (error) {
+        signOut();
         console.error(Logs.FAILED_CONFIGURATION, error);
       }
     }
