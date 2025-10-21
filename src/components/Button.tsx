@@ -3,6 +3,7 @@ import React from "react";
 import { ButtonProps } from "../helpers/interfaces/ButtonInterfaces";
 import { ImageBackground } from "react-native";
 import { Images } from "../helpers/constants/constants";
+import { Text } from "react-native";
 
 const ButtonContainer = styled.TouchableHighlight`
     justify-content: center;
@@ -30,7 +31,6 @@ const Button = ({ buttonText, onPress }: ButtonProps) => {
                     <ButtonStyledText>{buttonText}</ButtonStyledText>
                 </ImageBackground>
             </ButtonContainer>
-
         </>
     );
 }

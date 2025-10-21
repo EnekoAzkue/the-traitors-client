@@ -8,7 +8,7 @@ enum ModalMessages {
 enum ApiEndpoints {
   LOG_IN = 'log-in',
   LOGGED_IN = 'logged-in',
-
+  UPDATE_PLAYER= 'update/',
 }
 
 enum ClientID {

@@ -3,21 +3,19 @@ import { View, Text } from "react-native";
 import { Images } from "../../../../helpers/constants/constants";
 import ScanQR from "../../ScanQR";
 import ScreenContainer from "../../ScreenContainer";
+import QRCodeContainer from "../../QR";
 
 function AcolyteLab() {
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 
+    <ScreenContainer backgroundImg={Images.ACOLYTE_LAB}>
 
-      <View>
-        <Text style={{fontFamily:''}}>Enter to Angelo's Domains</Text>
-        <ScreenContainer backgroundImg={Images.ACOLYTE_LAB}>
-          <ScanQR />
-        </ScreenContainer>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <QRCodeContainer />
       </View>
 
-    </View>
+    </ScreenContainer>
   );
 }
 
