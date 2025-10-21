@@ -1,14 +1,16 @@
 import { View, Text } from "react-native";
-
-
-function IstvanSettings() {
+import ScreenContainer from "../../ScreenContainer";
+import { Images } from "../../../../helpers/constants/constants";
+import React from "react";
+import Logout from "../../Logout";
+function Settings() {
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Istvan Settings</Text>
-    </View>
+    <ScreenContainer backgroundImg={Images.ISTVAN_SETTINGS}>
+      <Logout />
+    </ScreenContainer>
   );
 }
 
 
-export default IstvanSettings;
+export default Settings;

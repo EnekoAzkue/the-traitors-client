@@ -48,6 +48,15 @@ enum Screens {
   SETTINGS = 'Settings',
   LAB = 'Lab',
   ISTVAN_LAB = 'IstvanLab',
+  ISTVAN_HOME = 'IstvanHome',
+  ISTVAN_SETTINGS = 'IstvanSettings',
+  MORTIMER_LAB = 'MortimerLab',
+  MORTIMER_HOME = 'MortimerHome',
+  MORTIMER_SETTINGS = 'MortimerSettings',
+  VILLAIN_LAB = 'VillainLab',
+  VILLAIN_HOME = 'VillainHome',
+  VILLAIN_SETTINGS = 'VillainSettings',
+
 }
 
 enum Routes {
