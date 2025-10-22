@@ -53,8 +53,6 @@ function App() {
       initSocket(user.email);
 
       return performSocketCleanUp;
-    } else {
-      // En caso de que se se haga logout ( user === null | user === undefined ) 
     }
   }, [user]);
 
@@ -72,6 +70,7 @@ function App() {
       const currentUserIdToken = (currentUser?.idToken) ? currentUser.idToken : '';
       const userAuthResponse: AuthenticatePlayerReturnValue = await authenticatePlayer(ApiEndpoints.LOGGED_IN, currentUserIdToken);
 
+      console.log(userAuthResponse);
       if (userAuthResponse.statusCode === 200 || userAuthResponse.statusCode === 201) {
         return userAuthResponse.player;
       } else {

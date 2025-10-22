@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components/native';
-import ScreenNavigation from "./IstvanNavigation";
 import { UserContext } from '../../helpers/contexts/contexts';
-import AcolyteNavigation from './AcolyteNavigation';
-import IstvanNavigation from './IstvanNavigation';
+import AcolyteNavigation from './role/acolyte/AcolyteNavigation';
+import IstvanNavigation from './role/istvan/IstvanNavigation';
 import { Roles } from '../../helpers/constants/constants';
 import { Text } from 'react-native';
 

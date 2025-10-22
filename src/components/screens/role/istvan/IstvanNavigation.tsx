@@ -3,10 +3,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { BlurView } from '@react-native-community/blur';
 import { createStaticNavigation } from '@react-navigation/native';
 import React from 'react';
-import { Images, Screens } from '../../helpers/constants/constants';
-import IstvanLab from './role/istvan/IstvanLab';
-import IstvanHome from './role/istvan/IstvanHome';
-import IstvanSettings from './role/istvan/IstvanSettings';
+import { Images, Screens } from '../../../../helpers/constants/constants';
+import IstvanLab from './IstvanLab';
+import IstvanHome from './IstvanHome';
+import IstvanSettings from './IstvanSettings';
 
 const TabIcon = styled.Image`
   position: relative;

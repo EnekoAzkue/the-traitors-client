@@ -2,11 +2,11 @@ import styled from 'styled-components/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { BlurView } from '@react-native-community/blur';
 import { createStaticNavigation } from '@react-navigation/native';
-import Home from './Home';
-import Settings from './Settings';
-import Lab from './Lab';
+import Home from '../../Home';
+import Settings from '../../Settings';
+import Lab from '../../Lab';
 import React from 'react';
-import { Images, Screens } from '../../helpers/constants/constants';
+import { Images, Screens } from './../../../../helpers/constants/constants';
 
 const TabIcon = styled.Image`
   position: relative;
@@ -64,6 +64,7 @@ const Navigator = createBottomTabNavigator({
         Settings,
     },
 });
+
 
 const AcolyteNavigation = createStaticNavigation(Navigator);
 
