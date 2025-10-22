@@ -1,14 +1,15 @@
 import { ImageBackground, StyleSheet, Text, View } from "react-native";
 import styled from "styled-components/native";
 import Button from "../Button";
-import React from "react";
+import React, { use } from "react";
 import { ApiEndpoints, Images } from "../../helpers/constants/constants";
 import { LoginProps } from "../../helpers/interfaces/LoginProps";
 
 
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { GoogleAuthProvider, getAuth, signInWithCredential, signOut } from '@react-native-firebase/auth';
+import { GoogleAuthProvider, getAuth, signInWithCredential } from '@react-native-firebase/auth';
 import { authenticatePlayer } from "../../helpers/userTokenVerification/authenticatePlayer";
+import { signOut } from "../../helpers/googleSignInUtils/googleSignInUtils";
 
 const LoginScreen = styled.View`
   width: 100%;
@@ -26,9 +27,9 @@ function Login({ setUser, setModalMessage, setIsLoading }: LoginProps) {
     const signInResult = await GoogleSignin.signIn();
 
     // Try the new style of google-sign in result, from v13+ of that module
-    const signInData = signInResult.data; 
-    let idToken : string | null | undefined = signInData?.idToken;
-    
+    const signInData = signInResult.data;
+    let idToken: string | null | undefined = signInData?.idToken;
+
     console.log("Outside TokenID verification");
 
     if (idToken) {
@@ -37,9 +38,16 @@ function Login({ setUser, setModalMessage, setIsLoading }: LoginProps) {
 
       console.log("Inside TokenID verification");
       const userAuthResponse = await authenticatePlayer(ApiEndpoints.LOG_IN, idToken);
-      
-      if(userAuthResponse.player)
+
+      console.log(userAuthResponse);
+
+      if (userAuthResponse.player) {
+        console.log("This is the player: ", userAuthResponse.player);
         setUser(userAuthResponse.player);
+      } else {
+        signOut();
+        setModalMessage("You are not worthy to be inside!");
+      }
     }
     if (!idToken) {
       throw new Error('No ID token found');

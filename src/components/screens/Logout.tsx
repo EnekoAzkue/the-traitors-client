@@ -9,6 +9,7 @@ import React from 'react';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { GoogleAuthProvider, getAuth, signInWithCredential } from '@react-native-firebase/auth';
 import { signOut } from '../../helpers/googleSignInUtils/googleSignInUtils';
+import { performSocketCleanUp } from '../../helpers/socket/socket';
 
 
 const Container = styled.View`
@@ -33,7 +34,7 @@ const Logout = () => {
     await signOut();
     setUser(null);
     setModalMessage('The gate closes behind you.\nSession over.');
-
+    performSocketCleanUp(); // Borrar conexión de sockets 
   }
 
   return (

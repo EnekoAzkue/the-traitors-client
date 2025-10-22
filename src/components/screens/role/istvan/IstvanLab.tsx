@@ -7,7 +7,8 @@ import { useNavigation } from '@react-navigation/native';
 import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import Button from '../../../Button';
 import useMetrics from '../../../../helpers/use-metrics';
-import { Images } from '../../../../helpers/constants/constants';
+import { Images, SocketClientToServerEvents } from '../../../../helpers/constants/constants';
+import { socket } from '../../../../helpers/socket/socket';
 
 type RootTabParamList = {
   IstvanLab: undefined;
@@ -63,6 +64,9 @@ const IstvanLab = () => {
     if (codes.length === 0) return;
     const codeValue = codes[0].value;
     setModalMessage(`QR detectado: ${codeValue}`);
+
+    // --- Emit socket event to send the email of the user which QR was scanned ---
+
     toggleCameraAndTabBar();
   }
 

@@ -8,7 +8,7 @@ import { handleConnection } from './handlers/connection';
 
 const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
   'https://the-traitors-server.onrender.com/',
-  {
+  { 
     autoConnect: false,
   },
 );
@@ -17,7 +17,6 @@ function initSocket(userEmail: string) {
   socket.on(SocketGeneralEvents.CONNECT, () => {
     handleConnection(userEmail);
   });
-
   socket.connect();
 }
 

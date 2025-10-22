@@ -48,7 +48,7 @@ function App() {
     }, 1000);
   }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     if (user) {
       initSocket(user.email);
 
@@ -70,14 +70,17 @@ function App() {
     if (hasPreviouslySignedIn) {
       const currentUser = GoogleSignin.getCurrentUser();
       const currentUserIdToken = (currentUser?.idToken) ? currentUser.idToken : '';
-
       const userAuthResponse: AuthenticatePlayerReturnValue = await authenticatePlayer(ApiEndpoints.LOGGED_IN, currentUserIdToken);
 
       if (userAuthResponse.statusCode === 200 || userAuthResponse.statusCode === 201) {
-        setUser(userAuthResponse.player);
+        return userAuthResponse.player;
       } else {
-        return setModalMessage(`The runes of destiny have answered! But they don't rocognite you!`)
+        setModalMessage(`The runes of destiny have answered! But they don't rocognite you!`);
+        return null;
       }
+    } else {
+      // signOut();
+      return null;
     }
   };
 
@@ -91,16 +94,21 @@ function App() {
           webClientId: '158827850165-tfs4dej72osh9sfqstdaurec9e6nfcdc.apps.googleusercontent.com',
         });
 
-        await getCurrentUser();
+        const currentUser = await getCurrentUser();
 
-        if (user) {
-
+        // El usuario tiene que tener un correo de AEG
+        if (!currentUser) {
+          // Cerrar sesión si no lo es y desconectar el usuario
+          signOut();
+          setUser(null);
+          performSocketCleanUp();
         } else {
+          // El usuario es un usuario de kaotika y por lo tanto es correcta su autanticación
+          // TODO: Refresh token calling getTokenId()
+          setUser(currentUser);
+          console.log(Logs.SUCCESSFUL_CONFIGURATION);
 
         }
-
-        console.log(Logs.SUCCESSFUL_CONFIGURATION);
-
         setInitialConf(true);
       } catch (error) {
         signOut();
@@ -143,7 +151,6 @@ function App() {
     if (isTokenExpired) {
       console.log("Is token expired? ", isTokenExpired);
       tokens = await GoogleAuth.refreshTokens();
-      console.log("Maybe");
     }
 
     const { idToken } = tokens;
@@ -164,24 +171,24 @@ function App() {
           setMessage={setModalMessage}
         />
         {
-                
-        initialConf ? (
-          !user ? (
-            <>
-              <Login setUser={setUser} setModalMessage={setModalMessage} setIsLoading={setIsLoading} />
 
-              {isLoading ? <CircleSpinner /> : null}
-            </>
+          initialConf ? (
+            !user ? (
+              <>
+                <Login setUser={setUser} setModalMessage={setModalMessage} setIsLoading={setIsLoading} />
+
+                {isLoading ? <CircleSpinner /> : null}
+              </>
+            ) : (
+              <UserContext.Provider value={[user, setUser]}>
+                <ModalContext value={setModalMessage}>
+                  <Main />
+                </ModalContext>
+              </UserContext.Provider>
+            )
           ) : (
-            <UserContext.Provider value={[user, setUser]}>
-              <ModalContext value={setModalMessage}>
-                <Main />
-              </ModalContext>
-            </UserContext.Provider>
-          )
-        ) : (
-          <Splash />
-        )}
+            <Splash />
+          )}
       </StyledView>
     </SafeAreaView>
   );
