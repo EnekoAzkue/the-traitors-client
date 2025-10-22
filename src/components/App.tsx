@@ -34,8 +34,8 @@ function App() {
 
   const [user, setUser] = useState<KaotikaPlayer | null>(null);
   const [initialConf, setInitialConf] = useState<boolean>(false);
-  const [modalMessage, setModalMessage] = useState<string>('')
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [modalMessage, setModalMessage] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const userHandler = (newUser: KaotikaPlayer | null) => {
     setUser(newUser);
@@ -50,8 +50,6 @@ function App() {
   useEffect(() => {
     if (user) {
       initSocket(user.email);
-
-      return performSocketCleanUp;
     }
   }, [user]);
 

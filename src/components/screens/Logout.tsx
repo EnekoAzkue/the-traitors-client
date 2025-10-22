@@ -31,10 +31,10 @@ const Logout = () => {
   const [user, setUser] = userContext;
 
   async function logOut() {
+    performSocketCleanUp(user.email); // Borrar conexión de sockets 
     await signOut();
     setUser(null);
     setModalMessage('The gate closes behind you.\nSession over.');
-    performSocketCleanUp(); // Borrar conexión de sockets 
   }
 
   return (

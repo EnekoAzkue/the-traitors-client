@@ -20,6 +20,7 @@ interface AcolyteDataAfterAccessExitLab {
 // Declaration of the events used when sending events to the server
 interface ClientToServerEvents {
   [SocketClientToServerEvents.CONNECTION_OPEN]: (userEmail: string) => void;
+  [SocketClientToServerEvents.CONNECTION_CLOSE]: (userEmail: string) => void;
   [SocketClientToServerEvents.ACCESS_TO_EXIT_FROM_LAB]: (
     acolyteEmail: string
   ) => void;

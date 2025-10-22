@@ -1,10 +1,10 @@
 import { CURRENT_ROUTE, Routes } from "../constants/constants";
 import { AuthenticatePlayerReturnValue } from "../interfaces/auth.helpers";
 
-export async function authenticatePlayer(endpoint: string,idToken: string,): Promise<AuthenticatePlayerReturnValue> {
+export async function authenticatePlayer(endpoint: string, idToken: string): Promise<AuthenticatePlayerReturnValue> {
   const FETCH_ROUTE = `${CURRENT_ROUTE}${endpoint}`;
 
-  console.log("Login button pressed to authenticate");
+  console.log("User's account authentication process has started...");
 
   const response = await fetch(
     FETCH_ROUTE,

@@ -4,11 +4,11 @@ import type {
   ClientToServerEvents,
 } from '../interfaces/socket'
 import { CURRENT_DOMAIN, SocketGeneralEvents } from '../constants/constants';
-import { handleConnection } from './handlers/connection';
+import { handleConnection, handleDisconnection } from './handlers/connection';
 
 const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
   CURRENT_DOMAIN,
-  { 
+  {
     autoConnect: false,
   },
 );
@@ -20,9 +20,10 @@ function initSocket(userEmail: string) {
   socket.connect();
 }
 
-function performSocketCleanUp() {
-  socket.off(SocketGeneralEvents.CONNECT);
+function performSocketCleanUp(userEmail: string = '') {
+  handleDisconnection(userEmail);
 
+  socket.off(SocketGeneralEvents.CONNECT);
   socket.disconnect();
 }
 

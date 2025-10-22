@@ -3,10 +3,10 @@ import ScreenContainer from "./ScreenContainer";
 import { Images, Roles } from "../../helpers/constants/constants";
 import React, { use, useContext } from "react";
 import { UserContext } from "../../helpers/contexts/contexts";
-import MortimerHome from "./role/mortimer/MortimerHome";
-import VillainHome from "./role/villain/VillainHome";
-import IstvanHome from "./role/istvan/IstvanHome";
-import AcolyteHome from "./role/acolyte/AcolyteHome";
+import MortimerHome from "./roles/mortimer/MortimerHome";
+import VillainHome from "./roles/villain/VillainHome";
+import IstvanHome from "./roles/istvan/IstvanHome";
+import AcolyteHome from "./roles/acolyte/AcolyteHome";
 
 function Home() {
 
