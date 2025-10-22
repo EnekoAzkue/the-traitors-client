@@ -3,10 +3,10 @@ import ScreenContainer from "./ScreenContainer";
 import { Images, Roles } from "../../helpers/constants/constants";
 import React, { useContext } from "react";
 import { UserContext } from "../../helpers/contexts/contexts";
-import MortimerLab from "./role/mortimer/MortimerLab";
-import VillainLab from "./role/villain/VillainLab";
-import IstvanLab from "./role/istvan/IstvanLab";
-import AcolyteLab from "./role/acolyte/AcolyteLab";
+import MortimerLab from "./roles/mortimer/MortimerLab";
+import VillainLab from "./roles/villain/VillainLab";
+import IstvanLab from "./roles/istvan/IstvanLab";
+import AcolyteLab from "./roles/acolyte/AcolyteLab";
 
 function Lab() {
   const userContext = useContext(UserContext);
@@ -17,7 +17,7 @@ function Lab() {
 
   console.log(user);
 
-    switch (user.rol) {
+  switch (user.rol) {
     case (Roles.MORTIMER):
       return (<MortimerLab />);
 
@@ -25,12 +25,12 @@ function Lab() {
       return (<VillainLab />);
 
     case (Roles.ISTVAN):
-      return (<IstvanLab/>);
+      return (<IstvanLab />);
 
     case (Roles.ACOLYTE):
-      return (<AcolyteLab/>);
+      return (<AcolyteLab />);
 
-    default: 
+    default:
       return (<Text>{`Error! Rol: ${user.rol} Not found`}</Text>);
   }
 

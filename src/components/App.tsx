@@ -22,7 +22,6 @@ import { ModalContext, UserContext } from '../helpers/contexts/contexts';
 import { authenticatePlayer } from '../helpers/userTokenVerification/authenticatePlayer';
 import { useEffect, useState } from "react";
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { GoogleAuthProvider, getAuth, signInWithCredential } from '@react-native-firebase/auth';
 import { AuthenticatePlayerReturnValue } from '../helpers/interfaces/auth.helpers';
 import CircleSpinner from './Spinner';
 

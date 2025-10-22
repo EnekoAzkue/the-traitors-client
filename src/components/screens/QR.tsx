@@ -14,7 +14,6 @@ const Container = styled.View`
   align-items: center;
   height: 100%;
   width: 100%;
-  border: 1px solid blue;
 `;
 
 const QRCodeContainer = () => {
@@ -33,6 +32,8 @@ const QRCodeContainer = () => {
   }
 
 
+  // TODO (REFACTOR): Move all this styled components to their own directory
+
   const StyledQRTextContainer = styled.View`
     border: 1px solid orange;
     border-radius: 8px;
@@ -47,7 +48,6 @@ const QRCodeContainer = () => {
     fontFamily: 'KochAltschrift';
     fontSize: 20px;   
     text-align: center;
-
     `;
 
   const ButtonContainer = styled.TouchableHighlight`
@@ -65,6 +65,7 @@ const QRCodeContainer = () => {
     top: 38%
   `;
 
+  // REFACTOR: DELETE THIS 
   let logoFromFile = Images.LOGO;
 
   return (
@@ -87,7 +88,7 @@ const QRCodeContainer = () => {
             <StyledQRText>Observe the rune and you will be worthy in Angelo's eyes.</StyledQRText>
           </StyledQRTextContainer>
           <View>
-            <QRCode value={`email:${user.email}&isInside${user.isInside}`} logo={logoFromFile} size={200} />
+            <QRCode value={`${user.email}`} logo={Images.LOGO} size={200} />
           </View>
 
           <ButtonContainer onPress={showQR}>

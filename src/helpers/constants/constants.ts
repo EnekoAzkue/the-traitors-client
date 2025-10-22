@@ -59,14 +59,23 @@ enum Screens {
 
 }
 
-
 /* --- For local testing, watch: https://docs.google.com/document/d/13t7nvg5CSuUsB5qj1wBU4TsW03_TMxP_6RhYqBUEwcI/edit?tab=t.0 --- */
-enum Routes {
-  LOCALHOST = 'http://localhost:3000/player/',
-  RENDER = 'https://the-traitors-server.onrender.com/player/',
-  PORTAINER = 'http://10.50.0.50:6001/player/',
+enum Domains {
+  // LOCALHOST = 'http://localhost:3000/',
+  LOCALHOST   = 'http://10.70.0.72:3000/',
+  RENDER      = 'https://the-traitors-server.onrender.com/',
+  PORTAINER   = 'http://10.50.0.50:6001/',
 }
 
+enum Routes {
+  LOCALHOST   = `${Domains.LOCALHOST}player/`,
+  RENDER      = `${Domains.RENDER}player/`,
+  PORTAINER   = `${Domains.PORTAINER}player/`,
+}
+
+
+export const CURRENT_DOMAIN = Domains.LOCALHOST;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN) 
+export const CURRENT_ROUTE  = `${CURRENT_DOMAIN}player/`;
 
 
 enum Roles {
@@ -92,4 +101,4 @@ enum SocketClientToServerEvents {
 
 
 
-export { ModalMessages, ApiEndpoints, ClientID, Logs, Images, Screens, Routes, Roles, SocketClientToServerEvents, SocketServerToClientEvents, SocketGeneralEvents};
+export { ModalMessages, ApiEndpoints, ClientID, Logs, Images, Screens, Routes, Roles, Domains, SocketClientToServerEvents, SocketServerToClientEvents, SocketGeneralEvents};

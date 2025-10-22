@@ -3,11 +3,11 @@ import type {
   ServerToClientEvents,
   ClientToServerEvents,
 } from '../interfaces/socket'
-import { SocketGeneralEvents } from '../constants/constants';
+import { CURRENT_DOMAIN, SocketGeneralEvents } from '../constants/constants';
 import { handleConnection } from './handlers/connection';
 
 const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
-  'https://the-traitors-server.onrender.com/',
+  CURRENT_DOMAIN,
   { 
     autoConnect: false,
   },
