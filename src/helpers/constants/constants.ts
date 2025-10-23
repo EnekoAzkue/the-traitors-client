@@ -62,7 +62,7 @@ enum Screens {
 /* --- For local testing, watch: https://docs.google.com/document/d/13t7nvg5CSuUsB5qj1wBU4TsW03_TMxP_6RhYqBUEwcI/edit?tab=t.0 --- */
 enum Domains {
   // LOCALHOST = 'http://localhost:3000/',
-  LOCALHOST   = 'http://10.70.0.72:3000/',
+  LOCALHOST   = 'http://192.168.0.24:3000/',
   RENDER      = 'https://the-traitors-server.onrender.com/',
   PORTAINER   = 'http://10.50.0.50:6001/',
 }
