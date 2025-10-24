@@ -15,7 +15,7 @@ import { performSocketCleanUp } from '../../helpers/socket/socket';
 const Container = styled.View`
   justify-content: center;
   align-items: center;
-  height: 570px
+  height: 520px;
 `;
 
 const Logout = () => {

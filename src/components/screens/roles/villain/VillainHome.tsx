@@ -6,7 +6,7 @@ import { Images } from "../../../../helpers/constants/constants";
 function VillainHome() {
 
   return (
-    <ScreenContainer backgroundImg={Images.ACOLYTE_HOME}>{/* -- CAMBIAR LA IMAGEN DEL ACOLITO A LA DEL VILLANO -- */}
+    <ScreenContainer backgroundImg={Images.VILLAIN_HOME}>
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text style ={{ color: "white" }}>Villain Home</Text>
       </View>

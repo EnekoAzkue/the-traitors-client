@@ -20,11 +20,17 @@ const LoginScreen = styled.View`
 function Login({ setUser, setModalMessage, setIsLoading }: LoginProps) {
 
   async function onGoogleButtonPress() {
+
     // Check if your device supports Google Play
     await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+
     // Get the users ID token
-    setIsLoading(true)
+    setIsLoading(true);
+
     const signInResult = await GoogleSignin.signIn();
+
+    console.log("Sign in result is");
+    console.log(signInResult);
 
     // Try the new style of google-sign in result, from v13+ of that module
     const signInData = signInResult.data;
@@ -39,6 +45,7 @@ function Login({ setUser, setModalMessage, setIsLoading }: LoginProps) {
       console.log("Inside TokenID verification");
       const userAuthResponse = await authenticatePlayer(ApiEndpoints.LOG_IN, idToken);
 
+      console.log("User AUTH:");
       console.log(userAuthResponse);
 
       if (userAuthResponse.player) {
@@ -49,11 +56,12 @@ function Login({ setUser, setModalMessage, setIsLoading }: LoginProps) {
         setModalMessage("You are not worthy to be inside!");
       }
     }
+    setIsLoading(false);
+
     if (!idToken) {
       throw new Error('No ID token found');
     }
 
-    setIsLoading(false)
 
     // Create a Google credential with the token
     const googleCredential = await GoogleAuthProvider.credential(signInData?.idToken);

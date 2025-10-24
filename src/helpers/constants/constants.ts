@@ -24,14 +24,26 @@ enum Images {
   LOGGING_SCREEN = require('../../assets/images/LoginScreen.png'),
   BUTTON = require('../../assets/images/Button_1.png'),
   SPLASH_SCREEN = require('../../assets/images/SplashScreen.png'),
+  
   ACOLYTE_HOME = require('../../assets/images/AcolyteHome.png'), 
   ACOLYTE_SETTINGS = require('../../assets/images/AcolyteSettings.png'),
   ACOLYTE_LAB = require('../../assets/images/AcolyteLab.png'),
   ACOLYTE_LAB_OPEN = require('../../assets/images/AcolyteLabOpen.png'),
   ACOLYTE_LAB_INSIDE = require('../../assets/images/AcolyteLabInside.png'),
+  
   ISTVAN_HOME = require('../../assets/images/IstvanHome.png'),
   ISTVAN_SETTINGS = require('../../assets/images/IstvanSettings.png'),
   ISTVAN_LAB = require('../../assets/images/IstvanLab.png'),
+
+  MORTIMER_HOME = require('../../assets/images/MortimerHome.png'),
+  MORTIMER_SETTINGS = require('../../assets/images/MortimerSettings.png'),
+  MORTIMER_LAB = require('../../assets/images/MortimerLab.png'),
+
+  VILLAIN_HOME = require('../../assets/images/VillainHome.png'),
+  VILLAIN_SETTINGS = require('../../assets/images/VillainSettings.png'),
+  VILLAIN_LAB = require('../../assets/images/VillainLab.png'),
+
+
   MODAL = require('../../assets/images/Modal.png'),
 
   HOME_ICON = require('../../assets/images/logos/home_icon.png'),
@@ -44,9 +56,9 @@ enum Images {
 }
 
 enum Screens {
-  HOME = 'Home',
-  SETTINGS = 'Settings',
-  LAB = 'Lab',
+  ACOLYTE_HOME = 'AcolyteHome',
+  ACOLYTE_SETTINGS = 'AcolyteSettings',
+  ACOLYTE_LAB = 'AcolyteLab',
   ISTVAN_LAB = 'IstvanLab',
   ISTVAN_HOME = 'IstvanHome',
   ISTVAN_SETTINGS = 'IstvanSettings',
@@ -62,7 +74,7 @@ enum Screens {
 /* --- For local testing, watch: https://docs.google.com/document/d/13t7nvg5CSuUsB5qj1wBU4TsW03_TMxP_6RhYqBUEwcI/edit?tab=t.0 --- */
 enum Domains {
   // LOCALHOST = 'http://localhost:3000/',
-  LOCALHOST   = 'http://192.168.0.24:3000/',
+  LOCALHOST   = 'http://10.70.0.113:3000/',
   RENDER      = 'https://the-traitors-server.onrender.com/',
   PORTAINER   = 'http://10.50.0.50:6001/',
 }

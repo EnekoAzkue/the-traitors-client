@@ -1,13 +1,12 @@
+import styled from 'styled-components/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { BlurView } from '@react-native-community/blur';
 import { createStaticNavigation } from '@react-navigation/native';
 import React from 'react';
-import AcolyteLab from './AcolyteLab';
-import AcolyteHome from './AcolyteHome';
-import AcolyteSettings from './AcolyteSettings';
-import { Images, Screens } from './../../../../helpers/constants/constants';
-import styled from 'styled-components/native';
-
+import { Images, Screens } from '../../../../helpers/constants/constants';
+import MortimerLab from './MortimerLab';
+import MortimerHome from './MortimerHome';
+import MortimerSettings from './MortimerSettings';
 
 const TabIcon = styled.Image`
   position: relative;
@@ -26,15 +25,15 @@ const Navigator = createBottomTabNavigator({
                 let tabIconSource;
 
                 switch (route.name) {
-                    case Screens.ACOLYTE_HOME:
+                    case Screens.MORTIMER_HOME:
                         tabIconSource = Images.HOME_ICON;
                         break;
 
-                    case Screens.ACOLYTE_SETTINGS:
+                    case Screens.MORTIMER_SETTINGS:
                         tabIconSource = Images.SETTINGS_ICON;
                         break;
 
-                    case Screens.ACOLYTE_LAB:
+                    case Screens.MORTIMER_LAB:
                         tabIconSource = Images.LAB_ICON;
                         break;
                 }
@@ -60,13 +59,12 @@ const Navigator = createBottomTabNavigator({
         };
     },
     screens: {
-        AcolyteLab,
-        AcolyteHome,
-        AcolyteSettings,
+        MortimerLab,
+        MortimerHome,
+        MortimerSettings,
     },
 });
 
+const MortimerNavigation = createStaticNavigation(Navigator);
 
-const AcolyteNavigation = createStaticNavigation(Navigator);
-
-export default AcolyteNavigation;
+export default MortimerNavigation;

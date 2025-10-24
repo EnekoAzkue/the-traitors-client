@@ -1,18 +1,18 @@
 import React from "react";
 import { View, Text } from "react-native";
+import { Images } from "../../../../helpers/constants/constants";
 import ScreenContainer from "../../ScreenContainer";
 import Logout from "../../Logout";
-import { Images } from "../../../../helpers/constants/constants";
 
 
-function AcolyteSettings(){
+function VillainSettings(){
 
   return (
-    <ScreenContainer backgroundImg={Images.ACOLYTE_SETTINGS}>
+    <ScreenContainer backgroundImg={Images.VILLAIN_SETTINGS}>
       <Logout />
     </ScreenContainer>
   );
 }
 
 
-export default AcolyteSettings;
+export default VillainSettings;

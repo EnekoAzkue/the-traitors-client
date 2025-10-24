@@ -67,7 +67,6 @@ function App() {
       const currentUserIdToken = (currentUser?.idToken) ? currentUser.idToken : '';
       const userAuthResponse: AuthenticatePlayerReturnValue = await authenticatePlayer(ApiEndpoints.LOGGED_IN, currentUserIdToken);
 
-      console.log(userAuthResponse);
       if (userAuthResponse.statusCode === 200 || userAuthResponse.statusCode === 201) {
         return userAuthResponse.player;
       } else {
@@ -91,6 +90,8 @@ function App() {
         });
 
         const currentUser = await getCurrentUser();
+
+        console.log(currentUser);
 
         // El usuario tiene que tener un correo de AEG
         if (!currentUser) {
@@ -122,7 +123,6 @@ function App() {
       const data = await response.json();
       console.log(data);
       if (data.status === "OK") {
-        console.log("");
         userHandler({ ...data.data, rol: "ACOLYTE" });
       }
     }
