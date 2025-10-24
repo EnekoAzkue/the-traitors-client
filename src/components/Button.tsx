@@ -5,7 +5,7 @@ import { ImageBackground } from "react-native";
 import { Images } from "../helpers/constants/constants";
 import { Text } from "react-native";
 
-const ButtonContainer = styled.TouchableHighlight`
+const ButtonContainer = styled.TouchableOpacity`
     justify-content: center;
     width: 200px;
     height: 120px;
