@@ -19,8 +19,10 @@ const TabIcon = styled.Image`
 `;
 
 const Navigator = createBottomTabNavigator({
+    initialRouteName: Screens.ACOLYTE_HOME,
     screenOptions: ({ route }) => {
         return {
+            headerShown: false,
             tabBarShowLabel: false,
             tabBarIcon: ({ focused }) => {
                 let tabIconSource;
