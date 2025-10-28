@@ -19,10 +19,10 @@ import KaotikaPlayer from '../helpers/interfaces/KaotikaPlayer';
 import { ModalContext, UserContext } from '../helpers/contexts/contexts';
 
 // --- Functions & Hooks ---
-import { authenticatePlayer } from '../helpers/userTokenVerification/authenticatePlayer';
+import { authenticatePlayer } from '../helpers/serverRequests/authenticatePlayer';
 import { useEffect, useState } from "react";
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { AuthenticatePlayerReturnValue } from '../helpers/interfaces/auth.helpers';
+import { AuthenticatePlayerReturnValue } from '../helpers/interfaces/serverRequestInterfaces/auth.helpers';
 import CircleSpinner from './Spinner';
 
 import styled from 'styled-components/native';

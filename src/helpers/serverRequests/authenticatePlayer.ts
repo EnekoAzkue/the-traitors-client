@@ -1,5 +1,5 @@
 import { CURRENT_ROUTE, Routes } from "../constants/constants";
-import { AuthenticatePlayerReturnValue } from "../interfaces/auth.helpers";
+import { AuthenticatePlayerReturnValue } from "../interfaces/serverRequestInterfaces/auth.helpers";
 
 export async function authenticatePlayer(endpoint: string, idToken: string): Promise<AuthenticatePlayerReturnValue> {
   const FETCH_ROUTE = `${CURRENT_ROUTE}${endpoint}`;

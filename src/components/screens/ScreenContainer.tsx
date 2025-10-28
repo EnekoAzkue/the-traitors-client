@@ -5,6 +5,7 @@ import React from 'react';
 
 const BackgroundImage = styled.ImageBackground`
   height: 100%;
+  width: 100%;
 `;
 
 const ScreenContainer = ({
