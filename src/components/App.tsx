@@ -73,11 +73,16 @@ function App() {
 
     // Inicializado ya el socket ahora hay que controlas los eventos de server a cliente
 
-    console.log("The code will be executing once per render");
+    console.log("Now clients watchs SEND_UPDATED_PLAYER_TO_MORTIMER socket event");
     socket.on(SocketServerToClientEvents.SEND_UPDATED_PLAYER_TO_MORTIMER, (updatedAcolyte: KaotikaPlayer) => {
-      console.log("Inside mortimer event");
+      console.log("Inside SEND_UPDATED_PLAYER_TO_MORTIMER event");
       console.log(updatedAcolyte);
       const newAcolytes = (allAcolytes) ? ([...allAcolytes, updatedAcolyte]) : allAcolytes;
+      
+      console.log(`The new acolytes: `);
+      newAcolytes?.map((acolyte) => {
+        console.log(`${acolyte.name} is inside? ${(acolyte.isInside) ? (`YES`) : (`NO`)}`);
+      });
 
       setAllAcolytes(newAcolytes);
     });

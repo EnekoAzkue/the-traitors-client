@@ -65,6 +65,16 @@ const QRCodeContainer = () => {
     top: 38%
   `;
 
+  const QRContainer = styled.View`
+    background: rgba(0, 247, 255, 0.62);
+    border-radius: 2px;
+    border: 1px solid rgba(255, 255, 255, 1);
+    width: 60%;
+    height: 30%;
+    justify-content: center;
+    align-items: center;
+  `;
+
   // REFACTOR: DELETE THIS 
   let logoFromFile = Images.LOGO;
 
@@ -87,9 +97,9 @@ const QRCodeContainer = () => {
           <StyledQRTextContainer>
             <StyledQRText>Observe the rune and you will be worthy in Angelo's eyes.</StyledQRText>
           </StyledQRTextContainer>
-          <View>
+          <QRContainer>
             <QRCode value={`${user.email}`} logo={Images.LOGO} size={200} />
-          </View>
+          </QRContainer>
 
           <ButtonContainer onPress={showQR}>
             <ImageBackground source={Images.BUTTON} resizeMode="cover" style={{ width: "100%", height: "100%", alignItems: "center" }} >
