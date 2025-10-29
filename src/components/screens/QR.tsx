@@ -6,8 +6,9 @@ import React from 'react';
 import { View } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import { Text } from 'react-native';
-import { ApiEndpoints, Images } from '../../helpers/constants/constants';
+import { ApiEndpoints, Images, SocketClientToServerEvents } from '../../helpers/constants/constants';
 import { ImageBackground } from 'react-native';
+import { socket } from '../../helpers/socket/socket';
 
 const Container = styled.View`
   justify-content: center;
@@ -28,7 +29,13 @@ const QRCodeContainer = () => {
   const [user, setUser] = userContext;
 
   async function showQR() {
-    setShowingQR(!showingQR);
+    // --- DESCOMENTAR AL TERMINAR TESTING --- //
+    // setShowingQR(!showingQR);
+
+    if(user){
+      console.log("EMIT EVENT TO SERVER", user.email);
+      socket.emit(SocketClientToServerEvents.ACCESS_TO_EXIT_FROM_LAB, (user.email));
+    }
   }
 
 
@@ -50,7 +57,7 @@ const QRCodeContainer = () => {
     text-align: center;
     `;
 
-  const ButtonContainer = styled.TouchableHighlight`
+  const ButtonContainer = styled.TouchableOpacity`
     justify-content: center;
     width: 200px;
     height: 120px;
