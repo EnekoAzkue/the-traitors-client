@@ -75,7 +75,7 @@ enum Screens {
 /* --- For local testing, watch: https://docs.google.com/document/d/13t7nvg5CSuUsB5qj1wBU4TsW03_TMxP_6RhYqBUEwcI/edit?tab=t.0 --- */
 enum Domains {
   // LOCALHOST = 'http://localhost:3000/',
-  LOCALHOST   = 'http://192.168.0.24:3000/',
+  LOCALHOST   = 'http://10.70.0.113:3000/',
   RENDER      = 'https://the-traitors-server.onrender.com/',
   PORTAINER   = 'http://10.50.0.50:6001/',
 }
@@ -87,7 +87,7 @@ enum Routes {
 }
 
 
-export const CURRENT_DOMAIN = Domains.LOCALHOST;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN) 
+export const CURRENT_DOMAIN = Domains.RENDER;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN) 
 export const CURRENT_ROUTE  = `${CURRENT_DOMAIN}player/`;
 
 
@@ -105,6 +105,7 @@ enum SocketGeneralEvents {
 
 enum SocketServerToClientEvents {
   ACOLYTE_INSIDE_OUTSIDE_LAB = 'acolyte inside/outside lab',
+  SEND_UPDATED_PLAYER_TO_MORTIMER = "send updated player to mortimer",
 }
 
 enum SocketClientToServerEvents {

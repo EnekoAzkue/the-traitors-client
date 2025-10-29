@@ -1,22 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, ImageBackground } from "react-native";
-import { Images } from "../../../../helpers/constants/constants";
+import { Images, SocketServerToClientEvents } from "../../../../helpers/constants/constants";
 import ScreenContainer from "../../ScreenContainer";
 import Button from "../../../Button";
 import styled from "styled-components/native";
 import AcolyteLabRegister from "./AcolyteLabRegister";
 import getAllAcolytes from "../../../../helpers/serverRequests/getAllAcolytes";
 import KaotikaPlayer from "../../../../helpers/interfaces/KaotikaPlayer";
+import { socket } from "../../../../helpers/socket/socket";
+import { AllAcolytesContext } from "../../../../helpers/contexts/contexts";
 
 function MortimerLab() {
   const [watchingLab, setWatchingLab] = useState<boolean>(false);
-  const [acolytes, setAcolytes] = useState<KaotikaPlayer[] | void>([]);
+
+
+    const allAcolytesContext = useContext(AllAcolytesContext);
+  
+    if (!allAcolytesContext) return <Text>User context is null at Home Component!!!"</Text>;
+  
+    const [acolytes, setAcolytes] = allAcolytesContext;
+
 
   const watchingLabHandler = () => {
     setWatchingLab(!watchingLab);
   };
 
-  const acolytesHandler = (acolytesArray: [] | void) => {
+
+  // --- Effect to listen constantly if server send the event to update acolytes --- //
+  useEffect(() => {
+
+
+    // --- SETTEAR CON EL CONTEXT EL STATE ACOLYTES --- //
+  }, [] );
+
+
+  const acolytesHandler = (acolytesArray: KaotikaPlayer[] | null) => {
     setAcolytes(acolytesArray);
   };
 
@@ -48,20 +66,6 @@ function MortimerLab() {
 
 
 
-  const showAcolytesList = async () => {
-    watchingLabHandler();
-    const response = await getAllAcolytes();
-    let acolytes = null;
-
-    if (response.status === 200) {
-      acolytes = await response.json();
-      acolytesHandler(acolytes);
-    } else {
-      throw new Error("Error happened while client was trying to get all acolytes from server.");
-    }
-  }
-
-
 
   return (
     <ScreenContainer backgroundImg={Images.MORTIMER_LAB}>
@@ -70,7 +74,7 @@ function MortimerLab() {
           (watchingLab) ?
             <>
               <AcolytesRegisterScreenContainer>
-                <AcolytesRegisterListContainer contentContainerStyle={{alignItems: "center", justifyContent: "center" }}>
+                <AcolytesRegisterListContainer contentContainerStyle={{ alignItems: "center", justifyContent: "center" }}>
                   {
                     // --- MOSTRAR LA LISTA CON LOS ACÓLITOS --- 
                     (acolytes) ?
@@ -102,7 +106,7 @@ function MortimerLab() {
             :
 
             <>
-              <TouchableOpacity onPress={showAcolytesList} style={{ position: "relative", top: 250 }}>
+              <TouchableOpacity onPress={watchingLabHandler} style={{ position: "relative", top: 250 }}>
                 <ImageBackground source={Images.BUTTON} resizeMode="cover" style={{ width: 200, height: 150, alignItems: "center" }} >
 
                   <ButtonStyledText>{"Watch acolytes."}</ButtonStyledText>

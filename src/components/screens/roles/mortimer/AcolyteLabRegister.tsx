@@ -9,8 +9,8 @@ import { AcolyteLabRegisterProps } from "../../../../helpers/interfaces/AcolyteL
 
 // --- IMAGES ---
 import padlockImage from '../../../../assets/images/Block_Acolyte_1.png';
-
-
+import { socket } from "../../../../helpers/socket/socket";
+import { SocketServerToClientEvents } from "../../../../helpers/constants/constants";
 
 
 
@@ -59,7 +59,7 @@ const AcolyteLabRegister = ({ acolyte }: AcolyteLabRegisterProps) => {
   const StyledAcolyteName = styled.Text`
     color: rgba(255, 255, 255, 1);
     fontFamily: "KochAltschrift";
-    fontSize: ${(acolyte.name.length < 22) ? (`18`) : (`15`)}px;
+    fontSize: ${(acolyte.name.length < 22) ? (`20`) : (`18`)}px;
 
     position: relative;
     margin: 0 0 0 5px;
@@ -96,7 +96,7 @@ const AcolyteLabRegister = ({ acolyte }: AcolyteLabRegisterProps) => {
         </StyledView>
 
 
-        <StyledAcolyteName>{acolyte.name}</StyledAcolyteName>
+        <StyledAcolyteName>{acolyte.nickname}</StyledAcolyteName>
         <StyledAcolyteGold>Gold: <Text style={{ color: 'white' }}>{acolyte.gold}</Text> coins.</StyledAcolyteGold>
         <StyledAcolyteGold>Level: <Text style={{ color: 'white' }}>{acolyte.level}</Text></StyledAcolyteGold>
 

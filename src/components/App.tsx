@@ -1,6 +1,6 @@
 // --- Constants ---
 import React from 'react';
-import { ApiEndpoints, ClientID, Logs, ModalMessages, SocketClientToServerEvents, SocketGeneralEvents } from '../helpers/constants/constants';
+import { ApiEndpoints, ClientID, Logs, ModalMessages, SocketClientToServerEvents, SocketGeneralEvents, SocketServerToClientEvents } from '../helpers/constants/constants';
 import { User, GoogleAuth, GoogleAuthScopes } from 'react-native-google-auth';
 
 // --- Components ---
@@ -16,7 +16,8 @@ import { Button } from 'react-native';
 import KaotikaPlayer from '../helpers/interfaces/KaotikaPlayer';
 
 // --- Contexts ---
-import { ModalContext, UserContext } from '../helpers/contexts/contexts';
+import { ModalContext, UserContext, AllAcolytesContext} from '../helpers/contexts/contexts';
+
 
 // --- Functions & Hooks ---
 import { authenticatePlayer } from '../helpers/serverRequests/authenticatePlayer';
@@ -29,10 +30,12 @@ import styled from 'styled-components/native';
 import { signOut } from '../helpers/googleSignInUtils/googleSignInUtils';
 
 import { initSocket, performSocketCleanUp, socket } from '../helpers/socket/socket';
+import getAllAcolytes from '../helpers/serverRequests/getAllAcolytes';
 
 function App() {
 
   const [user, setUser] = useState<KaotikaPlayer | null>(null);
+  const [allAcolytes, setAllAcolytes] = useState<KaotikaPlayer[] | null> (null);
   const [initialConf, setInitialConf] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -41,16 +44,43 @@ function App() {
     setUser(newUser);
   }
 
+  const getAcolytes = async () => {
+    // Get all acolytes: 
+    const response = await getAllAcolytes();
+    let acolytes = null;
+
+    if (response.status === 200) {
+      acolytes = await response.json();
+      setAllAcolytes(acolytes);
+    } else {
+      throw new Error("Error happened while client was trying to get all acolytes from server.");
+    }
+  }
+
   useEffect(() => {
     setTimeout(() => {
       authClient(true);
     }, 1000);
+
+    getAcolytes();
+
   }, []);
 
   useEffect(() => {
     if (user) {
       initSocket(user.email);
     }
+
+    // Inicializado ya el socket ahora hay que controlas los eventos de server a cliente
+
+    console.log("The code will be executing once per render");
+    socket.on(SocketServerToClientEvents.SEND_UPDATED_PLAYER_TO_MORTIMER, (updatedAcolyte: KaotikaPlayer) => {
+      console.log("Inside mortimer event");
+      console.log(updatedAcolyte);
+      const newAcolytes = (allAcolytes) ? ([...allAcolytes, updatedAcolyte]) : allAcolytes;
+
+      setAllAcolytes(newAcolytes);
+    });
   }, [user]);
 
 
@@ -176,11 +206,13 @@ function App() {
                 {isLoading ? <CircleSpinner /> : null}
               </>
             ) : (
-              <UserContext.Provider value={[user, setUser]}>
-                <ModalContext value={setModalMessage}>
-                  <Main />
-                </ModalContext>
-              </UserContext.Provider>
+              <AllAcolytesContext.Provider value={[allAcolytes, setAllAcolytes]}>
+                <UserContext.Provider value={[user, setUser]}>
+                  <ModalContext value={setModalMessage}>
+                    <Main />
+                  </ModalContext>
+                </UserContext.Provider>
+              </AllAcolytesContext.Provider>
             )
           ) : (
             <Splash />

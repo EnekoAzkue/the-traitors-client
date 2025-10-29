@@ -8,6 +8,10 @@ interface ServerToClientEvents {
   [SocketServerToClientEvents.ACOLYTE_INSIDE_OUTSIDE_LAB]: (
     acolyteData: AcolyteDataAfterAccessExitLab,
   ) => void;
+
+  [SocketServerToClientEvents.SEND_UPDATED_PLAYER_TO_MORTIMER]: (
+    acolyteData: any,
+  ) => void;
 }
 
 interface AcolyteDataAfterAccessExitLab {
