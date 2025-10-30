@@ -10,12 +10,15 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { GoogleAuthProvider, getAuth, signInWithCredential } from '@react-native-firebase/auth';
 import { signOut } from '../../helpers/googleSignInUtils/googleSignInUtils';
 import { performSocketCleanUp } from '../../helpers/socket/socket';
+import { Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get("window");
 
 
 const Container = styled.View`
   justify-content: center;
   align-items: center;
-  height: 520px;
+  height: ${height};
 `;
 
 const Logout = () => {

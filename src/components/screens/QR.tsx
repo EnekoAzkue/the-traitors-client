@@ -9,12 +9,16 @@ import { Text } from 'react-native';
 import { ApiEndpoints, Images, SocketClientToServerEvents } from '../../helpers/constants/constants';
 import { ImageBackground } from 'react-native';
 import { socket } from '../../helpers/socket/socket';
+import { Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get("window");
+
 
 const Container = styled.View`
   justify-content: center;
   align-items: center;
-  height: 100%;
-  width: 100%;
+  height: ${height}px;
+  width: ${width}px;
 `;
 
 const QRCodeContainer = () => {
@@ -29,7 +33,6 @@ const QRCodeContainer = () => {
   const [user, setUser] = userContext;
 
   async function showQR() {
-    // --- DESCOMENTAR AL TERMINAR TESTING --- //
     setShowingQR(!showingQR);
 
   }
@@ -53,21 +56,6 @@ const QRCodeContainer = () => {
     text-align: center;
     `;
 
-  const ButtonContainer = styled.TouchableOpacity`
-    justify-content: center;
-    width: 200px;
-    height: 120px;
-  `;
-
-  const ButtonText = styled.Text`
-    color: white;
-    text-align: center;
-    fontFamily: 'KochAltschrift';
-    fontSize: 20px;
-    position: relative;
-    top: 38%
-  `;
-
   const QRContainer = styled.View`
     background: rgba(0, 247, 255, 0.62);
     border-radius: 2px;
@@ -78,21 +66,12 @@ const QRCodeContainer = () => {
     align-items: center;
   `;
 
-  // REFACTOR: DELETE THIS 
-  let logoFromFile = Images.LOGO;
-
   return (
 
     (!showingQR) ?
       <Container>
-        <Text style={{ color: 'white', fontFamily: 'KochAltschrift', fontSize: 20 }}>Show the Rune!</Text>
+        <Text style={{ color: 'white', fontFamily: 'KochAltschrift', fontSize: 20 }}>Show the Rune to access the lab!</Text>
         <Button onPress={showQR} buttonText={'Are you sure?'} />
-
-        <ButtonContainer onPress={showQR}>
-          <ImageBackground source={Images.BUTTON} resizeMode="cover" style={{ width: "100%", height: "100%", alignItems: "center" }} >
-            <ButtonText>{'Are you sure?'}</ButtonText>
-          </ImageBackground>
-        </ButtonContainer>
       </Container>
       :
       <>
@@ -104,12 +83,9 @@ const QRCodeContainer = () => {
             <QRCode value={`${user.email}`} logo={Images.LOGO} size={200} />
           </QRContainer>
 
-          <ButtonContainer onPress={showQR}>
-            <ImageBackground source={Images.BUTTON} resizeMode="cover" style={{ width: "100%", height: "100%", alignItems: "center" }} >
-              <ButtonText>{'Hide the rune'}</ButtonText>
-            </ImageBackground>
 
-          </ButtonContainer>
+          <Button onPress={showQR} buttonText={'Hide the rune'} />
+
         </Container>
 
       </>
