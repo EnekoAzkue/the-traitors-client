@@ -106,6 +106,7 @@ enum SocketGeneralEvents {
 enum SocketServerToClientEvents {
   ACOLYTE_INSIDE_OUTSIDE_LAB = 'acolyte inside/outside lab',
   SEND_UPDATED_PLAYER_TO_MORTIMER = "send updated player to mortimer",
+  UPDATE_USER_IN_CLIENT = "update user in client",
 }
 
 enum SocketClientToServerEvents {

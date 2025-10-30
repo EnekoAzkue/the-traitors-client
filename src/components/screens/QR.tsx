@@ -30,12 +30,8 @@ const QRCodeContainer = () => {
 
   async function showQR() {
     // --- DESCOMENTAR AL TERMINAR TESTING --- //
-    // setShowingQR(!showingQR);
+    setShowingQR(!showingQR);
 
-    if(user){
-      console.log("EMIT EVENT TO SERVER", user.email);
-      socket.emit(SocketClientToServerEvents.ACCESS_TO_EXIT_FROM_LAB, (user.email));
-    }
   }
 
 

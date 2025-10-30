@@ -16,7 +16,7 @@ import { Button } from 'react-native';
 import KaotikaPlayer from '../helpers/interfaces/KaotikaPlayer';
 
 // --- Contexts ---
-import { ModalContext, UserContext, AllAcolytesContext} from '../helpers/contexts/contexts';
+import { ModalContext, UserContext, AllAcolytesContext } from '../helpers/contexts/contexts';
 
 
 // --- Functions & Hooks ---
@@ -35,7 +35,7 @@ import getAllAcolytes from '../helpers/serverRequests/getAllAcolytes';
 function App() {
 
   const [user, setUser] = useState<KaotikaPlayer | null>(null);
-  const [allAcolytes, setAllAcolytes] = useState<KaotikaPlayer[] | undefined> (undefined);
+  const [allAcolytes, setAllAcolytes] = useState<KaotikaPlayer[] | undefined>(undefined);
   const [initialConf, setInitialConf] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -77,7 +77,7 @@ function App() {
     socket.on(SocketServerToClientEvents.SEND_UPDATED_PLAYER_TO_MORTIMER, (updatedAcolyte: KaotikaPlayer) => {
       console.log("Inside SEND_UPDATED_PLAYER_TO_MORTIMER event");
       console.log(updatedAcolyte);
-      const newAcolytes : (KaotikaPlayer[] | undefined) = allAcolytes?.map<KaotikaPlayer>( (acolyte) => {
+      const newAcolytes: (KaotikaPlayer[] | undefined) = allAcolytes?.map<KaotikaPlayer>((acolyte) => {
         if (acolyte._id === updatedAcolyte._id) return updatedAcolyte;
         return acolyte;
       });
@@ -89,6 +89,16 @@ function App() {
 
       setAllAcolytes(newAcolytes);
     });
+    
+    console.log("Now clients watchs UPDATE_USER_IN_CLIENT socket event");
+    socket.on(SocketServerToClientEvents.UPDATE_USER_IN_CLIENT, (updatedClient: KaotikaPlayer) => {
+      console.log("Inside UPDATE_USER_IN_CLIENT event");
+      console.log(updatedClient);
+
+
+      setUser(updatedClient);
+
+    })
   }, [user]);
 
 

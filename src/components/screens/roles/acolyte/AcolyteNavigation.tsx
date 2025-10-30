@@ -19,7 +19,6 @@ const TabIcon = styled.Image`
 `;
 
 const Navigator = createBottomTabNavigator({
-    initialRouteName: Screens.ACOLYTE_HOME,
     screenOptions: ({ route }) => {
         return {
             headerShown: false,
@@ -62,8 +61,8 @@ const Navigator = createBottomTabNavigator({
         };
     },
     screens: {
-        AcolyteLab,
         AcolyteHome,
+        AcolyteLab,
         AcolyteSettings,
     },
 });

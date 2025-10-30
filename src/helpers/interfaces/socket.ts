@@ -12,6 +12,10 @@ interface ServerToClientEvents {
   [SocketServerToClientEvents.SEND_UPDATED_PLAYER_TO_MORTIMER]: (
     acolyteData: any,
   ) => void;
+
+  [SocketServerToClientEvents.UPDATE_USER_IN_CLIENT] : (
+    acolyteData: any,
+  ) => void;
 }
 
 interface AcolyteDataAfterAccessExitLab {
