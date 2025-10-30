@@ -35,7 +35,7 @@ import getAllAcolytes from '../helpers/serverRequests/getAllAcolytes';
 function App() {
 
   const [user, setUser] = useState<KaotikaPlayer | null>(null);
-  const [allAcolytes, setAllAcolytes] = useState<KaotikaPlayer[] | null> (null);
+  const [allAcolytes, setAllAcolytes] = useState<KaotikaPlayer[] | undefined> (undefined);
   const [initialConf, setInitialConf] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -77,8 +77,11 @@ function App() {
     socket.on(SocketServerToClientEvents.SEND_UPDATED_PLAYER_TO_MORTIMER, (updatedAcolyte: KaotikaPlayer) => {
       console.log("Inside SEND_UPDATED_PLAYER_TO_MORTIMER event");
       console.log(updatedAcolyte);
-      const newAcolytes = (allAcolytes) ? ([...allAcolytes, updatedAcolyte]) : allAcolytes;
-      
+      const newAcolytes : (KaotikaPlayer[] | undefined) = allAcolytes?.map<KaotikaPlayer>( (acolyte) => {
+        if (acolyte._id === updatedAcolyte._id) return updatedAcolyte;
+        return acolyte;
+      });
+
       console.log(`The new acolytes: `);
       newAcolytes?.map((acolyte) => {
         console.log(`${acolyte.name} is inside? ${(acolyte.isInside) ? (`YES`) : (`NO`)}`);
