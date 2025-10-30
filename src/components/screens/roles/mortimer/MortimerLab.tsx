@@ -15,7 +15,7 @@ function MortimerLab() {
   
     const [acolytes, setAcolytes] = allAcolytesContext;
 
-  const acolytesHandler = (acolytesArray: KaotikaPlayer[] | null) => {
+  const acolytesHandler = (acolytesArray: KaotikaPlayer[] | undefined) => {
     setAcolytes(acolytesArray);
   };
 
