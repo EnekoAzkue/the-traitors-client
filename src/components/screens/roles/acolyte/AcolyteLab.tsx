@@ -14,7 +14,7 @@ function AcolyteLab() {
     if (!userContext) return;
     
     const [user] = userContext;
-    console.log('in use effect')
+    console.log('in use effect');
 
     if (user.isInside && !accesedIn) {
       console.log(`is user inside lab? ${user.isInside}`)

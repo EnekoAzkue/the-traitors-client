@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components/native';
 import { UserContext } from '../../helpers/contexts/contexts';
-import AcolyteNavigation from './roles/acolyte/AcolyteNavigation';
 import IstvanNavigation from './roles/istvan/IstvanNavigation';
 import { Roles } from '../../helpers/constants/constants';
 import { Text } from 'react-native';
 import MortimerNavigation from './roles/mortimer/MortimerNavigation';
 import VillainNavigation from './roles/villain/VillainNavigation';
+import Acolyte from './roles/acolyte/Acolyte';
 
 const Container = styled.View`
   height: 100%;
@@ -27,7 +27,7 @@ const Main = () => {
         return (<IstvanNavigation />);
 
       case (Roles.ACOLYTE):
-        return (<AcolyteNavigation />);
+        return (<Acolyte />);
 
       case (Roles.VILLAIN):
         return (<VillainNavigation />);

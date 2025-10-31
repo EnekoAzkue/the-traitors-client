@@ -68,6 +68,7 @@ const IstvanLab = () => {
     // --- Emit socket event to send the email of the user which QR was scanned ---
     if(codes[0]?.value){
       socket.emit(SocketClientToServerEvents.ACCESS_TO_EXIT_FROM_LAB, (codes[0]?.value));
+      console.log("ISTVAN sends QR event!");
     }
 
     toggleCameraAndTabBar();

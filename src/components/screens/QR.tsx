@@ -29,9 +29,7 @@ const QRCodeContainer = () => {
   const [user, setUser] = userContext;
 
   async function showQR() {
-    // --- DESCOMENTAR AL TERMINAR TESTING --- //
     setShowingQR(!showingQR);
-
   }
 
 

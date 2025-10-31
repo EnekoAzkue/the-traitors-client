@@ -31,6 +31,8 @@ enum Images {
   ACOLYTE_LAB = require('../../assets/images/AcolyteLab.png'),
   ACOLYTE_LAB_OPEN = require('../../assets/images/AcolyteLabOpen.png'),
   ACOLYTE_LAB_INSIDE = require('../../assets/images/AcolyteLabInside.png'),
+  ACOLYTE_MAP = require('../../assets/images/AcolytesMap.png'),
+  
   
   ISTVAN_HOME = require('../../assets/images/IstvanHome.png'),
   ISTVAN_SETTINGS = require('../../assets/images/IstvanSettings.png'),
@@ -50,6 +52,7 @@ enum Images {
   HOME_ICON = require('../../assets/images/logos/home_icon.png'),
   LAB_ICON = require('../../assets/images/logos/lab_icon.png'),
   SETTINGS_ICON = require('../../assets/images/logos/settings_icon.png'),
+  TOWER_ICON = require('../../assets/images/logos/TowerIcon.png'),
 
   LOGO = require('../../assets/images/logo.png'),
   
