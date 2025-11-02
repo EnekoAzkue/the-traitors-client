@@ -12,7 +12,10 @@ interface KaotikaPlayer {
   active: boolean;
   rol: string;
   socketId: string;
+  pushToken: string;
   isInside: boolean;
+  inTower: boolean;
+  insideTower: boolean;
   attributes: Modifiers;
   equipment: Equipment;
   inventory: Inventory;

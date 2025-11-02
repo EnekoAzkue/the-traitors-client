@@ -62,18 +62,18 @@ export default function IconButton({ width, height, xPos, yPos, backgroundImage,
 
       {
         (hasBrightness) ?
-          <DropShadow style={{
-            shadowColor: '#ffffffff',
-            shadowOffset: {
-              width: 0,
-              height: 0,
-            },
-            shadowOpacity: 2,
-            shadowRadius: 6,
-          }}>
+          // <DropShadow style={{
+          //   shadowColor: '#ffffffff',
+          //   shadowOffset: {
+          //     width: 0,
+          //     height: 0,
+          //   },
+          //   shadowOpacity: 2,
+          //   shadowRadius: 6,
+          // }}>
             <IconButtonChildren />
 
-          </DropShadow>
+          // </DropShadow>
           :
           <IconButtonChildren />
       }
