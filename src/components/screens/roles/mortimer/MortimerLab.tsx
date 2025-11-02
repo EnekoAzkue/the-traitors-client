@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { View, Text } from "react-native";
-import { Images } from "../../../../helpers/constants/constants";
+import { Images, navigationTabMarginBottomForScreens } from "../../../../helpers/constants/constants";
 import ScreenContainer from "../../ScreenContainer";
 import styled from "styled-components/native";
 import AcolyteLabRegister from "./AcolyteLabRegister";
@@ -9,11 +9,11 @@ import { AllAcolytesContext } from "../../../../helpers/contexts/contexts";
 
 function MortimerLab() {
 
-    const allAcolytesContext = useContext(AllAcolytesContext);
-  
-    if (!allAcolytesContext) return <Text>User context is null at Home Component!!!"</Text>;
-  
-    const [acolytes, setAcolytes] = allAcolytesContext;
+  const allAcolytesContext = useContext(AllAcolytesContext);
+
+  if (!allAcolytesContext) return <Text>User context is null at Home Component!!!"</Text>;
+
+  const [acolytes, setAcolytes] = allAcolytesContext;
 
   const acolytesHandler = (acolytesArray: KaotikaPlayer[] | undefined) => {
     setAcolytes(acolytesArray);
@@ -63,13 +63,15 @@ function MortimerLab() {
 
 
   return (
-    <ScreenContainer backgroundImg={Images.MORTIMER_LAB}>
-      <View style={{ marginTop:20, height: 680, alignItems: 'center', justifyContent: 'center' }}>
-        {
+
+    <View style={{ marginBottom: navigationTabMarginBottomForScreens }}>
+      <ScreenContainer backgroundImg={Images.MORTIMER_LAB}>
+        <View style={{ marginTop: 20, height: 680, alignItems: 'center', justifyContent: 'center' }}>
+          {
             <>
-            <TitleContainer>
-              <RegisterTitle>Who's inside the Lab</RegisterTitle>
-            </TitleContainer>
+              <TitleContainer>
+                <RegisterTitle>Who's inside the Lab</RegisterTitle>
+              </TitleContainer>
               <AcolytesRegisterScreenContainer>
                 <AcolytesRegisterListContainer contentContainerStyle={{ alignItems: "center", justifyContent: "center" }}>
                   {
@@ -90,9 +92,13 @@ function MortimerLab() {
                 </AcolytesRegisterListContainer>
               </AcolytesRegisterScreenContainer>
             </>
-        }
-      </View>
-    </ScreenContainer>
+          }
+        </View>
+      </ScreenContainer>
+
+    </View>
+
+
   );
 }
 

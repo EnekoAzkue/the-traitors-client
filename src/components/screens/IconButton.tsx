@@ -1,4 +1,7 @@
 import React from "react";
+import { Platform } from "react-native";
+import { View } from "react-native";
+import DropShadow from "react-native-drop-shadow";
 import styled from "styled-components/native";
 
 type IconButtonProps = {
@@ -8,10 +11,14 @@ type IconButtonProps = {
   yPos: number,
   backgroundImage: any,
   buttonOnPress: any,
+  hasBrightness?: boolean, //Optional parameter --> must give 
+  hasBorder?: boolean,
 };
 
-export default function IconButton({ width, height, xPos, yPos, backgroundImage, buttonOnPress }: IconButtonProps) {
+export default function IconButton({ width, height, xPos, yPos, backgroundImage, buttonOnPress, hasBrightness = false, hasBorder = false }: IconButtonProps) {
 
+
+  // la propiedad box-shadow aún siendo soportada por styled-components sirve para hacer web, React-Native no lo soporta 
   const StyledButtonContainer = styled.View`
     width: ${width}px;
     height: ${height}px;
@@ -19,8 +26,6 @@ export default function IconButton({ width, height, xPos, yPos, backgroundImage,
 
     top: ${yPos}px;
     left: ${xPos}px;
-
-    box-shadow: 1px 10px 10px white;
     
   `;
 
@@ -29,13 +34,10 @@ export default function IconButton({ width, height, xPos, yPos, backgroundImage,
   width: ${width}px;
   height: ${height}px;
 
-  border: 1px solid white;
+  ${(hasBorder) ? `border: 1px solid white;` : ``}
   border-radius: 100%;
 
   background: rgba(0,0,0, 0.4);
-
-
-
 
   `;
 
@@ -45,13 +47,38 @@ export default function IconButton({ width, height, xPos, yPos, backgroundImage,
 `;
 
 
+  const IconButtonChildren = () => {
+    return (
+      <StyledButton onPress={buttonOnPress} activeOpacity={0.5}>
+        <StyledImage source={backgroundImage} borderRadius={100} />
+      </StyledButton>
+    );
+  }
+
+  // Borrar border radius si da error
   return (
 
     <StyledButtonContainer>
-      <StyledButton onPress={buttonOnPress} activeOpacity={0.5}>
-        <StyledImage source={backgroundImage} />
-      </StyledButton>
+
+      {
+        (hasBrightness) ?
+          <DropShadow style={{
+            shadowColor: '#ffffffff',
+            shadowOffset: {
+              width: 0,
+              height: 0,
+            },
+            shadowOpacity: 2,
+            shadowRadius: 6,
+          }}>
+            <IconButtonChildren />
+
+          </DropShadow>
+          :
+          <IconButtonChildren />
+      }
     </StyledButtonContainer>
+
 
   );
 }

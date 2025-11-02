@@ -8,6 +8,9 @@ import AcolyteSettings from './AcolyteSettings';
 import styled from 'styled-components/native';
 import { Images, Screens } from '../../../../helpers/constants/constants';
 import { BlurView } from '@react-native-community/blur';
+import IconButton from '../../IconButton';
+import { SafeAreaProvider, SafeAreaView, useSafeAreaInsets, initialWindowMetrics, } from 'react-native-safe-area-context';
+import AcolyteTower from './AcolyteTower';
 // const TabIcon = styled.Image`
 //   position: relative;
 //   top: 5px;
@@ -79,6 +82,7 @@ const IconImage = styled.Image`
 `;
 
 
+
 function RootNavigation({ initialRouteScreen }: any) {
 
   return (
@@ -91,7 +95,7 @@ function RootNavigation({ initialRouteScreen }: any) {
           <BlurView blurAmount={1}
             overlayColor="rgba(255 255 255 / 0.1)"
 
-            style={{ height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.75)' }} />
+            style={{ height: '100%', backgroundColor: 'rgba(0, 0, 0, 1)' }} />
         ),
         tabBarStyle: {
           position: 'absolute',
@@ -115,6 +119,11 @@ function RootNavigation({ initialRouteScreen }: any) {
             case Screens.ACOLYTE_LAB:
               tabIconSource = Images.LAB_ICON;
               break;
+
+            case Screens.ACOLYTE_TOWER:
+              tabIconSource = Images.TOWER_ICON;
+              break;
+
           }
 
           return <IconImage source={tabIconSource} />;
@@ -124,7 +133,9 @@ function RootNavigation({ initialRouteScreen }: any) {
     >
       <Stack.Screen name={Screens.ACOLYTE_HOME} component={AcolyteHome} />
       <Stack.Screen name={Screens.ACOLYTE_LAB} component={AcolyteLab} />
+      <Stack.Screen name={Screens.ACOLYTE_TOWER} component={AcolyteTower} />
       <Stack.Screen name={Screens.ACOLYTE_SETTINGS} component={AcolyteSettings} />
+
     </Stack.Navigator>
   );
 }
@@ -136,6 +147,7 @@ export default function AcolyteNavigation({ initialRouteScreen }: any) {
       <NavigationContainer>
         <RootNavigation initialRouteScreen={initialRouteScreen} />
       </NavigationContainer>
+
 
     </>
 

@@ -53,6 +53,8 @@ enum Images {
   LAB_ICON = require('../../assets/images/logos/lab_icon.png'),
   SETTINGS_ICON = require('../../assets/images/logos/settings_icon.png'),
   TOWER_ICON = require('../../assets/images/logos/TowerIcon.png'),
+  MAP_ICON = require('../../assets/images/logos/MapIcon.png'),
+
 
   LOGO = require('../../assets/images/logo.png'),
   
@@ -60,15 +62,20 @@ enum Images {
 }
 
 enum Screens {
+
   ACOLYTE_HOME = 'AcolyteHome',
   ACOLYTE_SETTINGS = 'AcolyteSettings',
   ACOLYTE_LAB = 'AcolyteLab',
+  ACOLYTE_TOWER = 'AcolyteTower',
+
   ISTVAN_LAB = 'IstvanLab',
   ISTVAN_HOME = 'IstvanHome',
   ISTVAN_SETTINGS = 'IstvanSettings',
+
   MORTIMER_LAB = 'MortimerLab',
   MORTIMER_HOME = 'MortimerHome',
   MORTIMER_SETTINGS = 'MortimerSettings',
+
   VILLAIN_LAB = 'VillainLab',
   VILLAIN_HOME = 'VillainHome',
   VILLAIN_SETTINGS = 'VillainSettings',
@@ -118,6 +125,6 @@ enum SocketClientToServerEvents {
   CONNECTION_CLOSE = 'connection close',
 }
 
-
+export const navigationTabMarginBottomForScreens = 49;
 
 export { ModalMessages, ApiEndpoints, ClientID, Logs, Images, Screens, Routes, Roles, Domains, SocketClientToServerEvents, SocketServerToClientEvents, SocketGeneralEvents};

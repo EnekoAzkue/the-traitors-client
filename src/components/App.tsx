@@ -8,7 +8,7 @@ import Login from './screens/Login';
 import Main from './screens/Main';
 import Splash from "./screens/Splash";
 import GeneralModal from './Modal';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { initialWindowMetrics, SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Button } from 'react-native';
 
 
@@ -208,7 +208,7 @@ function App() {
   `;
 
   return (
-    <SafeAreaView>
+    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <StyledView>
         <GeneralModal
           message={modalMessage}
@@ -236,7 +236,7 @@ function App() {
             <Splash />
           )}
       </StyledView>
-    </SafeAreaView>
+    </SafeAreaProvider>
   );
 
 }

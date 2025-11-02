@@ -9,4 +9,4 @@ export const AllAcolytesContext = createContext<[KaotikaPlayer[] | undefined, (n
 
 
 // Acolyte context for map and navigator: 
-export const AcolyteInitialScreenContext = createContext<[string | null, (newScreen: string) => void] | null>(null);
+export const AcolyteInitialScreenContext = createContext<[string | null, (newScreen: string | null) => void] | null>(null);

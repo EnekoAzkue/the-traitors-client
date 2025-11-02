@@ -13,6 +13,10 @@ export default function Acolyte() {
   const [isMapOpen, setisMapOpen] = useState<boolean | null>(null);
   const [initialScreen, setInitialScreen] = useState<string | null>(null);
 
+  useEffect( () => {
+    console.log(initialScreen);
+  }, [initialScreen])
+
   return (
     <>
 

@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { View } from "react-native";
-import { Images } from "../../../../helpers/constants/constants";
+import { Images, navigationTabMarginBottomForScreens } from "../../../../helpers/constants/constants";
 import ScreenContainer from "../../ScreenContainer";
 import QRCodeContainer from "../../QR";
 import { UserContext } from "../../../../helpers/contexts/contexts";
+import AcolyteScreenContainer from "./AcolyteScreenContainer";
 
 function AcolyteLab() {
   const userContext = useContext(UserContext);
@@ -12,7 +13,7 @@ function AcolyteLab() {
 
   useEffect(() => {
     if (!userContext) return;
-    
+
     const [user] = userContext;
     console.log('in use effect');
 
@@ -23,7 +24,7 @@ function AcolyteLab() {
       setTimeout(() => {
         console.log(`background to ${backgroundImg}`)
         setBackgroundImg(Images.ACOLYTE_LAB_INSIDE);
-      }, 1200); 
+      }, 1200);
       setAccesedIn(true);
       return;
     } else {
@@ -33,11 +34,11 @@ function AcolyteLab() {
   }, [userContext]);
 
   return (
-    <ScreenContainer backgroundImg={backgroundImg}>
+    <AcolyteScreenContainer backgroundImage={backgroundImg}>
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <QRCodeContainer />
       </View>
-    </ScreenContainer>
+    </AcolyteScreenContainer>
   );
 }
 

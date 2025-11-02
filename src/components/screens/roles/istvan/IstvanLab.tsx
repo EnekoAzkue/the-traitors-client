@@ -7,8 +7,9 @@ import { useNavigation } from '@react-navigation/native';
 import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import Button from '../../../Button';
 import useMetrics from '../../../../helpers/use-metrics';
-import { Images, SocketClientToServerEvents } from '../../../../helpers/constants/constants';
+import { Images, navigationTabMarginBottomForScreens, SocketClientToServerEvents } from '../../../../helpers/constants/constants';
 import { socket } from '../../../../helpers/socket/socket';
+import { View } from 'react-native';
 
 type RootTabParamList = {
   IstvanLab: undefined;
@@ -66,7 +67,7 @@ const IstvanLab = () => {
     setModalMessage(`QR detectado: ${codeValue}`);
 
     // --- Emit socket event to send the email of the user which QR was scanned ---
-    if(codes[0]?.value){
+    if (codes[0]?.value) {
       socket.emit(SocketClientToServerEvents.ACCESS_TO_EXIT_FROM_LAB, (codes[0]?.value));
       console.log("ISTVAN sends QR event!");
     }
@@ -92,9 +93,15 @@ const IstvanLab = () => {
   }
 
   return (
-    <ScreenContainer backgroundImg={Images.ISTVAN_LAB}>
-      <Button buttonText="Open Camera" onPress={handlePress} />
-    </ScreenContainer>
+
+    <View style={{ marginBottom: navigationTabMarginBottomForScreens }}>
+
+      <ScreenContainer backgroundImg={Images.ISTVAN_LAB}>
+        <Button buttonText="Open Camera" onPress={handlePress} />
+      </ScreenContainer>
+    </View>
+
+
   );
 };
 

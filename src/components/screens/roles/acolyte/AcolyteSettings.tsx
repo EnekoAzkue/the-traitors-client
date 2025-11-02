@@ -2,10 +2,10 @@ import React from "react";
 import { View, Text } from "react-native";
 import ScreenContainer from "../../ScreenContainer";
 import Logout from "../../Logout";
-import { Images } from "../../../../helpers/constants/constants";
+import { Images, navigationTabMarginBottomForScreens } from "../../../../helpers/constants/constants";
 
 
-function AcolyteSettings(){
+function AcolyteSettings() {
 
   return (
     <ScreenContainer backgroundImg={Images.ACOLYTE_SETTINGS}>

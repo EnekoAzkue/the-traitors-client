@@ -67,10 +67,10 @@ const QRCodeContainer = () => {
   `;
 
   const QRContainer = styled.View`
-    background: rgba(0, 247, 255, 0.62);
+    background: rgba(77, 208, 212, 1);
     border-radius: 2px;
-    border: 1px solid rgba(255, 255, 255, 1);
-    width: 60%;
+    border: 3px solid rgba(255, 255, 255, 1);
+    width: 55%;
     height: 30%;
     justify-content: center;
     align-items: center;

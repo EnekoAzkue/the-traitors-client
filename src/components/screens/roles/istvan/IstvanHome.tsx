@@ -1,13 +1,19 @@
 import React from "react";
 import { View, Text } from "react-native";
 import ScreenContainer from "../../ScreenContainer";
-import { Images } from "../../../../helpers/constants/constants";
+import { Images, navigationTabMarginBottomForScreens } from "../../../../helpers/constants/constants";
 
 function IstvanHome() {
 
   return (
-    <ScreenContainer backgroundImg={Images.ISTVAN_HOME}> 
-    </ScreenContainer>
+
+    <View style={{ marginBottom: navigationTabMarginBottomForScreens }}>
+      <ScreenContainer backgroundImg={Images.ISTVAN_HOME}>
+      </ScreenContainer>
+
+    </View>
+
+
   );
 }
 
