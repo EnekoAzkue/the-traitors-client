@@ -7,7 +7,7 @@ import { UserContext } from "../../../../helpers/contexts/contexts";
 
 function AcolyteHome() {
 
-  const [ backgroundImage, setBackgroundImage ] = useState(Images.TOWER_INSIDE);
+  const [ backgroundImage, setBackgroundImage ] = useState(Images.TOWER);
 
   const userContext = useContext(UserContext);
 
