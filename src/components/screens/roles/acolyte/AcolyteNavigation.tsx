@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -11,64 +11,7 @@ import { BlurView } from '@react-native-community/blur';
 import IconButton from '../../IconButton';
 import { SafeAreaProvider, SafeAreaView, useSafeAreaInsets, initialWindowMetrics, } from 'react-native-safe-area-context';
 import AcolyteTower from './AcolyteTower';
-// const TabIcon = styled.Image`
-//   position: relative;
-//   top: 5px;
-//   width: 35px;
-//   height: 35px;
-//   filter: brightness(${props => (props.$focused ? 150 : 100)}%)
-//     grayscale(${props => (props.$focused ? 0 : 100)}%);
-// `;
-// const Navigator = createBottomTabNavigator({
-//     screenOptions: ({ route }) => {
-//         return {
-//             headerShown: false,
-//             tabBarShowLabel: false,
-//             tabBarIcon: ({ focused }) => {
-//                 let tabIconSource;
-
-//                 switch (route.name) {
-//                     case Screens.ACOLYTE_HOME:
-//                         tabIconSource = Images.HOME_ICON;
-//                         break;
-
-//                     case Screens.ACOLYTE_SETTINGS:
-//                         tabIconSource = Images.SETTINGS_ICON;
-//                         break;
-
-//                     case Screens.ACOLYTE_LAB:
-//                         tabIconSource = Images.LAB_ICON;
-//                         break;
-//                 }
-
-//                 return <TabIcon source={tabIconSource} $focused={focused} />;
-//             },
-//             tabBarBackground: () => {
-//                 return (
-//                     <BlurView
-//                         blurAmount={1}
-//                         overlayColor="rgba(0 0 0 / 0.1)"
-//                         style={{ height: '100%' }}
-//                     />
-//                 );
-//             },
-//             tabBarStyle: {
-//                 position: 'absolute',
-//                 overflow: 'hidden',
-//                 borderTopWidth: 0,
-//                 boxShadow: '0 -7.5px 5px rgba(255 255 255 / 0.1)',
-//             },
-//             headerShown: false,
-//         };
-//     },
-//     screens: {
-//         AcolyteHome,
-//         AcolyteLab,
-//         AcolyteSettings,
-//     },
-// });
-
-// const AcolyteNavigation = createStaticNavigation(Navigator);
+import { UserContext } from '../../../../helpers/contexts/contexts';
 
 
 const Stack = createBottomTabNavigator();
@@ -85,6 +28,16 @@ const IconImage = styled.Image`
 
 function RootNavigation({ initialRouteScreen }: any) {
 
+  const userContext = useContext(UserContext);
+
+  if (!userContext) {
+    return null;
+  }
+
+  const [user] = userContext;
+
+  console.log(`inside tower? ${user.insideTower}`)
+
   return (
     <Stack.Navigator
       initialRouteName={initialRouteScreen}
@@ -97,12 +50,16 @@ function RootNavigation({ initialRouteScreen }: any) {
 
             style={{ height: '100%', backgroundColor: 'rgba(0, 0, 0, 1)' }} />
         ),
-        tabBarStyle: {
-          position: 'absolute',
-          overflow: 'hidden',
-          borderTopWidth: 0,
-          boxShadow: '0 -7.5px 5px rgba(255 255 255 / 0.1)',
-        },
+        tabBarStyle: user.isInside || user.insideTower
+          ? { display: 'none' } 
+          : {
+            position: 'absolute',
+            overflow: 'hidden',
+            borderTopWidth: 0,
+            boxShadow: '0 -7.5px 5px rgba(255 255 255 / 0.1)',
+          },
+
+
         tabBarIcon: ({ focused, color, size }) => {
 
           let tabIconSource;

@@ -7,8 +7,7 @@ function handleConnection(userEmail: string) {
 }
 
 function handleDisconnection(userEmail: string = ''){
-  const email = (userEmail) ?  userEmail : "NOT VALID USER";
-  socket.emit(SocketClientToServerEvents.CONNECTION_CLOSE, email); 
+  if(userEmail) socket.emit(SocketClientToServerEvents.CONNECTION_CLOSE, userEmail); 
 }
 
 export { handleConnection, handleDisconnection};

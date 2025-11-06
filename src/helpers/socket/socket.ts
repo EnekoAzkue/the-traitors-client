@@ -3,7 +3,7 @@ import type {
   ServerToClientEvents,
   ClientToServerEvents,
 } from '../interfaces/socket'
-import { CURRENT_DOMAIN, SocketGeneralEvents } from '../constants/constants';
+import { CURRENT_DOMAIN, SocketClientToServerEvents, SocketGeneralEvents } from '../constants/constants';
 import { handleConnection, handleDisconnection } from './handlers/connection';
 
 const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
@@ -14,10 +14,8 @@ const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
 );
 
 function initSocket(userEmail: string) {
-  socket.on(SocketGeneralEvents.CONNECT, () => {
-    handleConnection(userEmail);
-  });
   socket.connect();
+  handleConnection(userEmail);
 }
 
 function performSocketCleanUp(userEmail: string = '') {
