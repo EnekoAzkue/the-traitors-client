@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef } from "react";
-import { Animated, Image, ImageBackground, Text, StyleSheet } from "react-native";
+import { Animated, Image, ImageBackground, Text, StyleSheet, View } from "react-native";
 import { Images, Screens } from "../../../../helpers/constants/constants";
 import IconButton from "../../IconButton";
 import { AcolyteInitialScreenContext } from "../../../../helpers/contexts/contexts";
@@ -26,12 +26,12 @@ export default function AcolyteMap() {
   useEffect(() => {
     Animated.parallel([
       Animated.timing(cloudOpacity, {
-        toValue: 0, 
+        toValue: 0,
         duration: 1500,
         useNativeDriver: true,
       }),
       Animated.timing(cloudScale, {
-        toValue: 2, 
+        toValue: 2,
         duration: 1500,
         useNativeDriver: true,
       }),
@@ -82,13 +82,15 @@ export default function AcolyteMap() {
             transform: [{ scale: cloudScale }],
           },
         ]}
-        pointerEvents="none" // para no bloquear clics
+        pointerEvents="none"
       >
         <Image
           source={Images.CLOUDS}
           resizeMode="cover"
-          style={styles.cloudImage}
+          style={[styles.cloudImage]} 
         />
+
+        <View style={styles.darkFilter} />
       </Animated.View>
     </ImageBackground>
   );
@@ -108,5 +110,9 @@ const styles = StyleSheet.create({
   cloudImage: {
     width: "100%",
     height: "100%",
+  },
+  darkFilter: {
+    ...StyleSheet.absoluteFill,
+    backgroundColor: "rgba(10, 15, 30, 0.7)", // tinte nocturno muy suave
   },
 });
