@@ -41,6 +41,7 @@ enum Images {
   MORTIMER_HOME = require('../../assets/images/MortimerHome.png'),
   MORTIMER_SETTINGS = require('../../assets/images/MortimerSettings.png'),
   MORTIMER_LAB = require('../../assets/images/MortimerLab.png'),
+  MORTIMER_TOWER = require('../../assets/images/MortimerTower.png'),
 
   VILLAIN_HOME = require('../../assets/images/VillainHome.png'),
   VILLAIN_SETTINGS = require('../../assets/images/VillainSettings.png'),
@@ -76,6 +77,7 @@ enum Screens {
   MORTIMER_LAB = 'MortimerLab',
   MORTIMER_HOME = 'MortimerHome',
   MORTIMER_SETTINGS = 'MortimerSettings',
+  MORTIMER_TOWER = 'MortimerTower',
 
   VILLAIN_LAB = 'VillainLab',
   VILLAIN_HOME = 'VillainHome',

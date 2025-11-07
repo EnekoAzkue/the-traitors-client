@@ -7,6 +7,7 @@ import { Images, Screens } from '../../../../helpers/constants/constants';
 import MortimerLab from './MortimerLab';
 import MortimerHome from './MortimerHome';
 import MortimerSettings from './MortimerSettings';
+import MortimerTower from './MortimerTower';
 
 const TabIcon = styled.Image`
   position: relative;
@@ -36,6 +37,10 @@ const Navigator = createBottomTabNavigator({
                     case Screens.MORTIMER_LAB:
                         tabIconSource = Images.LAB_ICON;
                         break;
+
+                    case Screens.MORTIMER_TOWER:
+                        tabIconSource = Images.TOWER_ICON;
+                        break;
                 }
 
                 return <TabIcon source={tabIconSource} $focused={focused} />;
@@ -61,6 +66,7 @@ const Navigator = createBottomTabNavigator({
     screens: {
         MortimerLab,
         MortimerHome,
+        MortimerTower,
         MortimerSettings,
     },
 });
