@@ -60,6 +60,8 @@ enum Images {
   
   TOWER = require('../../assets/images/Tower.png'),
   TOWER_INSIDE = require('../../assets/images/TowerInside.png'),
+
+  CLOUDS = require('../../assets/images/Clouds.png'),
 }
 
 enum Screens {
