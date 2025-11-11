@@ -32,6 +32,7 @@ interface ClientToServerEvents {
   [SocketClientToServerEvents.ACCESS_TO_EXIT_FROM_LAB]: (
     acolyteEmail: string
   ) => void;
+  [SocketClientToServerEvents.UPDATE_INTOWER]: (userEmail: string, inTower: boolean) => void;
 }
 
 export type {

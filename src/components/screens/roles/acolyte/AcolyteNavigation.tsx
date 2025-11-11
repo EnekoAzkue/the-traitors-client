@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -6,11 +6,14 @@ import AcolyteHome from './AcolyteHome';
 import AcolyteLab from './AcolyteLab';
 import AcolyteSettings from './AcolyteSettings';
 import styled from 'styled-components/native';
-import { Images, Screens } from '../../../../helpers/constants/constants';
+import { Images, Screens, SocketClientToServerEvents } from '../../../../helpers/constants/constants';
 import { BlurView } from '@react-native-community/blur';
 import IconButton from '../../IconButton';
 import { SafeAreaProvider, SafeAreaView, useSafeAreaInsets, initialWindowMetrics, } from 'react-native-safe-area-context';
 import AcolyteTower from './AcolyteTower';
+import { UserContext } from '../../../../helpers/contexts/contexts';
+import { socket } from '../../../../helpers/socket/socket';
+
 
 const Stack = createBottomTabNavigator();
 
@@ -26,6 +29,43 @@ const IconImage = styled.Image`
 
 function RootNavigation({ initialRouteScreen }: any) {
 
+  const userContext = useContext(UserContext);
+
+  if (!userContext) {
+    return null;
+  }
+
+  const [user] = userContext;
+
+  const [screen, setScreen] = useState<string>('')
+
+  
+  const home = () => {
+    setScreen('home')
+  }
+  
+  const settings = () => {
+    setScreen('settings')
+  }
+  
+  const lab = () => {
+    setScreen('lab')
+  }
+  
+  const tower = () => {
+    setScreen('tower')
+  }
+  
+  useEffect(() => {
+    if(screen === 'tower' ) {
+      console.log('set screen to tower')
+      socket.emit(SocketClientToServerEvents.UPDATE_INTOWER, user.email, true)
+    } else {
+      socket.emit(SocketClientToServerEvents.UPDATE_INTOWER, user.email, false)
+    }
+  }, [screen])
+
+
   return (
     <Stack.Navigator
       initialRouteName={initialRouteScreen}
@@ -38,12 +78,16 @@ function RootNavigation({ initialRouteScreen }: any) {
 
             style={{ height: '100%', backgroundColor: 'rgba(0, 0, 0, 1)' }} />
         ),
-        tabBarStyle: {
-          position: 'absolute',
-          overflow: 'hidden',
-          borderTopWidth: 0,
-          boxShadow: '0 -7.5px 5px rgba(255 255 255 / 0.1)',
-        },
+        tabBarStyle: user.isInside || user.insideTower
+          ? { display: 'none' }
+          : {
+            position: 'absolute',
+            overflow: 'hidden',
+            borderTopWidth: 0,
+            boxShadow: '0 -7.5px 5px rgba(255 255 255 / 0.1)',
+          },
+
+
         tabBarIcon: ({ focused, color, size }) => {
 
           let tabIconSource;
@@ -72,10 +116,36 @@ function RootNavigation({ initialRouteScreen }: any) {
       })}
 
     >
-      <Stack.Screen name={Screens.ACOLYTE_HOME} component={AcolyteHome} />
-      <Stack.Screen name={Screens.ACOLYTE_LAB} component={AcolyteLab} />
-      <Stack.Screen name={Screens.ACOLYTE_TOWER} component={AcolyteTower} />
-      <Stack.Screen name={Screens.ACOLYTE_SETTINGS} component={AcolyteSettings} />
+      <Stack.Screen name={Screens.ACOLYTE_HOME} component={AcolyteHome} listeners={
+        {
+          tabPress: () => {
+            home();
+
+          }
+        }} />
+      <Stack.Screen name={Screens.ACOLYTE_LAB} component={AcolyteLab} listeners={
+        {
+          tabPress: () => {
+
+            lab();
+
+          }
+        }} />
+      <Stack.Screen name={Screens.ACOLYTE_TOWER} component={AcolyteTower} listeners={
+        {
+          tabPress: () => {
+
+            tower();
+
+          }
+        }} />
+      <Stack.Screen name={Screens.ACOLYTE_SETTINGS} component={AcolyteSettings} listeners={
+        {
+          tabPress: () => {
+            settings();
+
+          }
+        }} />
 
     </Stack.Navigator>
   );

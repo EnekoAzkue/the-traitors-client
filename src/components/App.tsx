@@ -16,7 +16,7 @@ import { Button } from 'react-native';
 import KaotikaPlayer from '../helpers/interfaces/KaotikaPlayer';
 
 // --- Contexts ---
-import { ModalContext, UserContext, AllAcolytesContext } from '../helpers/contexts/contexts';
+import { ModalContext, UserContext, AllAcolytesContext, AcolyteInitialScreenContext } from '../helpers/contexts/contexts';
 
 
 // --- Functions & Hooks ---
@@ -39,6 +39,8 @@ function App() {
   const [initialConf, setInitialConf] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [acolyteInitialScreen, setacolyteInitialScreen] = useState<string | null>(null);
+
 
   const userHandler = (newUser: KaotikaPlayer | null) => {
     setUser(newUser);
@@ -85,7 +87,7 @@ function App() {
 
       setAllAcolytes(newAcolytes);
     });
-    
+
     console.log("Now clients watchs UPDATE_USER_IN_CLIENT socket event");
     socket.on(SocketServerToClientEvents.UPDATE_USER_IN_CLIENT, (updatedClient: KaotikaPlayer) => {
       console.log("Inside UPDATE_USER_IN_CLIENT event");
@@ -220,13 +222,15 @@ function App() {
                 {isLoading ? <CircleSpinner /> : null}
               </>
             ) : (
-              <AllAcolytesContext.Provider value={[allAcolytes, setAllAcolytes]}>
-                <UserContext.Provider value={[user, setUser]}>
-                  <ModalContext value={setModalMessage}>
-                    <Main />
-                  </ModalContext>
-                </UserContext.Provider>
-              </AllAcolytesContext.Provider>
+              <AcolyteInitialScreenContext.Provider value={[acolyteInitialScreen, setacolyteInitialScreen]}>
+                <AllAcolytesContext.Provider value={[allAcolytes, setAllAcolytes]}>
+                  <UserContext.Provider value={[user, setUser]}>
+                    <ModalContext value={setModalMessage}>
+                      <Main />
+                    </ModalContext>
+                  </UserContext.Provider>
+                </AllAcolytesContext.Provider>
+              </AcolyteInitialScreenContext.Provider>
             )
           ) : (
             <Splash />

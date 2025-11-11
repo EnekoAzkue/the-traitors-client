@@ -1,36 +1,42 @@
-import React, { useContext, useEffect } from "react";
+import React, { use, useContext, useEffect } from "react";
 import { useState } from "react";
 import AcolyteMap from "./AcolyteMap";
 import AcolyteNavigation from "./AcolyteNavigation";
-import { Screens } from "../../../../helpers/constants/constants";
-import { AcolyteInitialScreenContext } from "../../../../helpers/contexts/contexts";
+import { Images, Screens, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
+import { AcolyteInitialScreenContext, UserContext } from "../../../../helpers/contexts/contexts";
 import { Text } from "react-native";
+import { socket } from "../../../../helpers/socket/socket";
 
 
 export default function Acolyte() {
+  const userContext = useContext(UserContext)
+  if(!userContext) return;
+  const [user] = userContext;
+  const initialScreenContext = useContext(AcolyteInitialScreenContext)
+  if (!initialScreenContext) return;
+  const [initialScreen, setInitialScreen] = initialScreenContext;
 
+  useEffect(() => {
+    console.log('initianl screen:', initialScreen);
+    if(initialScreen === Screens.ACOLYTE_TOWER) {
+      socket.emit(SocketClientToServerEvents.UPDATE_INTOWER, user.email, true)
+    } else {
+      socket.emit(SocketClientToServerEvents.UPDATE_INTOWER, user.email, false)
+    } 
 
-  const [isMapOpen, setisMapOpen] = useState<boolean | null>(null);
-  const [initialScreen, setInitialScreen] = useState<string | null>(null);
-
-  useEffect( () => {
-    console.log(initialScreen);
   }, [initialScreen])
+
 
   return (
     <>
-
-      <AcolyteInitialScreenContext.Provider value={[initialScreen, setInitialScreen]}>
-        {
-          
-          (initialScreen === null) ?
-            // Abrir el mapa para seleccionar ubicación
-            <AcolyteMap />
-            :
-            // Abrir el navegador
-            <AcolyteNavigation initialRouteScreen={initialScreen} />
-        }
-      </AcolyteInitialScreenContext.Provider>
+      {
+        (initialScreen === null) ?
+          // Abrir el mapa para seleccionar ubicación
+          <AcolyteMap />
+          :
+          // Abrir el navegador
+          <AcolyteNavigation initialRouteScreen={initialScreen} />
+      }
     </>
 
   );

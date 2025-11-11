@@ -4,10 +4,14 @@ import { ScreenContainerProps } from '../../helpers/interfaces/ScreenContainerPr
 import React from 'react';
 import { Images, navigationTabMarginBottomForScreens } from '../../helpers/constants/constants';
 import { View, Text } from 'react-native';
+import { Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
+
+
 const BackgroundImage = styled.ImageBackground`
-  height: 100%;
-  width: 100%;
-  border: 1px solid blue;
+  height: ${height}px;
+  width: ${width}px;  
 `;
 
 const ScreenContainer = ({

@@ -41,6 +41,7 @@ enum Images {
   MORTIMER_HOME = require('../../assets/images/MortimerHome.png'),
   MORTIMER_SETTINGS = require('../../assets/images/MortimerSettings.png'),
   MORTIMER_LAB = require('../../assets/images/MortimerLab.png'),
+  MORTIMER_TOWER = require('../../assets/images/MortimerTower.png'),
 
   VILLAIN_HOME = require('../../assets/images/VillainHome.png'),
   VILLAIN_SETTINGS = require('../../assets/images/VillainSettings.png'),
@@ -78,6 +79,7 @@ enum Screens {
   MORTIMER_LAB = 'MortimerLab',
   MORTIMER_HOME = 'MortimerHome',
   MORTIMER_SETTINGS = 'MortimerSettings',
+  MORTIMER_TOWER = 'MortimerTower',
 
   VILLAIN_LAB = 'VillainLab',
   VILLAIN_HOME = 'VillainHome',
@@ -88,7 +90,7 @@ enum Screens {
 /* --- For local testing, watch: https://docs.google.com/document/d/13t7nvg5CSuUsB5qj1wBU4TsW03_TMxP_6RhYqBUEwcI/edit?tab=t.0 --- */
 enum Domains {
   // LOCALHOST = 'http://localhost:3000/',
-  LOCALHOST   = 'http://10.70.0.113:3000/',
+  LOCALHOST   = 'http://10.70.0.41:3000/',
   RENDER      = 'https://the-traitors-server.onrender.com/',
   PORTAINER   = 'http://10.50.0.50:6001/',
 }
@@ -126,6 +128,7 @@ enum SocketClientToServerEvents {
   CONNECTION_OPEN = 'connection open',
   ACCESS_TO_EXIT_FROM_LAB = 'access to/exit from lab',
   CONNECTION_CLOSE = 'connection close',
+  UPDATE_INTOWER = 'update inTower',
 }
 
 export const navigationTabMarginBottomForScreens = 49;
