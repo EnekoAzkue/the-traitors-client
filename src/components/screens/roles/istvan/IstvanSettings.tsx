@@ -6,7 +6,7 @@ import Logout from "../../Logout";
 function Settings() {
 
   return (
-    <View style={{ marginBottom: navigationTabMarginBottomForScreens }}>
+    <View>
       <ScreenContainer backgroundImg={Images.ISTVAN_SETTINGS}>
         <Logout />
       </ScreenContainer>

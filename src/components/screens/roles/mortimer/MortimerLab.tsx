@@ -9,7 +9,7 @@ import { AllAcolytesContext } from "../../../../helpers/contexts/contexts";
 
 function MortimerLab() {
 
-  const allAcolytesContext = useContext(AllAcolytesContext);
+  const allAcolytesContext = useContext<[KaotikaPlayer[] | undefined, (newAllAcolytesList: KaotikaPlayer[] | undefined) => void] | null>(AllAcolytesContext);
 
   if (!allAcolytesContext) return <Text>User context is null at Home Component!!!"</Text>;
 
@@ -64,41 +64,36 @@ function MortimerLab() {
 
   return (
 
-    <View style={{ marginBottom: navigationTabMarginBottomForScreens }}>
-      <ScreenContainer backgroundImg={Images.MORTIMER_LAB}>
-        <View style={{ marginTop: 20, height: 680, alignItems: 'center', justifyContent: 'center' }}>
-          {
-            <>
-              <TitleContainer>
-                <RegisterTitle>Who's inside the Lab</RegisterTitle>
-              </TitleContainer>
-              <AcolytesRegisterScreenContainer>
-                <AcolytesRegisterListContainer contentContainerStyle={{ alignItems: "center", justifyContent: "center" }}>
-                  {
-                    // --- MOSTRAR LA LISTA CON LOS ACÓLITOS --- 
-                    (acolytes) ?
-                      acolytes.map((acolyte, index) => {
-                        return (<AcolyteLabRegister key={index} acolyte={acolyte} />
-                        );
-                      })
+    <ScreenContainer backgroundImg={Images.MORTIMER_LAB}>
+      <View style={{ marginTop: 20, height: 680, alignItems: 'center', justifyContent: 'center' }}>
+        {
+          <>
+            <TitleContainer>
+              <RegisterTitle>Who's inside the Lab</RegisterTitle>
+            </TitleContainer>
+            <AcolytesRegisterScreenContainer>
+              <AcolytesRegisterListContainer contentContainerStyle={{ alignItems: "center", justifyContent: "center" }}>
+                {
+                  // --- MOSTRAR LA LISTA CON LOS ACÓLITOS --- 
+                  (acolytes) ?
+                    acolytes.map((acolyte, index) => {
+                      return (<AcolyteLabRegister key={index} acolyte={acolyte} />
+                      );
+                    })
 
-                      :
+                    :
 
-                      <>
-                        <Text>NO USERS?</Text>
-                      </>
+                    <>
+                      <Text>NO USERS?</Text>
+                    </>
 
-                  }
-                </AcolytesRegisterListContainer>
-              </AcolytesRegisterScreenContainer>
-            </>
-          }
-        </View>
-      </ScreenContainer>
-
-    </View>
-
-
+                }
+              </AcolytesRegisterListContainer>
+            </AcolytesRegisterScreenContainer>
+          </>
+        }
+      </View>
+    </ScreenContainer>
   );
 }
 

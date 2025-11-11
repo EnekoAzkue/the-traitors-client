@@ -6,15 +6,10 @@ import ScreenContainer from "../../ScreenContainer";
 
 export default function VillainLab() {
   return (
-    <View style={{ marginBottom: navigationTabMarginBottomForScreens }}>
-      <ScreenContainer backgroundImg={Images.VILLAIN_LAB}>
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Text style={{ color: "white" }}>Villain Lab</Text>
-        </View>
-      </ScreenContainer>
-    </View>
-
-
+    <ScreenContainer backgroundImg={Images.VILLAIN_LAB}>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      </View>
+    </ScreenContainer>
   );
 
 }

@@ -6,16 +6,10 @@ import { Images, navigationTabMarginBottomForScreens } from "../../../../helpers
 function VillainHome() {
 
   return (
-
-    <View style={{ marginBottom: navigationTabMarginBottomForScreens }}>
       <ScreenContainer backgroundImg={Images.VILLAIN_HOME}>
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Text style={{ color: "white" }}>Villain Home</Text>
         </View>
       </ScreenContainer>
-    </View>
-
-
   );
 }
 

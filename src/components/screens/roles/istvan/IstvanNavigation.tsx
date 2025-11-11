@@ -1,70 +1,87 @@
-import styled from 'styled-components/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { BlurView } from '@react-native-community/blur';
-import { createStaticNavigation } from '@react-navigation/native';
 import React from 'react';
-import { Images, Screens } from '../../../../helpers/constants/constants';
-import IstvanLab from './IstvanLab';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import IstvanHome from './IstvanHome';
+import IstvanLab from './IstvanLab';
 import IstvanSettings from './IstvanSettings';
+import styled from 'styled-components/native';
+import { Images, Screens } from '../../../../helpers/constants/constants';
+import { BlurView } from '@react-native-community/blur';
 
-const TabIcon = styled.Image`
+const Stack = createBottomTabNavigator();
+
+
+const IconImage = styled.Image`
   position: relative;
   top: 5px;
   width: 35px;
   height: 35px;
-  filter: brightness(${props => (props.$focused ? 150 : 100)}%)
-    grayscale(${props => (props.$focused ? 0 : 100)}%);
 `;
 
-const Navigator = createBottomTabNavigator({
-    screenOptions: ({ route }) => {
-        return {
-            tabBarShowLabel: false,
-            tabBarIcon: ({ focused }) => {
-                let tabIconSource;
 
-                switch (route.name) {
-                    case Screens.ISTVAN_HOME:
-                        tabIconSource = Images.HOME_ICON;
-                        break;
 
-                    case Screens.ISTVAN_SETTINGS:
-                        tabIconSource = Images.SETTINGS_ICON;
-                        break;
+function RootNavigation({ initialRouteScreen }: any) {
 
-                    case Screens.ISTVAN_LAB:
-                        tabIconSource = Images.LAB_ICON;
-                        break;
-                }
+  return (
+    <Stack.Navigator
+      initialRouteName={initialRouteScreen}
+      screenOptions={({ route }) => ({
+        headerShown: false,
+        tabBarShowLabel: false,
+        tabBarBackground: () => (
+          <BlurView blurAmount={1}
+            overlayColor="rgba(255 255 255 / 0.1)"
 
-                return <TabIcon source={tabIconSource} $focused={focused} />;
-            },
-            tabBarBackground: () => {
-                return (
-                    <BlurView
-                        blurAmount={1}
-                        overlayColor="rgba(0 0 0 / 0.1)"
-                        style={{ height: '100%' }}
-                    />
-                );
-            },
-            tabBarStyle: {
-                position: 'absolute',
-                overflow: 'hidden',
-                borderTopWidth: 0,
-                boxShadow: '0 -7.5px 5px rgba(255 255 255 / 0.1)',
-            },
-            headerShown: false,
-        };
-    },
-    screens: {
-        IstvanLab,
-        IstvanHome,
-        IstvanSettings,
-    },
-});
+            style={{ height: '100%', backgroundColor: 'rgba(0, 0, 0, 1)' }} />
+        ),
+        tabBarStyle: {
+          position: 'absolute',
+          overflow: 'hidden',
+          borderTopWidth: 0,
+          boxShadow: '0 -7.5px 5px rgba(255 255 255 / 0.1)',
+        },
+        tabBarIcon: ({ focused, color, size }) => {
 
-const IstvanNavigation = createStaticNavigation(Navigator);
+          let tabIconSource;
 
-export default IstvanNavigation;
+          switch (route.name) {
+            case Screens.ISTVAN_HOME:
+              tabIconSource = Images.HOME_ICON;
+              break;
+
+            case Screens.ISTVAN_LAB:
+              tabIconSource = Images.LAB_ICON;
+              break;
+
+            case Screens.ISTVAN_SETTINGS:
+              tabIconSource = Images.SETTINGS_ICON;
+              break;
+
+          }
+
+          return <IconImage source={tabIconSource} />;
+        },
+      })}
+
+    >
+      <Stack.Screen name={Screens.ISTVAN_HOME} component={IstvanHome} />
+      <Stack.Screen name={Screens.ISTVAN_LAB} component={IstvanLab} />
+      <Stack.Screen name={Screens.ISTVAN_SETTINGS} component={IstvanSettings} />
+
+    </Stack.Navigator>
+  );
+}
+
+export default function IstvanNavigation() {
+
+  return (
+    <>
+      <NavigationContainer>
+        <RootNavigation initialRouteScreen={Screens.ISTVAN_HOME} />
+      </NavigationContainer>
+
+
+    </>
+
+  );
+}

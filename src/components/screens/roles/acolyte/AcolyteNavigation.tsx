@@ -11,65 +11,6 @@ import { BlurView } from '@react-native-community/blur';
 import IconButton from '../../IconButton';
 import { SafeAreaProvider, SafeAreaView, useSafeAreaInsets, initialWindowMetrics, } from 'react-native-safe-area-context';
 import AcolyteTower from './AcolyteTower';
-// const TabIcon = styled.Image`
-//   position: relative;
-//   top: 5px;
-//   width: 35px;
-//   height: 35px;
-//   filter: brightness(${props => (props.$focused ? 150 : 100)}%)
-//     grayscale(${props => (props.$focused ? 0 : 100)}%);
-// `;
-// const Navigator = createBottomTabNavigator({
-//     screenOptions: ({ route }) => {
-//         return {
-//             headerShown: false,
-//             tabBarShowLabel: false,
-//             tabBarIcon: ({ focused }) => {
-//                 let tabIconSource;
-
-//                 switch (route.name) {
-//                     case Screens.ACOLYTE_HOME:
-//                         tabIconSource = Images.HOME_ICON;
-//                         break;
-
-//                     case Screens.ACOLYTE_SETTINGS:
-//                         tabIconSource = Images.SETTINGS_ICON;
-//                         break;
-
-//                     case Screens.ACOLYTE_LAB:
-//                         tabIconSource = Images.LAB_ICON;
-//                         break;
-//                 }
-
-//                 return <TabIcon source={tabIconSource} $focused={focused} />;
-//             },
-//             tabBarBackground: () => {
-//                 return (
-//                     <BlurView
-//                         blurAmount={1}
-//                         overlayColor="rgba(0 0 0 / 0.1)"
-//                         style={{ height: '100%' }}
-//                     />
-//                 );
-//             },
-//             tabBarStyle: {
-//                 position: 'absolute',
-//                 overflow: 'hidden',
-//                 borderTopWidth: 0,
-//                 boxShadow: '0 -7.5px 5px rgba(255 255 255 / 0.1)',
-//             },
-//             headerShown: false,
-//         };
-//     },
-//     screens: {
-//         AcolyteHome,
-//         AcolyteLab,
-//         AcolyteSettings,
-//     },
-// });
-
-// const AcolyteNavigation = createStaticNavigation(Navigator);
-
 
 const Stack = createBottomTabNavigator();
 

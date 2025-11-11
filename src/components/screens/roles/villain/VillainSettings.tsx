@@ -5,14 +5,12 @@ import ScreenContainer from "../../ScreenContainer";
 import Logout from "../../Logout";
 
 
-function VillainSettings(){
+function VillainSettings() {
 
   return (
-    <View style={{ marginBottom: navigationTabMarginBottomForScreens }}>
-      <ScreenContainer backgroundImg={Images.VILLAIN_SETTINGS}>
-        <Logout />
-      </ScreenContainer>
-    </View>
+    <ScreenContainer backgroundImg={Images.VILLAIN_SETTINGS}>
+      <Logout />
+    </ScreenContainer>
   );
 }
 

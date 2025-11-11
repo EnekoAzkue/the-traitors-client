@@ -67,7 +67,8 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (user) {
+    if (user?.email) {
+      console.log(`Creating a connection to server using SocketID with ${user.email} `);
       initSocket(user.email);
     }
 
@@ -80,11 +81,6 @@ function App() {
       const newAcolytes: (KaotikaPlayer[] | undefined) = allAcolytes?.map<KaotikaPlayer>((acolyte) => {
         if (acolyte._id === updatedAcolyte._id) return updatedAcolyte;
         return acolyte;
-      });
-
-      console.log(`The new acolytes: `);
-      newAcolytes?.map((acolyte) => {
-        console.log(`${acolyte.name} is inside? ${(acolyte.isInside) ? (`YES`) : (`NO`)}`);
       });
 
       setAllAcolytes(newAcolytes);

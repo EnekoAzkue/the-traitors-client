@@ -8,14 +8,9 @@ import Logout from "../../Logout";
 function MortimerSettings() {
 
   return (
-
-    <View style={{ marginBottom: navigationTabMarginBottomForScreens }}>
-      <ScreenContainer backgroundImg={Images.MORTIMER_SETTINGS}>
-        <Logout />
-      </ScreenContainer>
-    </View>
-
-
+    <ScreenContainer backgroundImg={Images.MORTIMER_SETTINGS}>
+      <Logout />
+    </ScreenContainer>
   );
 
 }

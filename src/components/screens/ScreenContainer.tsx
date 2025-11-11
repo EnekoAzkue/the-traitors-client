@@ -6,7 +6,8 @@ import { Images, navigationTabMarginBottomForScreens } from '../../helpers/const
 import { View, Text } from 'react-native';
 const BackgroundImage = styled.ImageBackground`
   height: 100%;
-  width: 100%;  
+  width: 100%;
+  border: 1px solid blue;
 `;
 
 const ScreenContainer = ({

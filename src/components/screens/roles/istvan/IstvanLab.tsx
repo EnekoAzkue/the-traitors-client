@@ -10,9 +10,12 @@ import useMetrics from '../../../../helpers/use-metrics';
 import { Images, navigationTabMarginBottomForScreens, SocketClientToServerEvents } from '../../../../helpers/constants/constants';
 import { socket } from '../../../../helpers/socket/socket';
 import { View } from 'react-native';
+import styled from 'styled-components/native';
 
 type RootTabParamList = {
+  IstvanHome : undefined;
   IstvanLab: undefined;
+  IstvanSettings: undefined;
   // otros tabs si los hay
 };
 
@@ -25,20 +28,6 @@ const IstvanLab = () => {
   const { hasPermission, requestPermission } = useCameraPermission();
 
   const codeScanner = useCodeScanner({ codeTypes: ['qr'], onCodeScanned });
-
-  const { moderateScale } = useMetrics();
-  const buttonFixedSize = 60;
-  const scaleFactor = 0.2;
-  const buttonCustomStyleObj = {
-    width: moderateScale(buttonFixedSize, scaleFactor),
-    height: moderateScale(buttonFixedSize, scaleFactor),
-    position: 'absolute',
-    bottom: '5%',
-    borderRadius: moderateScale(buttonFixedSize / 2, scaleFactor),
-    overflow: 'hidden',
-    outlineColor: '#ffffff',
-    outlineWidth: moderateScale(3.5, scaleFactor - 0.1),
-  };
 
   async function handlePress() {
     if (!hasPermission) {
@@ -75,34 +64,70 @@ const IstvanLab = () => {
     toggleCameraAndTabBar();
   }
 
-  if (isCameraOpen && device) {
-    return (
-      <>
-        <Camera
-          device={device}
-          isActive={true}
-          style={StyleSheet.absoluteFill}
-          codeScanner={codeScanner}
-        />
-        <Button
-          onPress={toggleCameraAndTabBar}
-          buttonText=""
-        />
-      </>
-    );
-  }
-
+  const BackgroundImage = styled.ImageBackground`
+  height: 100%;
+  width: 100%;
+  border: 1px solid blue;
+`;
   return (
+    <>
+      {
+        (isCameraOpen && device) ?
+          <>
+            <Camera
+              device={device}
+              isActive={true}
+              style={StyleSheet.absoluteFill}
+              codeScanner={codeScanner}
+            />
+            <Button
+              onPress={toggleCameraAndTabBar}
+              buttonText="Close Camera"
+            />
+          </>
+          :
 
-    <View style={{ marginBottom: navigationTabMarginBottomForScreens }}>
+          <>
+            <View style={{ marginBottom: navigationTabMarginBottomForScreens }}>
+              <BackgroundImage source={Images.ISTVAN_LAB}>
+                <Button buttonText="Open Camera" onPress={handlePress} />
+              </BackgroundImage>
+            </View>
+          </>
 
-      <ScreenContainer backgroundImg={Images.ISTVAN_LAB}>
-        <Button buttonText="Open Camera" onPress={handlePress} />
-      </ScreenContainer>
-    </View>
+      }
 
+    </>
 
   );
+
+  // if (isCameraOpen && device) {
+  //   return (
+  //     <>
+  //       <Camera
+  //         device={device}
+  //         isActive={true}
+  //         style={StyleSheet.absoluteFill}
+  //         codeScanner={codeScanner}
+  //       />
+  //       <Button
+  //         onPress={toggleCameraAndTabBar}
+  //         buttonText="Close Camera"
+  //       />
+  //     </>
+  //   );
+  // }
+
+  // return (
+
+  //   <View>
+  //     <ScreenContainer backgroundImg={Images.ISTVAN_LAB}>
+  //       <Button buttonText="Open Camera" onPress={handlePress} />
+  //     </ScreenContainer>
+  //   </View>
+
+
+  // );
 };
 
 export default IstvanLab;

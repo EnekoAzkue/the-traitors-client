@@ -1,71 +1,87 @@
-import styled from 'styled-components/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { BlurView } from '@react-native-community/blur';
-import { createStaticNavigation } from '@react-navigation/native';
 import React from 'react';
-import { Images, Screens } from '../../../../helpers/constants/constants';
-import VillainLab from './VillainLab';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import VillainHome from './VillainHome';
+import VillainLab from './VillainLab';
 import VillainSettings from './VillainSettings';
+import styled from 'styled-components/native';
+import { Images, Screens } from '../../../../helpers/constants/constants';
+import { BlurView } from '@react-native-community/blur';
 
-const TabIcon = styled.Image`
+const Stack = createBottomTabNavigator();
+
+
+const IconImage = styled.Image`
   position: relative;
   top: 5px;
   width: 35px;
   height: 35px;
-  filter: brightness(${props => (props.$focused ? 150 : 100)}%)
-    grayscale(${props => (props.$focused ? 0 : 100)}%);
 `;
 
-const Navigator = createBottomTabNavigator({
-    screenOptions: ({ route }) => {
-        return {
-            tabBarShowLabel: false,
-            tabBarIcon: ({ focused }) => {
-                let tabIconSource;
 
-                switch (route.name) {
-                    case Screens.VILLAIN_HOME:
-                        tabIconSource = Images.HOME_ICON;
-                        break;
 
-                    case Screens.VILLAIN_SETTINGS:
-                        tabIconSource = Images.SETTINGS_ICON;
-                        break;
+function RootNavigation({ initialRouteScreen }: any) {
 
-                    case Screens.VILLAIN_LAB:
-                        tabIconSource = Images.LAB_ICON;
-                        break;
-                }
+  return (
+    <Stack.Navigator
+      initialRouteName={initialRouteScreen}
+      screenOptions={({ route }) => ({
+        headerShown: false,
+        tabBarShowLabel: false,
+        tabBarBackground: () => (
+          <BlurView blurAmount={1}
+            overlayColor="rgba(255 255 255 / 0.1)"
 
-                return <TabIcon source={tabIconSource} $focused={focused} />;
-            },
-            tabBarBackground: () => {
-                return (
-                    <BlurView
-                        blurAmount={1}
-                        overlayColor="rgba(0 0 0 / 0.1)"
-                        style={{ height: '100%' }}
-                    />
-                );
-            },
-            tabBarStyle: {
-                position: 'absolute',
-                overflow: 'hidden',
-                borderTopWidth: 0,
-                boxShadow: '0 -7.5px 5px rgba(255 255 255 / 0.1)',
-            },
-            headerShown: false,
-        };
-    },
-    screens: {
-        VillainLab,
-        VillainHome,
-        VillainSettings,
-    },
-});
+            style={{ height: '100%', backgroundColor: 'rgba(0, 0, 0, 1)' }} />
+        ),
+        tabBarStyle: {
+          position: 'absolute',
+          overflow: 'hidden',
+          borderTopWidth: 0,
+          boxShadow: '0 -7.5px 5px rgba(255 255 255 / 0.1)',
+        },
+        tabBarIcon: ({ focused, color, size }) => {
 
-const VillainNavigation = createStaticNavigation(Navigator);
+          let tabIconSource;
 
-export default VillainNavigation;
+          switch (route.name) {
+            case Screens.VILLAIN_HOME:
+              tabIconSource = Images.HOME_ICON;
+              break;
 
+            case Screens.VILLAIN_LAB:
+              tabIconSource = Images.LAB_ICON;
+              break;
+
+            case Screens.VILLAIN_SETTINGS:
+              tabIconSource = Images.SETTINGS_ICON;
+              break;
+
+          }
+
+          return <IconImage source={tabIconSource} />;
+        },
+      })}
+
+    >
+      <Stack.Screen name={Screens.VILLAIN_HOME} component={VillainHome} />
+      <Stack.Screen name={Screens.VILLAIN_LAB} component={VillainLab} />
+      <Stack.Screen name={Screens.VILLAIN_SETTINGS} component={VillainSettings} />
+
+    </Stack.Navigator>
+  );
+}
+
+export default function VillainNavigation() {
+
+  return (
+    <>
+      <NavigationContainer>
+        <RootNavigation initialRouteScreen={Screens.VILLAIN_HOME} />
+      </NavigationContainer>
+
+
+    </>
+
+  );
+}
