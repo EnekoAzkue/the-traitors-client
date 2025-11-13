@@ -118,34 +118,6 @@ const IstvanLab = () => {
     </StyledContainer>
 
   );
-
-  // if (isCameraOpen && device) {
-  //   return (
-  //     <>
-  //       <Camera
-  //         device={device}
-  //         isActive={true}
-  //         style={StyleSheet.absoluteFill}
-  //         codeScanner={codeScanner}
-  //       />
-  //       <Button
-  //         onPress={toggleCameraAndTabBar}
-  //         buttonText="Close Camera"
-  //       />
-  //     </>
-  //   );
-  // }
-
-  // return (
-
-  //   <View>
-  //     <ScreenContainer backgroundImg={Images.ISTVAN_LAB}>
-  //       <Button buttonText="Open Camera" onPress={handlePress} />
-  //     </ScreenContainer>
-  //   </View>
-
-
-  // );
 };
 
 export default IstvanLab;
