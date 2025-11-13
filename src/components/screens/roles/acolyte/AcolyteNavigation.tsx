@@ -11,7 +11,7 @@ import { BlurView } from '@react-native-community/blur';
 import IconButton from '../../IconButton';
 import { SafeAreaProvider, SafeAreaView, useSafeAreaInsets, initialWindowMetrics, } from 'react-native-safe-area-context';
 import AcolyteTower from './AcolyteTower';
-import { UserContext } from '../../../../helpers/contexts/contexts';
+import { AcolyteInitialScreenContext, UserContext } from '../../../../helpers/contexts/contexts';
 import { socket } from '../../../../helpers/socket/socket';
 
 
@@ -31,29 +31,34 @@ function RootNavigation({ initialRouteScreen }: any) {
 
   const userContext = useContext(UserContext);
 
-  if (!userContext) {
-    return null;
-  }
+  if (!userContext) return
 
   const [user] = userContext;
 
   const [screen, setScreen] = useState<string>('')
 
+  const screenContext = useContext(AcolyteInitialScreenContext);
+  if(!screenContext) return
+  const [initialScreen, setInitialScreen] = screenContext 
   
   const home = () => {
     setScreen('home')
+    setInitialScreen(Screens.ACOLYTE_HOME)
   }
   
   const settings = () => {
     setScreen('settings')
+    setInitialScreen(Screens.ACOLYTE_SETTINGS)
   }
   
   const lab = () => {
     setScreen('lab')
+    setInitialScreen(Screens.ACOLYTE_LAB)
   }
   
   const tower = () => {
     setScreen('tower')
+    setInitialScreen(Screens.ACOLYTE_TOWER)
   }
   
   useEffect(() => {
