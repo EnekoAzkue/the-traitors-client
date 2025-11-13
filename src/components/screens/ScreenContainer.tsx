@@ -14,16 +14,20 @@ const BackgroundImage = styled.ImageBackground`
   width: ${width}px;  
 `;
 
+const StyledContainer = styled.View`
+  margin: 0 0 50px;
+`;
+
 const ScreenContainer = ({
   backgroundImg,
   children,
 }: PropsWithChildren<ScreenContainerProps>) => {
   return (
-    <View style={{ marginBottom: navigationTabMarginBottomForScreens }}>
+    <StyledContainer>
       <BackgroundImage source={backgroundImg}>
         {children}
       </BackgroundImage>
-    </View>
+    </StyledContainer>
   );
 };
 

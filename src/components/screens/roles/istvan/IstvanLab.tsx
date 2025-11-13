@@ -11,9 +11,12 @@ import { Images, navigationTabMarginBottomForScreens, SocketClientToServerEvents
 import { socket } from '../../../../helpers/socket/socket';
 import { View } from 'react-native';
 import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
 
 type RootTabParamList = {
-  IstvanHome : undefined;
+  IstvanHome: undefined;
   IstvanLab: undefined;
   IstvanSettings: undefined;
   // otros tabs si los hay
@@ -65,39 +68,54 @@ const IstvanLab = () => {
   }
 
   const BackgroundImage = styled.ImageBackground`
-  height: 100%;
-  width: 100%;
-  border: 1px solid blue;
-`;
+  width: ${width}px;
+  height: ${Math.floor(height * 0.938)}px;
+  `;
+
+  const StyledContainer = styled.View`
+  width: ${width}px;
+  height: ${Math.floor(height * 0.938)}px;
+  `;
+
+  const StyledCameraContainer = styled.View`
+    width: ${width}px;
+    height: ${height}px;
+  `;
+
+  const StyledButtonContainer = styled.View`
+    position: absolute; 
+    left: ${width * 0.24}px;
+    top: ${height * 0.67}px;
+  `;
+
+
+
+
   return (
-    <>
+    <StyledContainer>
       {
         (isCameraOpen && device) ?
-          <>
-            <Camera
-              device={device}
-              isActive={true}
-              style={StyleSheet.absoluteFill}
-              codeScanner={codeScanner}
-            />
-            <Button
-              onPress={toggleCameraAndTabBar}
-              buttonText="Close Camera"
-            />
-          </>
+          <StyledCameraContainer>
+            <Camera device={device} isActive={true} style={StyleSheet.absoluteFill} codeScanner={codeScanner} />
+            <StyledButtonContainer>
+              <Button onPress={toggleCameraAndTabBar} buttonText="Close Camera" />
+            </StyledButtonContainer>
+           </StyledCameraContainer>
           :
 
           <>
-            <View style={{ marginBottom: navigationTabMarginBottomForScreens }}>
+            {/* <View style={{ marginBottom: navigationTabMarginBottomForScreens }}> */}
               <BackgroundImage source={Images.ISTVAN_LAB}>
-                <Button buttonText="Open Camera" onPress={handlePress} />
+                <StyledButtonContainer>
+                  <Button buttonText="Open Camera" onPress={handlePress} />
+                </StyledButtonContainer>
               </BackgroundImage>
-            </View>
+            {/* </View> */}
           </>
 
       }
 
-    </>
+    </StyledContainer>
 
   );
 
