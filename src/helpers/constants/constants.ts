@@ -128,6 +128,7 @@ enum SocketClientToServerEvents {
   CONNECTION_OPEN = 'connection open',
   ACCESS_TO_EXIT_FROM_LAB = 'access to/exit from lab',
   CONNECTION_CLOSE = 'connection close',
+  UPDATE_USER = 'update user in DB',
   UPDATE_INTOWER = 'update inTower',
 }
 

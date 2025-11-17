@@ -29,9 +29,8 @@ interface AcolyteDataAfterAccessExitLab {
 interface ClientToServerEvents {
   [SocketClientToServerEvents.CONNECTION_OPEN]: (userEmail: string) => void;
   [SocketClientToServerEvents.CONNECTION_CLOSE]: (userEmail: string) => void;
-  [SocketClientToServerEvents.ACCESS_TO_EXIT_FROM_LAB]: (
-    acolyteEmail: string
-  ) => void;
+  [SocketClientToServerEvents.ACCESS_TO_EXIT_FROM_LAB]: (acolyteEmail: string) => void;
+  [SocketClientToServerEvents.UPDATE_USER]: (acolyteEmail: string, changes: any) => void;
   [SocketClientToServerEvents.UPDATE_INTOWER]: (userEmail: string, inTower: boolean) => void;
 }
 

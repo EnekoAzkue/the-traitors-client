@@ -36,24 +36,15 @@ function Login({ setUser, setModalMessage, setIsLoading }: LoginProps) {
     const signInData = signInResult.data;
     let idToken: string | null | undefined = signInData?.idToken;
 
-    console.log("Outside TokenID verification");
-
     if (idToken) {
       // if you are using older versions of google-signin, try old style result
-      console.log(idToken);
-
-      console.log("Inside TokenID verification");
       const userAuthResponse = await authenticatePlayer(ApiEndpoints.LOG_IN, idToken);
 
-      console.log("User AUTH:");
-      console.log(userAuthResponse);
-
-      if (userAuthResponse.player) {
-        console.log("This is the player: ", userAuthResponse.player);
-        setUser(userAuthResponse.player);
-      } else {
+      if (!userAuthResponse.player) {
         signOut();
         setModalMessage("You are not worthy to be inside!");
+      }else{
+        setUser(userAuthResponse.player);
       }
     }
     setIsLoading(false);

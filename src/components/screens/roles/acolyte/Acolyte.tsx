@@ -17,7 +17,7 @@ export default function Acolyte() {
   const [initialScreen, setInitialScreen] = initialScreenContext;
 
   useEffect(() => {
-    console.log('initianl screen:', initialScreen);
+    // console.log('initianl screen:', initialScreen);
     if(initialScreen === Screens.ACOLYTE_TOWER) {
       socket.emit(SocketClientToServerEvents.UPDATE_INTOWER, user.email, true)
     } else {

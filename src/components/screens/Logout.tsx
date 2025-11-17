@@ -31,9 +31,7 @@ const Logout = () => {
 
   const  userContext = useContext(UserContext);
 
-  if (!userContext){
-    throw Error("Error! User Context failed at Logout component.");
-  }
+  if (!userContext) return;
   
   const [user, setUser] = userContext;
 
