@@ -36,7 +36,7 @@ export default function AcolyteScreenContainer({ backgroundImage, children }: Pr
     <View>
       <ScreenContainer backgroundImg={backgroundImage}>
         {user.isInside || user.insideTower ? (null) : 
-        <IconButton width={80} height={80} hasBrightness={true} backgroundImage={Images.MAP_ICON} buttonOnPress={() => setInitialScreen(null)} xPos={20} yPos={20} hasBorder={false} />
+        <IconButton width={100} height={50} hasBrightness={true} backgroundImage={Images.BACK_ARROW} buttonOnPress={() => setInitialScreen('SchoolMap')} xPos={20} yPos={20} hasBorder={false} />
         }
         {children}
       </ScreenContainer>

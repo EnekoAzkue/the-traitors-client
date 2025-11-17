@@ -32,6 +32,7 @@ enum Images {
   ACOLYTE_LAB_OPEN = require('../../assets/images/AcolyteLabOpen.png'),
   ACOLYTE_LAB_INSIDE = require('../../assets/images/AcolyteLabInside.png'),
   ACOLYTE_MAP = require('../../assets/images/AcolytesMap.png'),
+  SCHOOL_MAP = require('../../assets/images/SchoolMap.png'),
   
   
   ISTVAN_HOME = require('../../assets/images/IstvanHome.png'),
@@ -63,6 +64,8 @@ enum Images {
   TOWER_INSIDE = require('../../assets/images/TowerInside.png'),
 
   CLOUDS = require('../../assets/images/Clouds.png'),
+
+  BACK_ARROW = require('../../assets/images/BackArrow.png')
 }
 
 enum Screens {
@@ -84,6 +87,8 @@ enum Screens {
   VILLAIN_LAB = 'VillainLab',
   VILLAIN_HOME = 'VillainHome',
   VILLAIN_SETTINGS = 'VillainSettings',
+
+  SCHOOL_MAP = 'SchoolMap',
 
 }
 

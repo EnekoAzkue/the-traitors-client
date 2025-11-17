@@ -4,7 +4,7 @@ import { Images, Screens } from "../../../../helpers/constants/constants";
 import IconButton from "../../IconButton";
 import { AcolyteInitialScreenContext } from "../../../../helpers/contexts/contexts";
 
-type InitialScreen = Screens.ACOLYTE_HOME | Screens.ACOLYTE_LAB;
+type InitialScreen = Screens.SCHOOL_MAP;
 
 export default function AcolyteMap() {
   const initialRouterScreen = useContext(AcolyteInitialScreenContext);
@@ -13,11 +13,7 @@ export default function AcolyteMap() {
 
   const [initialScreen, setInitialScreen] = initialRouterScreen;
 
-  const selectInitialHomeScreen = () => setInitialScreen(Screens.ACOLYTE_HOME);
-  const selectInitialLabScreen = () => {
-    setInitialScreen(Screens.ACOLYTE_LAB);
-    console.log("CHANGED TO LAB");
-  };
+  const selectInitialHomeScreen = () => setInitialScreen(Screens.SCHOOL_MAP);
   const selectInitialTowerScreen = () => setInitialScreen(Screens.ACOLYTE_TOWER);
 
   const cloudOpacity = useRef(new Animated.Value(1)).current;
@@ -63,15 +59,7 @@ export default function AcolyteMap() {
         backgroundImage={Images.HOME_ICON}
         buttonOnPress={selectInitialHomeScreen}
       />
-      <IconButton
-        width={40}
-        height={40}
-        xPos={160}
-        yPos={480}
-        hasBorder={true}
-        backgroundImage={Images.LAB_ICON}
-        buttonOnPress={selectInitialLabScreen}
-      />
+
 
       {/* Capa animada de nubes */}
       <Animated.View

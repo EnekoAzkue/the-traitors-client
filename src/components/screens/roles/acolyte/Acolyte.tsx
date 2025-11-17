@@ -6,6 +6,11 @@ import { Images, Screens, SocketClientToServerEvents } from "../../../../helpers
 import { AcolyteInitialScreenContext, UserContext } from "../../../../helpers/contexts/contexts";
 import { Text } from "react-native";
 import { socket } from "../../../../helpers/socket/socket";
+import AcolyteSchoolMap from "./AcolyteSchoolMap";
+import AcolyteHome from "./AcolyteHome";
+import AcolyteLab from "./AcolyteLab";
+import AcolyteSettings from "./AcolyteSettings";
+import AcolyteTower from "./AcolyteTower";
 
 
 export default function Acolyte() {
@@ -33,9 +38,19 @@ export default function Acolyte() {
         (initialScreen === null) ?
           // Abrir el mapa para seleccionar ubicación
           <AcolyteMap />
-          :
+          : (initialScreen === 'SchoolMap') ?
           // Abrir el navegador
-          <AcolyteNavigation initialRouteScreen={initialScreen} />
+          <AcolyteSchoolMap />
+          : (initialScreen === 'AcolyteHome') ?
+          <AcolyteHome /> 
+          : (initialScreen === 'AcolyteLab') ?
+          <AcolyteLab />
+          : (initialScreen === 'AcolyteSettings') ?
+          <AcolyteSettings />
+          : (initialScreen === 'AcolyteTower') ?
+          <AcolyteTower />
+          : null
+          
       }
     </>
 
