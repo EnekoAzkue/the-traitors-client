@@ -4,13 +4,16 @@ import { AuthenticatePlayerReturnValue } from "../interfaces/serverRequestInterf
 export async function authenticatePlayer(endpoint: string, idToken: string): Promise<AuthenticatePlayerReturnValue> {
   const FETCH_ROUTE = `${CURRENT_ROUTE}${endpoint}`;
 
-  console.log("User's account authentication process has started...");
+  const bodyValue = JSON.stringify({ idToken });
+
+  console.log("User's account authentication request has sent...");
+  console.log("Body data: ", bodyValue);
 
   const response = await fetch(
     FETCH_ROUTE,
     {
       method: 'POST',
-      body: JSON.stringify({ idToken }),
+      body: bodyValue,
       headers: {
         'Content-Type': 'application/json',
       },

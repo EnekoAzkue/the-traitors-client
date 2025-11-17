@@ -146,8 +146,15 @@ const getCurrentUser = async () => {
   const hasPreviouslySignedIn = await hasPreviousSignIn();
   if (hasPreviouslySignedIn) {
     const currentUser = GoogleSignin.getCurrentUser();
+    console.log('THE CURRENT USER IS: ', currentUser);
     const currentUserIdToken = (currentUser?.idToken) ? currentUser.idToken : '';
+    console.log('TOKEN OF CURRENT USER IS: ', currentUserIdToken);
+    console.log('Tipe of token value: ', typeof currentUserIdToken);
+
     const userAuthResponse: AuthenticatePlayerReturnValue = await authenticatePlayer(ApiEndpoints.LOGGED_IN, currentUserIdToken);
+
+    console.log('USER AUTH RESPONSE: ');
+    console.log( userAuthResponse );
 
     if (userAuthResponse.statusCode === 200 || userAuthResponse.statusCode === 201) {
       return userAuthResponse.player;
@@ -166,12 +173,15 @@ async function authClient(fixed: boolean) {
     getUser();
   } else {
 
+    console.log("----------------------------------------------------------------");
+    console.log('Authenticating client: ');
     try {
       GoogleSignin.configure({
         webClientId: '158827850165-tfs4dej72osh9sfqstdaurec9e6nfcdc.apps.googleusercontent.com',
       });
 
       const currentUser = await getCurrentUser();
+
 
       console.log(currentUser);
 
@@ -191,7 +201,13 @@ async function authClient(fixed: boolean) {
       setInitialConf(true);
     } catch (error) {
       signOut();
+      setUser(null);
+      performSocketCleanUp();
+
       console.error(Logs.FAILED_CONFIGURATION, error);
+    }finally{
+      console.log("----------------------------------------------------------------");
+
     }
   }
 }
