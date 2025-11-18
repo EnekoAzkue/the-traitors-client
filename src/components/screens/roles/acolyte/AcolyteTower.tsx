@@ -5,6 +5,10 @@ import AcolyteScreenContainer from "./AcolyteScreenContainer";
 import { ScrollContext, UserContext } from "../../../../helpers/contexts/contexts";
 import IconButton from "../../IconButton";
 import AcolyteTowerContainer from "./AcolyteTowerContainer";
+import { Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
+
 
 
 function AcolyteTower() {
@@ -18,11 +22,15 @@ function AcolyteTower() {
 
   const [ scrollActive, setScrollActive ] = scrollContext;
 
+  if (!userContext) return;
+
+  const [user] = userContext;
+
+
 
   useEffect(() => {
     if (!userContext) return;
 
-    const [user] = userContext;
     console.log(`Inside tower? ${user.insideTower}`)
     if(user.insideTower) {
       setBackgroundImage(Images.TOWER_INSIDE);
@@ -39,14 +47,16 @@ function AcolyteTower() {
   return (
     <AcolyteTowerContainer backgroundImage={backgroundImage} >
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        {user.insideTower && 
         <IconButton
-          width={40}
-          height={40}
-          xPos={45}
-          yPos={500}
-          hasBorder={false}
-          backgroundImage={Images.SCROLL}
-          buttonOnPress={setScroll}/>
+        width={width * 0.1}
+        height={height * 0.05}
+        xPos={width * 0.35}
+        yPos={height * 0.9}
+        hasBorder={false}
+        backgroundImage={Images.SCROLL}
+        buttonOnPress={setScroll}/>
+        }
       </View>
     </AcolyteTowerContainer>
   );
