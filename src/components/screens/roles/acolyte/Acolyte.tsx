@@ -3,7 +3,7 @@ import { useState } from "react";
 import AcolyteMap from "./AcolyteMap";
 import AcolyteNavigation from "./AcolyteNavigation";
 import { Images, Screens, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
-import { AcolyteInitialScreenContext, UserContext } from "../../../../helpers/contexts/contexts";
+import { AcolyteInitialScreenContext, ScrollContext, UserContext } from "../../../../helpers/contexts/contexts";
 import { Text } from "react-native";
 import { socket } from "../../../../helpers/socket/socket";
 import AcolyteSchoolMap from "./AcolyteSchoolMap";
@@ -11,11 +11,14 @@ import AcolyteHome from "./AcolyteHome";
 import AcolyteLab from "./AcolyteLab";
 import AcolyteSettings from "./AcolyteSettings";
 import AcolyteTower from "./AcolyteTower";
+import AcolyteHall from "./AcolyteHall";
+import IconButton from "../../IconButton";
 
 
 export default function Acolyte() {
+
   const userContext = useContext(UserContext)
-  if(!userContext) return;
+  if (!userContext) return;
   const [user] = userContext;
   const initialScreenContext = useContext(AcolyteInitialScreenContext)
   if (!initialScreenContext) return;
@@ -23,35 +26,24 @@ export default function Acolyte() {
 
   useEffect(() => {
     console.log('initianl screen:', initialScreen);
-    if(initialScreen === Screens.ACOLYTE_TOWER) {
+    if (initialScreen === Screens.ACOLYTE_TOWER) {
       socket.emit(SocketClientToServerEvents.UPDATE_INTOWER, user.email, true)
     } else {
       socket.emit(SocketClientToServerEvents.UPDATE_INTOWER, user.email, false)
-    } 
+    }
 
   }, [initialScreen])
 
 
   return (
     <>
-      {
-        (initialScreen === null) ?
-          // Abrir el mapa para seleccionar ubicación
-          <AcolyteMap />
-          : (initialScreen === 'SchoolMap') ?
-          // Abrir el navegador
-          <AcolyteSchoolMap />
-          : (initialScreen === 'AcolyteHome') ?
-          <AcolyteHome /> 
-          : (initialScreen === 'AcolyteLab') ?
-          <AcolyteLab />
-          : (initialScreen === 'AcolyteSettings') ?
-          <AcolyteSettings />
-          : (initialScreen === 'AcolyteTower') ?
-          <AcolyteTower />
-          : null
-          
-      }
+        {initialScreen === null && <AcolyteMap />}
+        {initialScreen === 'SchoolMap' && <AcolyteSchoolMap />}
+        {initialScreen === 'AcolyteHome' && <AcolyteHome />}
+        {initialScreen === 'AcolyteLab' && <AcolyteLab />}
+        {initialScreen === 'AcolyteSettings' && <AcolyteSettings />}
+        {initialScreen === 'AcolyteTower' && <AcolyteTower />}
+        {initialScreen === 'AcolyteHall' && <AcolyteHall />}
     </>
 
   );

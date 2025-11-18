@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef } from "react";
 import { Animated, Image, ImageBackground, Text, StyleSheet, View } from "react-native";
 import { Images, Screens } from "../../../../helpers/constants/constants";
 import IconButton from "../../IconButton";
-import { AcolyteInitialScreenContext } from "../../../../helpers/contexts/contexts";
+import { AcolyteInitialScreenContext, ScrollContext } from "../../../../helpers/contexts/contexts";
 
 type InitialScreen = Screens.ACOLYTE_HOME | Screens.ACOLYTE_LAB;
 
@@ -13,15 +13,20 @@ export default function AcolyteSchoolMap() {
 
   const [initialScreen, setInitialScreen] = initialRouterScreen;
 
+  const scrollContext = useContext(ScrollContext);
+
+  if(!scrollContext) return;
+  const [ scrollActive, setScrollActive ] = scrollContext;
+
   const selectInitialHomeScreen = () => setInitialScreen(Screens.ACOLYTE_HOME);
   const selectInitialLabScreen = () => {
     setInitialScreen(Screens.ACOLYTE_LAB);
     console.log("CHANGED TO LAB");
   };
   const selectInitialSettingsScreen = () => setInitialScreen(Screens.ACOLYTE_SETTINGS);
+  const selectInitialHallScreen = () => setInitialScreen(Screens.ACOLYTE_HALL);
 
-  const cloudOpacity = useRef(new Animated.Value(1)).current;
-  const cloudScale = useRef(new Animated.Value(1)).current;
+  console.log("SCROLL ACTIVE IN SCHOOL MAP:", scrollActive);
 
   return (
     <ImageBackground
@@ -38,7 +43,7 @@ export default function AcolyteSchoolMap() {
         xPos={185}
         yPos={700}
         hasBorder={true}
-        backgroundImage={Images.HOME_ICON}
+        backgroundImage={Images.MAIN_ICON}
         buttonOnPress={selectInitialHomeScreen}
       />
       <IconButton
@@ -59,6 +64,18 @@ export default function AcolyteSchoolMap() {
         backgroundImage={Images.SETTINGS_ICON}
         buttonOnPress={selectInitialSettingsScreen}
       />
+      {!scrollActive ? 
+      <IconButton
+      width={40}
+      height={40}
+      xPos={315}
+      yPos={260}
+      hasBorder={true}
+      backgroundImage={Images.HALL_ICON}
+      buttonOnPress={selectInitialHallScreen}
+      /> : null
+    }
+
     </ImageBackground>
   );
 }

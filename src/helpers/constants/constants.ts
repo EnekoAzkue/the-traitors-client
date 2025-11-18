@@ -56,12 +56,16 @@ enum Images {
   SETTINGS_ICON = require('../../assets/images/logos/settings_icon.png'),
   TOWER_ICON = require('../../assets/images/logos/TowerIcon.png'),
   MAP_ICON = require('../../assets/images/logos/MapIcon.png'),
+  MAIN_ICON = require('../../assets/images/logos/main.png'),
+  HALL_ICON = require('../../assets/images/logos/hall_icon.png'),
+  SCROLL = require('../../assets/images/logos/scroll.png'),
 
 
   LOGO = require('../../assets/images/logo.png'),
   
   TOWER = require('../../assets/images/Tower.png'),
   TOWER_INSIDE = require('../../assets/images/TowerInside.png'),
+  HALL_OF_SAGES = require('../../assets/images/HallOfSages.png'),
 
   CLOUDS = require('../../assets/images/Clouds.png'),
 
@@ -74,6 +78,7 @@ enum Screens {
   ACOLYTE_SETTINGS = 'AcolyteSettings',
   ACOLYTE_LAB = 'AcolyteLab',
   ACOLYTE_TOWER = 'AcolyteTower',
+  ACOLYTE_HALL = 'AcolyteHall',
 
   ISTVAN_LAB = 'IstvanLab',
   ISTVAN_HOME = 'IstvanHome',
@@ -95,7 +100,7 @@ enum Screens {
 /* --- For local testing, watch: https://docs.google.com/document/d/13t7nvg5CSuUsB5qj1wBU4TsW03_TMxP_6RhYqBUEwcI/edit?tab=t.0 --- */
 enum Domains {
   // LOCALHOST = 'http://localhost:3000/',
-  LOCALHOST   = 'http://10.70.0.41:3000/',
+  LOCALHOST   = 'http://192.168.56.1:3000/',
   RENDER      = 'https://the-traitors-server.onrender.com/',
   PORTAINER   = 'http://10.50.0.50:6001/',
 }
@@ -107,7 +112,7 @@ enum Routes {
 }
 
 
-export const CURRENT_DOMAIN = Domains.LOCALHOST;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN) 
+export const CURRENT_DOMAIN = Domains.RENDER;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN) 
 export const CURRENT_ROUTE  = `${CURRENT_DOMAIN}player/`;
 
 

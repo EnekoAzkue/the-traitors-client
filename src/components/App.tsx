@@ -16,7 +16,7 @@ import { Button } from 'react-native';
 import KaotikaPlayer from '../helpers/interfaces/KaotikaPlayer';
 
 // --- Contexts ---
-import { ModalContext, UserContext, AllAcolytesContext, AcolyteInitialScreenContext } from '../helpers/contexts/contexts';
+import { ModalContext, UserContext, AllAcolytesContext, AcolyteInitialScreenContext, ScrollContext } from '../helpers/contexts/contexts';
 
 
 // --- Functions & Hooks ---
@@ -40,6 +40,7 @@ function App() {
   const [modalMessage, setModalMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [acolyteInitialScreen, setacolyteInitialScreen] = useState<string | null>(null);
+  const [scrollActive, setScrollActive] = useState(true);
 
 
   const userHandler = (newUser: KaotikaPlayer | null) => {
@@ -222,15 +223,17 @@ function App() {
                 {isLoading ? <CircleSpinner /> : null}
               </>
             ) : (
-              <AcolyteInitialScreenContext.Provider value={[acolyteInitialScreen, setacolyteInitialScreen]}>
-                <AllAcolytesContext.Provider value={[allAcolytes, setAllAcolytes]}>
-                  <UserContext.Provider value={[user, setUser]}>
-                    <ModalContext value={setModalMessage}>
-                      <Main />
-                    </ModalContext>
-                  </UserContext.Provider>
-                </AllAcolytesContext.Provider>
-              </AcolyteInitialScreenContext.Provider>
+              <ScrollContext.Provider value={[scrollActive, setScrollActive]}>
+                <AcolyteInitialScreenContext.Provider value={[acolyteInitialScreen, setacolyteInitialScreen]}>
+                  <AllAcolytesContext.Provider value={[allAcolytes, setAllAcolytes]}>
+                    <UserContext.Provider value={[user, setUser]}>
+                      <ModalContext value={setModalMessage}>
+                        <Main />
+                      </ModalContext>
+                    </UserContext.Provider>
+                  </AllAcolytesContext.Provider>
+                </AcolyteInitialScreenContext.Provider>
+              </ScrollContext.Provider>
             )
           ) : (
             <Splash />
