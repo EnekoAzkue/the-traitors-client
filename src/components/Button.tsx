@@ -4,18 +4,21 @@ import { ButtonProps } from "../helpers/interfaces/ButtonInterfaces";
 import { ImageBackground } from "react-native";
 import { Images } from "../helpers/constants/constants";
 import { Text } from "react-native";
+import { Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
 
 const ButtonContainer = styled.TouchableOpacity`
     justify-content: center;
-    width: 200px;
-    height: 120px;
-    position: relative;
+    width: ${width * 0.5}px;
+    height: ${height * 0.15}px;
+    position: absolute;
     top: 75%;
 `;
 
 const ButtonStyledText = styled.Text`
     color: white;
-    font-size: 25px;
+    font-size: ${Math.min(width * 0.06, 28)}px;
     position: relative;
     top: 38%;
     fontFamily: 'KochAltschrift';

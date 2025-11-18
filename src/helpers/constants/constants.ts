@@ -32,6 +32,7 @@ enum Images {
   ACOLYTE_LAB_OPEN = require('../../assets/images/AcolyteLabOpen.png'),
   ACOLYTE_LAB_INSIDE = require('../../assets/images/AcolyteLabInside.png'),
   ACOLYTE_MAP = require('../../assets/images/AcolytesMap.png'),
+  SCHOOL_MAP = require('../../assets/images/SchoolMap.png'),
   
   
   ISTVAN_HOME = require('../../assets/images/IstvanHome.png'),
@@ -55,14 +56,20 @@ enum Images {
   SETTINGS_ICON = require('../../assets/images/logos/settings_icon.png'),
   TOWER_ICON = require('../../assets/images/logos/TowerIcon.png'),
   MAP_ICON = require('../../assets/images/logos/MapIcon.png'),
+  MAIN_ICON = require('../../assets/images/logos/main.png'),
+  HALL_ICON = require('../../assets/images/logos/hall_icon.png'),
+  SCROLL = require('../../assets/images/logos/scroll.png'),
 
 
   LOGO = require('../../assets/images/logo.png'),
   
   TOWER = require('../../assets/images/Tower.png'),
   TOWER_INSIDE = require('../../assets/images/TowerInside.png'),
+  HALL_OF_SAGES = require('../../assets/images/HallOfSages.png'),
 
   CLOUDS = require('../../assets/images/Clouds.png'),
+
+  BACK_ARROW = require('../../assets/images/BackArrow.png')
 }
 
 enum Screens {
@@ -71,6 +78,7 @@ enum Screens {
   ACOLYTE_SETTINGS = 'AcolyteSettings',
   ACOLYTE_LAB = 'AcolyteLab',
   ACOLYTE_TOWER = 'AcolyteTower',
+  ACOLYTE_HALL = 'AcolyteHall',
 
   ISTVAN_LAB = 'IstvanLab',
   ISTVAN_HOME = 'IstvanHome',
@@ -84,6 +92,8 @@ enum Screens {
   VILLAIN_LAB = 'VillainLab',
   VILLAIN_HOME = 'VillainHome',
   VILLAIN_SETTINGS = 'VillainSettings',
+
+  SCHOOL_MAP = 'SchoolMap',
 
 }
 
@@ -102,7 +112,7 @@ enum Routes {
 }
 
 
-export const CURRENT_DOMAIN = Domains.LOCALHOST;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN) 
+export const CURRENT_DOMAIN = Domains.RENDER;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN) 
 export const CURRENT_ROUTE  = `${CURRENT_DOMAIN}player/`;
 
 
