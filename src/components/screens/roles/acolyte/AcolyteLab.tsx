@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { View } from "react-native";
-import { Images, navigationTabMarginBottomForScreens } from "../../../../helpers/constants/constants";
-import ScreenContainer from "../../ScreenContainer";
+import { Images,  } from "../../../../helpers/constants/constants";
 import QRCodeContainer from "../../QR";
 import { UserContext } from "../../../../helpers/contexts/contexts";
 import AcolyteScreenContainer from "./AcolyteScreenContainer";

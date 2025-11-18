@@ -6,10 +6,8 @@ import { ModalContext } from '../../../../helpers/contexts/contexts';
 import { useNavigation } from '@react-navigation/native';
 import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import Button from '../../../Button';
-import useMetrics from '../../../../helpers/use-metrics';
-import { Images, navigationTabMarginBottomForScreens, SocketClientToServerEvents } from '../../../../helpers/constants/constants';
+import { Images, SocketClientToServerEvents } from '../../../../helpers/constants/constants';
 import { socket } from '../../../../helpers/socket/socket';
-import { View } from 'react-native';
 import styled from 'styled-components/native';
 import { Dimensions } from 'react-native';
 

@@ -1,10 +1,7 @@
-import React, { use, useContext, useEffect } from "react";
-import { useState } from "react";
+import React, { useContext, useEffect } from "react";
 import AcolyteMap from "./AcolyteMap";
-import AcolyteNavigation from "./AcolyteNavigation";
-import { Images, Screens, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
+import { Screens, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
 import { AcolyteInitialScreenContext, ScrollContext, UserContext } from "../../../../helpers/contexts/contexts";
-import { Text } from "react-native";
 import { socket } from "../../../../helpers/socket/socket";
 import AcolyteSchoolMap from "./AcolyteSchoolMap";
 import AcolyteHome from "./AcolyteHome";
@@ -12,7 +9,6 @@ import AcolyteLab from "./AcolyteLab";
 import AcolyteSettings from "./AcolyteSettings";
 import AcolyteTower from "./AcolyteTower";
 import AcolyteHall from "./AcolyteHall";
-import IconButton from "../../IconButton";
 
 
 export default function Acolyte() {

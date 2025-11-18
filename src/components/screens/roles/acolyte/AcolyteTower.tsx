@@ -1,7 +1,6 @@
 import React, { use, useContext, useEffect, useState } from "react";
 import { View } from "react-native";
 import { Images } from "../../../../helpers/constants/constants";
-import AcolyteScreenContainer from "./AcolyteScreenContainer";
 import { ScrollContext, UserContext } from "../../../../helpers/contexts/contexts";
 import IconButton from "../../IconButton";
 import AcolyteTowerContainer from "./AcolyteTowerContainer";

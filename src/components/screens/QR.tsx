@@ -3,12 +3,9 @@ import { useContext, useState } from 'react';
 import { ModalContext, UserContext } from '../../helpers/contexts/contexts';
 import Button from '../Button';
 import React from 'react';
-import { View } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import { Text } from 'react-native';
-import { ApiEndpoints, Images, SocketClientToServerEvents } from '../../helpers/constants/constants';
-import { ImageBackground } from 'react-native';
-import { socket } from '../../helpers/socket/socket';
+import { Images } from '../../helpers/constants/constants';
 import { Dimensions } from 'react-native';
 
 const { width, height } = Dimensions.get('window');

@@ -1,7 +1,7 @@
 // --- Constants ---
 import React from 'react';
-import { ApiEndpoints, ClientID, CURRENT_ROUTE, Logs, ModalMessages, SocketClientToServerEvents, SocketGeneralEvents, SocketServerToClientEvents } from '../helpers/constants/constants';
-import { User, GoogleAuth, GoogleAuthScopes } from 'react-native-google-auth';
+import { ApiEndpoints, Logs, SocketServerToClientEvents } from '../helpers/constants/constants';
+import { GoogleAuth } from 'react-native-google-auth';
 
 // --- Components ---
 import Login from './screens/Login';
@@ -9,7 +9,6 @@ import Main from './screens/Main';
 import Splash from "./screens/Splash";
 import GeneralModal from './Modal';
 import { initialWindowMetrics, SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { Button } from 'react-native';
 
 
 // --- Interfaces ---

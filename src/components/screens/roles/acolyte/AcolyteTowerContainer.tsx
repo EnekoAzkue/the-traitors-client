@@ -6,8 +6,6 @@ import { Text, View } from "react-native";
 import ScreenContainer from "../../ScreenContainer";
 import IconButton from "../../IconButton";
 import { AcolyteInitialScreenContext, UserContext } from "../../../../helpers/contexts/contexts";
-import styled from "styled-components/native";
-import DropShadow from "react-native-drop-shadow";
 import { Dimensions } from 'react-native';
 
 const { width, height } = Dimensions.get('window');

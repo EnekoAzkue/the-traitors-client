@@ -3,7 +3,6 @@ import React from "react";
 import { ButtonProps } from "../helpers/interfaces/ButtonInterfaces";
 import { ImageBackground } from "react-native";
 import { Images } from "../helpers/constants/constants";
-import { Text } from "react-native";
 import { Dimensions } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
