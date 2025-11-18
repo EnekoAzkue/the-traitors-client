@@ -8,6 +8,9 @@ import IconButton from "../../IconButton";
 import { AcolyteInitialScreenContext, UserContext } from "../../../../helpers/contexts/contexts";
 import styled from "styled-components/native";
 import DropShadow from "react-native-drop-shadow";
+import { Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
 
 
 
@@ -36,7 +39,7 @@ export default function AcolyteScreenContainer({ backgroundImage, children }: Pr
     <View>
       <ScreenContainer backgroundImg={backgroundImage}>
         {user.isInside || user.insideTower ? (null) : 
-        <IconButton width={100} height={50} hasBrightness={true} backgroundImage={Images.BACK_ARROW} buttonOnPress={() => setInitialScreen('SchoolMap')} xPos={20} yPos={20} hasBorder={false} />
+        <IconButton width={width * 0.3} height={height * 0.07} hasBrightness={true} backgroundImage={Images.BACK_ARROW} buttonOnPress={() => setInitialScreen('SchoolMap')} xPos={20} yPos={20} hasBorder={false} />
         }
         {children}
       </ScreenContainer>

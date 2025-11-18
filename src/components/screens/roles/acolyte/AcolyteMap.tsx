@@ -3,6 +3,9 @@ import { Animated, Image, ImageBackground, Text, StyleSheet, View } from "react-
 import { Images, Screens } from "../../../../helpers/constants/constants";
 import IconButton from "../../IconButton";
 import { AcolyteInitialScreenContext } from "../../../../helpers/contexts/contexts";
+import { Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
 
 type InitialScreen = Screens.SCHOOL_MAP;
 
@@ -42,19 +45,19 @@ export default function AcolyteMap() {
     >
       {/* Botones del mapa */}
       <IconButton
-        width={40}
-        height={40}
-        xPos={270}
-        yPos={220}
+        width={width * 0.1}
+        height={height * 0.05}
+        xPos={width * 0.65}
+        yPos={height * 0.27}
         hasBorder={true}
         backgroundImage={Images.TOWER_ICON}
         buttonOnPress={selectInitialTowerScreen}
       />
       <IconButton
-        width={40}
-        height={40}
-        xPos={130}
-        yPos={290}
+        width={width * 0.1}
+        height={height * 0.05}
+        xPos={width * 0.33}
+        yPos={height * 0.35}
         hasBorder={true}
         backgroundImage={Images.HOME_ICON}
         buttonOnPress={selectInitialHomeScreen}
