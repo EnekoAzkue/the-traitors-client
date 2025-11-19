@@ -31,15 +31,17 @@ function RootNavigation({ initialRouteScreen }: any) {
 
   const userContext = useContext(UserContext);
 
-  if (!userContext) return
+  if (!userContext) return;
 
   const [user] = userContext;
 
   const [screen, setScreen] = useState<string>('')
 
   const screenContext = useContext(AcolyteInitialScreenContext);
-  if(!screenContext) return
-  const [initialScreen, setInitialScreen] = screenContext 
+
+  if(!screenContext) return;
+  // Para renderizar el componente 
+  const [initialScreen, setInitialScreen] = screenContext;
   
   const home = () => {
     setScreen('home')
@@ -60,10 +62,12 @@ function RootNavigation({ initialRouteScreen }: any) {
     setScreen('tower')
     setInitialScreen(Screens.ACOLYTE_TOWER)
   }
-  
+      
   useEffect(() => {
+    console.log(`SCREEN HAS CHANGED, CURRENTLY IS: __${screen}__`);
     if(screen === 'tower' ) {
-      console.log('set screen to tower')
+
+      console.log('set screen to tower');
       socket.emit(SocketClientToServerEvents.UPDATE_INTOWER, user.email, true)
     } else {
       socket.emit(SocketClientToServerEvents.UPDATE_INTOWER, user.email, false)

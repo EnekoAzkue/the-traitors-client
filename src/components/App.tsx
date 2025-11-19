@@ -75,6 +75,8 @@ function App() {
     // Initial acolytes JSON for app state 
     getAcolytes();
 
+    
+
   }, []);
 
   const updateUserStateWithPushToken = async () => {

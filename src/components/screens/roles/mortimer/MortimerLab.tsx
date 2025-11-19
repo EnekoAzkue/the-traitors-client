@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { View, Text } from "react-native";
-import { Images, navigationTabMarginBottomForScreens } from "../../../../helpers/constants/constants";
+import { Images } from "../../../../helpers/constants/constants";
 import ScreenContainer from "../../ScreenContainer";
 import styled from "styled-components/native";
 import AcolyteLabRegister from "./AcolyteLabRegister";

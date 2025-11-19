@@ -132,6 +132,11 @@ enum SocketClientToServerEvents {
   UPDATE_INTOWER = 'update inTower',
 }
 
+enum SocketClientToServerEventsForTesting {
+  GET_FCM_MESSAGE = "test get fcm message",
+
+}
+
 export const navigationTabMarginBottomForScreens = 800;
 
-export { ModalMessages, ApiEndpoints, ClientID, Logs, Images, Screens, Routes, Roles, Domains, SocketClientToServerEvents, SocketServerToClientEvents, SocketGeneralEvents};
+export { ModalMessages, ApiEndpoints, ClientID, Logs, Images, Screens, Routes, Roles, Domains, SocketClientToServerEvents, SocketServerToClientEvents, SocketClientToServerEventsForTesting, SocketGeneralEvents};

@@ -1,5 +1,6 @@
 import {
   SocketClientToServerEvents,
+  SocketClientToServerEventsForTesting,
   SocketServerToClientEvents,
 } from '../constants/constants';
 
@@ -32,6 +33,10 @@ interface ClientToServerEvents {
   [SocketClientToServerEvents.ACCESS_TO_EXIT_FROM_LAB]: (acolyteEmail: string) => void;
   [SocketClientToServerEvents.UPDATE_USER]: (acolyteEmail: string, changes: any) => void;
   [SocketClientToServerEvents.UPDATE_INTOWER]: (userEmail: string, inTower: boolean) => void;
+
+  // TEST ONES
+  [SocketClientToServerEventsForTesting.GET_FCM_MESSAGE]: (getSuccesfully: boolean) => void;
+
 }
 
 export type {
