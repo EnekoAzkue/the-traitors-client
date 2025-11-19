@@ -15,7 +15,7 @@ import { initialWindowMetrics, SafeAreaProvider, SafeAreaView } from 'react-nati
 import KaotikaPlayer from '../helpers/interfaces/KaotikaPlayer';
 
 // --- Contexts ---
-import { ModalContext, UserContext, AllAcolytesContext, AcolyteInitialScreenContext, ScrollContext } from '../helpers/contexts/contexts';
+import { ModalContext, UserContext, AllAcolytesContext, AcolyteInitialScreenContext, ScrollContext, MortimerToastTextContext } from '../helpers/contexts/contexts';
 
 
 // --- Functions & Hooks ---
@@ -41,6 +41,8 @@ function App() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [acolyteInitialScreen, setacolyteInitialScreen] = useState<string | null>(null);
   const [scrollActive, setScrollActive] = useState(true);
+
+  const [mortimerToastText, setMortimerToastText] = useState<string>(''); // Si es '' el toast no aparece o se borra.
 
 
   const userHandler = (newUser: KaotikaPlayer | null) => {
@@ -70,7 +72,7 @@ function App() {
     requestUserPermission();
 
     // Listener for FCM --> listen for FCM messages 
-    callMessageReceiverListener();
+    callMessageReceiverListener(setMortimerToastText);
 
     // Initial acolytes JSON for app state 
     getAcolytes();
@@ -278,9 +280,11 @@ return (
                 <AcolyteInitialScreenContext.Provider value={[acolyteInitialScreen, setacolyteInitialScreen]}>
                   <AllAcolytesContext.Provider value={[allAcolytes, setAllAcolytes]}>
                     <UserContext.Provider value={[user, setUser]}>
-                      <ModalContext value={setModalMessage}>
-                        <Main />
-                      </ModalContext>
+                      <MortimerToastTextContext.Provider value={[mortimerToastText, setMortimerToastText]}>
+                        <ModalContext value={setModalMessage}>
+                          <Main />
+                        </ModalContext>
+                      </MortimerToastTextContext.Provider> 
                     </UserContext.Provider>
                   </AllAcolytesContext.Provider>
                 </AcolyteInitialScreenContext.Provider>

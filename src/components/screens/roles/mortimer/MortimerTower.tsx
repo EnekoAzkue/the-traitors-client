@@ -1,23 +1,29 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { View, Text } from "react-native";
 import { Images, navigationTabMarginBottomForScreens } from "../../../../helpers/constants/constants";
 import ScreenContainer from "../../ScreenContainer";
 import styled from "styled-components/native";
 import KaotikaPlayer from "../../../../helpers/interfaces/KaotikaPlayer";
-import { AllAcolytesContext } from "../../../../helpers/contexts/contexts";
+import { AllAcolytesContext, MortimerToastTextContext } from "../../../../helpers/contexts/contexts";
 import AcolyteTowerRegister from "./AcolyteTowerRegister";
+import Toast from "../../../Toast";
 
 function MortimerTower() {
 
   const allAcolytesContext = useContext(AllAcolytesContext);
+  const mortimerToastTextContext = useContext(MortimerToastTextContext);
 
   if (!allAcolytesContext) return <Text>User context is null at Home Component!!!"</Text>;
+  if (!mortimerToastTextContext) return; 
 
   const [acolytes, setAcolytes] = allAcolytesContext;
+  const [mortimerToastText, setMortimerToastText] = mortimerToastTextContext;
 
   const acolytesHandler = (acolytesArray: KaotikaPlayer[] | undefined) => {
     setAcolytes(acolytesArray);
   };
+
+
 
   const ButtonStyledText = styled.Text`
     color: white;
@@ -61,11 +67,18 @@ function MortimerTower() {
     margin : 5px;
   `;
 
+  useEffect(() => {
+    if(mortimerToastText){
+      setTimeout( () => {setMortimerToastText("")}, 3000);
+    }
+  }, [mortimerToastText]);
+
 
   return (
 
     <View style={{ marginBottom: navigationTabMarginBottomForScreens }}>
       <ScreenContainer backgroundImg={Images.MORTIMER_TOWER}>
+        { (mortimerToastText) ? <Toast toastText={mortimerToastText}/> : <></>}
         <View style={{ marginTop: 20, height: 680, alignItems: 'center', justifyContent: 'center' }}>
           {
             <>

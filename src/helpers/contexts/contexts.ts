@@ -12,3 +12,6 @@ export const AllAcolytesContext = createContext<[KaotikaPlayer[] | undefined, (n
 export const AcolyteInitialScreenContext = createContext<[string | null, (newScreen: string | null) => void] | null>(null);
 
 export const ScrollContext = createContext<[boolean, (value: boolean) => void] | null>(null);
+
+// MortimerToastText context 
+export const MortimerToastTextContext = createContext<[string, (newToastText: string ) => void] | null>(null);

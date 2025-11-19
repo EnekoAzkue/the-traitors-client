@@ -1,7 +1,6 @@
 import messaging from '@react-native-firebase/messaging';
 
   
-  // TODO: Pasar la función a la carpeta /src/helpers/firebase_push_notification
   export const requestUserPermission = async () => {
     console.log('Request User Permission');
     const authStatus = await messaging().requestPermission();
@@ -14,15 +13,14 @@ import messaging from '@react-native-firebase/messaging';
     }
   };
 
-  // TODO: Pasar la función a la carpeta utils/firebase_push_notification
-  export const callMessageReceiverListener = () => {
+  export const callMessageReceiverListener = (setMoritmerToastText: Function) => {
     console.log("Now app listens ");
     messaging().onMessage(async remoteMessage => {
       console.log('Notification received', remoteMessage);
+      setMoritmerToastText(remoteMessage.data?.body);
     });
   };
 
-  // TODO: Pasar la función a la carpeta utils/firebase_push_notification
   export const getFCMToken = async () => {
     const token = await messaging().getToken();
     console.log('Device FCM Token:', token);
