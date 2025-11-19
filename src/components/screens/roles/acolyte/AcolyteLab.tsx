@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { View } from "react-native";
-import { Images,  } from "../../../../helpers/constants/constants";
+import { Images  } from "../../../../helpers/constants/constants";
 import QRCodeContainer from "../../QR";
 import { UserContext } from "../../../../helpers/contexts/contexts";
 import AcolyteScreenContainer from "./AcolyteScreenContainer";

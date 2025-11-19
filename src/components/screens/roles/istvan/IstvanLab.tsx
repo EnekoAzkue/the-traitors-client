@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 import { StyleSheet } from 'react-native';
-import ScreenContainer from '../../ScreenContainer';
 import { useCameraPermission, Camera, useCameraDevice, useCodeScanner, Code } from 'react-native-vision-camera';
 import { ModalContext } from '../../../../helpers/contexts/contexts';
 import { useNavigation } from '@react-navigation/native';
