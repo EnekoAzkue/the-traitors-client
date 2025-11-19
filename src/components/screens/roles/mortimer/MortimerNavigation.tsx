@@ -8,15 +8,17 @@ import MortimerTower from './MortimerTower';
 import styled from 'styled-components/native';
 import { Images, Screens } from '../../../../helpers/constants/constants';
 import { BlurView } from '@react-native-community/blur';
+import { Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
 
 const Stack = createBottomTabNavigator();
 
-
 const IconImage = styled.Image`
   position: relative;
-  top: 5px;
-  width: 35px;
-  height: 35px;
+  top: ${height * 0.005}px;
+  width: ${width * 0.1}px;
+  height: ${height * 0.06}px;
 `;
 
 function RootNavigation({ initialRouteScreen }: any) {
@@ -37,7 +39,7 @@ function RootNavigation({ initialRouteScreen }: any) {
           position: 'absolute',
           overflow: 'hidden',
           borderTopWidth: 0,
-          boxShadow: '0 -7.5px 5px rgba(255 255 255 / 0.1)',
+          boxShadow: `0 -${height * 0.01}px ${height * 0.01}px rgba(255 255 255 / 0.1)`,
         },
         tabBarIcon: ({ focused, color, size }) => {
 

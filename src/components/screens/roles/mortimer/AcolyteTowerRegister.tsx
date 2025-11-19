@@ -16,7 +16,6 @@ import { SocketServerToClientEvents } from "../../../../helpers/constants/consta
 
 const AcolyteTowerRegister = ({ acolyte }: AcolyteTowerRegisterProps) => {
   const [insideTower, setInsideTower] = useState(acolyte.insideTower);
-
   const ComponetContainer = styled.View`
   border: 1px solid rgba(47, 0, 75, 1);
   border-radius: 6px;

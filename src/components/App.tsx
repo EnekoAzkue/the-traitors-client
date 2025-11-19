@@ -118,7 +118,6 @@ function App() {
         if (acolyte._id === updatedAcolyte._id) return updatedAcolyte;
         return acolyte;
       });
-
       setAllAcolytes(newAcolytes);
     });
 
@@ -133,8 +132,10 @@ function App() {
   
     return (() => {
     // TODO: HERE (inside return) socketCleanup --> . Disconnect    . removeAllListeners 
-
+    socket.off(SocketServerToClientEvents.SEND_UPDATED_PLAYER_TO_MORTIMER);
+    socket.off(SocketServerToClientEvents.UPDATE_USER_IN_CLIENT);
   });
+
 }, [user]);
 
 

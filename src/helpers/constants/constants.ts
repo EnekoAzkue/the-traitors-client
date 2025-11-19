@@ -112,7 +112,7 @@ enum Routes {
 }
 
 
-export const CURRENT_DOMAIN = Domains.LOCALHOST;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN) 
+export const CURRENT_DOMAIN = Domains.RENDER;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN) 
 export const CURRENT_ROUTE  = `${CURRENT_DOMAIN}player/`;
 
 
@@ -132,6 +132,7 @@ enum SocketServerToClientEvents {
   ACOLYTE_INSIDE_OUTSIDE_LAB = 'acolyte inside/outside lab',
   SEND_UPDATED_PLAYER_TO_MORTIMER = "send updated player to mortimer",
   UPDATE_USER_IN_CLIENT = "update user in client",
+  ACOLYTE_INSIDE_OUTSIDE_TOWER = 'acolyte inside/outside tower'
 }
 
 enum SocketClientToServerEvents {
