@@ -1,20 +1,17 @@
 import React from "react";
 import { View } from "react-native";
-import ScreenContainer from "../../ScreenContainer";
 import { Images } from "../../../../helpers/constants/constants";
+import AcolyteScreenContainer from "./AcolyteScreenContainer";
 
-function MortimerHome() {
+function AcolyteHome() {
 
   return (
-    <ScreenContainer backgroundImg={Images.MORTIMER_HOME}>
+    <AcolyteScreenContainer backgroundImage={Images.HALL_OF_SAGES} >
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       </View>
-    </ScreenContainer>
-
+    </AcolyteScreenContainer>
   );
 }
 
 
-
-
-export default MortimerHome;
+export default AcolyteHome;

@@ -1,16 +1,19 @@
-import React from "react";
-import { View, Text } from "react-native";
-import ScreenContainer from "../../ScreenContainer";
+import React, { useState } from "react";
+import { View } from "react-native";
 import Logout from "../../Logout";
 import { Images } from "../../../../helpers/constants/constants";
+import AcolyteScreenContainer from "./AcolyteScreenContainer";
 
 
 function AcolyteSettings() {
+    const [backgroundImg, setBackgroundImg] = useState(Images.ACOLYTE_SETTINGS);
 
   return (
-    <ScreenContainer backgroundImg={Images.ACOLYTE_SETTINGS}>
+    <AcolyteScreenContainer backgroundImage={backgroundImg}>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Logout />
-    </ScreenContainer>
+      </View>
+    </AcolyteScreenContainer>
   );
 }
 

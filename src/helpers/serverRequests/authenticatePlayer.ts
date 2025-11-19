@@ -1,4 +1,4 @@
-import { CURRENT_ROUTE, Routes } from "../constants/constants";
+import { CURRENT_ROUTE } from "../constants/constants";
 import { AuthenticatePlayerReturnValue } from "../interfaces/serverRequestInterfaces/auth.helpers";
 
 export async function authenticatePlayer(endpoint: string, idToken: string): Promise<AuthenticatePlayerReturnValue> {

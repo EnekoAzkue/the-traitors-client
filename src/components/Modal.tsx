@@ -3,6 +3,9 @@ import { ModalProps } from '../helpers/interfaces/Modal';
 import styled from 'styled-components/native';
 import React from 'react';
 import { Images } from '../helpers/constants/constants';
+import { Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
 
 const Container = styled.View`
   height: 100%;
@@ -11,40 +14,42 @@ const Container = styled.View`
 `;
 
 const BackgroundImage = styled.ImageBackground`
-  width: 325px;
-  height: 436px;
+    width: ${width * 0.7}px;
+    height: ${height}px;
 `;
 
 const Content = styled.View`
   height: 80%;
   justify-content: center;
   align-items: center;
-  row-gap: 18.5px;
-  padding-block-start: 82.5px;
+  row-gap: ${height * 0.02}px;
+  padding-block-start: ${height * 0.1}px;
 `;
 
 const Message = styled.Text`
-  padding-inline: 90px;
+  padding-inline: ${width * 0.15}px;
   text-align: center;
   text-shadow: 0 0 2.5px rgb(0 0 0 / 1);
   fontFamily: 'KochAltschrift';
 
-  fontSize: 22px;
+  font-size: ${Math.min(width * 0.05, 22)}px;
 `;
 
 const DismissButton = styled.Pressable`
   border-radius: 10px;
-  padding: 10px 30px;
+  padding: 10px 40px;
   filter: drop-shadow(0 0 5px rgb(0 0 0));
   background-color: rgb(0 0 0 / 0.65);
   position: absolute;
-  margin-top: 90%
+  margin-top: ${height * 0.4}px
 `;
 
 const DismissButtonText = styled(Message)`
   padding: 0;
   color: rgb(177 164 144);
   fontFamily: 'KochAltschrift';
+  font-size: ${Math.min(width * 0.06, 28)}px;
+
 `;
 
 const GeneralModal = ({ message, setMessage }: ModalProps) => {

@@ -3,8 +3,11 @@ import { Animated, Image, ImageBackground, Text, StyleSheet, View } from "react-
 import { Images, Screens } from "../../../../helpers/constants/constants";
 import IconButton from "../../IconButton";
 import { AcolyteInitialScreenContext } from "../../../../helpers/contexts/contexts";
+import { Dimensions } from 'react-native';
 
-type InitialScreen = Screens.ACOLYTE_HOME | Screens.ACOLYTE_LAB;
+const { width, height } = Dimensions.get('window');
+
+type InitialScreen = Screens.SCHOOL_MAP;
 
 export default function AcolyteMap() {
   const initialRouterScreen = useContext(AcolyteInitialScreenContext);
@@ -13,11 +16,7 @@ export default function AcolyteMap() {
 
   const [initialScreen, setInitialScreen] = initialRouterScreen;
 
-  const selectInitialHomeScreen = () => setInitialScreen(Screens.ACOLYTE_HOME);
-  const selectInitialLabScreen = () => {
-    setInitialScreen(Screens.ACOLYTE_LAB);
-    console.log("CHANGED TO LAB");
-  };
+  const selectInitialHomeScreen = () => setInitialScreen(Screens.SCHOOL_MAP);
   const selectInitialTowerScreen = () => setInitialScreen(Screens.ACOLYTE_TOWER);
 
   const cloudOpacity = useRef(new Animated.Value(1)).current;
@@ -46,32 +45,24 @@ export default function AcolyteMap() {
     >
       {/* Botones del mapa */}
       <IconButton
-        width={40}
-        height={40}
-        xPos={270}
-        yPos={220}
+        width={width * 0.1}
+        height={height * 0.05}
+        xPos={width * 0.65}
+        yPos={height * 0.27}
         hasBorder={true}
         backgroundImage={Images.TOWER_ICON}
         buttonOnPress={selectInitialTowerScreen}
       />
       <IconButton
-        width={40}
-        height={40}
-        xPos={130}
-        yPos={290}
+        width={width * 0.1}
+        height={height * 0.05}
+        xPos={width * 0.33}
+        yPos={height * 0.35}
         hasBorder={true}
         backgroundImage={Images.HOME_ICON}
         buttonOnPress={selectInitialHomeScreen}
       />
-      <IconButton
-        width={40}
-        height={40}
-        xPos={160}
-        yPos={480}
-        hasBorder={true}
-        backgroundImage={Images.LAB_ICON}
-        buttonOnPress={selectInitialLabScreen}
-      />
+
 
       {/* Capa animada de nubes */}
       <Animated.View

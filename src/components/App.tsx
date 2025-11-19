@@ -1,7 +1,7 @@
 // --- Constants ---
 import React from 'react';
-import { ApiEndpoints, ClientID, CURRENT_ROUTE, Logs, ModalMessages, SocketClientToServerEvents, SocketGeneralEvents, SocketServerToClientEvents } from '../helpers/constants/constants';
-import { User, GoogleAuth, GoogleAuthScopes } from 'react-native-google-auth';
+import { ApiEndpoints, Logs, SocketServerToClientEvents } from '../helpers/constants/constants';
+import { GoogleAuth } from 'react-native-google-auth';
 
 // --- Components ---
 import Login from './screens/Login';
@@ -9,14 +9,13 @@ import Main from './screens/Main';
 import Splash from "./screens/Splash";
 import GeneralModal from './Modal';
 import { initialWindowMetrics, SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { Button } from 'react-native';
 
 
 // --- Interfaces ---
 import KaotikaPlayer from '../helpers/interfaces/KaotikaPlayer';
 
 // --- Contexts ---
-import { ModalContext, UserContext, AllAcolytesContext, AcolyteInitialScreenContext } from '../helpers/contexts/contexts';
+import { ModalContext, UserContext, AllAcolytesContext, AcolyteInitialScreenContext, ScrollContext } from '../helpers/contexts/contexts';
 
 
 // --- Functions & Hooks ---
@@ -41,6 +40,7 @@ function App() {
   const [modalMessage, setModalMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [acolyteInitialScreen, setacolyteInitialScreen] = useState<string | null>(null);
+  const [scrollActive, setScrollActive] = useState(true);
 
 
   const userHandler = (newUser: KaotikaPlayer | null) => {
@@ -270,25 +270,27 @@ return (
             <>
               <Login setUser={setUser} setModalMessage={setModalMessage} setIsLoading={setIsLoading} />
 
-              {isLoading ? <CircleSpinner /> : null}
-            </>
+                {isLoading ? <CircleSpinner /> : null}
+              </>
+            ) : (
+              <ScrollContext.Provider value={[scrollActive, setScrollActive]}>
+                <AcolyteInitialScreenContext.Provider value={[acolyteInitialScreen, setacolyteInitialScreen]}>
+                  <AllAcolytesContext.Provider value={[allAcolytes, setAllAcolytes]}>
+                    <UserContext.Provider value={[user, setUser]}>
+                      <ModalContext value={setModalMessage}>
+                        <Main />
+                      </ModalContext>
+                    </UserContext.Provider>
+                  </AllAcolytesContext.Provider>
+                </AcolyteInitialScreenContext.Provider>
+              </ScrollContext.Provider>
+            )
           ) : (
-            <AcolyteInitialScreenContext.Provider value={[acolyteInitialScreen, setacolyteInitialScreen]}>
-              <AllAcolytesContext.Provider value={[allAcolytes, setAllAcolytes]}>
-                <UserContext.Provider value={[user, setUser]}>
-                  <ModalContext value={setModalMessage}>
-                    <Main />
-                  </ModalContext>
-                </UserContext.Provider>
-              </AllAcolytesContext.Provider>
-            </AcolyteInitialScreenContext.Provider>
-          )
-        ) : (
-          <Splash />
-        )}
-    </StyledView>
-  </SafeAreaProvider>
-);
+            <Splash />
+          )}
+      </StyledView>
+    </SafeAreaProvider>
+  );
 
 }
 

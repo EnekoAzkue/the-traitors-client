@@ -16,7 +16,7 @@ type AcolyteScreenContainer = {
   backgroundImage: Images,
 };
 
-export default function AcolyteScreenContainer({ backgroundImage, children }: PropsWithChildren<AcolyteScreenContainer>) {
+export default function AcolyteTowerContainer({ backgroundImage, children }: PropsWithChildren<AcolyteScreenContainer>) {
 
     const userContext = useContext(UserContext);
   
@@ -37,7 +37,7 @@ export default function AcolyteScreenContainer({ backgroundImage, children }: Pr
     <View>
       <ScreenContainer backgroundImg={backgroundImage}>
         {user.isInside || user.insideTower ? (null) : 
-        <IconButton width={width * 0.3} height={height * 0.07} hasBrightness={true} backgroundImage={Images.BACK_ARROW} buttonOnPress={() => setInitialScreen('SchoolMap')} xPos={20} yPos={20} hasBorder={false} />
+        <IconButton width={width * 0.3} height={height * 0.07} hasBrightness={true} backgroundImage={Images.BACK_ARROW} buttonOnPress={() => setInitialScreen(null)} xPos={20} yPos={20} hasBorder={false} />
         }
         {children}
       </ScreenContainer>

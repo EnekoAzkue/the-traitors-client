@@ -1,6 +1,4 @@
 import React from "react";
-import { Platform } from "react-native";
-import { View } from "react-native";
 import DropShadow from "react-native-drop-shadow";
 import styled from "styled-components/native";
 

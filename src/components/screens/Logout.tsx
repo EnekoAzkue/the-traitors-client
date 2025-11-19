@@ -1,13 +1,9 @@
-import { GoogleAuth } from 'react-native-google-auth';
 import styled from 'styled-components/native';
 import { useContext } from 'react';
 import { AcolyteInitialScreenContext, ModalContext, UserContext } from '../../helpers/contexts/contexts';
 import Button from '../Button';
 import React from 'react';
 
-
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { GoogleAuthProvider, getAuth, signInWithCredential } from '@react-native-firebase/auth';
 import { signOut } from '../../helpers/googleSignInUtils/googleSignInUtils';
 import { performSocketCleanUp } from '../../helpers/socket/socket';
 
@@ -15,7 +11,7 @@ import { performSocketCleanUp } from '../../helpers/socket/socket';
 const Container = styled.View`
   justify-content: center;
   align-items: center;
-  height: 520px;
+  height: 100%;
 `;
 
 const Logout = () => {
