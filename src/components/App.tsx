@@ -103,7 +103,6 @@ function App() {
 
 
         // Actualizar el estado user de la aplicación para que contenga el tokenID que concede permisos de FCM 
-        if (!user?.pushToken) {
           await updateUserStateWithPushToken();
 
           // Inicializar la conexión con SocketIO.
@@ -112,7 +111,7 @@ function App() {
           if (user?.email) {
             initSocket(user);
           }
-        }
+        
       }
 
       initializeSocketConnection();
@@ -168,14 +167,12 @@ function App() {
       const currentUser = GoogleSignin.getCurrentUser();
       console.log('THE CURRENT USER IS: ', currentUser);
       const currentUserIdToken = (currentUser?.idToken) ? currentUser.idToken : '';
-      console.log('TOKEN OF CURRENT USER IS: ', currentUserIdToken);
-      console.log('Tipe of token value: ', typeof currentUserIdToken);
-
+      
       const userAuthResponse: AuthenticatePlayerReturnValue = await authenticatePlayer(ApiEndpoints.LOGGED_IN, currentUserIdToken);
-
+      
       console.log('USER AUTH RESPONSE: ');
       console.log(userAuthResponse);
-
+      
       if (userAuthResponse.statusCode === 200 || userAuthResponse.statusCode === 201) {
         return userAuthResponse.player;
       } else {

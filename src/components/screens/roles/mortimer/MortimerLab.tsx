@@ -6,6 +6,9 @@ import styled from "styled-components/native";
 import AcolyteLabRegister from "./AcolyteLabRegister";
 import KaotikaPlayer from "../../../../helpers/interfaces/KaotikaPlayer";
 import { AllAcolytesContext } from "../../../../helpers/contexts/contexts";
+import { Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
 
 function MortimerLab() {
 
@@ -19,24 +22,16 @@ function MortimerLab() {
     setAcolytes(acolytesArray);
   };
 
-  const ButtonStyledText = styled.Text`
-    color: white;
-    font-size: 25px;
-    position: relative;
-    top: 38%;
-    fontFamily: 'KochAltschrift';
-  `;
 
   const AcolytesRegisterScreenContainer = styled.View`
     alignItems: center; 
     flex: 1; 
-    width: 100%;
+    width: ${width * 0.25}%;
   `;
-  // El flex: 1 hará que ocupe todo el espacio disponible y en  AcolytesRegisterListContainer tambien le permitirá al scrollView expandirse
 
   const AcolytesRegisterListContainer = styled.ScrollView`
     flex: 1;
-    width: 90%;
+    width: ${width * 0.215}%;
 
     border: 1px solid rgba(223, 107, 40, 1);
     border-radius: 8px;
@@ -48,24 +43,27 @@ function MortimerLab() {
   const TitleContainer = styled.View`
     border: 1px solid rgba(243, 137, 76, 1);
     border-radius: 8px;
-    margin: 3px;
-    width: 90%;
+    margin: ${height * 0.003}%;
+    width: ${width * 0.22}%;
     background: rgba(0,0,0,1 );
   `;
+
+  const baseFont = width * 0.065; 
+
 
   const RegisterTitle = styled.Text`
     text-align: center;
     color: white;
-    font-size: 25px;
+    font-size: ${baseFont}px;
     fontFamily: 'KochAltschrift';
-    margin : 5px;
+    margin : ${height * 0.001}%;
   `;
 
 
   return (
 
     <ScreenContainer backgroundImg={Images.MORTIMER_LAB}>
-      <View style={{ marginTop: 20, height: 680, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={{ marginTop: 20, height: height * 0.9, alignItems: 'center', justifyContent: 'center' }}>
         {
           <>
             <TitleContainer>
