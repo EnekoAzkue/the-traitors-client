@@ -17,6 +17,7 @@ import messaging from '@react-native-firebase/messaging';
     console.log("Now app listens ");
     messaging().onMessage(async remoteMessage => {
       console.log('Notification received', remoteMessage);
+
       setMoritmerToastText(remoteMessage.notification?.body);
     });
   };

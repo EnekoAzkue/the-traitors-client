@@ -138,6 +138,7 @@ function App() {
       });
 
       socket.on(SocketServerToClientEvents.FOUND_SCROLL, () => {
+        console.log("Inside FOUND_SCROLL event");
         setScrollModalMessage('An acolyte has found the scroll!');
         setScrollActive(false);
         socket.emit(SocketClientToServerEvents.SCROLL_VANISH, {notification : { title: "Pergamino desvanecido", body: "Se os ha convocado al Hall of Sages" }});
@@ -149,6 +150,7 @@ function App() {
       // TODO: HERE (inside return) socketCleanup --> . Disconnect    . removeAllListeners 
       socket.off(SocketServerToClientEvents.SEND_UPDATED_PLAYER_TO_MORTIMER);
       socket.off(SocketServerToClientEvents.UPDATE_USER_IN_CLIENT);
+      socket.off(SocketServerToClientEvents.FOUND_SCROLL);
     });
 
   }, [user]);

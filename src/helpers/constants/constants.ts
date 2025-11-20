@@ -142,9 +142,11 @@ enum SocketClientToServerEvents {
   CONNECTION_CLOSE = 'connection close',
   UPDATE_USER = 'update user in DB',
   UPDATE_INTOWER = 'update inTower',
-  SEND_NOTIFICATION_TO_MORTIMER = "send notification to mortimer",
+  SEND_NOTIFICATION_TO_MORTIMER = "send notification to mortimer",
   SCROLL_VANISH = 'scroll vanish',
+  FOUND_SCROLL = 'found scroll',
 }
+
 
 enum SocketClientToServerEventsForTesting {
   GET_FCM_MESSAGE = "test get fcm message",
