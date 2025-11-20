@@ -15,7 +15,7 @@ import { initialWindowMetrics, SafeAreaProvider, SafeAreaView } from 'react-nati
 import KaotikaPlayer from '../helpers/interfaces/KaotikaPlayer';
 
 // --- Contexts ---
-import { ModalContext, UserContext, AllAcolytesContext, AcolyteInitialScreenContext, ScrollContext, MortimerToastTextContext, MortimerInitialScreenContext } from '../helpers/contexts/contexts';
+import { ModalContext, UserContext, AllAcolytesContext, AcolyteInitialScreenContext, ScrollContext, MortimerToastTextContext, MortimerInitialScreenContext, AcolyteToastTextContext } from '../helpers/contexts/contexts';
 
 
 // --- Functions & Hooks ---
@@ -33,6 +33,7 @@ import getAllAcolytes from '../helpers/serverRequests/getAllAcolytes';
 import { callMessageReceiverListener, getFCMToken, requestUserPermission } from '../helpers/firebaseCloudMessages/pushNotifications';
 import Toast from './Toast';
 import ScrollModal from './ScrollModal';
+import AcolyteToast from './screens/roles/acolyte/AcolyteToast';
 
 function App() {
 
@@ -46,6 +47,7 @@ function App() {
   const [mortimerInitialScreen, setMortimerInitialScreen] = useState<string>('MortimerHome');
   const [scrollActive, setScrollActive] = useState(true);
 
+  const [acolyteToastText, setAcolyteToastText] = useState<string>('');
   const [mortimerToastText, setMortimerToastText] = useState<string>('');
 
   useEffect(() => {
@@ -79,7 +81,7 @@ function App() {
     requestUserPermission();
 
     // Listener for FCM --> listen for FCM messages 
-    callMessageReceiverListener(setMortimerToastText);
+    callMessageReceiverListener(setMortimerToastText, setAcolyteToastText);
 
     // Initial acolytes JSON for app state 
     getAcolytes();
@@ -136,17 +138,21 @@ function App() {
         setUser(updatedClient);
       });
 
-      socket.on(SocketServerToClientEvents.FOUND_SCROLL, () => {
+      socket.on(SocketServerToClientEvents.RECIEVED_FOUND_SCROLL, () => {
         console.log("Inside FOUND_SCROLL event");
         setScrollModalMessage('An acolyte has found the scroll!');
       });
+
     }
+
+
+
 
     return (() => {
       // TODO: HERE (inside return) socketCleanup --> . Disconnect    . removeAllListeners 
       socket.off(SocketServerToClientEvents.SEND_UPDATED_PLAYER_TO_MORTIMER);
       socket.off(SocketServerToClientEvents.UPDATE_USER_IN_CLIENT);
-      socket.off(SocketServerToClientEvents.FOUND_SCROLL);
+      socket.off(SocketServerToClientEvents.RECIEVED_FOUND_SCROLL);
     });
 
   }, [user]);
@@ -294,14 +300,19 @@ function App() {
                     <AllAcolytesContext.Provider value={[allAcolytes, setAllAcolytes]}>
                       <UserContext.Provider value={[user, setUser]}>
                         <MortimerToastTextContext.Provider value={[mortimerToastText, setMortimerToastText]}>
-                          <MortimerInitialScreenContext.Provider value={[mortimerInitialScreen, setMortimerInitialScreen]}>
-                            <ModalContext value={setModalMessage}>
-                              <Main />
-                              {user?.rol === 'mortimer' &&
-                                <Toast toastText={mortimerToastText} setMortimerToastText={setMortimerToastText} />
-                              }
-                            </ModalContext>
-                          </MortimerInitialScreenContext.Provider>
+                          <AcolyteToastTextContext.Provider value={[acolyteToastText, setAcolyteToastText]}>
+                            <MortimerInitialScreenContext.Provider value={[mortimerInitialScreen, setMortimerInitialScreen]}>
+                              <ModalContext value={setModalMessage}>
+                                <Main />
+                                {user?.rol === 'acolyte' &&
+                                  <AcolyteToast toastText={acolyteToastText} setAcolyteToastText={setAcolyteToastText} />
+                                }
+                                {user?.rol === 'mortimer' &&
+                                  <Toast toastText={mortimerToastText} setMortimerToastText={setMortimerToastText} />
+                                }
+                              </ModalContext>
+                            </MortimerInitialScreenContext.Provider>
+                          </AcolyteToastTextContext.Provider>
                         </MortimerToastTextContext.Provider>
                       </UserContext.Provider>
                     </AllAcolytesContext.Provider>

@@ -15,5 +15,9 @@ export const MortimerInitialScreenContext = createContext<[string, (newScreen: s
 
 export const ScrollContext = createContext<[boolean, (value: boolean) => void] | null>(null);
 
+// AcolyteToastText context
+export const AcolyteToastTextContext = createContext<[string, (newToastText: string ) => void] | null>(null);
+
+
 // MortimerToastText context 
 export const MortimerToastTextContext = createContext<[string, (newToastText: string ) => void] | null>(null);

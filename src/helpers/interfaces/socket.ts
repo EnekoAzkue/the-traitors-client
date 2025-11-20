@@ -18,7 +18,7 @@ interface ServerToClientEvents {
     acolyteData: any,
   ) => void;
 
-  [SocketServerToClientEvents.FOUND_SCROLL]: () => void;
+  [SocketServerToClientEvents.RECIEVED_FOUND_SCROLL]: () => void;
 
   [SocketServerToClientEvents.SCROLL_VANISH]: () => void;
 }
@@ -40,7 +40,7 @@ interface ClientToServerEvents {
   [SocketClientToServerEvents.UPDATE_INTOWER]: (userEmail: string, inTower: boolean) => void;
   [SocketClientToServerEvents.SEND_NOTIFICATION_TO_MORTIMER]: (messsage: {}) => void;
   [SocketClientToServerEvents.SCROLL_VANISH]: (messsage: {}) => void;
-  [SocketClientToServerEvents.FOUND_SCROLL]: ( ) => void;
+  [SocketClientToServerEvents.SEND_FOUND_SCROLL]: ( ) => void;
 
   // TEST ONES
   [SocketClientToServerEventsForTesting.GET_FCM_MESSAGE]: (getSuccesfully: boolean) => void;

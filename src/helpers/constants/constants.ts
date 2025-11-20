@@ -112,7 +112,7 @@ enum Routes {
 }
 
 
-export const CURRENT_DOMAIN = Domains.PORTAINER;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN) 
+export const CURRENT_DOMAIN = Domains.RENDER;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN) 
 export const CURRENT_ROUTE  = `${CURRENT_DOMAIN}player/`;
 
 
@@ -133,7 +133,8 @@ enum SocketServerToClientEvents {
   SEND_UPDATED_PLAYER_TO_MORTIMER = "send updated player to mortimer",
   UPDATE_USER_IN_CLIENT = "update user in client",
   ACOLYTE_INSIDE_OUTSIDE_TOWER = 'acolyte inside/outside tower',
-  FOUND_SCROLL = 'found scroll',
+  RECIEVED_FOUND_SCROLL = 'recieved found scroll',
+  SCROLL_VANISH = 'scroll vanish',
 }
 
 enum SocketClientToServerEvents {
@@ -144,7 +145,7 @@ enum SocketClientToServerEvents {
   UPDATE_INTOWER = 'update inTower',
   SEND_NOTIFICATION_TO_MORTIMER = "send notification to mortimer",
   SCROLL_VANISH = 'scroll vanish',
-  FOUND_SCROLL = 'found scroll',
+  SEND_FOUND_SCROLL = 'send found scroll',
 }
 
 

@@ -13,12 +13,16 @@ import messaging from '@react-native-firebase/messaging';
     }
   };
 
-  export const callMessageReceiverListener = (setMoritmerToastText: Function) => {
+  export const callMessageReceiverListener = (setMoritmerToastText: Function, setAcolyteToastText: Function) => {
     console.log("Now app listens ");
     messaging().onMessage(async remoteMessage => {
       console.log('Notification received', remoteMessage);
+      if(remoteMessage.notification?.title === "Hechizo disuelto" ){
+        setAcolyteToastText(remoteMessage.notification?.body)
+      }else{
+        setMoritmerToastText(remoteMessage.notification?.body);
+      }
 
-      setMoritmerToastText(remoteMessage.notification?.body);
     });
   };
 
