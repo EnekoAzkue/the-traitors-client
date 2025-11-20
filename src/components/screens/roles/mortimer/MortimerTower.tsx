@@ -26,7 +26,9 @@ function MortimerTower() {
   if(!initialScreenContext) return null;
   const [initialScreen, setInitialScreen] = initialScreenContext;
   
-  setInitialScreen("MortimerTower");
+  useEffect(() => {
+    setInitialScreen("MortimerTower");
+  }, []);
 
 
 

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { View } from "react-native";
 import ScreenContainer from "../../ScreenContainer";
 import { Images } from "../../../../helpers/constants/constants";
@@ -9,7 +9,9 @@ function MortimerHome() {
   if(!initialScreenContext) return null;
   const [initialScreen, setInitialScreen] = initialScreenContext;
   
-  setInitialScreen("MortimerHome");
+  useEffect(() => {
+      setInitialScreen("MortimerHome");
+  }, []);
 
   return (
     <ScreenContainer backgroundImg={Images.MORTIMER_HOME}>

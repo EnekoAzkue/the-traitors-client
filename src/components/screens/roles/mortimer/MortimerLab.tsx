@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { View, Text } from "react-native";
 import { Images } from "../../../../helpers/constants/constants";
 import ScreenContainer from "../../ScreenContainer";
@@ -26,7 +26,9 @@ function MortimerLab() {
   if(!initialScreenContext) return null;
   const [initialScreen, setInitialScreen] = initialScreenContext;
   
-  setInitialScreen("MortimerLab");
+  useEffect(() => {
+    setInitialScreen("MortimerLab");
+  }, []);
 
 
   const AcolytesRegisterScreenContainer = styled.View`

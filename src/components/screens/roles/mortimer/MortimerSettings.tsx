@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import ScreenContainer from "../../ScreenContainer";
 import { Images } from "../../../../helpers/constants/constants";
 import Logout from "../../Logout";
@@ -11,7 +11,9 @@ function MortimerSettings() {
   if(!initialScreenContext) return null;
   const [initialScreen, setInitialScreen] = initialScreenContext;
   
-  setInitialScreen("MortimerSettings");
+  useEffect(() => {
+    setInitialScreen("MortimerSettings");
+  }, []);
 
   return (
     <ScreenContainer backgroundImg={Images.MORTIMER_SETTINGS}>

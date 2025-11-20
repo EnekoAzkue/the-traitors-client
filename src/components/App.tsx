@@ -33,6 +33,9 @@ import getAllAcolytes from '../helpers/serverRequests/getAllAcolytes';
 import { callMessageReceiverListener, getFCMToken, requestUserPermission } from '../helpers/firebaseCloudMessages/pushNotifications';
 import Toast from './Toast';
 import ScrollModal from './ScrollModal';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import AcolyteToast from './screens/roles/acolyte/AcolyteToast';
 
 function App() {
@@ -138,8 +141,10 @@ function App() {
         setUser(updatedClient);
       });
 
-      socket.on(SocketServerToClientEvents.RECIEVED_FOUND_SCROLL, () => {
-        console.log("Inside FOUND_SCROLL event");
+      socket.on(SocketServerToClientEvents.RECIEVED_FOUND_SCROLL, async () => {
+        console.log("Inside RECIEVED_FOUND_SCROLL event");
+        await AsyncStorage.setItem('scrollModalMessage', 'An acolyte has found the scroll!');
+
         setScrollModalMessage('An acolyte has found the scroll!');
       });
 
@@ -274,6 +279,27 @@ function App() {
     fontFamily: "KochAltschrift";
   `;
 
+  useEffect(() => {
+    const loadMessage = async () => {
+      console.log("Loading scroll message from AsyncStorage");
+      try {
+        const msg = await AsyncStorage.getItem('scrollModalMessage');
+        console.log("Loaded scroll message:", msg);
+        if (msg) {
+          setScrollModalMessage(msg);
+
+          // Opcional: limpiar el storage después de usarlo
+          await AsyncStorage.removeItem('scrollModalMessage');
+        }
+      } catch (error) {
+        console.error('Error loading scroll message:', error);
+      }
+    };
+
+    loadMessage();
+  }, []);
+
+
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <StyledView>
@@ -281,9 +307,6 @@ function App() {
           message={modalMessage}
           setMessage={setModalMessage}
         />
-        {user?.rol === 'mortimer' &&
-          <ScrollModal message={scrollModalMessage} setMessage={setScrollModalMessage} />
-        }
         {
 
           initialConf ? (
@@ -323,6 +346,9 @@ function App() {
           ) : (
             <Splash />
           )}
+        {user?.rol === 'mortimer' &&
+          <ScrollModal message={scrollModalMessage} setMessage={setScrollModalMessage} />
+        }
       </StyledView>
     </SafeAreaProvider>
   );
