@@ -2,8 +2,9 @@ import { Modal } from 'react-native';
 import { ModalProps } from '../helpers/interfaces/Modal';
 import styled from 'styled-components/native';
 import React from 'react';
-import { Images } from '../helpers/constants/constants';
+import { Images, SocketClientToServerEvents } from '../helpers/constants/constants';
 import { Dimensions } from 'react-native';
+import { socket } from '../helpers/socket/socket';
 
 const { width, height } = Dimensions.get('window');
 
@@ -55,6 +56,7 @@ const AcceptButtonText = styled(Message)`
 const ScrollModal = ({ message, setMessage }: ModalProps) => {
     function accept(): void {
         setMessage('');
+        socket.emit(SocketClientToServerEvents.SCROLL_VANISH, {notification : { title: "Hechizo disuelto", body: "Se os ha convocado en el Hall of Sages, vuelve a la escuela" }});
     }
 
     return (

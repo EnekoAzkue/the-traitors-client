@@ -103,15 +103,15 @@ function App() {
 
 
         // Actualizar el estado user de la aplicación para que contenga el tokenID que concede permisos de FCM 
-          await updateUserStateWithPushToken();
+        await updateUserStateWithPushToken();
 
-          // Inicializar la conexión con SocketIO.
-          console.log("user at socket initialization:");
-          console.log(user);
-          if (user?.email) {
-            initSocket(user);
-          }
-        
+        // Inicializar la conexión con SocketIO.
+        console.log("user at socket initialization:");
+        console.log(user);
+        if (user?.email) {
+          initSocket(user);
+        }
+
       }
 
       initializeSocketConnection();
@@ -139,10 +139,7 @@ function App() {
       socket.on(SocketServerToClientEvents.FOUND_SCROLL, () => {
         console.log("Inside FOUND_SCROLL event");
         setScrollModalMessage('An acolyte has found the scroll!');
-        setScrollActive(false);
-        socket.emit(SocketClientToServerEvents.SCROLL_VANISH, {notification : { title: "Pergamino desvanecido", body: "Se os ha convocado al Hall of Sages" }});
       });
-
     }
 
     return (() => {
@@ -167,12 +164,12 @@ function App() {
       const currentUser = GoogleSignin.getCurrentUser();
       console.log('THE CURRENT USER IS: ', currentUser);
       const currentUserIdToken = (currentUser?.idToken) ? currentUser.idToken : '';
-      
+
       const userAuthResponse: AuthenticatePlayerReturnValue = await authenticatePlayer(ApiEndpoints.LOGGED_IN, currentUserIdToken);
-      
+
       console.log('USER AUTH RESPONSE: ');
       console.log(userAuthResponse);
-      
+
       if (userAuthResponse.statusCode === 200 || userAuthResponse.statusCode === 201) {
         return userAuthResponse.player;
       } else {
@@ -297,12 +294,14 @@ function App() {
                     <AllAcolytesContext.Provider value={[allAcolytes, setAllAcolytes]}>
                       <UserContext.Provider value={[user, setUser]}>
                         <MortimerToastTextContext.Provider value={[mortimerToastText, setMortimerToastText]}>
-                          <ModalContext value={setModalMessage}>
-                            <Main />
-                            {user?.rol === 'mortimer' &&
-                              <Toast toastText={mortimerToastText} setMortimerToastText={setMortimerToastText} />
-                            }
-                          </ModalContext>
+                          <MortimerInitialScreenContext.Provider value={[mortimerInitialScreen, setMortimerInitialScreen]}>
+                            <ModalContext value={setModalMessage}>
+                              <Main />
+                              {user?.rol === 'mortimer' &&
+                                <Toast toastText={mortimerToastText} setMortimerToastText={setMortimerToastText} />
+                              }
+                            </ModalContext>
+                          </MortimerInitialScreenContext.Provider>
                         </MortimerToastTextContext.Provider>
                       </UserContext.Provider>
                     </AllAcolytesContext.Provider>

@@ -43,6 +43,8 @@ function AcolyteTower() {
     console.log("Send to Mortimer the scroll message");
     // Send server a request to server to send a notification to mortimer user
     socket.emit(SocketClientToServerEvents.SEND_NOTIFICATION_TO_MORTIMER, {notification : { title: "Pergamino encontrado", body: "Un acólito ha encontrado el pergamino." }});
+    socket.emit(SocketClientToServerEvents.FOUND_SCROLL);
+    setScrollActive(false);
   }
 
   return (
