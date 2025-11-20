@@ -132,7 +132,8 @@ enum SocketServerToClientEvents {
   ACOLYTE_INSIDE_OUTSIDE_LAB = 'acolyte inside/outside lab',
   SEND_UPDATED_PLAYER_TO_MORTIMER = "send updated player to mortimer",
   UPDATE_USER_IN_CLIENT = "update user in client",
-  ACOLYTE_INSIDE_OUTSIDE_TOWER = 'acolyte inside/outside tower'
+  ACOLYTE_INSIDE_OUTSIDE_TOWER = 'acolyte inside/outside tower',
+  FOUND_SCROLL = 'found scroll',
 }
 
 enum SocketClientToServerEvents {
@@ -141,6 +142,7 @@ enum SocketClientToServerEvents {
   CONNECTION_CLOSE = 'connection close',
   UPDATE_USER = 'update user in DB',
   UPDATE_INTOWER = 'update inTower',
+  SEND_NOTIFICATION_TO_MORTIMER = "send notification to mortimer",
 }
 
 enum SocketClientToServerEventsForTesting {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { use, useEffect } from "react";
 import { Text } from "react-native";
 import { Dimensions } from 'react-native';
 import styled from "styled-components/native";
@@ -8,6 +8,7 @@ const { width, height } = Dimensions.get('window');
 
 interface ToastProps {
   toastText: string;
+  setMortimerToastText: (text: string) => void;
 };
 
 
@@ -28,16 +29,23 @@ const ToastContainer = styled.View`
 
 const StyledText = styled.Text`
   text-align: center;
+  color: white;
 `;
 
 
-export default function Toast({ toastText }: ToastProps) {
+export default function Toast({ toastText, setMortimerToastText }: ToastProps) {
+  useEffect(() => {
+    setTimeout(() => {
+      setMortimerToastText('');
+    }, 3000);
+  }, [toastText]);
+
+
+  if (!toastText || toastText.trim() === '') return null;
 
   return (
-    <>
       <ToastContainer>
         <StyledText>{toastText}</StyledText>
       </ToastContainer>
-    </>
   );
 }

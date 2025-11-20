@@ -35,7 +35,7 @@ const Message = styled.Text`
   font-size: ${Math.min(width * 0.07, 30)}px;
 `;
 
-const DismissButton = styled.Pressable`
+const AcceptButton = styled.Pressable`
   border-radius: 10px;
   padding: ${width * 0.05}px ${width * 0.1}px;
   filter: drop-shadow(0 0 5px rgb(0 0 0));
@@ -44,7 +44,7 @@ const DismissButton = styled.Pressable`
   margin-top: ${height * 0.4}px;
 `;
 
-const DismissButtonText = styled(Message)`
+const AcceptButtonText = styled(Message)`
   padding: 0;
   color: rgb(177 164 144);
   fontFamily: 'KochAltschrift';
@@ -52,8 +52,8 @@ const DismissButtonText = styled(Message)`
 
 `;
 
-const GeneralModal = ({ message, setMessage }: ModalProps) => {
-    function handlePress(): void {
+const ScrollModal = ({ message, setMessage }: ModalProps) => {
+    function accept(): void {
         setMessage('');
     }
 
@@ -69,11 +69,11 @@ const GeneralModal = ({ message, setMessage }: ModalProps) => {
                     imageStyle={{ resizeMode: 'contain' }}
                 >
                     <Content>
-                    <Message>{message}</Message>
+                        <Message>{message}</Message>
 
-<DismissButton onPress={handlePress}>
-    <DismissButtonText>Dismiss</DismissButtonText>
-</DismissButton>
+                        <AcceptButton onPress={accept}>
+                            <AcceptButtonText>Break the spell</AcceptButtonText>
+                        </AcceptButton>
                     </Content>
                 </BackgroundImage>
             </Container>
@@ -81,4 +81,4 @@ const GeneralModal = ({ message, setMessage }: ModalProps) => {
     );
 };
 
-export default GeneralModal;
+export default ScrollModal;

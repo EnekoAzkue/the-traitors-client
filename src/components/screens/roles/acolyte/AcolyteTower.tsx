@@ -1,10 +1,11 @@
 import React, { use, useContext, useEffect, useState } from "react";
 import { View } from "react-native";
-import { Images } from "../../../../helpers/constants/constants";
+import { Images, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
 import { ScrollContext, UserContext } from "../../../../helpers/contexts/contexts";
 import IconButton from "../../IconButton";
 import AcolyteTowerContainer from "./AcolyteTowerContainer";
 import { Dimensions } from 'react-native';
+import { socket } from "../../../../helpers/socket/socket";
 
 const { width, height } = Dimensions.get('window');
 
@@ -35,25 +36,29 @@ function AcolyteTower() {
     } else {
       setBackgroundImage(Images.TOWER);
     }
-  })
+  }, [user.insideTower]);
 
   const setScroll = () => {
-    setScrollActive(!scrollActive);
-    console.log('Toggling scroll active state', scrollActive);
+    // Send server a request to server to send a notification to mortimer user
+    socket.emit(SocketClientToServerEvents.SEND_NOTIFICATION_TO_MORTIMER, {notification : { title: "Pergamino encontrado", body: "Un acólito ha encontrado el pergamino." }});
   }
 
   return (
     <AcolyteTowerContainer backgroundImage={backgroundImage} >
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        {user.insideTower && 
+        {user.insideTower && scrollActive && ( 
         <IconButton
-        width={width * 0.1}
-        height={height * 0.05}
-        xPos={width * 0.35}
-        yPos={height * 0.9}
+        width={width * 0.6}
+        height={height * 0.3}
+        xPos={width * 0.23}
+        yPos={height * 0.4}
         hasBorder={false}
+        hasBrightness={true}
         backgroundImage={Images.SCROLL}
-        buttonOnPress={setScroll}/>
+        buttonOnPress={setScroll}
+        backgrounOpacity={0}
+        />)
+
         }
       </View>
     </AcolyteTowerContainer>
@@ -61,4 +66,4 @@ function AcolyteTower() {
 }
 
 
-export default AcolyteTower;
+export default AcolyteTower;

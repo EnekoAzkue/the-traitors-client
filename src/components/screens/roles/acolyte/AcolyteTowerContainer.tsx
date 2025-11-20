@@ -37,7 +37,7 @@ export default function AcolyteTowerContainer({ backgroundImage, children }: Pro
     <View>
       <ScreenContainer backgroundImg={backgroundImage}>
         {user.isInside || user.insideTower ? (null) : 
-        <IconButton width={width * 0.3} height={height * 0.07} hasBrightness={true} backgroundImage={Images.BACK_ARROW} buttonOnPress={() => setInitialScreen(null)} xPos={20} yPos={20} hasBorder={false} />
+        <IconButton width={width * 0.3} height={height * 0.07} hasBrightness={true} backgroundImage={Images.BACK_ARROW} buttonOnPress={() => setInitialScreen(null)} xPos={20} yPos={20} hasBorder={false}   backgrounOpacity={0} />
         }
         {children}
       </ScreenContainer>

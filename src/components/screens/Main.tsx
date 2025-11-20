@@ -1,12 +1,13 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components/native';
-import { UserContext } from '../../helpers/contexts/contexts';
+import { MortimerInitialScreenContext, MortimerToastTextContext, UserContext } from '../../helpers/contexts/contexts';
 import IstvanNavigation from './roles/istvan/IstvanNavigation';
 import { Roles } from '../../helpers/constants/constants';
 import { Text } from 'react-native';
 import MortimerNavigation from './roles/mortimer/MortimerNavigation';
 import VillainNavigation from './roles/villain/VillainNavigation';
 import Acolyte from './roles/acolyte/Acolyte';
+import Toast from '../Toast';
 
 const Container = styled.View`
   height: 100%;
@@ -14,10 +15,17 @@ const Container = styled.View`
 
 const Main = () => {
   const userContext = useContext(UserContext);
+  const screenContext = useContext(MortimerInitialScreenContext);
 
+  const [initialScreen, setInitialScreen] = screenContext!;
   if (!userContext) return <Text>User context is null at Home Component!!!"</Text>;
 
   const [user, setUser] = userContext;
+
+  const mortimerToastTextContext = useContext(MortimerToastTextContext);
+  if (!mortimerToastTextContext) return;
+  const [mortimerToastText, setMortimerToastText] = mortimerToastTextContext;
+
 
 
   const roles = () => {
@@ -33,7 +41,12 @@ const Main = () => {
         return (<VillainNavigation />);
 
       case (Roles.MORTIMER):
-        return (<MortimerNavigation />);
+        return (
+          <>
+            <MortimerNavigation />
+          </>
+
+        );
 
       default:
         return (<Text>{`Error! Rol: ${user.rol} Not found`}</Text>)
@@ -43,6 +56,7 @@ const Main = () => {
 
   return (
     <Container>
+
       {roles()}
     </Container>
   );

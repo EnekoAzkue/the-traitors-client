@@ -11,9 +11,10 @@ type IconButtonProps = {
   buttonOnPress: any,
   hasBrightness?: boolean, //Optional parameter --> must give 
   hasBorder?: boolean,
+  backgrounOpacity?: number,
 };
 
-export default function IconButton({ width, height, xPos, yPos, backgroundImage, buttonOnPress, hasBrightness = false, hasBorder = false }: IconButtonProps) {
+export default function IconButton({ width, height, xPos, yPos, backgroundImage, buttonOnPress, hasBrightness = false, hasBorder = false, backgrounOpacity = 0.4 }: IconButtonProps) {
 
 
   // la propiedad box-shadow aún siendo soportada por styled-components sirve para hacer web, React-Native no lo soporta 
@@ -32,10 +33,10 @@ export default function IconButton({ width, height, xPos, yPos, backgroundImage,
   width: ${width}px;
   height: ${height}px;
 
-  ${(hasBorder) ? `border: 1px solid white;` : ``}
+  ${(hasBorder) ? 'border: 1px solid white;' : ''};
   border-radius: 100%;
 
-  background: rgba(0,0,0, 0.4);
+  background: rgba(0,0,0, ${backgrounOpacity});
 
   `;
 
@@ -59,23 +60,23 @@ export default function IconButton({ width, height, xPos, yPos, backgroundImage,
 
       {
         (hasBrightness) ?
-          // <DropShadow style={{
-          //   shadowColor: '#ffffffff',
-          //   shadowOffset: {
-          //     width: 0,
-          //     height: 0,
-          //   },
-          //   shadowOpacity: 2,
-          //   shadowRadius: 6,
-          // }}>
+          <DropShadow style={{
+            shadowColor: '#ffffffff',
+            shadowOffset: {
+              width: 0,
+              height: 0,
+            },
+            shadowOpacity: 2,
+            shadowRadius: 6,
+          }}>
             <IconButtonChildren />
 
-          // </DropShadow>
+          </DropShadow>
           :
           <IconButtonChildren />
       }
     </StyledButtonContainer>
 
 
-  );
+  );
 }

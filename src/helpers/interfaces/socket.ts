@@ -17,6 +17,8 @@ interface ServerToClientEvents {
   [SocketServerToClientEvents.UPDATE_USER_IN_CLIENT] : (
     acolyteData: any,
   ) => void;
+
+  [SocketServerToClientEvents.FOUND_SCROLL]: () => void;
 }
 
 interface AcolyteDataAfterAccessExitLab {
@@ -33,9 +35,10 @@ interface ClientToServerEvents {
   [SocketClientToServerEvents.ACCESS_TO_EXIT_FROM_LAB]: (acolyteEmail: string) => void;
   [SocketClientToServerEvents.UPDATE_USER]: (acolyteEmail: string, changes: any) => void;
   [SocketClientToServerEvents.UPDATE_INTOWER]: (userEmail: string, inTower: boolean) => void;
+  [SocketClientToServerEvents.SEND_NOTIFICATION_TO_MORTIMER]: (messsage: {}) => void;
 
   // TEST ONES
-  [SocketClientToServerEventsForTesting.GET_FCM_MESSAGE]: (getSuccesfully: boolean) => void;
+  [SocketClientToServerEventsForTesting.GET_FCM_MESSAGE]: (getSuccesfully: boolean) => void;
 
 }
 
