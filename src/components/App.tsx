@@ -1,6 +1,6 @@
 // --- Constants ---
 import React from 'react';
-import { ApiEndpoints, Logs, SocketServerToClientEvents } from '../helpers/constants/constants';
+import { ApiEndpoints, Logs, SocketClientToServerEvents, SocketServerToClientEvents } from '../helpers/constants/constants';
 import { GoogleAuth } from 'react-native-google-auth';
 
 // --- Components ---
@@ -140,6 +140,7 @@ function App() {
       socket.on(SocketServerToClientEvents.FOUND_SCROLL, () => {
         setScrollModalMessage('An acolyte has found the scroll!');
         setScrollActive(false);
+        socket.emit(SocketClientToServerEvents.SCROLL_VANISH, {notification : { title: "Pergamino desvanecido", body: "Se os ha convocado al Hall of Sages" }});
       });
 
     }

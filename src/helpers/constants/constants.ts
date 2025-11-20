@@ -143,6 +143,7 @@ enum SocketClientToServerEvents {
   UPDATE_USER = 'update user in DB',
   UPDATE_INTOWER = 'update inTower',
   SEND_NOTIFICATION_TO_MORTIMER = "send notification to mortimer",
+  SCROLL_VANISH = 'scroll vanish',
 }
 
 enum SocketClientToServerEventsForTesting {

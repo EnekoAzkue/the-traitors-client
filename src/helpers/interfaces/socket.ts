@@ -36,6 +36,7 @@ interface ClientToServerEvents {
   [SocketClientToServerEvents.UPDATE_USER]: (acolyteEmail: string, changes: any) => void;
   [SocketClientToServerEvents.UPDATE_INTOWER]: (userEmail: string, inTower: boolean) => void;
   [SocketClientToServerEvents.SEND_NOTIFICATION_TO_MORTIMER]: (messsage: {}) => void;
+  [SocketClientToServerEvents.SCROLL_VANISH]: (messsage: {}) => void;
 
   // TEST ONES
   [SocketClientToServerEventsForTesting.GET_FCM_MESSAGE]: (getSuccesfully: boolean) => void;
