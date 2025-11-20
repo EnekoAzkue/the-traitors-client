@@ -112,7 +112,7 @@ enum Routes {
 }
 
 
-export const CURRENT_DOMAIN = Domains.RENDER;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN) 
+export const CURRENT_DOMAIN = Domains.PORTAINER;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN) 
 export const CURRENT_ROUTE  = `${CURRENT_DOMAIN}player/`;
 
 
