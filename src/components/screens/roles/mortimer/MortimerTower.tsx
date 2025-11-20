@@ -4,7 +4,7 @@ import { Images, navigationTabMarginBottomForScreens } from "../../../../helpers
 import ScreenContainer from "../../ScreenContainer";
 import styled from "styled-components/native";
 import KaotikaPlayer from "../../../../helpers/interfaces/KaotikaPlayer";
-import { AllAcolytesContext } from "../../../../helpers/contexts/contexts";
+import { AllAcolytesContext, MortimerInitialScreenContext } from "../../../../helpers/contexts/contexts";
 import AcolyteTowerRegister from "./AcolyteTowerRegister";
 import { Dimensions } from 'react-native';
 
@@ -21,6 +21,12 @@ function MortimerTower() {
   const acolytesHandler = (acolytesArray: KaotikaPlayer[] | undefined) => {
     setAcolytes(acolytesArray);
   };
+
+  const initialScreenContext = useContext(MortimerInitialScreenContext);
+  if(!initialScreenContext) return null;
+  const [initialScreen, setInitialScreen] = initialScreenContext;
+  
+  setInitialScreen("MortimerTower");
 
 
 

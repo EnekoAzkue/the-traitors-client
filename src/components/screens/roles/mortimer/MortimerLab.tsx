@@ -5,7 +5,7 @@ import ScreenContainer from "../../ScreenContainer";
 import styled from "styled-components/native";
 import AcolyteLabRegister from "./AcolyteLabRegister";
 import KaotikaPlayer from "../../../../helpers/interfaces/KaotikaPlayer";
-import { AllAcolytesContext } from "../../../../helpers/contexts/contexts";
+import { AllAcolytesContext, MortimerInitialScreenContext } from "../../../../helpers/contexts/contexts";
 import { Dimensions } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
@@ -21,6 +21,12 @@ function MortimerLab() {
   const acolytesHandler = (acolytesArray: KaotikaPlayer[] | undefined) => {
     setAcolytes(acolytesArray);
   };
+
+  const initialScreenContext = useContext(MortimerInitialScreenContext);
+  if(!initialScreenContext) return null;
+  const [initialScreen, setInitialScreen] = initialScreenContext;
+  
+  setInitialScreen("MortimerLab");
 
 
   const AcolytesRegisterScreenContainer = styled.View`

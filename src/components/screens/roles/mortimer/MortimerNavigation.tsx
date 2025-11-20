@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MortimerHome from './MortimerHome';
@@ -9,6 +9,7 @@ import styled from 'styled-components/native';
 import { Images, Screens } from '../../../../helpers/constants/constants';
 import { BlurView } from '@react-native-community/blur';
 import { Dimensions } from 'react-native';
+import { MortimerInitialScreenContext } from '../../../../helpers/contexts/contexts';
 
 const { width, height } = Dimensions.get('window');
 
@@ -21,11 +22,16 @@ const IconImage = styled.Image`
   height: ${height * 0.06}px;
 `;
 
-function RootNavigation({ initialRouteScreen }: any) {
+function RootNavigation({}: any) {
+  const initialRouteScreen = useContext(MortimerInitialScreenContext);
+
+  if(!initialRouteScreen) return null;
+
+  const [initialScreen, setInitialScreen] = initialRouteScreen;
 
   return (
     <Stack.Navigator
-      initialRouteName={initialRouteScreen}
+      initialRouteName={initialScreen}
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarShowLabel: false,
