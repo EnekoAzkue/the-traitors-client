@@ -59,7 +59,7 @@ function RootNavigation({ initialRouteScreen }: any) {
 
           }
 
-          return <IconImage source={tabIconSource} />;
+          return <IconImage source={tabIconSource} style={{ opacity: focused ? 1 : 0.5, transform: [{ scale: focused ? 1.15 : 1 }], }}/>;
         },
       })}
 
