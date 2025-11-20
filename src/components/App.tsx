@@ -34,9 +34,8 @@ import { callMessageReceiverListener, getFCMToken, requestUserPermission } from 
 import Toast from './Toast';
 import ScrollModal from './ScrollModal';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import AcolyteToast from './screens/roles/acolyte/AcolyteToast';
+import messaging from '@react-native-firebase/messaging';
 
 function App() {
 
@@ -143,7 +142,6 @@ function App() {
 
       socket.on(SocketServerToClientEvents.RECIEVED_FOUND_SCROLL, async () => {
         console.log("Inside RECIEVED_FOUND_SCROLL event");
-        await AsyncStorage.setItem('scrollModalMessage', 'An acolyte has found the scroll!');
 
         setScrollModalMessage('An acolyte has found the scroll!');
       });
@@ -280,24 +278,35 @@ function App() {
   `;
 
   useEffect(() => {
-    const loadMessage = async () => {
-      console.log("Loading scroll message from AsyncStorage");
-      try {
-        const msg = await AsyncStorage.getItem('scrollModalMessage');
-        console.log("Loaded scroll message:", msg);
-        if (msg) {
-          setScrollModalMessage(msg);
-
-          // Opcional: limpiar el storage después de usarlo
-          await AsyncStorage.removeItem('scrollModalMessage');
-        }
-      } catch (error) {
-        console.error('Error loading scroll message:', error);
+  
+    // App en background o cerrada
+    const unsubscribeOnNotificationOpened = messaging().onNotificationOpenedApp(remoteMessage => {
+      const msg = remoteMessage.data?.scrollMessage;
+      if(remoteMessage.notification?.title === "Pergamino encontrado"){
+      if (msg) setScrollModalMessage(String(msg));
+      } else if(remoteMessage.notification?.title === "An acolyte goes inside tower!" || remoteMessage.notification?.title === "An acolyte goes outside tower!"){
+        setMortimerInitialScreen('MortimerTower')
       }
+    });
+  
+    // App cerrada y abierta desde cero
+    messaging()
+      .getInitialNotification()
+      .then(remoteMessage => {
+        const msg = remoteMessage?.data?.scrollMessage;
+        if(remoteMessage?.notification?.title === "Pergamino encontrado"){
+        if (msg) setScrollModalMessage(String(msg));
+        } else if(remoteMessage?.notification?.title === "An acolyte goes inside tower!" || remoteMessage?.notification?.title === "An acolyte goes outside tower!"){
+          setMortimerInitialScreen('MortimerTower')
+        }
+      });
+  
+    return () => {
+      unsubscribeOnNotificationOpened();
     };
-
-    loadMessage();
   }, []);
+  
+  
 
 
   return (
