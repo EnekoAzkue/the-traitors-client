@@ -46,7 +46,7 @@ export default function AcolyteMap() {
       {/* Botones del mapa */}
       <IconButton
         width={width * 0.1}
-        height={height * 0.05}
+        height={width * 0.1}
         xPos={width * 0.65}
         yPos={height * 0.27}
         hasBorder={true}
@@ -55,7 +55,7 @@ export default function AcolyteMap() {
       />
       <IconButton
         width={width * 0.1}
-        height={height * 0.05}
+        height={width * 0.1}
         xPos={width * 0.33}
         yPos={height * 0.35}
         hasBorder={true}

@@ -1,91 +1,96 @@
-import React, { useState } from "react";
-import { Text } from "react-native";
+import React, { useState, useEffect } from "react";
+import { Text, Dimensions } from "react-native";
 import styled from "styled-components/native";
-
-
-// --- INTERFACES --- 
 import { AcolyteLabRegisterProps } from "../../../../helpers/interfaces/AcolyteLabRegisterProps";
-
-import { Dimensions } from 'react-native';
-
-const { width, height } = Dimensions.get('window');
-
-
 
 const AcolyteLabRegister = ({ acolyte }: AcolyteLabRegisterProps) => {
   const [isInside, setIsInside] = useState(acolyte.isInside);
 
-  const ComponetContainer = styled.View`
-  border: 1px solid rgba(134, 65, 0, 1);
-  border-radius: 6px;
-  background: rgba(0,0,0,0.5);
-  margin: ${height * 0.004}%;
-  width: ${width * 0.23}%;
-  height: ${height * 0.15};
-  ${(!isInside) ? 'filter: grayscale(100%);' : ''}
-`;
+  const [screen, setScreen] = useState(Dimensions.get("window"));
+  useEffect(() => {
+    const sub = Dimensions.addEventListener("change", ({ window }) => {
+      setScreen(window);
+    });
+    return () => sub.remove();
+  }, []);
 
+  const { width, height } = screen;
+
+  // Ajusta proporciones para que no sea demasiado pequeño
+  const componentWidth = width * 0.9; // ocupa 90% del contenedor o pantalla
+  const componentHeight = height * 0.22; // algo más alto
+  const imageSize = componentHeight * 0.6; // imagen proporcional al componente
+  const baseFont = componentHeight * 0.12; // fuente proporcional al componente
+
+  const ComponentContainer = styled.View`
+    border: 1px solid rgba(134, 65, 0, 1);
+    border-radius: 8px;
+    background: rgba(0,0,0,0.6);
+    margin-vertical: 8px;
+    width: ${componentWidth}px;
+    height: ${componentHeight}px;
+    opacity: ${isInside ? 1 : 0.5};
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 16px;
+    padding-right: 16px;
+  `;
 
   const AcolyteImage = styled.Image`
-    height: ${height * 0.1}%;
-    width: ${width * 0.08}%;
-    border-radius: 999px;
-
+    height: ${imageSize}px;
+    width: ${imageSize}px;
+    border-radius: ${imageSize / 2}px;
     border: 1px solid rgba(48, 0, 88, 1);
     position: absolute;
-    top: ${height * 0.008}%;
-    left: ${width * 0.16}%;
+    top: ${componentHeight * 0.15}px;
+    right: 16px;
   `;
 
+  const StyledAcolyteName = styled.Text.attrs({
+    numberOfLines: 1,
+    adjustsFontSizeToFit: true,
+    minimumFontScale: 0.7,
+  })`
+    color: white;
+    font-family: "KochAltschrift";
+    font-size: ${baseFont}px;
+    font-weight: bold;
+  `;
 
-  const baseFont = width * 0.065; 
-
-const StyledAcolyteName = styled.Text.attrs({
-  numberOfLines: 1,
-  adjustsFontSizeToFit: true,
-  minimumFontScale: 0.7,
-})`
-  color: rgba(255, 255, 255, 1);
-  font-family: "KochAltschrift";
-  position: relative;
-  margin: 0 0 0 5px;
-  font-size: ${baseFont}px;
-`;
-
-
+  const StyledAcolyteInfo = styled.Text`
+    color: rgba(224, 211, 31, 1);
+    font-family: "KochAltschrift";
+    font-size: ${baseFont * 0.8}px;
+    margin-top: 2px;
+  `;
 
   const StyledAcolyteClass = styled.Text`
-     color: rgba(4, 124, 20, 1);
-    fontFamily: "KochAltschrift";
-    fontSize: ${baseFont}px;
-    margin: 0 0 0 12px;
-    position: relative;
-
+    color: rgba(4, 124, 20, 1);
+    font-family: "KochAltschrift";
+    font-size: ${baseFont * 0.8}px;
+    margin-top: 2px;
   `;
 
-  const StyledAcolyteGold = styled.Text`
-     color: rgba(224, 211, 31, 1);
-    fontFamily: "KochAltschrift";
-    fontSize: ${baseFont}px;
-    margin: 0 0 0 12px;
-    position: relative;
+  const acolytePhoto = { uri: acolyte.avatar };
 
-  `;
-
-  const acolytePhoto = { uri: `${acolyte.avatar}` }
   return (
-    <>
+    <ComponentContainer>
+      <AcolyteImage source={acolytePhoto} />
+      <StyledAcolyteName>{acolyte.nickname}</StyledAcolyteName>
 
-      <ComponetContainer>
-        <AcolyteImage source={acolytePhoto}></AcolyteImage>
-        <StyledAcolyteName>{acolyte.nickname}</StyledAcolyteName>
-        <StyledAcolyteGold>Gold: <Text style={{ color: 'white' }}>{acolyte.gold}</Text> coins.</StyledAcolyteGold>
-        <StyledAcolyteGold>Level: <Text style={{ color: 'white' }}>{acolyte.level}</Text></StyledAcolyteGold>
+      <StyledAcolyteInfo>
+        Gold: <Text style={{ color: "white" }}>{acolyte.gold}</Text> coins
+      </StyledAcolyteInfo>
 
-        <StyledAcolyteClass>Class: {acolyte.profile.name}</StyledAcolyteClass>
-      </ComponetContainer>
-    </>
+      <StyledAcolyteInfo>
+        Level: <Text style={{ color: "white" }}>{acolyte.level}</Text>
+      </StyledAcolyteInfo>
+
+      <StyledAcolyteClass>
+        Class: {acolyte.profile.name}
+      </StyledAcolyteClass>
+    </ComponentContainer>
   );
-}
+};
 
 export default AcolyteLabRegister;

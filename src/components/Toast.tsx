@@ -24,7 +24,7 @@ const ToastContainer = styled.View`
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.75);
 
-  fontSize: 15px;
+  fontSize: ${width * 0.2}%;
 `;
 
 const StyledText = styled.Text`

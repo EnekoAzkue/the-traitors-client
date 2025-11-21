@@ -3,6 +3,9 @@ import { ImageBackground, Text, StyleSheet } from "react-native";
 import { Images, Screens } from "../../../../helpers/constants/constants";
 import IconButton from "../../IconButton";
 import { AcolyteInitialScreenContext, ScrollContext } from "../../../../helpers/contexts/contexts";
+import { Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
 
 type InitialScreen = Screens.ACOLYTE_HOME | Screens.ACOLYTE_LAB;
 
@@ -38,38 +41,38 @@ export default function AcolyteSchoolMap() {
 
       {/* Botones del mapa */}
       <IconButton
-        width={40}
-        height={40}
-        xPos={185}
-        yPos={700}
+        width={width * 0.1}
+        height={width * 0.1}
+        xPos={width * 0.45}
+        yPos={height * 0.85}
         hasBorder={true}
         backgroundImage={Images.MAIN_ICON}
         buttonOnPress={selectInitialHomeScreen}
       />
       <IconButton
-        width={40}
-        height={40}
-        xPos={45}
-        yPos={500}
+        width={width * 0.1}
+        height={width * 0.1}
+        xPos={width * 0.13}
+        yPos={height * 0.59}
         hasBorder={true}
         backgroundImage={Images.LAB_ICON}
         buttonOnPress={selectInitialLabScreen}
       />
       <IconButton
-        width={40}
-        height={40}
-        xPos={315}
-        yPos={500}
+        width={width * 0.1}
+        height={width * 0.1}
+        xPos={width * 0.751}
+        yPos={height * 0.59}
         hasBorder={true}
         backgroundImage={Images.SETTINGS_ICON}
         buttonOnPress={selectInitialSettingsScreen}
       />
-      {!scrollActive ? 
+      {scrollActive ? 
       <IconButton
-      width={40}
-      height={40}
-      xPos={315}
-      yPos={260}
+        width={width * 0.1}
+        height={width * 0.1}
+        xPos={width * 0.751} 
+        yPos={height * 0.305}
       hasBorder={true}
       backgroundImage={Images.HALL_ICON}
       buttonOnPress={selectInitialHallScreen}

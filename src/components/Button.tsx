@@ -17,7 +17,7 @@ const ButtonContainer = styled.TouchableOpacity`
 
 const ButtonStyledText = styled.Text`
     color: white;
-    font-size: ${Math.min(width * 0.06, 28)}px;
+    font-size: ${width * 0.07}px;
     position: relative;
     top: 38%;
     fontFamily: 'KochAltschrift';

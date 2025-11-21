@@ -8,13 +8,14 @@ import { Text } from 'react-native';
 import { Images } from '../../helpers/constants/constants';
 import { Dimensions } from 'react-native';
 
+
 const { width, height } = Dimensions.get('window');
 
 const Container = styled.View`
   justify-content: center;
   align-items: center;
-  height: 100%;
-  width: 100%;
+  height: ${height* 0.15}px;
+  width: ${width * 0.27}px;
 `;
 
 const QRCodeContainer = () => {
@@ -36,7 +37,7 @@ const QRCodeContainer = () => {
   // TODO (REFACTOR): Move all this styled components to their own directory
 
   const StyledQRTextContainer = styled.View`
-    border: 1px solid orange;
+    border: ${width * 0.002}px solid orange;
     border-radius: 8px;
     width: ${width * 0.75}px;    
     height: ${height * 0.1}px;  
@@ -47,7 +48,7 @@ const QRCodeContainer = () => {
   const StyledQRText = styled.Text`
     color: white;
     fontFamily: 'KochAltschrift';
-    font-size: ${Math.min(width * 0.05, 20)}px;
+    font-size: ${width * 0.05}px;
     text-align: center;
     `;
 
@@ -64,11 +65,17 @@ const QRCodeContainer = () => {
   // REFACTOR: DELETE THIS 
   let logoFromFile = Images.LOGO;
 
+  const StyledText_1 = styled.Text`
+    color: white;
+    fontFamily: 'KochAltschrift';
+    font-size: ${width * 0.07}px;
+  `;
+
   return (
 
     (!showingQR) ?
       <Container>
-        <Text style={{ color: 'white', fontFamily: 'KochAltschrift', fontSize: 20 }}>Show the Rune!</Text>
+        <StyledText_1>Show the Rune!</StyledText_1>
         <Button onPress={showQR} buttonText={'Are you sure?'} />
       </Container>
       :

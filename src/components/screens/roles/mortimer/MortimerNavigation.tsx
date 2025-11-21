@@ -16,10 +16,8 @@ const { width, height } = Dimensions.get('window');
 const Stack = createBottomTabNavigator();
 
 const IconImage = styled.Image`
-  position: relative;
-  top: ${height * 0.005}px;
   width: ${width * 0.1}px;
-  height: ${height * 0.06}px;
+  height: ${width * 0.1}px;
 `;
 
 function RootNavigation({}: any) {
