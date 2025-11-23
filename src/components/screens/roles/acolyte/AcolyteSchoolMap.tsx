@@ -67,7 +67,7 @@ export default function AcolyteSchoolMap() {
         backgroundImage={Images.SETTINGS_ICON}
         buttonOnPress={selectInitialSettingsScreen}
       />
-      {scrollActive ? 
+      {!scrollActive ? 
       <IconButton
         width={width * 0.1}
         height={width * 0.1}
