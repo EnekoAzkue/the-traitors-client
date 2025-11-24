@@ -88,7 +88,7 @@ function App() {
       }
     });
 
-    // App cerrada y abierta desde cero
+    // App cerrada y abierta desde cero -->  
     messaging()
       .getInitialNotification()
       .then(remoteMessage => {
@@ -125,6 +125,7 @@ function App() {
 
       initializeSocketConnection();
 
+      const manageSendUpdatedPlayerToMortimerSocketEvent = null;
 
       // Inicializado ya el socket ahora hay que controlas los eventos de server a cliente
       // console.log("Now clients watchs SEND_UPDATED_PLAYER_TO_MORTIMER socket event");
@@ -138,6 +139,9 @@ function App() {
         setAllAcolytes(newAcolytes);
       });
 
+
+      const manageUpdateUserInClient = null;
+
       // console.log("Now clients watchs UPDATE_USER_IN_CLIENT socket event");
       socket.on(SocketServerToClientEvents.UPDATE_USER_IN_CLIENT, (updatedClient: KaotikaPlayer) => {
         console.log("Inside UPDATE_USER_IN_CLIENT event");
@@ -147,7 +151,6 @@ function App() {
 
       socket.on(SocketServerToClientEvents.RECIEVED_FOUND_SCROLL, async () => {
         console.log("Inside RECIEVED_FOUND_SCROLL event");
-
         setScrollModalMessage('An acolyte has found the scroll!');
       });
 
