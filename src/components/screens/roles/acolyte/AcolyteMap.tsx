@@ -18,6 +18,7 @@ export default function AcolyteMap() {
 
   const selectInitialHomeScreen = () => setInitialScreen(Screens.SCHOOL_MAP);
   const selectInitialTowerScreen = () => setInitialScreen(Screens.ACOLYTE_TOWER);
+  const selectInitialSwampScreen = () => setInitialScreen(Screens.ACOLYTE_SWAMP);
 
   const cloudOpacity = useRef(new Animated.Value(1)).current;
   const cloudScale = useRef(new Animated.Value(1)).current;
@@ -61,6 +62,15 @@ export default function AcolyteMap() {
         hasBorder={true}
         backgroundImage={Images.HOME_ICON}
         buttonOnPress={selectInitialHomeScreen}
+      />
+      <IconButton
+        width={width * 0.1}
+        height={width * 0.1}
+        xPos={width * 0.85}
+        yPos={height * 0.33}
+        hasBorder={true}
+        backgroundImage={Images.SWAMP_ICON}
+        buttonOnPress={selectInitialSwampScreen}
       />
 
 

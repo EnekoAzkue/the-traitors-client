@@ -9,6 +9,7 @@ import AcolyteLab from "./AcolyteLab";
 import AcolyteSettings from "./AcolyteSettings";
 import AcolyteTower from "./AcolyteTower";
 import AcolyteHall from "./AcolyteHall";
+import AcolyteSwamp from "./AcolyteSwamp";
 
 
 export default function Acolyte() {
@@ -40,6 +41,7 @@ export default function Acolyte() {
         {initialScreen === 'AcolyteSettings' && <AcolyteSettings />}
         {initialScreen === 'AcolyteTower' && <AcolyteTower />}
         {initialScreen === 'AcolyteHall' && <AcolyteHall />}
+        {initialScreen === 'AcolyteSwamp' && <AcolyteSwamp />}
     </>
 
   );

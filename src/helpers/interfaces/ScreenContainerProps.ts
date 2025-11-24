@@ -1,7 +1,7 @@
 import { Images } from "../constants/constants";
 
 interface ScreenContainerProps {
-  backgroundImg: Images;
+  backgroundImg?: Images;
 }
 
 export type { ScreenContainerProps };

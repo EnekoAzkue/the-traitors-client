@@ -59,6 +59,7 @@ enum Images {
   MAIN_ICON = require('../../assets/images/logos/main.png'),
   HALL_ICON = require('../../assets/images/logos/hall_icon.png'),
   SCROLL = require('../../assets/images/logos/scroll.png'),
+  SWAMP_ICON = require('../../assets/images/logos/swamp_icon.png'),
 
 
   LOGO = require('../../assets/images/logo.png'),
@@ -79,6 +80,7 @@ enum Screens {
   ACOLYTE_LAB = 'AcolyteLab',
   ACOLYTE_TOWER = 'AcolyteTower',
   ACOLYTE_HALL = 'AcolyteHall',
+  ACOLYTE_SWAMP = 'AcolyteSwamp',
 
   ISTVAN_LAB = 'IstvanLab',
   ISTVAN_HOME = 'IstvanHome',

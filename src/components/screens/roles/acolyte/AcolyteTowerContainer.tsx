@@ -13,7 +13,7 @@ const { width, height } = Dimensions.get('window');
 
 
 type AcolyteScreenContainer = {
-  backgroundImage: Images,
+  backgroundImage?: Images,
 };
 
 export default function AcolyteTowerContainer({ backgroundImage, children }: PropsWithChildren<AcolyteScreenContainer>) {
