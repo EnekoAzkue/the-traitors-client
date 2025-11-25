@@ -70,7 +70,9 @@ enum Images {
 
   CLOUDS = require('../../assets/images/Clouds.png'),
 
-  BACK_ARROW = require('../../assets/images/BackArrow.png')
+  BACK_ARROW = require('../../assets/images/BackArrow.png'),
+
+  BAG = require('../../assets/images/logos/bag.png'),
 }
 
 enum Screens {
