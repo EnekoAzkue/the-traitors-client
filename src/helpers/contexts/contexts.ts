@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { SetModalMessage } from '../interfaces/Modal';
+import { SetModalMessage } from '../interfaces/components/Modal';
 import KaotikaPlayer from '../interfaces/KaotikaPlayer';
 
 export const ModalContext = createContext<SetModalMessage | null>(null);

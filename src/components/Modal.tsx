@@ -1,5 +1,5 @@
 import { Modal } from 'react-native';
-import { ModalProps } from '../helpers/interfaces/Modal';
+import { ModalProps } from '../helpers/interfaces/components/Modal';
 import styled from 'styled-components/native';
 import React from 'react';
 import { Images } from '../helpers/constants/constants';

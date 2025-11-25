@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Text, Dimensions } from "react-native";
 import styled from "styled-components/native";
-import { AcolyteLabRegisterProps } from "../../../../helpers/interfaces/AcolyteLabRegisterProps";
+import { AcolyteLabRegisterProps } from "../../../../helpers/interfaces/components/AcolyteLabRegisterProps";
 
 const AcolyteLabRegister = ({ acolyte }: AcolyteLabRegisterProps) => {
   const [isInside, setIsInside] = useState(acolyte.isInside);

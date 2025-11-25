@@ -1,4 +1,4 @@
-import KaotikaPlayer from "./KaotikaPlayer";
+import KaotikaPlayer from "../KaotikaPlayer";
 
 type AcolyteLabRegisterProps = { acolyte: KaotikaPlayer };
 

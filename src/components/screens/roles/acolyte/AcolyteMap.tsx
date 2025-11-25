@@ -3,13 +3,17 @@ import { Animated, Image, ImageBackground, Text, StyleSheet, View } from "react-
 import { Images, Screens } from "../../../../helpers/constants/constants";
 import IconButton from "../../IconButton";
 import { AcolyteInitialScreenContext } from "../../../../helpers/contexts/contexts";
-import { Dimensions } from 'react-native';
-
-const { width, height } = Dimensions.get('window');
-
-type InitialScreen = Screens.SCHOOL_MAP;
+import { useScreenDimensions } from "../../../../helpers/stores/useScreenDimensionsStore";
+import styled from "styled-components/native";
 
 export default function AcolyteMap() {
+
+  // Screen Dimensions
+  const screenDimensions = useScreenDimensions(state => state.screenDimensions);
+
+  if (!screenDimensions) return; 
+  
+  // Current Route Screen 
   const initialRouterScreen = useContext(AcolyteInitialScreenContext);
 
   if (!initialRouterScreen) return <Text>ERROR! Initial Router Context not got</Text>;
@@ -38,36 +42,41 @@ export default function AcolyteMap() {
     ]).start();
   }, []);
 
+
+  const StyledAcolyteMapContainer = styled.ImageBackground`
+  width: ${screenDimensions.width}px;
+  height: ${screenDimensions.height}px;
+  `;
+
   return (
-    <ImageBackground
+    <StyledAcolyteMapContainer
       source={Images.ACOLYTE_MAP}
       resizeMode="cover"
-      style={styles.background}
     >
       {/* Botones del mapa */}
       <IconButton
-        width={width * 0.1}
-        height={width * 0.1}
-        xPos={width * 0.65}
-        yPos={height * 0.27}
+        width={screenDimensions.width * 0.1}
+        height={screenDimensions.width * 0.1}
+        xPos={screenDimensions.width * 0.65}
+        yPos={screenDimensions.height * 0.27}
         hasBorder={true}
         backgroundImage={Images.TOWER_ICON}
         buttonOnPress={selectInitialTowerScreen}
       />
       <IconButton
-        width={width * 0.1}
-        height={width * 0.1}
-        xPos={width * 0.33}
-        yPos={height * 0.35}
+        width={screenDimensions.width * 0.1}
+        height={screenDimensions.width * 0.1}
+        xPos={screenDimensions.width * 0.33}
+        yPos={screenDimensions.height * 0.35}
         hasBorder={true}
         backgroundImage={Images.HOME_ICON}
         buttonOnPress={selectInitialHomeScreen}
       />
       <IconButton
-        width={width * 0.1}
-        height={width * 0.1}
-        xPos={width * 0.85}
-        yPos={height * 0.33}
+        width={screenDimensions.width * 0.1}
+        height={screenDimensions.width * 0.1}
+        xPos={screenDimensions.width * 0.85}
+        yPos={screenDimensions.height * 0.33}
         hasBorder={true}
         backgroundImage={Images.SWAMP_ICON}
         buttonOnPress={selectInitialSwampScreen}
@@ -93,7 +102,7 @@ export default function AcolyteMap() {
 
         <View style={styles.darkFilter} />
       </Animated.View>
-    </ImageBackground>
+    </StyledAcolyteMapContainer>
   );
 }
 

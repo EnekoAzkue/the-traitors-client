@@ -32,6 +32,8 @@ import ScrollModal from './ScrollModal';
 import AcolyteToast from './screens/roles/acolyte/AcolyteToast';
 import messaging from '@react-native-firebase/messaging';
 import { getAcolytes, updateUserStateWithPushToken } from '../helpers/componentUtils/appUtils/appUtils';
+import { useScreenDimensions } from '../helpers/stores/useScreenDimensionsStore';
+import { useWindowDimensions } from 'react-native';
 
 function App() {
 
@@ -48,6 +50,10 @@ function App() {
   const [acolyteToastText, setAcolyteToastText] = useState<string>('');
   const [mortimerToastText, setMortimerToastText] = useState<string>('');
 
+  const {screenDimensions, setScreenDimensions} = useScreenDimensions();
+  const screenDimensionsValue = useWindowDimensions(); 
+
+
   const userHandler = (newUser: KaotikaPlayer | null) => {
     setUser(newUser);
   }
@@ -63,6 +69,10 @@ function App() {
     setTimeout(() => {
       authClient(true, { userHandler, setModalMessage, setInitialConf });
     }, 1000);
+
+    setScreenDimensions(screenDimensionsValue);
+    console.log(`Screen dimesions value is: `);
+    console.log(screenDimensionsValue);
 
 
     // Initial FCM message permission

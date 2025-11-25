@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 import React from "react";
-import { ButtonProps } from "../helpers/interfaces/ButtonInterfaces";
+import { ButtonProps } from "../helpers/interfaces/components/ButtonInterfaces";
 import { ImageBackground } from "react-native";
 import { Images } from "../helpers/constants/constants";
 import { Dimensions } from 'react-native';
