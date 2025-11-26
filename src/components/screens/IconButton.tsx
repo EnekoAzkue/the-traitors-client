@@ -26,6 +26,7 @@ export default function IconButton({ width, height, xPos, yPos, backgroundImage,
     top: ${yPos}px;
     left: ${xPos}px;
     
+    zIndex: 1000;
   `;
 
 
