@@ -1,39 +1,20 @@
-import React, { use, useEffect } from "react";
-import { Text } from "react-native";
-import { Dimensions } from 'react-native';
-import styled from "styled-components/native";
+import React, { useEffect } from "react";
+import { useScreenDimensions } from "../helpers/stores/useScreenDimensionsStore";
+import { getToastStyledComponents } from "../componentStyles/ToastStyles";
 
-
-const { width, height } = Dimensions.get('window');
-
-interface ToastProps {
-  toastText: string;
-  setMortimerToastText: (text: string) => void;
-};
-
-
-const ToastContainer = styled.View`
-  position: absolute;
-  top: ${height * 0.85}px;
-  left: ${width * 0.13}px;
-  border: 1px solid rgba(255, 255, 255, 1);
-  width: ${width * 0.75}px;
-  height: ${height * 0.05}px;
-  border-radius: 9px;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.75);
-
-  fontSize: ${width * 0.2}%;
-`;
-
-const StyledText = styled.Text`
-  text-align: center;
-  color: white;
-`;
+// --- INTERFACES --- // 
+import { type ToastProps } from "../helpers/interfaces/components/ToastInterfaces";
 
 
 export default function Toast({ toastText, setMortimerToastText }: ToastProps) {
+
+  // --- SCREEN DIMENSIONS --- //
+  const screenDimensions = useScreenDimensions(state => state.screenDimensions);
+  if (!screenDimensions) return;
+
+  // --- TOAST STYLED COMPONENTS--- //
+  const StyledComponents = getToastStyledComponents(screenDimensions);
+
   useEffect(() => {
     setTimeout(() => {
       setMortimerToastText('');
@@ -44,8 +25,8 @@ export default function Toast({ toastText, setMortimerToastText }: ToastProps) {
   if (!toastText || toastText.trim() === '') return null;
 
   return (
-      <ToastContainer>
-        <StyledText>{toastText}</StyledText>
-      </ToastContainer>
+    <StyledComponents.ToastContainer>
+      <StyledComponents.StyledText>{toastText}</StyledComponents.StyledText>
+    </StyledComponents.ToastContainer>
   );
 }

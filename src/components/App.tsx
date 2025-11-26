@@ -14,8 +14,7 @@ import { initialWindowMetrics, SafeAreaProvider, SafeAreaView } from 'react-nati
 import KaotikaPlayer from '../helpers/interfaces/KaotikaPlayer';
 
 // --- Contexts ---
-import { ModalContext, UserContext, AllAcolytesContext, AcolyteInitialScreenContext, ScrollContext, MortimerToastTextContext, MortimerInitialScreenContext, AcolyteToastTextContext } from '../helpers/contexts/contexts';
-
+import { AllAcolytesContext, AcolyteInitialScreenContext, ScrollContext, MortimerToastTextContext, MortimerInitialScreenContext, AcolyteToastTextContext } from '../helpers/contexts/contexts';
 
 // --- Functions & Hooks ---
 import { useEffect, useState } from "react";
@@ -25,7 +24,7 @@ import styled from 'styled-components/native';
 import { authClient } from '../helpers/googleSignInUtils/googleSignInUtils';
 
 import { initSocket, socket } from '../helpers/socket/socket';
-import { callMessageReceiverListener, getFCMToken, requestUserPermission } from '../helpers/firebaseCloudMessages/pushNotifications';
+import { callMessageReceiverListener, requestUserPermission } from '../helpers/firebaseCloudMessages/pushNotifications';
 import Toast from './Toast';
 import ScrollModal from './ScrollModal';
 
@@ -34,13 +33,17 @@ import messaging from '@react-native-firebase/messaging';
 import { getAcolytes, updateUserStateWithPushToken } from '../helpers/componentUtils/appUtils/appUtils';
 import { useScreenDimensions } from '../helpers/stores/useScreenDimensionsStore';
 import { useWindowDimensions } from 'react-native';
+import { useGeneralModalStore } from '../helpers/stores/useGeneralModalStore';
+import { useUserStore } from '../helpers/stores/useUserStore';
 
 function App() {
 
-  const [user, setUser] = useState<KaotikaPlayer | null>(null);
+  const {user, setUser} = useUserStore();
   const [allAcolytes, setAllAcolytes] = useState<KaotikaPlayer[] | undefined>(undefined);
   const [initialConf, setInitialConf] = useState<boolean>(false);
-  const [modalMessage, setModalMessage] = useState<string>('');
+
+  const {modalMessage, setModalMessage} = useGeneralModalStore();
+
   const [scrollModalMessage, setScrollModalMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [acolyteInitialScreen, setacolyteInitialScreen] = useState<string | null>(null);
@@ -58,13 +61,7 @@ function App() {
     setUser(newUser);
   }
 
-  // Borrar
-  useEffect(() => {
-    console.log("Mortimer toast text changed:", mortimerToastText);
-  }, [mortimerToastText]);
-
-
-
+// TODO: REFACTOR to only use one useEffect(..., []);
   useEffect(() => {
     setTimeout(() => {
       authClient(true, { userHandler, setModalMessage, setInitialConf });
@@ -114,7 +111,6 @@ function App() {
       unsubscribeOnNotificationOpened();
     };
   }, []);
-
 
   useEffect(() => {
 
@@ -178,24 +174,26 @@ function App() {
 
   }, [user]);
 
+  // Borrar
+  useEffect(() => {
+    console.log("Mortimer toast text changed:", mortimerToastText);
+  }, [mortimerToastText]);
+
   const StyledView = styled.View`
+    width: ${screenDimensions?.width}px;
+    height: ${screenDimensions?.height}px;
     fontFamily: "KochAltschrift";
   `;
 
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <StyledView>
-        <GeneralModal
-          message={modalMessage}
-          setMessage={setModalMessage}
-        />
+        <GeneralModal message={modalMessage} setMessage={setModalMessage} />
         {
-
           initialConf ? (
             !user ? (
               <>
                 <Login setUser={setUser} setModalMessage={setModalMessage} setIsLoading={setIsLoading} />
-
                 {isLoading ? <CircleSpinner /> : null}
               </>
             ) : (
@@ -203,11 +201,9 @@ function App() {
                 <MortimerInitialScreenContext.Provider value={[mortimerInitialScreen, setMortimerInitialScreen]}>
                   <AcolyteInitialScreenContext.Provider value={[acolyteInitialScreen, setacolyteInitialScreen]}>
                     <AllAcolytesContext.Provider value={[allAcolytes, setAllAcolytes]}>
-                      <UserContext.Provider value={[user, setUser]}>
                         <MortimerToastTextContext.Provider value={[mortimerToastText, setMortimerToastText]}>
                           <AcolyteToastTextContext.Provider value={[acolyteToastText, setAcolyteToastText]}>
                             <MortimerInitialScreenContext.Provider value={[mortimerInitialScreen, setMortimerInitialScreen]}>
-                              <ModalContext value={setModalMessage}>
                                 <Main />
                                 {user?.rol === 'acolyte' &&
                                   <AcolyteToast toastText={acolyteToastText} setAcolyteToastText={setAcolyteToastText} />
@@ -215,11 +211,9 @@ function App() {
                                 {user?.rol === 'mortimer' &&
                                   <Toast toastText={mortimerToastText} setMortimerToastText={setMortimerToastText} />
                                 }
-                              </ModalContext>
                             </MortimerInitialScreenContext.Provider>
                           </AcolyteToastTextContext.Provider>
                         </MortimerToastTextContext.Provider>
-                      </UserContext.Provider>
                     </AllAcolytesContext.Provider>
                   </AcolyteInitialScreenContext.Provider>
                 </MortimerInitialScreenContext.Provider>

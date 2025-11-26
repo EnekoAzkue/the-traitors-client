@@ -3,8 +3,8 @@ import React, { PropsWithChildren, useContext } from "react";
 
 import { Images } from "../../../../helpers/constants/constants";
 import { Text, View } from "react-native";
-import ScreenContainer from "../../ScreenContainer";
-import IconButton from "../../IconButton";
+import ScreenContainer from "../../../ScreenContainer";
+import IconButton from "../../../IconButton";
 import { AcolyteInitialScreenContext, UserContext } from "../../../../helpers/contexts/contexts";
 import { Dimensions } from 'react-native';
 

@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import ScreenContainer from "../../ScreenContainer";
+import ScreenContainer from "../../../ScreenContainer";
 import { Images } from "../../../../helpers/constants/constants";
 import React from "react";
 import Logout from "../../Logout";

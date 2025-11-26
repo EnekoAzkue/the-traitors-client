@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { View, Text, Dimensions } from "react-native";
 import { Images } from "../../../../helpers/constants/constants";
-import ScreenContainer from "../../ScreenContainer";
+import ScreenContainer from "../../../ScreenContainer";
 import styled from "styled-components/native";
 import AcolyteLabRegister from "./AcolyteLabRegister";
 import KaotikaPlayer from "../../../../helpers/interfaces/KaotikaPlayer";

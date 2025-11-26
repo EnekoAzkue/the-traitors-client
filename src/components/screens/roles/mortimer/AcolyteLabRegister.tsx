@@ -1,25 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { Text, Dimensions } from "react-native";
+import React, { useState } from "react";
+import { Text } from "react-native";
 import styled from "styled-components/native";
 import { AcolyteLabRegisterProps } from "../../../../helpers/interfaces/components/AcolyteLabRegisterProps";
+import { useScreenDimensions } from "../../../../helpers/stores/useScreenDimensionsStore";
 
 const AcolyteLabRegister = ({ acolyte }: AcolyteLabRegisterProps) => {
   const [isInside, setIsInside] = useState(acolyte.isInside);
 
-  const [screen, setScreen] = useState(Dimensions.get("window"));
-  useEffect(() => {
-    const sub = Dimensions.addEventListener("change", ({ window }) => {
-      setScreen(window);
-    });
-    return () => sub.remove();
-  }, []);
-
-  const { width, height } = screen;
+  // --- SCREEN DIMENSIONS --- //
+  const screenDimensions = useScreenDimensions(state => state.screenDimensions);
+  if (!screenDimensions) return;
+  const { width, height } = screenDimensions;
 
   // Ajusta proporciones para que no sea demasiado pequeño
-  const componentWidth = width * 0.9; // ocupa 90% del contenedor o pantalla
-  const componentHeight = height * 0.22; // algo más alto
-  const imageSize = componentHeight * 0.6; // imagen proporcional al componente
+  const componentWidth = width * 0.9; // ocupa 90% del largo de la pantalla
+  const componentHeight = height * 0.22;
+  const imageSize = componentHeight * 0.6; // el ancho y el largo del componente de la imagen
   const baseFont = componentHeight * 0.12; // fuente proporcional al componente
 
   const ComponentContainer = styled.View`
@@ -29,7 +25,7 @@ const AcolyteLabRegister = ({ acolyte }: AcolyteLabRegisterProps) => {
     margin-vertical: 8px;
     width: ${componentWidth}px;
     height: ${componentHeight}px;
-    opacity: ${isInside ? 1 : 0.5};
+    filter: grayscale(${ (isInside) ? 100 : 0 }%);
     flex-direction: column;
     justify-content: center;
     padding-left: 16px;

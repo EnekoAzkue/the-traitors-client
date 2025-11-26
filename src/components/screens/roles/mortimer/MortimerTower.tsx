@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { View, Text, Dimensions } from "react-native";
 import styled from "styled-components/native";
 import { Images, navigationTabMarginBottomForScreens } from "../../../../helpers/constants/constants";
-import ScreenContainer from "../../ScreenContainer";
+import ScreenContainer from "../../../ScreenContainer";
 import KaotikaPlayer from "../../../../helpers/interfaces/KaotikaPlayer";
 import { AllAcolytesContext, MortimerInitialScreenContext } from "../../../../helpers/contexts/contexts";
 import AcolyteTowerRegister from "./AcolyteTowerRegister";

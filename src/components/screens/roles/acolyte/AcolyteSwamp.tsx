@@ -4,7 +4,7 @@ import AcolyteTowerContainer from "./AcolyteTowerContainer";
 import MapView, { Marker } from 'react-native-maps';
 import Geolocation, { GeolocationResponse } from '@react-native-community/geolocation';
 import { UserContext } from "../../../../helpers/contexts/contexts";
-import IconButton from "../../IconButton";
+import IconButton from "../../../IconButton";
 import { PermissionsAndroid } from "react-native";
 
 async function requestPermission() {

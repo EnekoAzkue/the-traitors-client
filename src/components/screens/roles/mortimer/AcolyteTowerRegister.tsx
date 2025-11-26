@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Text, Dimensions } from "react-native";
 import styled from "styled-components/native";
-import { AcolyteTowerRegisterProps } from "../../../../helpers/interfaces/AcolyteTowerRegisterProps";
+import { AcolyteTowerRegisterProps } from "./../../../../helpers/interfaces/components/AcolyteTowerRegisterProps";
 
 const AcolyteTowerRegister = ({ acolyte }: AcolyteTowerRegisterProps) => {
   const [insideTower, setInsideTower] = useState(acolyte.insideTower);

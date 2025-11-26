@@ -1,12 +1,12 @@
 
 import React, { PropsWithChildren, useContext } from "react";
-
+import IconButton from "../../../IconButton";
+import ScreenContainer from "../../../ScreenContainer";
 import { Images } from "../../../../helpers/constants/constants";
-import { Text, View } from "react-native";
-import ScreenContainer from "../../ScreenContainer";
-import IconButton from "../../IconButton";
-import { AcolyteInitialScreenContext, UserContext } from "../../../../helpers/contexts/contexts";
+import { View } from "react-native";
+import { AcolyteInitialScreenContext } from "../../../../helpers/contexts/contexts";
 import { Dimensions } from 'react-native';
+import { useUserStore } from "../../../../helpers/stores/useUserStore";
 
 const { width, height } = Dimensions.get('window');
 
@@ -18,17 +18,11 @@ type AcolyteScreenContainer = {
 
 export default function AcolyteScreenContainer({ backgroundImage, children }: PropsWithChildren<AcolyteScreenContainer>) {
 
-    const userContext = useContext(UserContext);
+  const {user} = useUserStore(); 
+  if (!user) return;
   
-    if (!userContext) {
-      return null;
-    }
-  
-    const [user] = userContext;
-
   const initialRouterScreen = useContext(AcolyteInitialScreenContext);
-
-  if (!initialRouterScreen) return (<Text>ERROR! Initial Router Context not got</Text>);
+  if (!initialRouterScreen) return;
 
   const [initialScreen, setInitialScreen] = initialRouterScreen;
 

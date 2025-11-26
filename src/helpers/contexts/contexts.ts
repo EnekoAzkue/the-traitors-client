@@ -2,13 +2,13 @@ import { createContext } from 'react';
 import { SetModalMessage } from '../interfaces/components/Modal';
 import KaotikaPlayer from '../interfaces/KaotikaPlayer';
 
-export const ModalContext = createContext<SetModalMessage | null>(null);
-export const UserContext = createContext<[KaotikaPlayer, (newUser: KaotikaPlayer | null) => void] | null>(null);
+// export const ModalContext = createContext<SetModalMessage | null>(null);
+// export const UserContext = createContext<[KaotikaPlayer, (newUser: KaotikaPlayer | null) => void] | null>(null);
 export const AllAcolytesContext = createContext<[KaotikaPlayer[] | undefined, (newAllAcolytesList: KaotikaPlayer[] | undefined) => void] | null >(null);
 
 
 
-// Acolyte context for map and navigator: 
+// Acolyte context for map and navigator:
 export const AcolyteInitialScreenContext = createContext<[string | null, (newScreen: string | null) => void] | null>(null);
 export const MortimerInitialScreenContext = createContext<[string, (newScreen: string) => void] | null>(null);
 
@@ -19,5 +19,5 @@ export const ScrollContext = createContext<[boolean, (value: boolean) => void] |
 export const AcolyteToastTextContext = createContext<[string, (newToastText: string ) => void] | null>(null);
 
 
-// MortimerToastText context 
+// MortimerToastText context
 export const MortimerToastTextContext = createContext<[string, (newToastText: string ) => void] | null>(null);

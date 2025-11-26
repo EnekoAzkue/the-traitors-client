@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import Button from "../Button";
 import React from "react";
 import { ApiEndpoints, Images } from "../../helpers/constants/constants";
-import { LoginProps } from "../../helpers/interfaces/LoginProps";
+import { LoginProps } from "../../helpers/interfaces/components/LoginProps";
 
 
 import { GoogleSignin } from '@react-native-google-signin/google-signin';

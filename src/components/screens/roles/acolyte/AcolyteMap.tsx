@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef } from "react";
 import { Animated, Image, ImageBackground, Text, StyleSheet, View } from "react-native";
 import { Images, Screens } from "../../../../helpers/constants/constants";
-import IconButton from "../../IconButton";
+import IconButton from "../../../IconButton";
 import { AcolyteInitialScreenContext } from "../../../../helpers/contexts/contexts";
 import { useScreenDimensions } from "../../../../helpers/stores/useScreenDimensionsStore";
 import styled from "styled-components/native";

@@ -7,7 +7,6 @@ export async function authenticatePlayer(endpoint: string, idToken: string): Pro
   const bodyValue = JSON.stringify({ idToken });
 
   console.log("User's account authentication request has sent...");
-  console.log("Body data: ", bodyValue);
 
   const response = await fetch(
     FETCH_ROUTE,

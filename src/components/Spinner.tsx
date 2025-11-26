@@ -1,23 +1,22 @@
-import { Bounce } from 'react-native-animated-spinkit';
-import { View, StyleSheet } from 'react-native';
 import React from 'react';
+import { Bounce } from 'react-native-animated-spinkit';
+import { getSpinnerStyledComponents } from '../componentStyles/SpinnerStyles';
+import { useScreenDimensions } from '../helpers/stores/useScreenDimensionsStore';
 
 function CircleSpinner() {
+  
+  // --- SCREEN DIMENSIONS --- //
+  const screenDimensions = useScreenDimensions(state => state.screenDimensions);
+  if (!screenDimensions) return;
+
+  // --- BUTTON STYLED COMPONENTS --- //
+  const { StyledSpinnerView } = getSpinnerStyledComponents(screenDimensions);
+
   return (
-    <View style={styles.container}>
+    <StyledSpinnerView>
       <Bounce size={80} color="rgba(255, 255, 255, 1)" />
-    </View>
+    </StyledSpinnerView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    ...StyleSheet.absoluteFill,
-    justifyContent: 'center', 
-    alignItems: 'center',    
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    zIndex: 1000, 
-  },
-});
 
 export default CircleSpinner;

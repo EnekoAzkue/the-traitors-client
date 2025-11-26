@@ -1,50 +1,50 @@
-import styled from 'styled-components/native';
-import { useContext } from 'react';
-import { AcolyteInitialScreenContext, ModalContext, UserContext } from '../../helpers/contexts/contexts';
 import Button from '../Button';
 import React from 'react';
-
+import styled from 'styled-components/native';
+import { useContext } from 'react';
+import { AcolyteInitialScreenContext } from '../../helpers/contexts/contexts';
 import { signOut } from '../../helpers/googleSignInUtils/googleSignInUtils';
 import { performSocketCleanUp } from '../../helpers/socket/socket';
-
-
-const Container = styled.View`
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-`;
+import { useGeneralModalStore } from '../../helpers/stores/useGeneralModalStore';
+import { useUserStore } from '../../helpers/stores/useUserStore';
+import { useScreenDimensions } from '../../helpers/stores/useScreenDimensionsStore';
 
 const Logout = () => {
+  // Screen Dimensions
+  const screenDimensions = useScreenDimensions(state => state.screenDimensions);
+  if (!screenDimensions) return;
+  
+  const {user, setUser} = useUserStore();
+  if (!user) return;
 
   const screenContext = useContext(AcolyteInitialScreenContext)
   if(!screenContext) return;
-  const [initialScreen, setInitialScreen] = screenContext
+
+  const [initialScreen, setInitialScreen] = screenContext;
+
+  const {setModalMessage} = useGeneralModalStore();
 
 
 
 
-  const setModalMessage = useContext(ModalContext)!;
-
-  const  userContext = useContext(UserContext);
-
-  if (!userContext) return;
-  
-  const [user, setUser] = userContext;
+  const Container = styled.View`
+    height: ${screenDimensions.height}px;
+    width: ${screenDimensions.width}px;
+  `;
 
   async function logOut() {
-    setInitialScreen(null);
-    performSocketCleanUp(user.email); // Borrar conexión de sockets 
-    await signOut();
-    setUser(null);
-    setModalMessage('The gate closes behind you.\nSession over.');
+    if(user){
+      setInitialScreen(null);
+      performSocketCleanUp(user.email); // Borrar conexión de sockets 
+      await signOut();
+      setUser(null);
+      setModalMessage('The gate closes behind you.\nSession over.');
+    }
   }
 
   return (
     <Container>
-      <Button
-        onPress={logOut}
-        buttonText={'Log out'}
-      />
+      <Button onPress={logOut} buttonText={'Log out'} />
     </Container>
   );
 };

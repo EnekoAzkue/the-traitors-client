@@ -1,6 +1,6 @@
 import React from "react";
 import { Images } from "../../../../helpers/constants/constants";
-import ScreenContainer from "../../ScreenContainer";
+import ScreenContainer from "../../../ScreenContainer";
 import Logout from "../../Logout";
 
 

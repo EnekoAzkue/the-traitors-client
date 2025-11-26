@@ -1,22 +1,21 @@
 import React from "react";
-import {ImageBackground} from "react-native";
-import styled from "styled-components/native";
 import { Images } from "../../helpers/constants/constants";
-
-const LoginScreen = styled.View`
-  background-color: papayawhip;
-  width: 100%;
-  height: 100%;
-`
+import { useScreenDimensions } from "../../helpers/stores/useScreenDimensionsStore";
+import { getStyledSplashScreenComponents } from "../../componentStyles/ScreensStyles/SplashStyles";
 
 function Splash() {
+    // Screen Dimensions
+    const screenDimensions = useScreenDimensions(state => state.screenDimensions);
+    if (!screenDimensions) return;
+
+    // --- SPLASH SCREEN STYLED COMPONENTS --- //
+    const StyledComponents = getStyledSplashScreenComponents(screenDimensions);
+
     return (
-        <>
-            <LoginScreen>
-                <ImageBackground source={Images.SPLASH_SCREEN} resizeMode="cover" style={{width:'100%', height:'100%'}}>
-                </ImageBackground>
-            </LoginScreen>
-        </>
+        <StyledComponents.SplashScreen>
+            <StyledComponents.SplashStyledBackground source={Images.SPLASH_SCREEN} resizeMode="cover"/>
+        </StyledComponents.SplashScreen>
+
     );
 }
 export default Splash;

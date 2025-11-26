@@ -1,20 +1,21 @@
 import React, { use, useContext, useEffect, useState } from "react";
 import { View } from "react-native";
 import { Images, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
-import { ScrollContext, UserContext } from "../../../../helpers/contexts/contexts";
-import IconButton from "../../IconButton";
+import { ScrollContext } from "../../../../helpers/contexts/contexts";
+import IconButton from "../../../IconButton";
 import AcolyteTowerContainer from "./AcolyteTowerContainer";
-import { Dimensions } from 'react-native';
 import { socket } from "../../../../helpers/socket/socket";
-
-const { width, height } = Dimensions.get('window');
-
+import { useUserStore } from "../../../../helpers/stores/useUserStore";
+import { useScreenDimensions } from "../../../../helpers/stores/useScreenDimensionsStore";
 
 
 function AcolyteTower() {
 
   const [backgroundImage, setBackgroundImage] = useState(Images.TOWER);
-  const userContext = useContext(UserContext);
+
+  // Screen Dimensions
+  const screenDimensions = useScreenDimensions(state => state.screenDimensions);
+  if (!screenDimensions) return;
 
   const scrollContext = useContext(ScrollContext);
 
@@ -22,9 +23,9 @@ function AcolyteTower() {
 
   const [ scrollActive, setScrollActive ] = scrollContext;
 
-  if (!userContext) return;
 
-  const [user] = userContext;
+  const {user} = useUserStore();
+  if (!user) return;
 
 
 
@@ -52,10 +53,10 @@ function AcolyteTower() {
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         {user.insideTower && scrollActive && ( 
         <IconButton
-        width={width * 0.6}
-        height={height * 0.3}
-        xPos={width * 0.23}
-        yPos={height * 0.4}
+        width={screenDimensions.width * 0.6}
+        height={screenDimensions.height * 0.3}
+        xPos={screenDimensions.width * 0.23}
+        yPos={screenDimensions.height * 0.4}
         hasBorder={false}
         hasBrightness={true}
         backgroundImage={Images.SCROLL}

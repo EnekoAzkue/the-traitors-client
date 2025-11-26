@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { View } from "react-native";
-import ScreenContainer from "../../ScreenContainer";
+import ScreenContainer from "../../../ScreenContainer";
 import { Images } from "../../../../helpers/constants/constants";
 import { MortimerInitialScreenContext } from "../../../../helpers/contexts/contexts";
 
