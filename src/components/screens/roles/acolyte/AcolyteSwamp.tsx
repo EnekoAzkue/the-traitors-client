@@ -3,7 +3,7 @@ import { Dimensions, StyleSheet, View } from "react-native";
 import AcolyteTowerContainer from "./AcolyteTowerContainer";
 import MapView, { Marker, Circle } from 'react-native-maps';
 import Geolocation, { GeolocationResponse } from '@react-native-community/geolocation';
-import { UserContext } from "../../../../helpers/contexts/contexts";
+import { InventoryContext, UserContext } from "../../../../helpers/contexts/contexts";
 import IconButton from "../../IconButton";
 import { PermissionsAndroid } from "react-native";
 import AcolyteSwampContainer from "./AcolyteSwampContainer";
@@ -121,6 +121,7 @@ function AcolyteSwamp() {
 
   return (
     <>
+    <InventoryContext.Provider value={[isInventoryOpen, setIsInventoryOpen]}>
       <AcolyteSwampContainer>
         <InventoryContainer artifacts={artifacts}>
         </InventoryContainer>
@@ -173,6 +174,8 @@ function AcolyteSwamp() {
 
         </View>
       </AcolyteSwampContainer>
+    </InventoryContext.Provider>
+
     </>
   );
 

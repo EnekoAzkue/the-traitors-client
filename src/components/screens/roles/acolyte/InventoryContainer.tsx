@@ -10,11 +10,13 @@ import IndividualArtifactContainer from "./IndividualArtifactContainer";
 
 export default function InventoryContainer(artifacts: any) {
     const allAcolytesContext = useContext(AllAcolytesContext);
-    const inventoryContext = useContext(InventoryContext)
+    const inventoryContext = useContext(InventoryContext);
+
     if (!allAcolytesContext) return <Text>User context is null at Home Component!!!"</Text>;
-    if(!inventoryContext) return
+    if(!inventoryContext) return null;
+
     const [acolytes, setAcolytes] = allAcolytesContext;
-    const [isInventoryOpen] = inventoryContext
+    const [isInventoryOpen] = inventoryContext;
 
     const initialScreenContext = useContext(MortimerInitialScreenContext);
     if (!initialScreenContext) return null;
@@ -36,45 +38,34 @@ export default function InventoryContainer(artifacts: any) {
 
     const { width, height } = screen;
 
-    const InventoryContainer = styled.View`
-    align-items: center; 
-    flex: 1; 
-    width: ${width}px;
-    height: ${height * 0.115}px;
-    margin-top: ${height * 0.88}px;
-    position: absolute;
-    zIndex: 500;
-  `;
+    const InventoryContainerStyled = styled.View`
+        align-items: center; 
+        flex: 1; 
+        width: ${width}px;
+        height: ${height * 0.115}px;
+        margin-top: ${height * 0.88}px;
+        position: absolute;
+        z-index: 500;
+    `;
 
     const ArtifactContainer = styled.ScrollView`
-    flex: 1;
-    width: ${width * 0.95}px;
-    height: ${height * 0.1}px;
-    border: 1px solid rgba(85, 0, 134, 1);
-    border-radius: 8px;
-    background-color: rgba(0,0,0,0.3);
-  `;
+        flex: 1;
+        width: ${width * 0.95}px;
+        height: ${height * 0.1}px;
+        border: 1px solid rgba(85, 0, 134, 1);
+        border-radius: 8px;
+        background-color: rgba(0,0,0,0.3);
+    `;
 
+    if (!isInventoryOpen) return null;
 
     return (
-        <View>
-            <>
-
-                <InventoryContainer>
-                    <ArtifactContainer horizontal={true}>
-                    {
-                        artifacts.artifacts.map((a: Artifact) => {
-
-                                return(
-                                    
-                                    <IndividualArtifactContainer artifact={a} />
-                                )
-                        })
-                    }
-
-                    </ArtifactContainer>
-                </InventoryContainer>
-            </>
-        </View>
+        <InventoryContainerStyled>
+            <ArtifactContainer horizontal={true}>
+                {artifacts.artifacts.map((a: Artifact) => (
+                    <IndividualArtifactContainer key={a.name} artifact={a} />
+                ))}
+            </ArtifactContainer>
+        </InventoryContainerStyled>
     );
 }

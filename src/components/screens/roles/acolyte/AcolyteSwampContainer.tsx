@@ -1,17 +1,11 @@
-
-import React, { PropsWithChildren, useContext, useEffect, useState } from "react";
-
+import React, { PropsWithChildren, useContext } from "react";
 import { Images } from "../../../../helpers/constants/constants";
-import { Text, View } from "react-native";
+import { Text, View, Dimensions } from "react-native";
 import ScreenContainer from "../../ScreenContainer";
 import IconButton from "../../IconButton";
-import { AcolyteInitialScreenContext, InventoryContext, UserContext } from "../../../../helpers/contexts/contexts";
-import { Dimensions } from 'react-native';
-import Button from "../../../Button";
+import { AcolyteInitialScreenContext, InventoryContext } from "../../../../helpers/contexts/contexts";
 
 const { width, height } = Dimensions.get('window');
-
-
 
 type AcolyteScreenContainer = {
   backgroundImage?: Images,
@@ -19,30 +13,62 @@ type AcolyteScreenContainer = {
 
 export default function AcolyteSwampContainer({ backgroundImage, children }: PropsWithChildren<AcolyteScreenContainer>) {
 
-    const inventoryContext = useContext(InventoryContext);
+  // --- INVENTORY CONTEXT ---
+  const inventoryContext = useContext(InventoryContext);
 
-    
-    const [isInventoryOpen, setIsInventoryOpen] = inventoryContext
-    const initialRouterScreen = useContext(AcolyteInitialScreenContext);
-
-  if (!initialRouterScreen) return (<Text>ERROR! Initial Router Context not got</Text>);
-
-  const [initialScreen, setInitialScreen] = initialRouterScreen;
-
-  const toggleInventory = () => {
-    setIsInventoryOpen(!isInventoryOpen)
-    console.log('Inventoy open?', isInventoryOpen)
+  if (!inventoryContext) {
+    return <Text>ERROR! InventoryContext Provider is missing</Text>;
   }
+
+  const [isInventoryOpen, setIsInventoryOpen] = inventoryContext;
+
+
+  // --- INITIAL SCREEN CONTEXT ---
+  const initialRouterScreen = useContext(AcolyteInitialScreenContext);
+
+  if (!initialRouterScreen) {
+    return <Text>ERROR! Initial Router Context not found</Text>;
+  }
+
+  const [, setInitialScreen] = initialRouterScreen;
+
+
+  // --- HANDLERS ---
+  const toggleInventory = () => {
+    setIsInventoryOpen(!isInventoryOpen);
+  };
+
 
   return (
     <View>
       <ScreenContainer backgroundImg={backgroundImage}>
-        {/*TODO: refactor dimensions for iconbuttons*/}
-        <IconButton width={width * 0.3} height={height * 0.07} hasBrightness={true} backgroundImage={Images.BACK_ARROW} buttonOnPress={() => setInitialScreen(null)} xPos={width * 0.02} yPos={height * 0.02} hasBorder={false}   backgrounOpacity={0} />
-        <IconButton width={height * 0.07} height={height * 0.07} hasBrightness={true} backgroundImage={Images.BAG} buttonOnPress={toggleInventory} xPos={width * 0.8} yPos={height * 0.02} hasBorder={false}   backgrounOpacity={0} />
+
+        <IconButton
+          width={width * 0.3}
+          height={height * 0.07}
+          hasBrightness={true}
+          backgroundImage={Images.BACK_ARROW}
+          buttonOnPress={() => setInitialScreen(null)}
+          xPos={width * 0.02}
+          yPos={height * 0.02}
+          hasBorder={false}
+          backgrounOpacity={0}
+        />
+
+        <IconButton
+          width={height * 0.07}
+          height={height * 0.07}
+          hasBrightness={true}
+          backgroundImage={Images.BAG}
+          buttonOnPress={toggleInventory}
+          xPos={width * 0.8}
+          yPos={height * 0.02}
+          hasBorder={false}
+          backgrounOpacity={0}
+        />
+
         {children}
       </ScreenContainer>
     </View>
   );
-
-};
+}
