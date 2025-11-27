@@ -9,7 +9,7 @@ type IconButtonProps = {
   yPos: number,
   backgroundImage: any,
   buttonOnPress: any,
-  hasBrightness?: boolean, //Optional parameter --> must give 
+  hasBrightness?: boolean, 
   hasBorder?: boolean,
   backgrounOpacity?: number,
 };
@@ -17,7 +17,6 @@ type IconButtonProps = {
 export default function IconButton({ width, height, xPos, yPos, backgroundImage, buttonOnPress, hasBrightness = false, hasBorder = false, backgrounOpacity = 0.4 }: IconButtonProps) {
 
 
-  // la propiedad box-shadow aún siendo soportada por styled-components sirve para hacer web, React-Native no lo soporta 
   const StyledButtonContainer = styled.View`
     width: ${width}px;
     height: ${height}px;
@@ -26,7 +25,7 @@ export default function IconButton({ width, height, xPos, yPos, backgroundImage,
     top: ${yPos}px;
     left: ${xPos}px;
     
-    zIndex: 1000;
+    zIndex: 600;
   `;
 
 
@@ -79,5 +78,5 @@ export default function IconButton({ width, height, xPos, yPos, backgroundImage,
     </StyledButtonContainer>
 
 
-  );
+);
 }

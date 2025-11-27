@@ -73,6 +73,11 @@ enum Images {
   BACK_ARROW = require('../../assets/images/BackArrow.png'),
 
   BAG = require('../../assets/images/logos/bag.png'),
+
+  DRAGON_HEART_ICON = require('../../assets/artifactImages/Dragon_heart_icon.png'),
+  HUBRIS_ICON = require('../../assets/artifactImages/Hubris_icon.png'),
+  JAKSHO_ICON = require('../../assets/artifactImages/Jak_sho_icon.png'),
+  PHANTOM_DANCER_ICON = require('../../assets/artifactImages/Phantom_dancer_icon.png'),
 }
 
 enum Screens {

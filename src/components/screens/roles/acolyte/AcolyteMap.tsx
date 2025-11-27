@@ -88,7 +88,7 @@ export default function AcolyteMap() {
         <Image
           source={Images.CLOUDS}
           resizeMode="cover"
-          style={[styles.cloudImage]} 
+          style={[styles.cloudImage]}
         />
 
         <View style={styles.darkFilter} />
@@ -107,13 +107,16 @@ const styles = StyleSheet.create({
     position: "absolute",
     width: "100%",
     height: "100%",
+    zIndex: 700,
   },
   cloudImage: {
     width: "100%",
     height: "100%",
+    zIndex: 700,
   },
   darkFilter: {
     ...StyleSheet.absoluteFill,
-    backgroundColor: "rgba(10, 15, 30, 0.7)", // tinte nocturno muy suave
+    backgroundColor: "rgba(10, 15, 30, 0.7)",
+    zIndex: 701,
   },
 });
