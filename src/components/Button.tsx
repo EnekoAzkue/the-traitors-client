@@ -6,7 +6,7 @@ import { getButtonStyledComponents } from "../componentStyles/ButtonStyles";
 
 
 const Button = ({ buttonText, onPress }: ButtonProps) => {
-    // Screen Dimensions
+    // --- SCREEN DIMENSIONS --- //
     const screenDimensions = useScreenDimensions(state => state.screenDimensions);
     if (!screenDimensions) return;
 

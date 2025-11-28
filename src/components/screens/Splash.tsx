@@ -1,7 +1,8 @@
 import React from "react";
 import { Images } from "../../helpers/constants/constants";
 import { useScreenDimensions } from "../../helpers/stores/useScreenDimensionsStore";
-import { getStyledSplashScreenComponents } from "../../componentStyles/ScreensStyles/SplashStyles";
+import { getStyledSplashScreenComponents } from "../../componentStyles/screensStyles/SplashStyles";
+
 
 function Splash() {
     // Screen Dimensions

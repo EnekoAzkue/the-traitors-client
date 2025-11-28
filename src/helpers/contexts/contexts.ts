@@ -3,21 +3,18 @@ import { SetModalMessage } from '../interfaces/components/Modal';
 import KaotikaPlayer from '../interfaces/KaotikaPlayer';
 
 // export const ModalContext = createContext<SetModalMessage | null>(null);
-// export const UserContext = createContext<[KaotikaPlayer, (newUser: KaotikaPlayer | null) => void] | null>(null);
-export const AllAcolytesContext = createContext<[KaotikaPlayer[] | undefined, (newAllAcolytesList: KaotikaPlayer[] | undefined) => void] | null >(null);
+// // export const UserContext = createContext<[KaotikaPlayer, (newUser: KaotikaPlayer | null) => void] | null>(null);
+// export const AllAcolytesContext = createContext<[KaotikaPlayer[] | undefined, (newAllAcolytesList: KaotikaPlayer[] | undefined) => void] | null >(null);
 
 
 
-// Acolyte context for map and navigator:
-export const AcolyteInitialScreenContext = createContext<[string | null, (newScreen: string | null) => void] | null>(null);
-export const MortimerInitialScreenContext = createContext<[string, (newScreen: string) => void] | null>(null);
+// // context for map and navigator:
+// export const AcolyteInitialScreenContext = createContext<[string | null, (newScreen: string | null) => void] | null>(null);
+// export const MortimerInitialScreenContext = createContext<[string, (newScreen: string) => void] | null>(null);
 
 
-export const ScrollContext = createContext<[boolean, (value: boolean) => void] | null>(null);
+// export const ScrollContext = createContext<[boolean, (value: boolean) => void] | null>(null);
 
-// AcolyteToastText context
-export const AcolyteToastTextContext = createContext<[string, (newToastText: string ) => void] | null>(null);
-
-
-// MortimerToastText context
-export const MortimerToastTextContext = createContext<[string, (newToastText: string ) => void] | null>(null);
+// // Toast contexts
+// export const AcolyteToastTextContext = createContext<[string, (newToastText: string ) => void] | null>(null);
+// export const MortimerToastTextContext = createContext<[string, (newToastText: string ) => void] | null>(null);

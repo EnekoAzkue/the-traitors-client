@@ -1,92 +1,35 @@
-import React, { useState, useContext } from 'react';
-import { StyleSheet } from 'react-native';
-import { useCameraPermission, Camera, useCameraDevice, useCodeScanner, Code } from 'react-native-vision-camera';
-import { ModalContext } from '../../../../helpers/contexts/contexts';
-import { useNavigation } from '@react-navigation/native';
-import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import Button from '../../../Button';
-import { Images, SocketClientToServerEvents } from '../../../../helpers/constants/constants';
-import { socket } from '../../../../helpers/socket/socket';
-import styled from 'styled-components/native';
-import { Dimensions } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet } from 'react-native';
+import { Camera } from 'react-native-vision-camera';
+import { Images } from '../../../../helpers/constants/constants';
+import { useGeneralModalStore } from '../../../../helpers/stores/useGeneralModalStore';
+import { useScreenDimensions } from '../../../../helpers/stores/useScreenDimensionsStore';
+import { getIstvanLabScreenStyledComponents } from '../../../../componentStyles/screensStyles/roles/istvan/IstvanLabStyles';
 
-const { width, height } = Dimensions.get('window');
 
-type RootTabParamList = {
-  IstvanHome: undefined;
-  IstvanLab: undefined;
-  IstvanSettings: undefined;
-  // otros tabs si los hay
-};
+import { getAllIstvanLabProperties, getAllIstvanLabUtilities } from '../../../../helpers/componentUtils/__screenUtils__/__rolUtils__/__istvanUtils__/istvanUtils';
+
 
 const IstvanLab = () => {
   const [isCameraOpen, setIsCameraOpen] = useState(false);
-  const setModalMessage = useContext(ModalContext)!;
-  const navigation = useNavigation<BottomTabNavigationProp<RootTabParamList>>();
 
-  const device = useCameraDevice('back');
-  const { hasPermission, requestPermission } = useCameraPermission();
+  // --- ZUSTAND STORES --- //
+  const screenDimensions = useScreenDimensions( state => state.screenDimensions );
+  if (!screenDimensions) return;
 
-  const codeScanner = useCodeScanner({ codeTypes: ['qr'], onCodeScanned });
+  const setModalMessage = useGeneralModalStore(state => state.setModalMessage);
 
-  async function handlePress() {
-    if (!hasPermission) {
-      const granted = await requestPermission();
-      if (!granted) {
-        setModalMessage('Debes dar permiso para usar la cámara');
-        return;
-      }
-    }
-    toggleCameraAndTabBar();
-  }
 
-  function toggleCameraAndTabBar() {
-    const updatedIsCameraOpen = !isCameraOpen;
-    setIsCameraOpen(updatedIsCameraOpen);
+  // --- GET ALL ISTVAN LAB REQUIRED TOOLS --- //
+  const istvanLabAllProps = getAllIstvanLabProperties();
+  const {device, hasPermission, requestPermission, navigation} = istvanLabAllProps;
 
-    // Ocultar o mostrar el tabBar
-    navigation.setOptions({
-      tabBarStyle: updatedIsCameraOpen ? { display: 'none' } : undefined,
-    });
-  }
-
-  function onCodeScanned(codes: Code[]) {
-    if (codes.length === 0) return;
-    const codeValue = codes[0].value;
-    setModalMessage(`QR detectado: ${codeValue}`);
-
-    // --- Emit socket event to send the email of the user which QR was scanned ---
-    if (codes[0]?.value) {
-      socket.emit(SocketClientToServerEvents.ACCESS_TO_EXIT_FROM_LAB, (codes[0]?.value));
-      console.log("ISTVAN sends QR event!");
-    }
-
-    toggleCameraAndTabBar();
-  }
-
-  const BackgroundImage = styled.ImageBackground`
-  width: ${width}px;
-  height: ${Math.floor(height * 0.938)}px;
-  `;
-
-  const StyledContainer = styled.View`
-  width: ${width}px;
-  height: ${Math.floor(height * 0.938)}px;
-  `;
-
-  const StyledCameraContainer = styled.View`
-    width: ${width}px;
-    height: ${height}px;
-  `;
-
-  const StyledButtonContainer = styled.View`
-    position: absolute; 
-    left: ${width * 0.24}px;
-    top: ${height * 0.67}px;
-  `;
+  const { handlePress, toggleCameraAndTabBar, codeScanner} = getAllIstvanLabUtilities({isCameraOpen, hasPermission, navigation, requestPermission, setModalMessage, setIsCameraOpen});
 
 
 
+  const { BackgroundImage, StyledContainer, StyledCameraContainer } = getIstvanLabScreenStyledComponents(screenDimensions);
 
   return (
     <StyledContainer>
@@ -94,22 +37,12 @@ const IstvanLab = () => {
         (isCameraOpen && device) ?
           <StyledCameraContainer>
             <Camera device={device} isActive={true} style={StyleSheet.absoluteFill} codeScanner={codeScanner} />
-            <StyledButtonContainer>
-              <Button onPress={toggleCameraAndTabBar} buttonText="Close Camera" />
-            </StyledButtonContainer>
-           </StyledCameraContainer>
+            <Button onPress={toggleCameraAndTabBar} buttonText="Close Camera" />
+          </StyledCameraContainer>
           :
-
-          <>
-            {/* <View style={{ marginBottom: navigationTabMarginBottomForScreens }}> */}
-              <BackgroundImage source={Images.ISTVAN_LAB}>
-                <StyledButtonContainer>
-                  <Button buttonText="Open Camera" onPress={handlePress} />
-                </StyledButtonContainer>
-              </BackgroundImage>
-            {/* </View> */}
-          </>
-
+          <BackgroundImage source={Images.ISTVAN_LAB}>
+            <Button buttonText="Open Camera" onPress={handlePress} />
+          </BackgroundImage>
       }
 
     </StyledContainer>

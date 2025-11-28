@@ -1,50 +1,16 @@
 import React from "react";
 import DropShadow from "react-native-drop-shadow";
-import styled from "styled-components/native";
+import { getIconButtonStyledComponents, iconButtonStyles } from "../componentStyles/IconButtonStyles";
 
-type IconButtonProps = {
-  width: number,
-  height: number,
-  xPos: number,
-  yPos: number,
-  backgroundImage: any,
-  buttonOnPress: any,
-  hasBrightness?: boolean, //Optional parameter --> must give 
-  hasBorder?: boolean,
-  backgrounOpacity?: number,
-};
+// --- INTERFACES --- //
+import { type IconButtonProps } from "../helpers/interfaces/components/IconButtonInterfaces";
+
 
 export default function IconButton({ width, height, xPos, yPos, backgroundImage, buttonOnPress, hasBrightness = false, hasBorder = false, backgrounOpacity = 0.4 }: IconButtonProps) {
 
-
-  // la propiedad box-shadow aún siendo soportada por styled-components sirve para hacer web, React-Native no lo soporta 
-  const StyledButtonContainer = styled.View`
-    width: ${width}px;
-    height: ${height}px;
-    position: absolute; 
-
-    top: ${yPos}px;
-    left: ${xPos}px;
-    
-  `;
-
-
-  const StyledButton = styled.TouchableOpacity`
-  width: ${width}px;
-  height: ${height}px;
-
-  ${(hasBorder) ? 'border: 1px solid white;' : ''};
-  border-radius: 100%;
-
-  background: rgba(0,0,0, ${backgrounOpacity});
-
-  `;
-
-  const StyledImage = styled.Image`
-  width: ${width}px;
-  height: ${height}px;
-`;
-
+  // --- STYLED COMPONENTS --- //
+  const iconButtonStyledComponentsParams = {width, height, xPos, yPos, hasBorder, backgrounOpacity};
+  const {StyledButtonContainer, StyledButton, StyledImage} = getIconButtonStyledComponents(iconButtonStyledComponentsParams);
 
   const IconButtonChildren = () => {
     return (
@@ -54,21 +20,14 @@ export default function IconButton({ width, height, xPos, yPos, backgroundImage,
     );
   }
 
+  // la propiedad box-shadow aún siendo soportada por styled-components sirve para hacer web, React-Native no lo soporta 
   return (
 
     <StyledButtonContainer>
 
       {
         (hasBrightness) ?
-          <DropShadow style={{
-            shadowColor: '#ffffffff',
-            shadowOffset: {
-              width: 0,
-              height: 0,
-            },
-            shadowOpacity: 2,
-            shadowRadius: 6,
-          }}>
+          <DropShadow style={iconButtonStyles.dropShadowStyle}>
             <IconButtonChildren />
 
           </DropShadow>
@@ -76,7 +35,5 @@ export default function IconButton({ width, height, xPos, yPos, backgroundImage,
           <IconButtonChildren />
       }
     </StyledButtonContainer>
-
-
-  );
+  );
 }

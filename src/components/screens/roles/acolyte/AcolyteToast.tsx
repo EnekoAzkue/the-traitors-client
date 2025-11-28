@@ -1,10 +1,7 @@
-import React, { use, useEffect } from "react";
-import { Text } from "react-native";
-import { Dimensions } from 'react-native';
-import styled from "styled-components/native";
+import React, { useEffect } from "react";
+import { useScreenDimensions } from "../../../../helpers/stores/useScreenDimensionsStore";
+import { getAcolyteToastStyledComponents } from "../../../../componentStyles/screensStyles/roles/acolyte/AcolyteToastStyles";
 
-
-const { width, height } = Dimensions.get('window');
 
 interface ToastProps {
   toastText: string;
@@ -12,40 +9,27 @@ interface ToastProps {
 };
 
 
-const ToastContainer = styled.View`
-  position: absolute;
-  top: ${height * 0.85}px;
-  left: ${width * 0.13}px;
-  border: 1px solid rgba(255, 255, 255, 1);
-  width: ${width * 0.75}px;
-  height: ${height * 0.05}px;
-  border-radius: 9px;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.75);
-
-  fontSize: ${width * 0.2}%;
-`;
-
-const StyledText = styled.Text`
-  text-align: center;
-  color: white;
-`;
-
-
 export default function AcolyteToast({ toastText, setAcolyteToastText }: ToastProps) {
-  useEffect(() => {
-    setTimeout(() => {
-      setAcolyteToastText('');
-    }, 3000);
-  }, [toastText]);
 
 
+  // --- SCREEN DIMENSIONS --- //
+  const screenDimensions = useScreenDimensions(state => state.screenDimensions);
+  if (!screenDimensions) return;
+
+  const  {ToastContainer, StyledText} = getAcolyteToastStyledComponents(screenDimensions);
+
+  useEffect( removeToastMessage ,[toastText]);
+
+  function removeToastMessage() {
+        setTimeout(() => {
+        setAcolyteToastText('');
+      }, 3000);
+  }
   if (!toastText || toastText.trim() === '') return null;
 
   return (
-      <ToastContainer>
-        <StyledText>{toastText}</StyledText>
-      </ToastContainer>
+    <ToastContainer>
+      <StyledText>{toastText}</StyledText>
+    </ToastContainer>
   );
 }

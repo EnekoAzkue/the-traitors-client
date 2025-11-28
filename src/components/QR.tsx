@@ -1,11 +1,11 @@
 import React from 'react';
 import Button from './Button';
 import QRCode from 'react-native-qrcode-svg';
-import { Images } from '../helpers/constants/constants';
 import { useState } from 'react';
-import { useScreenDimensions } from '../helpers/stores/useScreenDimensionsStore';
-import { getQRStyledComponents } from '../componentStyles/QRStyles';
+import { Images } from '../helpers/constants/constants';
 import { useUserStore } from '../helpers/stores/useUserStore';
+import { getQRStyledComponents } from '../componentStyles/QRStyles';
+import { useScreenDimensions } from '../helpers/stores/useScreenDimensionsStore';
 
 const QRCodeContainer = () => {
 
@@ -13,7 +13,6 @@ const QRCodeContainer = () => {
   const [showingQR, setShowingQR] = useState<boolean>(false);
 
   // --- ZUSTAND STORES --- //
-  
     // --- SCREEN DIMENSIONS --- //
   const screenDimensions = useScreenDimensions(state => state.screenDimensions);
   if (!screenDimensions) return;

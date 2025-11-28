@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components/native';
-import { MortimerInitialScreenContext, MortimerToastTextContext } from '../../helpers/contexts/contexts';
 import IstvanNavigation from './roles/istvan/IstvanNavigation';
 import { Roles } from '../../helpers/constants/constants';
 import { Text } from 'react-native';
@@ -14,19 +13,9 @@ const Container = styled.View`
 `;
 
 const Main = () => {
-  const screenContext = useContext(MortimerInitialScreenContext);
 
-  const [initialScreen, setInitialScreen] = screenContext!;
-
-  const {user, setUser} = useUserStore();
-  if (!user) return ;
-
-
-  const mortimerToastTextContext = useContext(MortimerToastTextContext);
-  if (!mortimerToastTextContext) return;
-  const [mortimerToastText, setMortimerToastText] = mortimerToastTextContext;
-
-
+  const {user} = useUserStore();
+  if (!user) return ;  
 
   const roles = () => {
     switch (user.rol) {
@@ -40,12 +29,7 @@ const Main = () => {
         return (<VillainNavigation />);
 
       case (Roles.MORTIMER):
-        return (
-          <>
-            <MortimerNavigation />
-          </>
-
-        );
+        return (<MortimerNavigation />);
 
       default:
         return (<Text>{`Error! Rol: ${user.rol} Not found`}</Text>)
@@ -55,7 +39,6 @@ const Main = () => {
 
   return (
     <Container>
-
       {roles()}
     </Container>
   );

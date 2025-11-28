@@ -1,32 +1,20 @@
-import React, { useEffect, useState } from "react";
-import QRCodeContainer from "../../../QR";
-import AcolyteScreenContainer from "./AcolyteScreenContainer";
 import { View } from "react-native";
-import { Images  } from "../../../../helpers/constants/constants";
+import QRCodeContainer from "../../../QR";
+import React, { useEffect, useState } from "react";
+import AcolyteScreenContainer from "./AcolyteScreenContainer";
+import { Images } from "../../../../helpers/constants/constants";
 import { useUserStore } from "../../../../helpers/stores/useUserStore";
+import { manageAcolyteLabAccess } from "../../../../helpers/componentUtils/__screenUtils__/__rolUtils__/__acolyteUtils__/AcolyteLabUtilities";
 
 function AcolyteLab() {
   const [backgroundImg, setBackgroundImg] = useState(Images.ACOLYTE_LAB);
   const [accesedIn, setAccesedIn] = useState<boolean>(false);
 
-  const {user, setUser} = useUserStore();
+  const user = useUserStore( state => state.user);
   if(!user) return;
 
   useEffect(() => {
-
-    if (user.isInside) {
-      console.log(`is user inside lab? ${user.isInside}`)
-      // setBackgroundImg(Images.ACOLYTE_LAB_OPEN);
-      // setTimeout(() => {
-      //   setBackgroundImg(Images.ACOLYTE_LAB_INSIDE);
-      // }, 1200);
-      setBackgroundImg(Images.ACOLYTE_LAB_INSIDE)
-      setAccesedIn(true);
-      return;
-    } else {
-      console.log(`is user inside lab? ${user.isInside}`)
-      setBackgroundImg(Images.ACOLYTE_LAB);
-    }
+    manageAcolyteLabAccess({user, setBackgroundImg, setAccesedIn});
   }, [user]);
 
   return (

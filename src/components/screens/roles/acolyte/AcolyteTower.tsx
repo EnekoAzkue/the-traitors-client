@@ -1,32 +1,27 @@
-import React, { use, useContext, useEffect, useState } from "react";
 import { View } from "react-native";
-import { Images, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
-import { ScrollContext } from "../../../../helpers/contexts/contexts";
 import IconButton from "../../../IconButton";
-import AcolyteTowerContainer from "./AcolyteTowerContainer";
+import React, { useEffect, useState } from "react";
 import { socket } from "../../../../helpers/socket/socket";
+import AcolyteTowerContainer from "./AcolyteTowerContainer";
 import { useUserStore } from "../../../../helpers/stores/useUserStore";
+import { useScrollStore } from "../../../../helpers/stores/useScrollStore";
 import { useScreenDimensions } from "../../../../helpers/stores/useScreenDimensionsStore";
+import { Images, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
 
 
 function AcolyteTower() {
 
   const [backgroundImage, setBackgroundImage] = useState(Images.TOWER);
 
-  // Screen Dimensions
+  // --- SCREEN DIMENSIONS --- //
   const screenDimensions = useScreenDimensions(state => state.screenDimensions);
   if (!screenDimensions) return;
 
-  const scrollContext = useContext(ScrollContext);
-
-  if(!scrollContext) return;
-
-  const [ scrollActive, setScrollActive ] = scrollContext;
+  const {scrollActive, setScrollActive} = useScrollStore();
 
 
   const {user} = useUserStore();
   if (!user) return;
-
 
 
   useEffect(() => {
@@ -71,4 +66,4 @@ function AcolyteTower() {
 }
 
 
-export default AcolyteTower;
+export default AcolyteTower;

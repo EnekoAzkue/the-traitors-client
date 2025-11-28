@@ -1,15 +1,11 @@
-
-import React, { PropsWithChildren, useContext } from "react";
-
-import { Images } from "../../../../helpers/constants/constants";
-import { Text, View } from "react-native";
-import ScreenContainer from "../../../ScreenContainer";
+import { View } from "react-native";
 import IconButton from "../../../IconButton";
-import { AcolyteInitialScreenContext, UserContext } from "../../../../helpers/contexts/contexts";
-import { Dimensions } from 'react-native';
-
-const { width, height } = Dimensions.get('window');
-
+import React, { PropsWithChildren } from "react";
+import ScreenContainer from "../../../ScreenContainer";
+import { Images } from "../../../../helpers/constants/constants";
+import { useUserStore } from "../../../../helpers/stores/useUserStore";
+import { useScreenDimensions } from "../../../../helpers/stores/useScreenDimensionsStore";
+import { useAcolyteInitialScreenStore } from "../../../../helpers/stores/useAcolyteInitialScreenStore";
 
 
 type AcolyteScreenContainer = {
@@ -17,27 +13,23 @@ type AcolyteScreenContainer = {
 };
 
 export default function AcolyteTowerContainer({ backgroundImage, children }: PropsWithChildren<AcolyteScreenContainer>) {
-
-    const userContext = useContext(UserContext);
   
-    if (!userContext) {
-      return null;
-    }
-  
-    const [user] = userContext;
 
-  const initialRouterScreen = useContext(AcolyteInitialScreenContext);
+  // --- SCREEN DIMENSIONS --- //
+  const screenDimensions = useScreenDimensions(state => state.screenDimensions);
+  if (!screenDimensions) return;
 
-  if (!initialRouterScreen) return (<Text>ERROR! Initial Router Context not got</Text>);
+  const user = useUserStore( state => state.user);
+  const setInitialScreen = useAcolyteInitialScreenStore( state => state.setAcolyteInitialScreen);
 
-  const [initialScreen, setInitialScreen] = initialRouterScreen;
-
+  if (!user)return null;
 
   return (
     <View>
       <ScreenContainer backgroundImg={backgroundImage}>
-        {user.isInside || user.insideTower ? (null) : 
-        <IconButton width={width * 0.3} height={height * 0.07} hasBrightness={true} backgroundImage={Images.BACK_ARROW} buttonOnPress={() => setInitialScreen(null)} xPos={20} yPos={20} hasBorder={false}   backgrounOpacity={0} />
+        {
+          user.isInside || user.insideTower ? (null) : 
+          <IconButton width={screenDimensions.width * 0.3} height={screenDimensions.height * 0.07} hasBrightness={true} backgroundImage={Images.BACK_ARROW} buttonOnPress={() => setInitialScreen(null)} xPos={20} yPos={20} hasBorder={false} backgrounOpacity={0} />
         }
         {children}
       </ScreenContainer>

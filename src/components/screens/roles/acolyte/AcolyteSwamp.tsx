@@ -3,9 +3,8 @@ import { StyleSheet, View } from "react-native";
 import AcolyteTowerContainer from "./AcolyteTowerContainer";
 import MapView, { Marker } from 'react-native-maps';
 import Geolocation, { GeolocationResponse } from '@react-native-community/geolocation';
-import { UserContext } from "../../../../helpers/contexts/contexts";
-import IconButton from "../../../IconButton";
 import { PermissionsAndroid } from "react-native";
+import { useUserStore } from "../../../../helpers/stores/useUserStore";
 
 async function requestPermission() {
   const fine = await PermissionsAndroid.request(
@@ -40,9 +39,8 @@ useEffect(() => {
 }, []);
 
 
-  const userContext = useContext(UserContext)
-  if (!userContext) return
-  const [user] = userContext
+  const user = useUserStore( state => state.user);
+  if (!user) return;
 
   const styles = StyleSheet.create({
     container: {

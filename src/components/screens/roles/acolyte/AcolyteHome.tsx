@@ -7,8 +7,7 @@ function AcolyteHome() {
 
   return (
     <AcolyteScreenContainer backgroundImage={Images.ACOLYTE_HOME} >
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      </View>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} />
     </AcolyteScreenContainer>
   );
 }

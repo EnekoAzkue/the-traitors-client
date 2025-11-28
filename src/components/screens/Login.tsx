@@ -1,10 +1,9 @@
 import { ImageBackground } from "react-native";
 import styled from "styled-components/native";
 import Button from "../Button";
-import React from "react";
+import React, { useEffect } from "react";
 import { ApiEndpoints, Images } from "../../helpers/constants/constants";
 import { LoginProps } from "../../helpers/interfaces/components/LoginProps";
-
 
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { GoogleAuthProvider, getAuth, signInWithCredential } from '@react-native-firebase/auth';
@@ -60,6 +59,8 @@ function Login({ setUser, setModalMessage, setIsLoading }: LoginProps) {
     // Sign-in the user with the credential
     return signInWithCredential(getAuth(), googleCredential);
   }
+
+  useEffect( () =>  {console.log("rendering login");}, []);
 
   return (
     <>

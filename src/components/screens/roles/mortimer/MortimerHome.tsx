@@ -2,15 +2,14 @@ import React, { useContext, useEffect } from "react";
 import { View } from "react-native";
 import ScreenContainer from "../../../ScreenContainer";
 import { Images } from "../../../../helpers/constants/constants";
-import { MortimerInitialScreenContext } from "../../../../helpers/contexts/contexts";
+import { useMortimerInitialScreenStore } from "../../../../helpers/stores/useMortimerInitialScreenStore";
 
 function MortimerHome() {
-  const initialScreenContext = useContext(MortimerInitialScreenContext);
-  if(!initialScreenContext) return null;
-  const [initialScreen, setInitialScreen] = initialScreenContext;
+  const setMortimerInitialScreen = useMortimerInitialScreenStore(state => state.setMortimerInitialScreen);
   
   useEffect(() => {
-      setInitialScreen("MortimerHome");
+    console.log('user');
+      setMortimerInitialScreen("MortimerHome");
   }, []);
 
   return (

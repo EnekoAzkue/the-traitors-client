@@ -13,9 +13,6 @@ import { initialWindowMetrics, SafeAreaProvider, SafeAreaView } from 'react-nati
 // --- Interfaces ---
 import KaotikaPlayer from '../helpers/interfaces/KaotikaPlayer';
 
-// --- Contexts ---
-import { AllAcolytesContext, AcolyteInitialScreenContext, ScrollContext, MortimerToastTextContext, MortimerInitialScreenContext, AcolyteToastTextContext } from '../helpers/contexts/contexts';
-
 // --- Functions & Hooks ---
 import { useEffect, useState } from "react";
 import CircleSpinner from './Spinner';
@@ -35,33 +32,39 @@ import { useScreenDimensions } from '../helpers/stores/useScreenDimensionsStore'
 import { useWindowDimensions } from 'react-native';
 import { useGeneralModalStore } from '../helpers/stores/useGeneralModalStore';
 import { useUserStore } from '../helpers/stores/useUserStore';
+import { useMortimerInitialScreenStore } from '../helpers/stores/useMortimerInitialScreenStore';
+import { useAllAcolytesStore } from '../helpers/stores/useAllAcolytesStore';
+import { useAcolyteInitialScreenStore } from '../helpers/stores/useAcolyteInitialScreenStore';
+import { useMortimerToastStore } from '../helpers/stores/useMortimerToastStore';
+import { useAcolyteToastStore } from '../helpers/stores/useAcolyteToastStore';
 
 function App() {
 
-  const {user, setUser} = useUserStore();
-  const [allAcolytes, setAllAcolytes] = useState<KaotikaPlayer[] | undefined>(undefined);
+  const [mortimerInitialScreen, setMortimerInitialScreen] = useState<string>('MortimerHome');
+
+  const { user, setUser } = useUserStore( state => state);
+  const { allAcolytes, setAllAcolytes } = useAllAcolytesStore(state => state);
   const [initialConf, setInitialConf] = useState<boolean>(false);
 
-  const {modalMessage, setModalMessage} = useGeneralModalStore();
+  const { modalMessage, setModalMessage } = useGeneralModalStore();
 
   const [scrollModalMessage, setScrollModalMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [acolyteInitialScreen, setacolyteInitialScreen] = useState<string | null>(null);
-  const [mortimerInitialScreen, setMortimerInitialScreen] = useState<string>('MortimerHome');
-  const [scrollActive, setScrollActive] = useState(true);
+  // const [scrollActive, setScrollActive] = useState(true);
 
-  const [acolyteToastText, setAcolyteToastText] = useState<string>('');
-  const [mortimerToastText, setMortimerToastText] = useState<string>('');
 
-  const {screenDimensions, setScreenDimensions} = useScreenDimensions();
-  const screenDimensionsValue = useWindowDimensions(); 
+
+  const { acolyteToastText, setAcolyteToastText } = useAcolyteToastStore();
+  const { mortimerToastText, setMortimerToastText } = useMortimerToastStore()
+
+  const { screenDimensions, setScreenDimensions } = useScreenDimensions();
+  const screenDimensionsValue = useWindowDimensions();
 
 
   const userHandler = (newUser: KaotikaPlayer | null) => {
     setUser(newUser);
   }
 
-// TODO: REFACTOR to only use one useEffect(..., []);
   useEffect(() => {
     setTimeout(() => {
       authClient(true, { userHandler, setModalMessage, setInitialConf });
@@ -80,10 +83,6 @@ function App() {
 
     // Initial acolytes JSON for app state 
     getAcolytes({ setAllAcolytes });
-
-  }, []);
-
-  useEffect(() => {
 
     // App en background o cerrada
     const unsubscribeOnNotificationOpened = messaging().onNotificationOpenedApp(remoteMessage => {
@@ -162,22 +161,13 @@ function App() {
 
     }
 
-
-
-
     return (() => {
       // TODO: HERE (inside return) socketCleanup --> . Disconnect    . removeAllListeners 
       socket.off(SocketServerToClientEvents.SEND_UPDATED_PLAYER_TO_MORTIMER);
       socket.off(SocketServerToClientEvents.UPDATE_USER_IN_CLIENT);
       socket.off(SocketServerToClientEvents.RECIEVED_FOUND_SCROLL);
     });
-
   }, [user]);
-
-  // Borrar
-  useEffect(() => {
-    console.log("Mortimer toast text changed:", mortimerToastText);
-  }, [mortimerToastText]);
 
   const StyledView = styled.View`
     width: ${screenDimensions?.width}px;
@@ -197,34 +187,16 @@ function App() {
                 {isLoading ? <CircleSpinner /> : null}
               </>
             ) : (
-              <ScrollContext.Provider value={[scrollActive, setScrollActive]}>
-                <MortimerInitialScreenContext.Provider value={[mortimerInitialScreen, setMortimerInitialScreen]}>
-                  <AcolyteInitialScreenContext.Provider value={[acolyteInitialScreen, setacolyteInitialScreen]}>
-                    <AllAcolytesContext.Provider value={[allAcolytes, setAllAcolytes]}>
-                        <MortimerToastTextContext.Provider value={[mortimerToastText, setMortimerToastText]}>
-                          <AcolyteToastTextContext.Provider value={[acolyteToastText, setAcolyteToastText]}>
-                            <MortimerInitialScreenContext.Provider value={[mortimerInitialScreen, setMortimerInitialScreen]}>
-                                <Main />
-                                {user?.rol === 'acolyte' &&
-                                  <AcolyteToast toastText={acolyteToastText} setAcolyteToastText={setAcolyteToastText} />
-                                }
-                                {user?.rol === 'mortimer' &&
-                                  <Toast toastText={mortimerToastText} setMortimerToastText={setMortimerToastText} />
-                                }
-                            </MortimerInitialScreenContext.Provider>
-                          </AcolyteToastTextContext.Provider>
-                        </MortimerToastTextContext.Provider>
-                    </AllAcolytesContext.Provider>
-                  </AcolyteInitialScreenContext.Provider>
-                </MortimerInitialScreenContext.Provider>
-              </ScrollContext.Provider>
+              <>
+                <Main />
+                {user?.rol === 'acolyte' && <AcolyteToast toastText={acolyteToastText} setAcolyteToastText={setAcolyteToastText} />}
+                {user?.rol === 'mortimer' && <Toast toastText={mortimerToastText} setMortimerToastText={setMortimerToastText} />}
+              </>
             )
           ) : (
             <Splash />
           )}
-        {user?.rol === 'mortimer' &&
-          <ScrollModal message={scrollModalMessage} setMessage={setScrollModalMessage} />
-        }
+        {user?.rol === 'mortimer' && <ScrollModal message={scrollModalMessage} setMessage={setScrollModalMessage} />}
       </StyledView>
     </SafeAreaProvider>
   );

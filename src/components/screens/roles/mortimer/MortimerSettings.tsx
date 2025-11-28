@@ -2,17 +2,16 @@ import React, { useContext, useEffect } from "react";
 import ScreenContainer from "../../../ScreenContainer";
 import { Images } from "../../../../helpers/constants/constants";
 import Logout from "../../Logout";
-import { MortimerInitialScreenContext } from "../../../../helpers/contexts/contexts";
+import { useMortimerInitialScreenStore } from "../../../../helpers/stores/useMortimerInitialScreenStore";
 
 
 function MortimerSettings() {
 
-  const initialScreenContext = useContext(MortimerInitialScreenContext);
-  if(!initialScreenContext) return null;
-  const [initialScreen, setInitialScreen] = initialScreenContext;
+  // --- ZUSTAND STORES --- //
+  const setMortimerInitialScreen = useMortimerInitialScreenStore( state => state.setMortimerInitialScreen);
   
   useEffect(() => {
-    setInitialScreen("MortimerSettings");
+    setMortimerInitialScreen("MortimerSettings");
   }, []);
 
   return (

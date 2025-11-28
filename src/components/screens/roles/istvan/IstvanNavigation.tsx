@@ -1,26 +1,25 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import IstvanHome from './IstvanHome';
 import IstvanLab from './IstvanLab';
+import IstvanHome from './IstvanHome';
 import IstvanSettings from './IstvanSettings';
 import styled from 'styled-components/native';
-import { Images, Screens } from '../../../../helpers/constants/constants';
 import { BlurView } from '@react-native-community/blur';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Images, Screens } from '../../../../helpers/constants/constants';
+import { useScreenDimensions } from '../../../../helpers/stores/useScreenDimensionsStore';
 
 const Stack = createBottomTabNavigator();
 
-
-const IconImage = styled.Image`
-  position: relative;
-  top: 5px;
-  width: 35px;
-  height: 35px;
-`;
-
-
-
 function RootNavigation({ initialRouteScreen }: any) {
+
+  const screenDimensions = useScreenDimensions( state => state.screenDimensions);
+  if (!screenDimensions) return;
+  
+  const IconImage = styled.Image`
+    width: ${screenDimensions.width * 0.1}px;
+    height: ${screenDimensions.width * 0.1}px;
+  `;
 
   return (
     <Stack.Navigator

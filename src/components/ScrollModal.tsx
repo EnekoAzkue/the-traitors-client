@@ -1,10 +1,9 @@
-import { Modal, ScaledSize } from 'react-native';
-import { ModalProps } from '../helpers/interfaces/components/Modal';
-import styled from 'styled-components/native';
 import React from 'react';
-import { Images, SocketClientToServerEvents } from '../helpers/constants/constants';
+import { Modal } from 'react-native';
 import { socket } from '../helpers/socket/socket';
+import { ModalProps } from '../helpers/interfaces/components/Modal';
 import { useScreenDimensions } from '../helpers/stores/useScreenDimensionsStore';
+import { Images, SocketClientToServerEvents } from '../helpers/constants/constants';
 import { getScrollModalStyledComponents } from '../componentStyles/ScrollModalStyles';
 
 

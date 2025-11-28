@@ -1,49 +1,39 @@
-import React, { useContext, useEffect } from "react";
-import AcolyteMap from "./AcolyteMap";
-import { Screens, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
-import { AcolyteInitialScreenContext } from "../../../../helpers/contexts/contexts";
-import { socket } from "../../../../helpers/socket/socket";
-import AcolyteSchoolMap from "./AcolyteSchoolMap";
-import AcolyteHome from "./AcolyteHome";
 import AcolyteLab from "./AcolyteLab";
-import AcolyteSettings from "./AcolyteSettings";
-import AcolyteTower from "./AcolyteTower";
+import AcolyteMap from "./AcolyteMap";
 import AcolyteHall from "./AcolyteHall";
+import AcolyteHome from "./AcolyteHome";
+import React, { useEffect } from "react";
+import AcolyteTower from "./AcolyteTower";
 import AcolyteSwamp from "./AcolyteSwamp";
+import AcolyteSettings from "./AcolyteSettings";
+import AcolyteSchoolMap from "./AcolyteSchoolMap";
 import { useUserStore } from "../../../../helpers/stores/useUserStore";
+import { useAcolyteInitialScreenStore } from "../../../../helpers/stores/useAcolyteInitialScreenStore";
+import { manageWithSocketsUserInTowerProperty } from "../../../../helpers/componentUtils/__screenUtils__/__rolUtils__/__acolyteUtils__/AcolyteUtilities";
 
 
 export default function Acolyte() {
 
   const {user} = useUserStore();
   if(!user) return;
-
-  const initialScreenContext = useContext(AcolyteInitialScreenContext)
-  if (!initialScreenContext) return;
   
-  const [initialScreen, setInitialScreen] = initialScreenContext;
+  const acolyteInitialScreen = useAcolyteInitialScreenStore( state => state.acolyteInitialScreen);
 
   useEffect(() => {
-    console.log('initianl screen:', initialScreen);
-    if (initialScreen === Screens.ACOLYTE_TOWER) {
-      socket.emit(SocketClientToServerEvents.UPDATE_INTOWER, user.email, true)
-    } else {
-      socket.emit(SocketClientToServerEvents.UPDATE_INTOWER, user.email, false)
-    }
-
-  }, [initialScreen])
+    manageWithSocketsUserInTowerProperty(acolyteInitialScreen, user);
+  }, [acolyteInitialScreen])
 
 
   return (
     <>
-        {initialScreen === null && <AcolyteMap />}
-        {initialScreen === 'SchoolMap' && <AcolyteSchoolMap />}
-        {initialScreen === 'AcolyteHome' && <AcolyteHome />}
-        {initialScreen === 'AcolyteLab' && <AcolyteLab />}
-        {initialScreen === 'AcolyteSettings' && <AcolyteSettings />}
-        {initialScreen === 'AcolyteTower' && <AcolyteTower />}
-        {initialScreen === 'AcolyteHall' && <AcolyteHall />}
-        {initialScreen === 'AcolyteSwamp' && <AcolyteSwamp />}
+        {acolyteInitialScreen === null && <AcolyteMap />}
+        {acolyteInitialScreen === 'SchoolMap' && <AcolyteSchoolMap />}
+        {acolyteInitialScreen === 'AcolyteHome' && <AcolyteHome />}
+        {acolyteInitialScreen === 'AcolyteLab' && <AcolyteLab />}
+        {acolyteInitialScreen === 'AcolyteSettings' && <AcolyteSettings />}
+        {acolyteInitialScreen === 'AcolyteTower' && <AcolyteTower />}
+        {acolyteInitialScreen === 'AcolyteHall' && <AcolyteHall />}
+        {acolyteInitialScreen === 'AcolyteSwamp' && <AcolyteSwamp />}
     </>
 
   );

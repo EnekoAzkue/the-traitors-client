@@ -1,30 +1,25 @@
 import Button from '../Button';
 import React from 'react';
 import styled from 'styled-components/native';
-import { useContext } from 'react';
-import { AcolyteInitialScreenContext } from '../../helpers/contexts/contexts';
 import { signOut } from '../../helpers/googleSignInUtils/googleSignInUtils';
 import { performSocketCleanUp } from '../../helpers/socket/socket';
 import { useGeneralModalStore } from '../../helpers/stores/useGeneralModalStore';
 import { useUserStore } from '../../helpers/stores/useUserStore';
 import { useScreenDimensions } from '../../helpers/stores/useScreenDimensionsStore';
+import { useAcolyteInitialScreenStore } from '../../helpers/stores/useAcolyteInitialScreenStore';
 
 const Logout = () => {
-  // Screen Dimensions
+  // --- SCREEN DIMENSIONS --- //
   const screenDimensions = useScreenDimensions(state => state.screenDimensions);
   if (!screenDimensions) return;
   
   const {user, setUser} = useUserStore();
   if (!user) return;
 
-  const screenContext = useContext(AcolyteInitialScreenContext)
-  if(!screenContext) return;
 
-  const [initialScreen, setInitialScreen] = screenContext;
+  const setAcolyteInitialScreen = useAcolyteInitialScreenStore( state => state.setAcolyteInitialScreen);
 
   const {setModalMessage} = useGeneralModalStore();
-
-
 
 
   const Container = styled.View`
@@ -34,7 +29,7 @@ const Logout = () => {
 
   async function logOut() {
     if(user){
-      setInitialScreen(null);
+      setAcolyteInitialScreen(null);
       performSocketCleanUp(user.email); // Borrar conexión de sockets 
       await signOut();
       setUser(null);

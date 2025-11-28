@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { View } from "react-native";
 import Logout from "../../Logout";
-import { Images } from "../../../../helpers/constants/constants";
+import { View } from "react-native";
+import React, { useState } from "react";
 import AcolyteScreenContainer from "./AcolyteScreenContainer";
+import { Images } from "../../../../helpers/constants/constants";
 
 
 function AcolyteSettings() {
