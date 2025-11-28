@@ -1,8 +1,8 @@
 interface Artifact {
     name: string,
     coordenates: Coordenates,
-    image: any,
-    icon: any,
+    image: string,
+    icon: number,
     state: string,
 }
 

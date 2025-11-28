@@ -8,8 +8,10 @@ import IconButton from "../../IconButton";
 import { PermissionsAndroid } from "react-native";
 import AcolyteSwampContainer from "./AcolyteSwampContainer";
 import InventoryContainer from "./InventoryContainer";
-import { Images } from "../../../../helpers/constants/constants";
+import { Images, SocketClientToServerEvents, SocketServerToClientEvents } from "../../../../helpers/constants/constants";
 import Button from "../../../Button";
+import { socket } from "../../../../helpers/socket/socket";
+import Artifact from "../../../../helpers/interfaces/Artifact";
 
 
 async function requestPermission() {
@@ -36,7 +38,7 @@ function AcolyteSwamp() {
   const { width, height } = screen;
 
 
-  const artifacts = [
+  const fakeArtifacts = [
     {
       name: 'Dragon heart',
       coordenates: {
@@ -80,17 +82,39 @@ function AcolyteSwamp() {
   ]
 
   const icons = [
-    Images.DRAGON_HEART_ICON,
     Images.HUBRIS_ICON,
+    Images.DRAGON_HEART_ICON,
     Images.JAKSHO_ICON,
     Images.PHANTOM_DANCER_ICON,
+    Images.PROWLERS_CLAW_ICON,
+    Images.HEMOMANCERS_HELM_ICON,
+    Images.DEMON_KINGS_CROWN_ICON,
+  ]
+
+  const coordenates = [
+    {
+      latitude: 43.310625,
+      longitude: -2.003209,
+    },
+    {
+      latitude: 43.310673,
+      longitude: -2.002441,
+    },
+    {
+      latitude: 43.309534,
+      longitude: -2.002030,
+    },
+    {
+      latitude: 43.309801,
+      longitude: -2.003381,
+    },
   ]
 
   const [currentPosition, setCurrentPosition] = useState<GeolocationResponse | null>(null)
-  const [latitude, setLatitude] = useState<number>(0)
-  const [longitude, setLongitude] = useState<number>(0)
   const [animatedPosition, setAnimatedPosition] = useState({ latitude: 0, longitude: 0 });
   const [nearArtifacts, setNearArtifacts] = useState<{ [name: string]: boolean }>({});
+  const [artifacts, setArtifacts] = useState<Artifact[]>([])
+  const [activatedArtifacts, setActivatedArtifacts] = useState<Artifact[]>([])
 
 
   useEffect(() => {
@@ -110,10 +134,29 @@ function AcolyteSwamp() {
       );
     }
 
+    socket.emit(SocketClientToServerEvents.REQUEST_ARTIFACTS, user.rol)
+
+    socket.on(SocketServerToClientEvents.SENDING_ARTIFACTS, (artifacts) => {
+      setArtifacts(artifacts)
+    })
+
+    socket.on(SocketServerToClientEvents.COLLECTED, () => {
+      socket.emit(SocketClientToServerEvents.REQUEST_ARTIFACTS, user.rol)
+    })
 
     getLocation();
 
   }, []);
+
+  useEffect(() => {
+    console.log(artifacts);
+
+    // Filter for only activated artifacts
+    const activatedArtifacts = artifacts.filter(a => a.state === "active" || a.state === "collected");
+
+    setActivatedArtifacts(activatedArtifacts);
+    console.log(activatedArtifacts)
+  }, [artifacts]);
 
   useEffect(() => {
     if (!currentPosition) return;
@@ -128,35 +171,35 @@ function AcolyteSwamp() {
     const interval = setInterval(() => {
       setAnimatedPosition(pos => ({
         ...pos,
-        latitude: pos.latitude + 0.00001, // incremento animado
+        latitude: pos.latitude + 0.00001,
       }));
     }, 500);
 
     return () => clearInterval(interval);
   }, []);
 
-
-
   useEffect(() => {
-    const updated = { ...nearArtifacts }; // copia del estado actual
+    const updated = { ...nearArtifacts };
 
-    artifacts.forEach((artifact) => {
+    activatedArtifacts.forEach((artifact, i) => {
       if (artifact.state !== 'active') return;
 
       const distance = getDistanceFromLatLonInMeters(
         animatedPosition.latitude,
         animatedPosition.longitude,
-        artifact.coordenates.latitude,
-        artifact.coordenates.longitude
+        coordenates[i].latitude,
+        coordenates[i].longitude
       );
 
       updated[artifact.name] = distance <= 10;
       console.log(`Distancia a ${artifact.name}: ${distance.toFixed(2)} m`);
+      if(distance <= 10) {
+        socket.emit(SocketClientToServerEvents.COLLECT, artifact.name)
+      }
     });
 
     setNearArtifacts(updated);
   }, [animatedPosition]);
-
 
 
   const userContext = useContext(UserContext)
@@ -203,6 +246,12 @@ function AcolyteSwamp() {
 
   const [isInventoryOpen, setIsInventoryOpen] = useState<boolean>(false)
 
+const mapRegion = {
+  latitude: 43.309504,
+  longitude: -2.001994,
+  latitudeDelta: 0.001,
+  longitudeDelta: 0.001,
+};
 
   return (
     <>
@@ -214,12 +263,7 @@ function AcolyteSwamp() {
             <MapView
               provider={"google"}
               style={styles.map}
-              region={{
-                latitude: 43.309504,
-                longitude: -2.001994,
-                latitudeDelta: 0.001,
-                longitudeDelta: 0.001,
-              }}
+              region={mapRegion}
               rotateEnabled={false}
               showsCompass={false}
               showsPointsOfInterests={false}
@@ -233,23 +277,25 @@ function AcolyteSwamp() {
 
               }
               <>
-                {artifacts.map((a) => {
-                  if (a.state === 'active')
+                {activatedArtifacts.map((a, i) => {
+                  if (a.state === 'active') { 
                     return (
                       <>
-                        {artifacts.map((artifact) =>
+                        {activatedArtifacts.map((artifact, j) =>
                           nearArtifacts[artifact.name] && (
                             <>
-                              <Marker image={require('../../../../assets/images/logos/grab_icon.png')} coordinate={{ latitude: a.coordenates.latitude + 0.0001, longitude: a.coordenates.longitude}} />
+                              <Marker image={require('../../../../assets/images/logos/grab_icon.png')} coordinate={{ latitude: coordenates[j].latitude + 0.00005, longitude: coordenates[j].longitude }} />
                             </>
                           )
-                        )}                      <Marker
-                          coordinate={{ latitude: a.coordenates.latitude, longitude: a.coordenates.longitude }}
+                        )}
+                        <Marker
+                          coordinate={{ latitude: coordenates[i].latitude, longitude: coordenates[i].longitude }}
                           image={icons[a.icon]}
                           title={a.name}
                         />
                       </>
                     )
+                  }
                 })}
 
 
