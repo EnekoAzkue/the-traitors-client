@@ -70,7 +70,17 @@ enum Images {
 
   CLOUDS = require('../../assets/images/Clouds.png'),
 
-  BACK_ARROW = require('../../assets/images/BackArrow.png')
+  BACK_ARROW = require('../../assets/images/BackArrow.png'),
+
+  BAG = require('../../assets/images/logos/bag.png'),
+
+  DRAGON_HEART_ICON = require('../../assets/artifactImages/Dragon_heart_icon.png'),
+  HUBRIS_ICON = require('../../assets/artifactImages/Hubris_icon.png'),
+  JAKSHO_ICON = require('../../assets/artifactImages/Jak_sho_icon.png'),
+  PHANTOM_DANCER_ICON = require('../../assets/artifactImages/Phantom_dancer_icon.png'),
+  PROWLERS_CLAW_ICON = require('../../assets/artifactImages/Prowlers_claw_icon.png'),
+  HEMOMANCERS_HELM_ICON = require('../../assets/artifactImages/Hemomancers_helm_icon.png'),
+  DEMON_KINGS_CROWN_ICON = require('../../assets/artifactImages/Demon_kings_crown_icon.png'),
 }
 
 enum Screens {
@@ -102,7 +112,7 @@ enum Screens {
 /* --- For local testing, watch: https://docs.google.com/document/d/13t7nvg5CSuUsB5qj1wBU4TsW03_TMxP_6RhYqBUEwcI/edit?tab=t.0 --- */
 enum Domains {
   // LOCALHOST = 'http://localhost:3000/',
-  LOCALHOST   = 'http://192.168.0.24:3000/',
+  LOCALHOST   = 'http://10.70.0.41:3000/',
   RENDER      = 'https://the-traitors-server.onrender.com/',
   PORTAINER   = 'http://10.50.0.50:6001/',
 }
@@ -114,7 +124,7 @@ enum Routes {
 }
 
 
-export const CURRENT_DOMAIN = Domains.RENDER;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN) 
+export const CURRENT_DOMAIN = Domains.LOCALHOST;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN) 
 export const CURRENT_ROUTE  = `${CURRENT_DOMAIN}player/`;
 
 
@@ -137,6 +147,8 @@ enum SocketServerToClientEvents {
   ACOLYTE_INSIDE_OUTSIDE_TOWER = 'acolyte inside/outside tower',
   RECIEVED_FOUND_SCROLL = 'recieved found scroll',
   SCROLL_VANISH = 'scroll vanish',
+  SENDING_ARTIFACTS = 'sending artifacts',
+  COLLECTED = 'collected',
 }
 
 enum SocketClientToServerEvents {
@@ -148,6 +160,8 @@ enum SocketClientToServerEvents {
   SEND_NOTIFICATION_TO_MORTIMER = "send notification to mortimer",
   SCROLL_VANISH = 'scroll vanish',
   SEND_FOUND_SCROLL = 'send found scroll',
+  REQUEST_ARTIFACTS = 'request artifacts',
+  COLLECT = 'collect',
 }
 
 

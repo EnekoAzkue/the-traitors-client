@@ -3,6 +3,8 @@ import {
   SocketClientToServerEventsForTesting,
   SocketServerToClientEvents,
 } from '../constants/constants';
+import Artifact from './Artifact';
+import { ArtifactListProps } from './ArtifactListProps';
 
 // Declaration of the events used when receiving events from the server
 interface ServerToClientEvents {
@@ -21,6 +23,13 @@ interface ServerToClientEvents {
   [SocketServerToClientEvents.RECIEVED_FOUND_SCROLL]: () => void;
 
   [SocketServerToClientEvents.SCROLL_VANISH]: () => void;
+
+  [SocketServerToClientEvents.SENDING_ARTIFACTS] : (
+    artifacts: Artifact[],
+  ) => void;
+
+  [SocketServerToClientEvents.COLLECTED]: () => void;
+  
 }
 
   
@@ -41,9 +50,12 @@ interface ClientToServerEvents {
   [SocketClientToServerEvents.SEND_NOTIFICATION_TO_MORTIMER]: (messsage: {}) => void;
   [SocketClientToServerEvents.SCROLL_VANISH]: (messsage: {}) => void;
   [SocketClientToServerEvents.SEND_FOUND_SCROLL]: ( ) => void;
+  [SocketClientToServerEvents.REQUEST_ARTIFACTS]: (userRol: string) => void;
+  [SocketClientToServerEvents.COLLECT]: (artifactName: string) => void;
+
 
   // TEST ONES
-  [SocketClientToServerEventsForTesting.GET_FCM_MESSAGE]: (getSuccesfully: boolean) => void;
+  [SocketClientToServerEventsForTesting.GET_FCM_MESSAGE]: (getSuccesfully: boolean) => void;
 
 }
 

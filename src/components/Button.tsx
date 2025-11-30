@@ -13,6 +13,7 @@ const ButtonContainer = styled.TouchableOpacity`
     height: ${height * 0.15}px;
     position: absolute;
     top: 75%;
+    zIndex: 900;
 `;
 
 const ButtonStyledText = styled.Text`
