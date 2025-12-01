@@ -93,6 +93,7 @@ enum Screens {
 
   ISTVAN_LAB = 'IstvanLab',
   ISTVAN_HOME = 'IstvanHome',
+  ISTVAN_SWAMP = 'IstvanSwamp',
   ISTVAN_SETTINGS = 'IstvanSettings',
 
   MORTIMER_LAB = 'MortimerLab',

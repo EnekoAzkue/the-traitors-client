@@ -285,9 +285,8 @@ function Swamp() {
   return (
     <>
       <InventoryContext.Provider value={[isInventoryOpen, setIsInventoryOpen]}>
-        <SwampContainer>
-          <InventoryContainer artifacts={activatedArtifacts}>
-          </InventoryContainer>
+        <SwampContainer user={user}>
+          {(user.rol === Roles.ACOLYTE || user.rol === Roles.MORTIMER) ? <InventoryContainer artifacts={activatedArtifacts}/> : <></>}
           <View style={styles.container}>
             <MapView
               provider={"google"}
@@ -314,14 +313,7 @@ function Swamp() {
                     if (a.state === 'active') {
                       return (
                         <View key={i}>
-                          {/* {activatedArtifacts.map((artifact, j) =>
-                            nearArtifacts[artifact.name] && (
-                              <View key={j}>
-                                <Marker image={require('../../../../assets/images/logos/grab_icon.png')} coordinate={{ latitude: coordenates[j].latitude + 0.00005, longitude: coordenates[j].longitude }} />
-                              </View>
-                            )
-                          )} */}
-                          <Marker
+                          <Marker 
                             coordinate={{ latitude: coordenates[i].latitude, longitude: coordenates[i].longitude }}
                             image={icons[a.icon]}
                             title={a.name}
@@ -330,8 +322,6 @@ function Swamp() {
                       )
                     }
                   })}
-
-
               </>
 
             </MapView>

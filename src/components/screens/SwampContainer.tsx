@@ -1,17 +1,19 @@
 import React, { PropsWithChildren, useContext } from "react";
-import { Images } from "../../helpers/constants/constants";
+import { Images, Roles } from "../../helpers/constants/constants";
 import { Text, View, Dimensions } from "react-native";
 import ScreenContainer from "./ScreenContainer";
 import IconButton from "./IconButton";
 import { AcolyteInitialScreenContext, InventoryContext } from "../../helpers/contexts/contexts";
+import KaotikaPlayer from "../../helpers/interfaces/KaotikaPlayer";
 
 const { width, height } = Dimensions.get('window');
 
 type AcolyteScreenContainer = {
+  user: KaotikaPlayer,
   backgroundImage?: Images,
 };
 
-export default function SwampContainer({ backgroundImage, children }: PropsWithChildren<AcolyteScreenContainer>) {
+export default function SwampContainer({ user, backgroundImage, children }: PropsWithChildren<AcolyteScreenContainer>) {
 
   // --- INVENTORY CONTEXT ---
   const inventoryContext = useContext(InventoryContext);
@@ -55,17 +57,12 @@ export default function SwampContainer({ backgroundImage, children }: PropsWithC
           backgrounOpacity={0}
         />
 
-        <IconButton
-          width={height * 0.07}
-          height={height * 0.07}
-          hasBrightness={true}
-          backgroundImage={Images.BAG}
-          buttonOnPress={toggleInventory}
-          xPos={width * 0.8}
-          yPos={height * 0.02}
-          hasBorder={false}
-          backgrounOpacity={0}
-        />
+        {
+          (user.rol === Roles.ACOLYTE || user.rol === Roles.MORTIMER) ?
+            <IconButton width={height * 0.07} height={height * 0.07} hasBrightness={true} backgroundImage={Images.BAG} buttonOnPress={toggleInventory} xPos={width * 0.8} yPos={height * 0.02} hasBorder={false} backgrounOpacity={0} />
+            :
+            <></>
+        }
 
         {children}
       </ScreenContainer>

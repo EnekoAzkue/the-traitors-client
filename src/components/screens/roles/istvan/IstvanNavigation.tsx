@@ -7,6 +7,7 @@ import IstvanSettings from './IstvanSettings';
 import styled from 'styled-components/native';
 import { Images, Screens } from '../../../../helpers/constants/constants';
 import { BlurView } from '@react-native-community/blur';
+import Swamp from '../../Swamp';
 
 const Stack = createBottomTabNavigator();
 
@@ -52,6 +53,10 @@ function RootNavigation({ initialRouteScreen }: any) {
             case Screens.ISTVAN_LAB:
               tabIconSource = Images.LAB_ICON;
               break;
+            
+            case Screens.ISTVAN_SWAMP:
+              tabIconSource = Images.SWAMP_ICON;
+              break;
 
             case Screens.ISTVAN_SETTINGS:
               tabIconSource = Images.SETTINGS_ICON;
@@ -66,6 +71,7 @@ function RootNavigation({ initialRouteScreen }: any) {
     >
       <Stack.Screen name={Screens.ISTVAN_HOME} component={IstvanHome} />
       <Stack.Screen name={Screens.ISTVAN_LAB} component={IstvanLab} />
+      <Stack.Screen name={Screens.ISTVAN_SWAMP} component={Swamp} />
       <Stack.Screen name={Screens.ISTVAN_SETTINGS} component={IstvanSettings} />
 
     </Stack.Navigator>
