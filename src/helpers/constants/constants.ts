@@ -8,8 +8,8 @@ enum ModalMessages {
 enum ApiEndpoints {
   LOG_IN = 'log-in',
   LOGGED_IN = 'logged-in',
-  UPDATE_PLAYER= 'update/',
-  GET_ALL_ACOLYTES= 'get-acolytes/',
+  UPDATE_PLAYER = 'update/',
+  GET_ALL_ACOLYTES = 'get-acolytes/',
 }
 
 enum ClientID {
@@ -25,16 +25,16 @@ enum Images {
   LOGGING_SCREEN = require('../../assets/images/LoginScreen.png'),
   BUTTON = require('../../assets/images/Button_1.png'),
   SPLASH_SCREEN = require('../../assets/images/SplashScreen.png'),
-  
-  ACOLYTE_HOME = require('../../assets/images/AcolyteHome.png'), 
+
+  ACOLYTE_HOME = require('../../assets/images/AcolyteHome.png'),
   ACOLYTE_SETTINGS = require('../../assets/images/AcolyteSettings.png'),
   ACOLYTE_LAB = require('../../assets/images/AcolyteLab.png'),
   ACOLYTE_LAB_OPEN = require('../../assets/images/AcolyteLabOpen.png'),
   ACOLYTE_LAB_INSIDE = require('../../assets/images/AcolyteLabInside.png'),
   ACOLYTE_MAP = require('../../assets/images/AcolytesMap.png'),
   SCHOOL_MAP = require('../../assets/images/SchoolMap.png'),
-  
-  
+
+
   ISTVAN_HOME = require('../../assets/images/IstvanHome.png'),
   ISTVAN_SETTINGS = require('../../assets/images/IstvanSettings.png'),
   ISTVAN_LAB = require('../../assets/images/IstvanLab.png'),
@@ -63,7 +63,7 @@ enum Images {
 
 
   LOGO = require('../../assets/images/logo.png'),
-  
+
   TOWER = require('../../assets/images/Tower.png'),
   TOWER_INSIDE = require('../../assets/images/TowerInside.png'),
   HALL_OF_SAGES = require('../../assets/images/HallOfSages.png'),
@@ -98,6 +98,7 @@ enum Screens {
 
   MORTIMER_LAB = 'MortimerLab',
   MORTIMER_HOME = 'MortimerHome',
+  MORTIMER_SWAMP = 'MortimerSwamp',
   MORTIMER_SETTINGS = 'MortimerSettings',
   MORTIMER_TOWER = 'MortimerTower',
 
@@ -114,28 +115,57 @@ enum Screens {
 /* --- For local testing, watch: https://docs.google.com/document/d/13t7nvg5CSuUsB5qj1wBU4TsW03_TMxP_6RhYqBUEwcI/edit?tab=t.0 --- */
 enum Domains {
   // LOCALHOST = 'http://localhost:3000/',
-  LOCALHOST   = 'http://10.70.0.113:3000/',
-  RENDER      = 'https://the-traitors-server.onrender.com/',
-  PORTAINER   = 'http://10.50.0.50:6001/',
+  LOCALHOST = 'http://10.70.0.113:3000/',
+  RENDER = 'https://the-traitors-server.onrender.com/',
+  PORTAINER = 'http://10.50.0.50:6001/',
 }
 
 enum Routes {
-  LOCALHOST   = `${Domains.LOCALHOST}player/`,
-  RENDER      = `${Domains.RENDER}player/`,
-  PORTAINER   = `${Domains.PORTAINER}player/`,
+  LOCALHOST = `${Domains.LOCALHOST}player/`,
+  RENDER = `${Domains.RENDER}player/`,
+  PORTAINER = `${Domains.PORTAINER}player/`,
 }
 
 
 export const CURRENT_DOMAIN = Domains.LOCALHOST;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN) 
-export const CURRENT_ROUTE  = `${CURRENT_DOMAIN}player/`;
+export const CURRENT_ROUTE = `${CURRENT_DOMAIN}player/`;
 
 
 enum Roles {
-  ACOLYTE  = 'acolyte',
-  VILLAIN  = 'villain',
+  ACOLYTE = 'acolyte',
+  VILLAIN = 'villain',
   MORTIMER = 'mortimer',
-  ISTVAN   = 'istvan'
+  ISTVAN = 'istvan'
 }
+
+const swampArtifactIcons = [
+  Images.HUBRIS_ICON,
+  Images.DRAGON_HEART_ICON,
+  Images.JAKSHO_ICON,
+  Images.PHANTOM_DANCER_ICON,
+  Images.PROWLERS_CLAW_ICON,
+  Images.HEMOMANCERS_HELM_ICON,
+  Images.DEMON_KINGS_CROWN_ICON,
+];
+
+const swampArtifactCoordinates = [
+  {
+    latitude: 43.310625,
+    longitude: -2.003209,
+  },
+  {
+    latitude: 43.310673,
+    longitude: -2.002441,
+  },
+  {
+    latitude: 43.309534,
+    longitude: -2.002030,
+  },
+  {
+    latitude: 43.309801,
+    longitude: -2.003381,
+  },
+];
 
 enum SocketGeneralEvents {
   CONNECT = 'connect',
@@ -174,4 +204,20 @@ enum SocketClientToServerEventsForTesting {
 
 export const navigationTabMarginBottomForScreens = 800;
 
-export { ModalMessages, ApiEndpoints, ClientID, Logs, Images, Screens, Routes, Roles, Domains, SocketClientToServerEvents, SocketServerToClientEvents, SocketClientToServerEventsForTesting, SocketGeneralEvents};
+export {
+  ModalMessages,
+  ApiEndpoints,
+  ClientID,
+  Logs,
+  Images,
+  Screens,
+  Routes,
+  Roles,
+  swampArtifactIcons,
+  swampArtifactCoordinates,
+  Domains,
+  SocketClientToServerEvents,
+  SocketServerToClientEvents,
+  SocketClientToServerEventsForTesting,
+  SocketGeneralEvents
+};

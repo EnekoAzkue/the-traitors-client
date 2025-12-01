@@ -13,7 +13,7 @@ export default function InventoryContainer(artifacts: any) {
     const inventoryContext = useContext(InventoryContext);
 
     if (!allAcolytesContext) return <Text>User context is null at Home Component!!!"</Text>;
-    if(!inventoryContext) return null;
+    if (!inventoryContext) return null;
 
     const [acolytes, setAcolytes] = allAcolytesContext;
     const [isInventoryOpen] = inventoryContext;
@@ -44,7 +44,8 @@ export default function InventoryContainer(artifacts: any) {
         width: ${width}px;
         height: ${height * 0.115}px;
         margin-top: ${height * 0.88}px;
-        position: absolute;
+        position: relative;
+        bottom: ${height * 0.067}px;
         z-index: 500;
     `;
 
@@ -55,6 +56,8 @@ export default function InventoryContainer(artifacts: any) {
         border: 1px solid rgba(85, 0, 134, 1);
         border-radius: 8px;
         background-color: rgba(0,0,0,0.3);
+        padding-left: ${width * 0.025}px;
+
     `;
 
     const logAritfactName = (name: string) => {
@@ -67,7 +70,7 @@ export default function InventoryContainer(artifacts: any) {
         <InventoryContainerStyled>
             <ArtifactContainer horizontal={true}>
                 {
-                    artifacts.artifacts.map( (a: Artifact) => {
+                    artifacts.artifacts.map((a: Artifact) => {
                         logAritfactName(a.name);
                         return <IndividualArtifactContainer key={a.name} artifact={a} />
                     })

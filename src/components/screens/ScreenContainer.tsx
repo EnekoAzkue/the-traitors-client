@@ -1,8 +1,8 @@
 import styled from 'styled-components/native';
 import { PropsWithChildren } from 'react';
-import { ScreenContainerProps } from '../../helpers/interfaces/ScreenContainerProps';
 import React from 'react';
 import { Dimensions } from 'react-native';
+import { ScreenContainerProps } from '../../helpers/interfaces/components/ScreenContainerProps';
 
 const { width, height } = Dimensions.get('window');
 

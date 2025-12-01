@@ -10,6 +10,7 @@ import { Images, Screens } from '../../../../helpers/constants/constants';
 import { BlurView } from '@react-native-community/blur';
 import { Dimensions } from 'react-native';
 import { MortimerInitialScreenContext } from '../../../../helpers/contexts/contexts';
+import Swamp from '../../Swamp';
 
 const { width, height } = Dimensions.get('window');
 
@@ -58,6 +59,10 @@ function RootNavigation({}: any) {
               tabIconSource = Images.LAB_ICON;
               break;
 
+            case Screens.MORTIMER_SWAMP:
+              tabIconSource = Images.SWAMP_ICON;
+              break;
+
             case Screens.MORTIMER_SETTINGS:
               tabIconSource = Images.SETTINGS_ICON;
               break;
@@ -76,6 +81,7 @@ function RootNavigation({}: any) {
       <Stack.Screen name={Screens.MORTIMER_HOME} component={MortimerHome} />
       <Stack.Screen name={Screens.MORTIMER_LAB} component={MortimerLab} />
       <Stack.Screen name={Screens.MORTIMER_TOWER} component={MortimerTower} />
+      <Stack.Screen name={Screens.MORTIMER_SWAMP} component={Swamp} />
       <Stack.Screen name={Screens.MORTIMER_SETTINGS} component={MortimerSettings} />
 
     </Stack.Navigator>

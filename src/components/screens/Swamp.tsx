@@ -8,7 +8,7 @@ import IconButton from "./IconButton";
 import { PermissionsAndroid } from "react-native";
 import SwampContainer from "./SwampContainer";
 import InventoryContainer from "./roles/acolyte/InventoryContainer";
-import { Images, Roles, SocketClientToServerEvents, SocketServerToClientEvents } from "../../helpers/constants/constants";
+import { Images, Roles, SocketClientToServerEvents, SocketServerToClientEvents, swampArtifactCoordinates, swampArtifactIcons } from "../../helpers/constants/constants";
 import Button from "../Button";
 import { socket } from "../../helpers/socket/socket";
 import Artifact from "../../helpers/interfaces/Artifact";
@@ -51,79 +51,6 @@ function Swamp() {
   if (!userContext) return;
   const [user] = userContext
 
-
-
-  const fakeArtifacts = [
-    {
-      name: 'Dragon heart',
-      coordenates: {
-        latitude: 43.310625,
-        longitude: -2.003209,
-      },
-      image: 'https://wiki.leagueoflegends.com/en-us/images/Dragonheart_item_HD.png?e7af3',
-      icon: 0,
-      state: 'active',
-    },
-    {
-      name: 'Hubris',
-      coordenates: {
-        latitude: 43.310673,
-        longitude: -2.002441,
-      },
-      image: 'https://wiki.leagueoflegends.com/en-us/images/Hubris_item_HD.png?b4418',
-      icon: 1,
-      state: 'active',
-    },
-    {
-      name: "Jak'sho",
-      coordenates: {
-        latitude: 43.309534,
-        longitude: -2.002030,
-      },
-      image: 'https://wiki.leagueoflegends.com/en-us/images/Jak%27Sho%2C_The_Protean_item_HD.png?2ebc2',
-      icon: 2,
-      state: 'active',
-    },
-    {
-      name: 'Phantom Dancer',
-      coordenates: {
-        latitude: 43.309801,
-        longitude: -2.003381,
-      },
-      image: 'https://wiki.leagueoflegends.com/en-us/images/Phantom_Dancer_item_HD.png?64a8b',
-      icon: 3,
-      state: 'active',
-    }
-  ]
-
-  const icons = [
-    Images.HUBRIS_ICON,
-    Images.DRAGON_HEART_ICON,
-    Images.JAKSHO_ICON,
-    Images.PHANTOM_DANCER_ICON,
-    Images.PROWLERS_CLAW_ICON,
-    Images.HEMOMANCERS_HELM_ICON,
-    Images.DEMON_KINGS_CROWN_ICON,
-  ]
-
-  const coordenates = [
-    {
-      latitude: 43.310625,
-      longitude: -2.003209,
-    },
-    {
-      latitude: 43.310673,
-      longitude: -2.002441,
-    },
-    {
-      latitude: 43.309534,
-      longitude: -2.002030,
-    },
-    {
-      latitude: 43.309801,
-      longitude: -2.003381,
-    },
-  ]
 
   useEffect(() => {
     async function getMyLocationAsAcolyte(user: KaotikaPlayer) {
@@ -224,8 +151,8 @@ function Swamp() {
       const distance = getDistanceFromLatLonInMeters(
         animatedPosition.latitude,
         animatedPosition.longitude,
-        coordenates[i].latitude,
-        coordenates[i].longitude
+        swampArtifactCoordinates[i].latitude,
+        swampArtifactCoordinates[i].longitude
       );
 
       updated[artifact.name] = distance <= 10;
@@ -314,8 +241,8 @@ function Swamp() {
                       return (
                         <View key={i}>
                           <Marker 
-                            coordinate={{ latitude: coordenates[i].latitude, longitude: coordenates[i].longitude }}
-                            image={icons[a.icon]}
+                            coordinate={{ latitude: swampArtifactCoordinates[i].latitude, longitude: swampArtifactCoordinates[i].longitude }}
+                            image={swampArtifactIcons[a.icon]}
                             title={a.name}
                           />
                         </View>

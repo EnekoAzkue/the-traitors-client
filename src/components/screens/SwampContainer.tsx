@@ -45,17 +45,13 @@ export default function SwampContainer({ user, backgroundImage, children }: Prop
     <View>
       <ScreenContainer backgroundImg={backgroundImage}>
 
-        <IconButton
-          width={width * 0.3}
-          height={height * 0.07}
-          hasBrightness={true}
-          backgroundImage={Images.BACK_ARROW}
-          buttonOnPress={() => setInitialScreen(null)}
-          xPos={width * 0.02}
-          yPos={height * 0.02}
-          hasBorder={false}
-          backgrounOpacity={0}
-        />
+        {
+          (user.rol === Roles.ACOLYTE) ? 
+            <IconButton width={width * 0.3} height={height * 0.07} hasBrightness={true} backgroundImage={Images.BACK_ARROW} buttonOnPress={() => setInitialScreen(null)} xPos={width * 0.02} yPos={height * 0.02} hasBorder={false} backgrounOpacity={0} />
+          : 
+          <></>
+        }
+
 
         {
           (user.rol === Roles.ACOLYTE || user.rol === Roles.MORTIMER) ?
