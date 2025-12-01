@@ -56,7 +56,6 @@ export default function InventoryContainer(artifacts: any) {
         border: 1px solid rgba(85, 0, 134, 1);
         border-radius: 8px;
         background-color: rgba(0,0,0,0.3);
-        padding-left: ${width * 0.025}px;
 
     `;
 

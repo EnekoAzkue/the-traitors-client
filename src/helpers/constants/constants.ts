@@ -104,6 +104,7 @@ enum Screens {
 
   VILLAIN_LAB = 'VillainLab',
   VILLAIN_HOME = 'VillainHome',
+  VILLAIN_SWAMP = 'VillainSwamp',
   VILLAIN_SETTINGS = 'VillainSettings',
 
   SCHOOL_MAP = 'SchoolMap',

@@ -7,6 +7,7 @@ import VillainSettings from './VillainSettings';
 import styled from 'styled-components/native';
 import { Images, Screens } from '../../../../helpers/constants/constants';
 import { BlurView } from '@react-native-community/blur';
+import Swamp from '../../Swamp';
 
 const Stack = createBottomTabNavigator();
 
@@ -17,8 +18,6 @@ const IconImage = styled.Image`
   width: 35px;
   height: 35px;
 `;
-
-
 
 function RootNavigation({ initialRouteScreen }: any) {
 
@@ -53,6 +52,10 @@ function RootNavigation({ initialRouteScreen }: any) {
               tabIconSource = Images.LAB_ICON;
               break;
 
+            case Screens.VILLAIN_SWAMP:
+              tabIconSource = Images.SWAMP_ICON;
+              break;
+
             case Screens.VILLAIN_SETTINGS:
               tabIconSource = Images.SETTINGS_ICON;
               break;
@@ -66,8 +69,8 @@ function RootNavigation({ initialRouteScreen }: any) {
     >
       <Stack.Screen name={Screens.VILLAIN_HOME} component={VillainHome} />
       <Stack.Screen name={Screens.VILLAIN_LAB} component={VillainLab} />
+      <Stack.Screen name={Screens.VILLAIN_SWAMP} component={Swamp} />
       <Stack.Screen name={Screens.VILLAIN_SETTINGS} component={VillainSettings} />
-
     </Stack.Navigator>
   );
 }
@@ -79,8 +82,6 @@ export default function VillainNavigation() {
       <NavigationContainer>
         <RootNavigation initialRouteScreen={Screens.VILLAIN_HOME} />
       </NavigationContainer>
-
-
     </>
 
   );
