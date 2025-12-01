@@ -1,18 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
-import AcolyteTowerContainer from "./AcolyteTowerContainer";
+import AcolyteTowerContainer from "./roles/acolyte/AcolyteTowerContainer";
 import MapView, { Marker, Circle } from 'react-native-maps';
 import Geolocation, { GeolocationResponse } from '@react-native-community/geolocation';
-import { InventoryContext, UserContext } from "../../../../helpers/contexts/contexts";
-import IconButton from "../../IconButton";
+import { InventoryContext, UserContext } from "../../helpers/contexts/contexts";
+import IconButton from "./IconButton";
 import { PermissionsAndroid } from "react-native";
-import AcolyteSwampContainer from "./AcolyteSwampContainer";
-import InventoryContainer from "./InventoryContainer";
-import { Images, Roles, SocketClientToServerEvents, SocketServerToClientEvents } from "../../../../helpers/constants/constants";
-import Button from "../../../Button";
-import { socket } from "../../../../helpers/socket/socket";
-import Artifact from "../../../../helpers/interfaces/Artifact";
-import KaotikaPlayer from "../../../../helpers/interfaces/KaotikaPlayer";
+import SwampContainer from "./SwampContainer";
+import InventoryContainer from "./roles/acolyte/InventoryContainer";
+import { Images, Roles, SocketClientToServerEvents, SocketServerToClientEvents } from "../../helpers/constants/constants";
+import Button from "../Button";
+import { socket } from "../../helpers/socket/socket";
+import Artifact from "../../helpers/interfaces/Artifact";
+import KaotikaPlayer from "../../helpers/interfaces/KaotikaPlayer";
 
 
 async function requestPermission() {
@@ -26,7 +26,7 @@ async function requestPermission() {
 
 
 
-function AcolyteSwamp() {
+function Swamp() {
 
   const [currentPosition, setCurrentPosition] = useState<GeolocationResponse | null>(null)
   const [animatedPosition, setAnimatedPosition] = useState({ latitude: 0, longitude: 0 });
@@ -285,7 +285,7 @@ function AcolyteSwamp() {
   return (
     <>
       <InventoryContext.Provider value={[isInventoryOpen, setIsInventoryOpen]}>
-        <AcolyteSwampContainer>
+        <SwampContainer>
           <InventoryContainer artifacts={activatedArtifacts}>
           </InventoryContainer>
           <View style={styles.container}>
@@ -314,13 +314,13 @@ function AcolyteSwamp() {
                     if (a.state === 'active') {
                       return (
                         <View key={i}>
-                          {activatedArtifacts.map((artifact, j) =>
+                          {/* {activatedArtifacts.map((artifact, j) =>
                             nearArtifacts[artifact.name] && (
                               <View key={j}>
                                 <Marker image={require('../../../../assets/images/logos/grab_icon.png')} coordinate={{ latitude: coordenates[j].latitude + 0.00005, longitude: coordenates[j].longitude }} />
                               </View>
                             )
-                          )}
+                          )} */}
                           <Marker
                             coordinate={{ latitude: coordenates[i].latitude, longitude: coordenates[i].longitude }}
                             image={icons[a.icon]}
@@ -337,7 +337,7 @@ function AcolyteSwamp() {
             </MapView>
 
           </View>
-        </AcolyteSwampContainer>
+        </SwampContainer>
       </InventoryContext.Provider>
 
     </>
@@ -345,4 +345,4 @@ function AcolyteSwamp() {
 
 }
 
-export default AcolyteSwamp;
+export default Swamp;

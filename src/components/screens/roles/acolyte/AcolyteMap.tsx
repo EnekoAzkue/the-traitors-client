@@ -22,7 +22,7 @@ export default function AcolyteMap() {
 
   const selectInitialHomeScreen = () => setInitialScreen(Screens.SCHOOL_MAP);
   const selectInitialTowerScreen = () => setInitialScreen(Screens.ACOLYTE_TOWER);
-  const selectInitialSwampScreen = () => setInitialScreen(Screens.ACOLYTE_SWAMP);
+  const selectInitialSwampScreen = () => setInitialScreen(Screens.SWAMP);
 
   const cloudOpacity = useRef(new Animated.Value(1)).current;
   const cloudScale = useRef(new Animated.Value(1)).current;

@@ -90,7 +90,6 @@ enum Screens {
   ACOLYTE_LAB = 'AcolyteLab',
   ACOLYTE_TOWER = 'AcolyteTower',
   ACOLYTE_HALL = 'AcolyteHall',
-  ACOLYTE_SWAMP = 'AcolyteSwamp',
 
   ISTVAN_LAB = 'IstvanLab',
   ISTVAN_HOME = 'IstvanHome',
@@ -106,6 +105,8 @@ enum Screens {
   VILLAIN_SETTINGS = 'VillainSettings',
 
   SCHOOL_MAP = 'SchoolMap',
+  SWAMP = 'Swamp',
+
 
 }
 

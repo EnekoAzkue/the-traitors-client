@@ -1,9 +1,9 @@
 import React, { PropsWithChildren, useContext } from "react";
-import { Images } from "../../../../helpers/constants/constants";
+import { Images } from "../../helpers/constants/constants";
 import { Text, View, Dimensions } from "react-native";
-import ScreenContainer from "../../ScreenContainer";
-import IconButton from "../../IconButton";
-import { AcolyteInitialScreenContext, InventoryContext } from "../../../../helpers/contexts/contexts";
+import ScreenContainer from "./ScreenContainer";
+import IconButton from "./IconButton";
+import { AcolyteInitialScreenContext, InventoryContext } from "../../helpers/contexts/contexts";
 
 const { width, height } = Dimensions.get('window');
 
@@ -11,7 +11,7 @@ type AcolyteScreenContainer = {
   backgroundImage?: Images,
 };
 
-export default function AcolyteSwampContainer({ backgroundImage, children }: PropsWithChildren<AcolyteScreenContainer>) {
+export default function SwampContainer({ backgroundImage, children }: PropsWithChildren<AcolyteScreenContainer>) {
 
   // --- INVENTORY CONTEXT ---
   const inventoryContext = useContext(InventoryContext);
