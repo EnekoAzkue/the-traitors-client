@@ -57,14 +57,21 @@ export default function InventoryContainer(artifacts: any) {
         background-color: rgba(0,0,0,0.3);
     `;
 
+    const logAritfactName = (name: string) => {
+        console.log(`The name of the artifact inventory is: ${name}`);
+    }
+
     if (!isInventoryOpen) return null;
 
     return (
         <InventoryContainerStyled>
             <ArtifactContainer horizontal={true}>
-                {artifacts.artifacts.map((a: Artifact) => (
-                    <IndividualArtifactContainer key={a.name} artifact={a} />
-                ))}
+                {
+                    artifacts.artifacts.map( (a: Artifact) => {
+                        logAritfactName(a.name);
+                        return <IndividualArtifactContainer key={a.name} artifact={a} />
+                    })
+                }
             </ArtifactContainer>
         </InventoryContainerStyled>
     );

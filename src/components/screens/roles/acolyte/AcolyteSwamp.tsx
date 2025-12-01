@@ -8,10 +8,11 @@ import IconButton from "../../IconButton";
 import { PermissionsAndroid } from "react-native";
 import AcolyteSwampContainer from "./AcolyteSwampContainer";
 import InventoryContainer from "./InventoryContainer";
-import { Images, SocketClientToServerEvents, SocketServerToClientEvents } from "../../../../helpers/constants/constants";
+import { Images, Roles, SocketClientToServerEvents, SocketServerToClientEvents } from "../../../../helpers/constants/constants";
 import Button from "../../../Button";
 import { socket } from "../../../../helpers/socket/socket";
 import Artifact from "../../../../helpers/interfaces/Artifact";
+import KaotikaPlayer from "../../../../helpers/interfaces/KaotikaPlayer";
 
 
 async function requestPermission() {
@@ -27,6 +28,14 @@ async function requestPermission() {
 
 function AcolyteSwamp() {
 
+  const [currentPosition, setCurrentPosition] = useState<GeolocationResponse | null>(null)
+  const [animatedPosition, setAnimatedPosition] = useState({ latitude: 0, longitude: 0 });
+  const [nearArtifacts, setNearArtifacts] = useState<{ [name: string]: boolean }>({});
+  const [artifacts, setArtifacts] = useState<Artifact[]>([])
+  const [activatedArtifacts, setActivatedArtifacts] = useState<Artifact[]>([])
+
+  const [isInventoryOpen, setIsInventoryOpen] = useState<boolean>(false);
+
   const [screen, setScreen] = useState(Dimensions.get("window"));
   useEffect(() => {
     const sub = Dimensions.addEventListener("change", ({ window }) => {
@@ -34,8 +43,14 @@ function AcolyteSwamp() {
     });
     return () => sub.remove();
   }, []);
-
   const { width, height } = screen;
+
+
+
+  const userContext = useContext(UserContext)
+  if (!userContext) return;
+  const [user] = userContext
+
 
 
   const fakeArtifacts = [
@@ -110,15 +125,12 @@ function AcolyteSwamp() {
     },
   ]
 
-  const [currentPosition, setCurrentPosition] = useState<GeolocationResponse | null>(null)
-  const [animatedPosition, setAnimatedPosition] = useState({ latitude: 0, longitude: 0 });
-  const [nearArtifacts, setNearArtifacts] = useState<{ [name: string]: boolean }>({});
-  const [artifacts, setArtifacts] = useState<Artifact[]>([])
-  const [activatedArtifacts, setActivatedArtifacts] = useState<Artifact[]>([])
-
-
   useEffect(() => {
-    async function getLocation() {
+    async function getMyLocationAsAcolyte(user: KaotikaPlayer) {
+
+      // Solo si se es Acolito se debe recibir la ubicación actual
+      if (user.rol !== Roles.ACOLYTE) return;
+
       const granted = await requestPermission();
       if (!granted) {
         console.log("Permiso NO otorgado");
@@ -132,19 +144,34 @@ function AcolyteSwamp() {
           console.log("POSICIÓN:", info.coords.latitude, "", info.coords.longitude);
         },
       );
+
+
     }
 
-    socket.emit(SocketClientToServerEvents.REQUEST_ARTIFACTS, user.rol)
-
-    socket.on(SocketServerToClientEvents.SENDING_ARTIFACTS, (artifacts) => {
-      setArtifacts(artifacts)
-    })
-
-    socket.on(SocketServerToClientEvents.COLLECTED, () => {
+    // Si el rol del usuario que ejecuta la aplicación son mortimer o acolyte se les muestra los artefactos, solo a ellos.
+    if(user.rol === Roles.ACOLYTE || user.rol === Roles.MORTIMER){
       socket.emit(SocketClientToServerEvents.REQUEST_ARTIFACTS, user.rol)
-    })
 
-    getLocation();
+      socket.on(SocketServerToClientEvents.SENDING_ARTIFACTS, (artifacts) => {
+        setArtifacts(artifacts)
+      })
+
+      socket.on(SocketServerToClientEvents.COLLECTED, () => {
+        socket.emit(SocketClientToServerEvents.REQUEST_ARTIFACTS, user.rol)
+      })
+
+    }
+
+
+    getMyLocationAsAcolyte(user);
+
+
+    return () => {
+      if(user.rol === Roles.ACOLYTE || user.rol === Roles.MORTIMER){
+        socket.off(SocketServerToClientEvents.SENDING_ARTIFACTS);
+        socket.off(SocketServerToClientEvents.COLLECTED);
+      }
+    };
 
   }, []);
 
@@ -168,14 +195,24 @@ function AcolyteSwamp() {
   }, [currentPosition]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setAnimatedPosition(pos => ({
-        ...pos,
-        latitude: pos.latitude + 0.00001,
-      }));
-    }, 500);
 
-    return () => clearInterval(interval);
+    let interval = null;
+    // TODO: Borrar la animacion Hardcodeada y poner el seguimiento en TImepo real del acólito.
+    // La posición animada del acólito
+    if(user.rol === Roles.ACOLYTE) {
+      interval = setInterval(() => {
+        setAnimatedPosition(pos => ({
+          ...pos,
+          latitude: pos.latitude + 0.00001,
+        }));
+      }, 500);
+    }
+
+    return () => {
+
+      if(typeof interval === 'number'){ // Si el rol es el de acolito interval contendrá un number en lugar de null
+        clearInterval(interval)};
+      }
   }, []);
 
   useEffect(() => {
@@ -193,7 +230,7 @@ function AcolyteSwamp() {
 
       updated[artifact.name] = distance <= 10;
       console.log(`Distancia a ${artifact.name}: ${distance.toFixed(2)} m`);
-      if(distance <= 10) {
+      if (distance <= 10) {
         socket.emit(SocketClientToServerEvents.COLLECT, artifact.name)
       }
     });
@@ -201,10 +238,6 @@ function AcolyteSwamp() {
     setNearArtifacts(updated);
   }, [animatedPosition]);
 
-
-  const userContext = useContext(UserContext)
-  if (!userContext) return
-  const [user] = userContext
 
   const styles = StyleSheet.create({
     container: {
@@ -242,22 +275,18 @@ function AcolyteSwamp() {
   }, [currentPosition]);
 
 
-
-
-  const [isInventoryOpen, setIsInventoryOpen] = useState<boolean>(false)
-
-const mapRegion = {
-  latitude: 43.309504,
-  longitude: -2.001994,
-  latitudeDelta: 0.001,
-  longitudeDelta: 0.001,
-};
+  const mapRegion = {
+    latitude: 43.309504,
+    longitude: -2.001994,
+    latitudeDelta: 0.001,
+    longitudeDelta: 0.001,
+  };
 
   return (
     <>
       <InventoryContext.Provider value={[isInventoryOpen, setIsInventoryOpen]}>
         <AcolyteSwampContainer>
-          <InventoryContainer artifacts={artifacts}>
+          <InventoryContainer artifacts={activatedArtifacts}>
           </InventoryContainer>
           <View style={styles.container}>
             <MapView
@@ -268,7 +297,9 @@ const mapRegion = {
               showsCompass={false}
               showsPointsOfInterests={false}
             >
-              {currentPosition &&
+              {
+                /* Players own ubication Marker */
+                currentPosition &&
                 <Marker
                   coordinate={{ latitude: animatedPosition.latitude, longitude: animatedPosition.longitude }}
                   image={{ uri: `${user.avatar}` }}
@@ -277,26 +308,28 @@ const mapRegion = {
 
               }
               <>
-                {activatedArtifacts.map((a, i) => {
-                  if (a.state === 'active') { 
-                    return (
-                      <>
-                        {activatedArtifacts.map((artifact, j) =>
-                          nearArtifacts[artifact.name] && (
-                            <>
-                              <Marker image={require('../../../../assets/images/logos/grab_icon.png')} coordinate={{ latitude: coordenates[j].latitude + 0.00005, longitude: coordenates[j].longitude }} />
-                            </>
-                          )
-                        )}
-                        <Marker
-                          coordinate={{ latitude: coordenates[i].latitude, longitude: coordenates[i].longitude }}
-                          image={icons[a.icon]}
-                          title={a.name}
-                        />
-                      </>
-                    )
-                  }
-                })}
+                {
+                  /*  */
+                  activatedArtifacts.map((a, i) => {
+                    if (a.state === 'active') {
+                      return (
+                        <View key={i}>
+                          {activatedArtifacts.map((artifact, j) =>
+                            nearArtifacts[artifact.name] && (
+                              <View key={j}>
+                                <Marker image={require('../../../../assets/images/logos/grab_icon.png')} coordinate={{ latitude: coordenates[j].latitude + 0.00005, longitude: coordenates[j].longitude }} />
+                              </View>
+                            )
+                          )}
+                          <Marker
+                            coordinate={{ latitude: coordenates[i].latitude, longitude: coordenates[i].longitude }}
+                            image={icons[a.icon]}
+                            title={a.name}
+                          />
+                        </View>
+                      )
+                    }
+                  })}
 
 
               </>
