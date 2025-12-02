@@ -1,12 +1,10 @@
+import React from "react";
 import { ImageBackground } from "react-native";
 import styled from "styled-components/native";
 import Button from "../Button";
-import React from "react";
 import { ApiEndpoints, Images } from "../../helpers/constants/constants";
-import { LoginProps } from "../../helpers/interfaces/LoginProps";
-
-
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { LoginProps } from "../../helpers/interfaces/components/LoginProps";
 import { GoogleAuthProvider, getAuth, signInWithCredential } from '@react-native-firebase/auth';
 import { authenticatePlayer } from "../../helpers/serverRequests/authenticatePlayer";
 import { signOut } from "../../helpers/googleSignInUtils/googleSignInUtils";

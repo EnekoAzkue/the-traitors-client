@@ -1,37 +1,31 @@
-import React, { useContext, useEffect, useState } from "react";
-import { View, Text, Dimensions } from "react-native";
-import { Images } from "../../../../helpers/constants/constants";
-import ScreenContainer from "../../ScreenContainer";
 import styled from "styled-components/native";
+import ScreenContainer from "../../ScreenContainer";
+import React, { useContext, useEffect } from "react";
 import AcolyteLabRegister from "./AcolyteLabRegister";
-import KaotikaPlayer from "../../../../helpers/interfaces/KaotikaPlayer";
+import { Text, useWindowDimensions } from "react-native";
+import { Images } from "../../../../helpers/constants/constants";
 import { AllAcolytesContext, MortimerInitialScreenContext } from "../../../../helpers/contexts/contexts";
 
 function MortimerLab() {
 
+  // --- CONTEXTS & COMPONENT CONSTANTS --- //
   const allAcolytesContext = useContext(AllAcolytesContext);
-  if (!allAcolytesContext) return <Text>User context is null at Home Component!!!"</Text>;
-  const [acolytes, setAcolytes] = allAcolytesContext;
-
   const initialScreenContext = useContext(MortimerInitialScreenContext);
-  if (!initialScreenContext) return null;
-  const [initialScreen, setInitialScreen] = initialScreenContext;
 
+  if (!allAcolytesContext) return;
+  if (!initialScreenContext) return;
+
+  const acolytes = allAcolytesContext[0];
+  const setInitialScreen = initialScreenContext[1];
+
+  const { width, height } = useWindowDimensions();
+
+  // --- EFFECTS --- //
   useEffect(() => {
     setInitialScreen("MortimerLab");
   }, []);
 
-  const [screen, setScreen] = useState(Dimensions.get("window"));
-
-  useEffect(() => {
-    const subscription = Dimensions.addEventListener("change", ({ window }) => {
-      setScreen(window);
-    });
-    return () => subscription.remove();
-  }, []);
-
-  const { width, height } = screen;
-
+  // --- STYLED COMPONENTS --- //
   const AcolytesRegisterScreenContainer = styled.View`
     align-items: center; 
     flex: 1; 
@@ -41,7 +35,7 @@ function MortimerLab() {
     position: absolute;
   `;
 
-    const AcolytesRegisterListContainer = styled.ScrollView`
+  const AcolytesRegisterListContainer = styled.ScrollView`
     flex: 1;
     width: ${width * 0.9}px;
     height: ${height * 0.1}px;
@@ -52,20 +46,18 @@ function MortimerLab() {
 
   return (
     <ScreenContainer backgroundImg={Images.MORTIMER_LAB}>
-      <>
-
-        <AcolytesRegisterScreenContainer>
-          <AcolytesRegisterListContainer contentContainerStyle={{ alignItems: "center", justifyContent: "center" }}>
-            {acolytes
-              ? acolytes.map((acolyte, index) => (
-                  <AcolyteLabRegister key={index} acolyte={acolyte} />
-                ))
-              : <Text>NO USERS?</Text>}
-          </AcolytesRegisterListContainer>
-        </AcolytesRegisterScreenContainer>
-      </>
+      <AcolytesRegisterScreenContainer>
+        <AcolytesRegisterListContainer contentContainerStyle={{ alignItems: "center", justifyContent: "center" }}>
+          {acolytes
+            ? acolytes.map((acolyte, index) => (
+              <AcolyteLabRegister key={index} acolyte={acolyte} />
+            ))
+            : <Text>NO USERS?</Text>}
+        </AcolytesRegisterListContainer>
+      </AcolytesRegisterScreenContainer>
     </ScreenContainer>
   );
+
 }
 
 export default MortimerLab;

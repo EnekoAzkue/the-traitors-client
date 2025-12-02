@@ -1,24 +1,25 @@
-import React, { useContext, useEffect, useState } from "react";
-import { View, Text, Dimensions } from "react-native";
 import styled from "styled-components/native";
-import { Images, navigationTabMarginBottomForScreens } from "../../../../helpers/constants/constants";
 import ScreenContainer from "../../ScreenContainer";
-import KaotikaPlayer from "../../../../helpers/interfaces/KaotikaPlayer";
-import { AllAcolytesContext, MortimerInitialScreenContext } from "../../../../helpers/contexts/contexts";
 import AcolyteTowerRegister from "./AcolyteTowerRegister";
+import React, { useContext, useEffect, useState } from "react";
+import { Images } from "../../../../helpers/constants/constants";
+import { Text, Dimensions, useWindowDimensions } from "react-native";
+import { AllAcolytesContext, MortimerInitialScreenContext } from "../../../../helpers/contexts/contexts";
 
 function MortimerTower() {
 
+  // --- STATES & CONTEXTS --- //
+  const [screen, setScreen] = useState(useWindowDimensions());
   const allAcolytesContext = useContext(AllAcolytesContext);
-  if (!allAcolytesContext) return <Text>User context is null at Home Component!!!"</Text>;
-  const [acolytes, setAcolytes] = allAcolytesContext;
-
   const initialScreenContext = useContext(MortimerInitialScreenContext);
-  if (!initialScreenContext) return null;
-  const [initialScreen, setInitialScreen] = initialScreenContext;
 
-  const [screen, setScreen] = useState(Dimensions.get("window"));
+  if (!allAcolytesContext) return;
+  if (!initialScreenContext) return;
 
+  const [acolytes] = allAcolytesContext;
+  const [, setInitialScreen] = initialScreenContext;
+
+  // --- EFFECTS --- //
   useEffect(() => {
     setInitialScreen("MortimerTower");
   }, []);
@@ -31,6 +32,7 @@ function MortimerTower() {
     return () => subscription.remove();
   }, []);
 
+  // --- COMPONENT STYLES --- //
   const { width, height } = screen;
 
   const AcolytesRegisterScreenContainer = styled.View`
@@ -51,26 +53,22 @@ function MortimerTower() {
     background-color: rgba(0,0,0,0.3);
   `;
 
-
-
   return (
-    <View style={{ marginBottom: navigationTabMarginBottomForScreens }}>
-      <ScreenContainer backgroundImg={Images.MORTIMER_TOWER}>
-        <>
-
-          <AcolytesRegisterScreenContainer>
-            <AcolytesRegisterListContainer contentContainerStyle={{ alignItems: "center" }}>
-              {acolytes
-                ? acolytes.map((acolyte, index) => (
-                    <AcolyteTowerRegister key={index} acolyte={acolyte} />
-                  ))
-                : <Text>NO USERS?</Text>}
-            </AcolytesRegisterListContainer>
-          </AcolytesRegisterScreenContainer>
-        </>
-      </ScreenContainer>
-    </View>
+    <ScreenContainer backgroundImg={Images.MORTIMER_TOWER}>
+      <>
+        <AcolytesRegisterScreenContainer>
+          <AcolytesRegisterListContainer contentContainerStyle={{ alignItems: "center" }}>
+            {acolytes
+              ? acolytes.map((acolyte, index) => (
+                <AcolyteTowerRegister key={index} acolyte={acolyte} />
+              ))
+              : <Text>NO USERS?</Text>}
+          </AcolytesRegisterListContainer>
+        </AcolytesRegisterScreenContainer>
+      </>
+    </ScreenContainer>
   );
+  
 }
 
 export default MortimerTower;

@@ -1,21 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { Text, Dimensions } from "react-native";
+import React, { useState } from "react";
 import styled from "styled-components/native";
+import { Text, useWindowDimensions } from "react-native";
 import { AcolyteLabRegisterProps } from "../../../../helpers/interfaces/components/AcolyteLabRegisterProps";
 
 const AcolyteLabRegister = ({ acolyte }: AcolyteLabRegisterProps) => {
-  const [isInside, setIsInside] = useState(acolyte.isInside);
 
-  const [screen, setScreen] = useState(Dimensions.get("window"));
-  useEffect(() => {
-    const sub = Dimensions.addEventListener("change", ({ window }) => {
-      setScreen(window);
-    });
-    return () => sub.remove();
-  }, []);
+  // --- STATES && CONSTANTS --- //
+  const [isInside] = useState(acolyte.isInside);
+  const { width, height } = useWindowDimensions();
+  const acolytePhoto = { uri: acolyte.avatar };
 
-  const { width, height } = screen;
-
+  // --- STYLED COMPONENTS --- //
   // Ajusta proporciones para que no sea demasiado pequeño
   const componentWidth = width * 0.9; // ocupa 90% del contenedor o pantalla
   const componentHeight = height * 0.22; // algo más alto
@@ -71,8 +66,6 @@ const AcolyteLabRegister = ({ acolyte }: AcolyteLabRegisterProps) => {
     margin-top: 2px;
   `;
 
-  const acolytePhoto = { uri: acolyte.avatar };
-
   return (
     <ComponentContainer>
       <AcolyteImage source={acolytePhoto} />
@@ -91,6 +84,7 @@ const AcolyteLabRegister = ({ acolyte }: AcolyteLabRegisterProps) => {
       </StyledAcolyteClass>
     </ComponentContainer>
   );
+
 };
 
 export default AcolyteLabRegister;

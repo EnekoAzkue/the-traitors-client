@@ -1,21 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { Text, Dimensions } from "react-native";
+import React, { useState } from "react";
 import styled from "styled-components/native";
-import { AcolyteTowerRegisterProps } from "../../../../helpers/interfaces/AcolyteTowerRegisterProps";
+import { Text, useWindowDimensions } from "react-native";
+import { AcolyteTowerRegisterProps } from "../../../../helpers/interfaces/components/AcolyteTowerRegisterProps";
 
 const AcolyteTowerRegister = ({ acolyte }: AcolyteTowerRegisterProps) => {
-  const [insideTower, setInsideTower] = useState(acolyte.insideTower);
+  
+  // --- STATES && CONSTANTS --- //
+  const [insideTower] = useState(acolyte.insideTower);
+  const {width, height} = useWindowDimensions();
+  const acolytePhoto = { uri: acolyte.avatar };
 
-  const [screen, setScreen] = useState(Dimensions.get("window"));
-  useEffect(() => {
-    const sub = Dimensions.addEventListener("change", ({ window }) => {
-      setScreen(window);
-    });
-    return () => sub.remove();
-  }, []);
-
-  const { width, height } = screen;
-
+  // --- STYLED COMPONENTS --- //
   // Tamaño del componente más grande y proporcional
   const componentWidth = Math.min(width * 0.9, 400); // ancho máximo 400px
   const componentHeight = height * 0.25; // más alto que antes
@@ -35,7 +30,6 @@ const AcolyteTowerRegister = ({ acolyte }: AcolyteTowerRegisterProps) => {
     padding-left: 16px;
     padding-right: 16px;
   `;
-
 
   const AcolyteImage = styled.Image`
     height: ${imageSize}px;
@@ -72,8 +66,6 @@ const AcolyteTowerRegister = ({ acolyte }: AcolyteTowerRegisterProps) => {
     margin-top: 2px;
   `;
 
-  const acolytePhoto = { uri: acolyte.avatar };
-
   return (
     <ComponentContainer>
       <AcolyteImage source={acolytePhoto} />
@@ -92,6 +84,7 @@ const AcolyteTowerRegister = ({ acolyte }: AcolyteTowerRegisterProps) => {
       </StyledAcolyteClass>
     </ComponentContainer>
   );
+
 };
 
 export default AcolyteTowerRegister;

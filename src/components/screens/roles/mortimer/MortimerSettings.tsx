@@ -7,10 +7,12 @@ import { MortimerInitialScreenContext } from "../../../../helpers/contexts/conte
 
 function MortimerSettings() {
 
+  // --- CONTEXTS --- //
   const initialScreenContext = useContext(MortimerInitialScreenContext);
   if(!initialScreenContext) return null;
-  const [initialScreen, setInitialScreen] = initialScreenContext;
+  const [, setInitialScreen] = initialScreenContext;
   
+  // --- EFFECTS --- //
   useEffect(() => {
     setInitialScreen("MortimerSettings");
   }, []);
@@ -20,8 +22,7 @@ function MortimerSettings() {
       <Logout />
     </ScreenContainer>
   );
-
+  
 }
-
 
 export default MortimerSettings;
