@@ -8,9 +8,9 @@ import styled from 'styled-components/native';
 import { Images, Screens } from '../../../../helpers/constants/constants';
 import { BlurView } from '@react-native-community/blur';
 import Swamp from '../../Swamp';
+import HallOfSages from '../../AcolyteHall';
 
 const Stack = createBottomTabNavigator();
-
 
 const IconImage = styled.Image`
   position: relative;
@@ -18,8 +18,6 @@ const IconImage = styled.Image`
   width: 35px;
   height: 35px;
 `;
-
-
 
 function RootNavigation({ initialRouteScreen }: any) {
 
@@ -53,8 +51,8 @@ function RootNavigation({ initialRouteScreen }: any) {
             case Screens.ISTVAN_LAB:
               tabIconSource = Images.LAB_ICON;
               break;
-            
-            case Screens.ISTVAN_SWAMP:
+
+            case Screens.SWAMP:
               tabIconSource = Images.SWAMP_ICON;
               break;
 
@@ -62,18 +60,21 @@ function RootNavigation({ initialRouteScreen }: any) {
               tabIconSource = Images.SETTINGS_ICON;
               break;
 
+            case Screens.HALL_OF_SAGES:
+              tabIconSource = Images.HALL_ICON;
+              break;
+
           }
 
-          return <IconImage source={tabIconSource} style={{ opacity: focused ? 1 : 0.5, transform: [{ scale: focused ? 1.15 : 1 }], }}/>;
+          return <IconImage source={tabIconSource} style={{ opacity: focused ? 1 : 0.5, transform: [{ scale: focused ? 1.15 : 1 }], }} />;
         },
       })}
-
     >
       <Stack.Screen name={Screens.ISTVAN_HOME} component={IstvanHome} />
       <Stack.Screen name={Screens.ISTVAN_LAB} component={IstvanLab} />
-      <Stack.Screen name={Screens.ISTVAN_SWAMP} component={Swamp} />
+      <Stack.Screen name={Screens.SWAMP} component={Swamp} />
+      <Stack.Screen name={Screens.HALL_OF_SAGES} component={HallOfSages} />
       <Stack.Screen name={Screens.ISTVAN_SETTINGS} component={IstvanSettings} />
-
     </Stack.Navigator>
   );
 }
@@ -85,8 +86,6 @@ export default function IstvanNavigation() {
       <NavigationContainer>
         <RootNavigation initialRouteScreen={Screens.ISTVAN_HOME} />
       </NavigationContainer>
-
-
     </>
 
   );

@@ -8,6 +8,7 @@ import styled from 'styled-components/native';
 import { Images, Screens } from '../../../../helpers/constants/constants';
 import { BlurView } from '@react-native-community/blur';
 import Swamp from '../../Swamp';
+import HallOfSages from '../../AcolyteHall';
 
 const Stack = createBottomTabNavigator();
 
@@ -52,7 +53,7 @@ function RootNavigation({ initialRouteScreen }: any) {
               tabIconSource = Images.LAB_ICON;
               break;
 
-            case Screens.VILLAIN_SWAMP:
+            case Screens.SWAMP:
               tabIconSource = Images.SWAMP_ICON;
               break;
 
@@ -60,16 +61,21 @@ function RootNavigation({ initialRouteScreen }: any) {
               tabIconSource = Images.SETTINGS_ICON;
               break;
 
+            case Screens.HALL_OF_SAGES:
+              tabIconSource = Images.HALL_ICON;
+              break;
+
           }
 
-          return <IconImage source={tabIconSource} style={{ opacity: focused ? 1 : 0.5, transform: [{ scale: focused ? 1.15 : 1 }], }}/>;
+          return <IconImage source={tabIconSource} style={{ opacity: focused ? 1 : 0.5, transform: [{ scale: focused ? 1.15 : 1 }], }} />;
         },
       })}
 
     >
       <Stack.Screen name={Screens.VILLAIN_HOME} component={VillainHome} />
       <Stack.Screen name={Screens.VILLAIN_LAB} component={VillainLab} />
-      <Stack.Screen name={Screens.VILLAIN_SWAMP} component={Swamp} />
+      <Stack.Screen name={Screens.SWAMP} component={Swamp} />
+      <Stack.Screen name={Screens.HALL_OF_SAGES} component={HallOfSages} />
       <Stack.Screen name={Screens.VILLAIN_SETTINGS} component={VillainSettings} />
     </Stack.Navigator>
   );

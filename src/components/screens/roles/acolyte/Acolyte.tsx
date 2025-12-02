@@ -8,7 +8,7 @@ import AcolyteHome from "./AcolyteHome";
 import AcolyteLab from "./AcolyteLab";
 import AcolyteSettings from "./AcolyteSettings";
 import AcolyteTower from "./AcolyteTower";
-import AcolyteHall from "./AcolyteHall";
+import AcolyteHall from "../../AcolyteHall";
 import Swamp from "../../Swamp";
 
 export default function Acolyte() {

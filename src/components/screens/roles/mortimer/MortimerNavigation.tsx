@@ -11,6 +11,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Images, Screens } from '../../../../helpers/constants/constants';
 import { MortimerInitialScreenContext } from '../../../../helpers/contexts/contexts';
+import HallOfSages from '../../AcolyteHall';
 
 const Stack = createBottomTabNavigator();
 
@@ -20,7 +21,7 @@ function RootNavigation({ }: any) {
   const initialRouteScreen = useContext(MortimerInitialScreenContext);
 
   if (!initialRouteScreen) return null;
-  
+
   const [initialScreen] = initialRouteScreen;
 
   // --- STYLED COMPONENTS --- //
@@ -51,7 +52,7 @@ function RootNavigation({ }: any) {
         tabBarIcon: ({ focused }) => {
 
           let tabIconSource;
-          
+
           switch (route.name) {
             case Screens.MORTIMER_HOME:
               tabIconSource = Images.HOME_ICON;
@@ -61,7 +62,7 @@ function RootNavigation({ }: any) {
               tabIconSource = Images.LAB_ICON;
               break;
 
-            case Screens.MORTIMER_SWAMP:
+            case Screens.SWAMP:
               tabIconSource = Images.SWAMP_ICON;
               break;
 
@@ -72,6 +73,10 @@ function RootNavigation({ }: any) {
             case Screens.MORTIMER_TOWER:
               tabIconSource = Images.TOWER_ICON;
               break;
+
+            case Screens.HALL_OF_SAGES:
+              tabIconSource = Images.HALL_ICON;
+              break;
           }
 
           return <IconImage source={tabIconSource} style={{ opacity: focused ? 1 : 0.5, transform: [{ scale: focused ? 1.15 : 1 }], }} />;
@@ -81,7 +86,8 @@ function RootNavigation({ }: any) {
       <Stack.Screen name={Screens.MORTIMER_HOME} component={MortimerHome} />
       <Stack.Screen name={Screens.MORTIMER_LAB} component={MortimerLab} />
       <Stack.Screen name={Screens.MORTIMER_TOWER} component={MortimerTower} />
-      <Stack.Screen name={Screens.MORTIMER_SWAMP} component={Swamp} />
+      <Stack.Screen name={Screens.SWAMP} component={Swamp} />
+      <Stack.Screen name={Screens.HALL_OF_SAGES} component={HallOfSages} />      
       <Stack.Screen name={Screens.MORTIMER_SETTINGS} component={MortimerSettings} />
     </Stack.Navigator>
   );
@@ -97,5 +103,5 @@ export default function MortimerNavigation() {
       </NavigationContainer>
     </>
   );
-  
+
 }

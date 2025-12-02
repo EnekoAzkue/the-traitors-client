@@ -89,31 +89,28 @@ enum Screens {
   ACOLYTE_SETTINGS = 'AcolyteSettings',
   ACOLYTE_LAB = 'AcolyteLab',
   ACOLYTE_TOWER = 'AcolyteTower',
-  ACOLYTE_HALL = 'AcolyteHall',
   SCHOOL_MAP = 'SchoolMap',
 
 
   // --- ISTVAN --- //
   ISTVAN_LAB = 'IstvanLab',
   ISTVAN_HOME = 'IstvanHome',
-  ISTVAN_SWAMP = 'IstvanSwamp',
   ISTVAN_SETTINGS = 'IstvanSettings',
 
   // --- MORTIMER --- //
   MORTIMER_LAB = 'MortimerLab',
   MORTIMER_HOME = 'MortimerHome',
-  MORTIMER_SWAMP = 'MortimerSwamp',
   MORTIMER_SETTINGS = 'MortimerSettings',
   MORTIMER_TOWER = 'MortimerTower',
 
   // --- VILLAIN --- //
   VILLAIN_LAB = 'VillainLab',
   VILLAIN_HOME = 'VillainHome',
-  VILLAIN_SWAMP = 'VillainSwamp',
   VILLAIN_SETTINGS = 'VillainSettings',
 
   // --- GENERAL --- //
   SWAMP = 'Swamp',
+  HALL_OF_SAGES = 'HallOfSages',
 
 }
 

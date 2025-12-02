@@ -1,9 +1,9 @@
 import React from "react";
 import { View } from "react-native";
-import { Images } from "../../../../helpers/constants/constants";
-import AcolyteScreenContainer from "./AcolyteScreenContainer";
+import { Images } from "../../helpers/constants/constants";
+import AcolyteScreenContainer from "./roles/acolyte/AcolyteScreenContainer";
 
-function AcolyteHome() {
+function HallOfSages() {
 
   return (
     <AcolyteScreenContainer backgroundImage={Images.HALL_OF_SAGES} >
@@ -13,4 +13,4 @@ function AcolyteHome() {
   );
 }
 
-export default AcolyteHome;
+export default HallOfSages;
