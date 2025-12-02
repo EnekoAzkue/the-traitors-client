@@ -13,5 +13,4 @@ function AcolyteHome() {
   );
 }
 
-
 export default AcolyteHome;

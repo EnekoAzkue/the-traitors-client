@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef } from "react";
-import { Animated, Image, ImageBackground, Text, StyleSheet, View } from "react-native";
+import { Animated, Image, Text, StyleSheet, View } from "react-native";
 import { Images, Screens } from "../../../../helpers/constants/constants";
 import IconButton from "../../IconButton";
 import { AcolyteInitialScreenContext } from "../../../../helpers/contexts/contexts";
@@ -7,26 +7,26 @@ import { useScreenDimensions } from "../../../../helpers/stores/useScreenDimensi
 import styled from "styled-components/native";
 
 export default function AcolyteMap() {
-
-  // Screen Dimensions
+  // --- CONTEXTS --- //
   const screenDimensions = useScreenDimensions(state => state.screenDimensions);
-
-  if (!screenDimensions) return; 
-  
-  // Current Route Screen 
   const initialRouterScreen = useContext(AcolyteInitialScreenContext);
 
+  if (!screenDimensions) return;
   if (!initialRouterScreen) return <Text>ERROR! Initial Router Context not got</Text>;
 
-  const [initialScreen, setInitialScreen] = initialRouterScreen;
+  const [, setInitialScreen] = initialRouterScreen;
 
+  // --- FUNCTIONS --- //
   const selectInitialHomeScreen = () => setInitialScreen(Screens.SCHOOL_MAP);
   const selectInitialTowerScreen = () => setInitialScreen(Screens.ACOLYTE_TOWER);
   const selectInitialSwampScreen = () => setInitialScreen(Screens.SWAMP);
 
+  // --- REFS --- //
+  // Refs used on cloud animation
   const cloudOpacity = useRef(new Animated.Value(1)).current;
   const cloudScale = useRef(new Animated.Value(1)).current;
 
+  // --- EFFECTS --- //
   useEffect(() => {
     Animated.parallel([
       Animated.timing(cloudOpacity, {
@@ -42,18 +42,42 @@ export default function AcolyteMap() {
     ]).start();
   }, []);
 
-
+  // --- STYLES --- //
   const StyledAcolyteMapContainer = styled.ImageBackground`
-  width: ${screenDimensions.width}px;
-  height: ${screenDimensions.height}px;
+    width: ${screenDimensions.width}px;
+    height: ${screenDimensions.height}px;
   `;
+
+  const styles = StyleSheet.create({
+    background: {
+      width: "100%",
+      height: "100%",
+      alignItems: "center",
+    },
+    cloudOverlay: {
+      position: "absolute",
+      width: "100%",
+      height: "100%",
+      zIndex: 700,
+    },
+    cloudImage: {
+      width: "100%",
+      height: "100%",
+      zIndex: 700,
+    },
+    darkFilter: {
+      ...StyleSheet.absoluteFill,
+      backgroundColor: "rgba(10, 15, 30, 0.7)",
+      zIndex: 701,
+    },
+  });
+
 
   return (
     <StyledAcolyteMapContainer
       source={Images.ACOLYTE_MAP}
       resizeMode="cover"
     >
-      {/* Botones del mapa */}
       <IconButton
         width={screenDimensions.width * 0.1}
         height={screenDimensions.width * 0.1}
@@ -81,9 +105,6 @@ export default function AcolyteMap() {
         backgroundImage={Images.SWAMP_ICON}
         buttonOnPress={selectInitialSwampScreen}
       />
-
-
-      {/* Capa animada de nubes */}
       <Animated.View
         style={[
           styles.cloudOverlay,
@@ -105,27 +126,3 @@ export default function AcolyteMap() {
     </StyledAcolyteMapContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  background: {
-    width: "100%",
-    height: "100%",
-    alignItems: "center",
-  },
-  cloudOverlay: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-    zIndex: 700,
-  },
-  cloudImage: {
-    width: "100%",
-    height: "100%",
-    zIndex: 700,
-  },
-  darkFilter: {
-    ...StyleSheet.absoluteFill,
-    backgroundColor: "rgba(10, 15, 30, 0.7)",
-    zIndex: 701,
-  },
-});

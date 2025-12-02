@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext } from "react";
 import { ImageBackground, Text, StyleSheet } from "react-native";
 import { Images, Screens } from "../../../../helpers/constants/constants";
 import IconButton from "../../IconButton";
@@ -7,39 +7,47 @@ import { Dimensions } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
-type InitialScreen = Screens.ACOLYTE_HOME | Screens.ACOLYTE_LAB;
-
 export default function AcolyteSchoolMap() {
+  // --- CONTEXTS --- //
   const initialRouterScreen = useContext(AcolyteInitialScreenContext);
-
-  if (!initialRouterScreen) return <Text>ERROR! Initial Router Context not got</Text>;
-
-  const [initialScreen, setInitialScreen] = initialRouterScreen;
-
   const scrollContext = useContext(ScrollContext);
 
-  if(!scrollContext) return;
-  const [ scrollActive, setScrollActive ] = scrollContext;
+  if (!initialRouterScreen) return <Text>ERROR! Initial Router Context not got</Text>;
+  if (!scrollContext) return;
 
+  const [, setInitialScreen] = initialRouterScreen;
+  const [scrollActive] = scrollContext;
+
+  // --- FUNCTIONS --- //
   const selectInitialHomeScreen = () => setInitialScreen(Screens.ACOLYTE_HOME);
-  const selectInitialLabScreen = () => {
-    setInitialScreen(Screens.ACOLYTE_LAB);
-    console.log("CHANGED TO LAB");
-  };
+  const selectInitialLabScreen = () => setInitialScreen(Screens.ACOLYTE_LAB);
   const selectInitialSettingsScreen = () => setInitialScreen(Screens.ACOLYTE_SETTINGS);
   const selectInitialHallScreen = () => setInitialScreen(Screens.ACOLYTE_HALL);
 
-  console.log("SCROLL ACTIVE IN SCHOOL MAP:", scrollActive);
-
+  // --- STYLES --- //
+  const styles = StyleSheet.create({
+    background: {
+      width: "100%",
+      height: "100%",
+      alignItems: "center",
+    },
+  });
   return (
     <ImageBackground
       source={Images.SCHOOL_MAP}
       resizeMode="cover"
       style={styles.background}
     >
-      <IconButton width={80} height={80} hasBrightness={true} backgroundImage={Images.MAP_ICON} buttonOnPress={() => setInitialScreen(null)} xPos={20} yPos={20} hasBorder={false} />
-
-      {/* Botones del mapa */}
+      <IconButton
+        width={80}
+        height={80}
+        hasBrightness={true}
+        backgroundImage={Images.MAP_ICON}
+        buttonOnPress={() => setInitialScreen(null)}
+        xPos={20}
+        yPos={20}
+        hasBorder={false}
+      />
       <IconButton
         width={width * 0.1}
         height={width * 0.1}
@@ -67,26 +75,17 @@ export default function AcolyteSchoolMap() {
         backgroundImage={Images.SETTINGS_ICON}
         buttonOnPress={selectInitialSettingsScreen}
       />
-      {!scrollActive ? 
-      <IconButton
-        width={width * 0.1}
-        height={width * 0.1}
-        xPos={width * 0.751} 
-        yPos={height * 0.305}
-      hasBorder={true}
-      backgroundImage={Images.HALL_ICON}
-      buttonOnPress={selectInitialHallScreen}
-      /> : null
-    }
-
+      {!scrollActive &&
+        <IconButton
+          width={width * 0.1}
+          height={width * 0.1}
+          xPos={width * 0.751}
+          yPos={height * 0.305}
+          hasBorder={true}
+          backgroundImage={Images.HALL_ICON}
+          buttonOnPress={selectInitialHallScreen}
+        />
+      }
     </ImageBackground>
   );
 }
-
-const styles = StyleSheet.create({
-  background: {
-    width: "100%",
-    height: "100%",
-    alignItems: "center",
-  },
-});
