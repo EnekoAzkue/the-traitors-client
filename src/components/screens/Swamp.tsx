@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Dimensions, StyleSheet, View } from "react-native";
+import { Dimensions, StyleSheet, Text, View } from "react-native";
 import AcolyteTowerContainer from "./roles/acolyte/AcolyteTowerContainer";
 import MapView, { Marker, Circle } from 'react-native-maps';
 import Geolocation, { GeolocationResponse } from '@react-native-community/geolocation';
-import { InventoryContext, UserContext } from "../../helpers/contexts/contexts";
+import { CollectionContext, InventoryContext, UserContext } from "../../helpers/contexts/contexts";
 import IconButton from "./IconButton";
 import { PermissionsAndroid } from "react-native";
 import SwampContainer from "./SwampContainer";
@@ -33,8 +33,36 @@ function Swamp() {
   const [nearArtifacts, setNearArtifacts] = useState<{ [name: string]: boolean }>({});
   const [artifacts, setArtifacts] = useState<Artifact[]>([])
   const [activatedArtifacts, setActivatedArtifacts] = useState<Artifact[]>([])
-
   const [isInventoryOpen, setIsInventoryOpen] = useState<boolean>(false);
+  const [areAllArtifactsCollected, setAreAllArtifactsCollected] = useState<boolean>(false);
+  const fakeCoordenates = [
+    // { original
+    //   latitude: 43.3097,
+    //   longitude: -2.0021,
+    // },
+    {
+      latitude: 43.3094074,
+      longitude: -2.0019351,
+    },
+    {
+      latitude: 43.3097,
+      longitude: -2.0025,
+    },
+    // {
+    //   latitude: 43.3096,
+    //   longitude: -2.0023,
+    // },
+    {
+      latitude: 43.3094074,
+      longitude: -2.0019351,
+    },
+    {
+      latitude: 43.30967,
+      longitude: -2.0023,
+    },
+
+  ]
+
 
   const [screen, setScreen] = useState(Dimensions.get("window"));
   useEffect(() => {
@@ -76,7 +104,7 @@ function Swamp() {
     }
 
     // Si el rol del usuario que ejecuta la aplicación son mortimer o acolyte se les muestra los artefactos, solo a ellos.
-    if(user.rol === Roles.ACOLYTE || user.rol === Roles.MORTIMER){
+    if (user.rol === Roles.ACOLYTE || user.rol === Roles.MORTIMER) {
       socket.emit(SocketClientToServerEvents.REQUEST_ARTIFACTS, user.rol)
 
       socket.on(SocketServerToClientEvents.SENDING_ARTIFACTS, (artifacts) => {
@@ -94,7 +122,7 @@ function Swamp() {
 
 
     return () => {
-      if(user.rol === Roles.ACOLYTE || user.rol === Roles.MORTIMER){
+      if (user.rol === Roles.ACOLYTE || user.rol === Roles.MORTIMER) {
         socket.off(SocketServerToClientEvents.SENDING_ARTIFACTS);
         socket.off(SocketServerToClientEvents.COLLECTED);
       }
@@ -103,13 +131,14 @@ function Swamp() {
   }, []);
 
   useEffect(() => {
-    console.log(artifacts);
-
     // Filter for only activated artifacts
     const activatedArtifacts = artifacts.filter(a => a.state === "active" || a.state === "collected");
-
+    const collectedArtifacts = artifacts.filter(a => a.state === 'collected')
+    if (collectedArtifacts.length === 4) {
+      console.log("all artifacts collected")
+      setAreAllArtifactsCollected(true)
+    }
     setActivatedArtifacts(activatedArtifacts);
-    console.log(activatedArtifacts)
   }, [artifacts]);
 
   useEffect(() => {
@@ -122,48 +151,68 @@ function Swamp() {
   }, [currentPosition]);
 
   useEffect(() => {
+    const MIN_ACCURACY = 50; // valores con >50 metros los descarto
 
-    let interval = null;
-    // TODO: Borrar la animacion Hardcodeada y poner el seguimiento en TImepo real del acólito.
-    // La posición animada del acólito
-    if(user.rol === Roles.ACOLYTE) {
-      interval = setInterval(() => {
-        setAnimatedPosition(pos => ({
-          ...pos,
-          latitude: pos.latitude + 0.00001,
-        }));
-      }, 500);
-    }
+    const watchId = Geolocation.watchPosition(
+      (info) => {
+        if (info.coords.accuracy > MIN_ACCURACY) {
+          console.log("Descartada por mala precisión:", info.coords.accuracy);
+          return;
+        }
+
+        setCurrentPosition(info);
+      },
+      (err) => console.log(err),
+      {
+        enableHighAccuracy: true,
+        distanceFilter: 0,
+        interval: 1000,
+        fastestInterval: 1000,
+      }
+    );
+
+
+    console.log("watchPosition started");
 
     return () => {
-
-      if(typeof interval === 'number'){ // Si el rol es el de acolito interval contendrá un number en lugar de null
-        clearInterval(interval)};
-      }
+      Geolocation.clearWatch(watchId);
+      console.log("watchPosition cleared");
+    };
   }, []);
 
   useEffect(() => {
+    checkDistanceWithArtifacts()
+  }, [currentPosition]);
+
+
+  //Check distance with artifacts at first render
+  useEffect(() => {
+    checkDistanceWithArtifacts()
+  }, [activatedArtifacts]);
+
+  const checkDistanceWithArtifacts = () => {
     const updated = { ...nearArtifacts };
+    if (!currentPosition) return
 
     activatedArtifacts.forEach((artifact, i) => {
       if (artifact.state !== 'active') return;
 
       const distance = getDistanceFromLatLonInMeters(
-        animatedPosition.latitude,
-        animatedPosition.longitude,
-        swampArtifactCoordinates[i].latitude,
-        swampArtifactCoordinates[i].longitude
+        currentPosition.coords.latitude,
+        currentPosition.coords.longitude,
+        fakeCoordenates[i].latitude,
+        fakeCoordenates[i].longitude
       );
 
-      updated[artifact.name] = distance <= 10;
-      console.log(`Distancia a ${artifact.name}: ${distance.toFixed(2)} m`);
-      if (distance <= 10) {
-        socket.emit(SocketClientToServerEvents.COLLECT, artifact.name)
-      }
+      updated[artifact.name] = distance <= 1;
+      // console.log(`Distancia a ${artifact.name}: ${distance.toFixed(2)} m`);
+      // if(distance <= 10) {
+      //   socket.emit(SocketClientToServerEvents.COLLECT, artifact.name)
+      // }
     });
-
+    console.log(updated)
     setNearArtifacts(updated);
-  }, [animatedPosition]);
+  }
 
 
   const styles = StyleSheet.create({
@@ -195,13 +244,6 @@ function Swamp() {
     return distance;
   }
 
-  useEffect(() => {
-    if (!currentPosition) return;
-
-
-  }, [currentPosition]);
-
-
   const mapRegion = {
     latitude: 43.309504,
     longitude: -2.001994,
@@ -209,52 +251,67 @@ function Swamp() {
     longitudeDelta: 0.001,
   };
 
+  const collectArtifact = (artifact: Artifact) => {
+    socket.emit(SocketClientToServerEvents.COLLECT, artifact.name)
+
+  }
+
   return (
     <>
       <InventoryContext.Provider value={[isInventoryOpen, setIsInventoryOpen]}>
-        <SwampContainer user={user}>
-          {(user.rol === Roles.ACOLYTE || user.rol === Roles.MORTIMER) ? <InventoryContainer artifacts={activatedArtifacts}/> : <></>}
-          <View style={styles.container}>
-            <MapView
-              provider={"google"}
-              style={styles.map}
-              region={mapRegion}
-              rotateEnabled={false}
-              showsCompass={false}
-              showsPointsOfInterests={false}
-            >
-              {
-                /* Players own ubication Marker */
-                currentPosition &&
-                <Marker
-                  coordinate={{ latitude: animatedPosition.latitude, longitude: animatedPosition.longitude }}
-                  image={{ uri: `${user.avatar}` }}
-                  title={user.nickname}
-                />
+        <CollectionContext.Provider value={[areAllArtifactsCollected, setAreAllArtifactsCollected]}>
 
-              }
-              <>
+          <SwampContainer user={user}>
+            {(user.rol === Roles.ACOLYTE || user.rol === Roles.MORTIMER) ? <InventoryContainer artifacts={activatedArtifacts} /> : <></>}
+            <View style={styles.container}>
+              <MapView
+                provider={"google"}
+                style={styles.map}
+                region={mapRegion}
+                rotateEnabled={false}
+                showsCompass={false}
+                showsPointsOfInterests={false}
+              >
                 {
-                  /*  */
-                  activatedArtifacts.map((a, i) => {
-                    if (a.state === 'active') {
-                      return (
-                        <View key={i}>
-                          <Marker 
-                            coordinate={{ latitude: swampArtifactCoordinates[i].latitude, longitude: swampArtifactCoordinates[i].longitude }}
-                            image={swampArtifactIcons[a.icon]}
-                            title={a.name}
-                          />
-                        </View>
-                      )
-                    }
-                  })}
-              </>
+                  /* Players own ubication Marker */
+                  currentPosition &&
+                  <Marker
+                    coordinate={{ latitude: animatedPosition.latitude, longitude: animatedPosition.longitude }}
+                    image={{ uri: `${user.avatar}` }}
+                    title={user.nickname}
+                  />
 
-            </MapView>
+                }
+                <>
+                  {
+                    /*  */
+                    activatedArtifacts.map((a, i) => {
+                      if (a.state === 'active') {
+                        return (
+                          <View key={i}>
+                            <Marker
+                              coordinate={{ latitude: swampArtifactCoordinates[i].latitude, longitude: swampArtifactCoordinates[i].longitude }}
+                              image={swampArtifactIcons[a.icon]}
+                              title={a.name}
+                            />
+                          </View>
+                        )
+                      }
+                    })}
+                </>
 
-          </View>
-        </SwampContainer>
+              </MapView>
+              {activatedArtifacts.map((artifact, j) =>
+                nearArtifacts[artifact.name] && artifact.state === 'active' ? (
+                  <Button key={j} buttonText={`collect artifact`} onPress={() => { collectArtifact(artifact) }} />
+                ) : null
+              )}
+              <Text style={{ zIndex: 1000 }}>Lat: {currentPosition?.coords.latitude} Lon: {currentPosition?.coords.longitude}</Text>
+
+            </View>
+          </SwampContainer>
+        </CollectionContext.Provider>
+
       </InventoryContext.Provider>
 
     </>

@@ -9,12 +9,13 @@ type IconButtonProps = {
   yPos: number,
   backgroundImage: any,
   buttonOnPress: any,
-  hasBrightness?: boolean, 
+  hasBrightness?: boolean,
   hasBorder?: boolean,
   backgrounOpacity?: number,
+  shadowColor?: string,
 };
 
-export default function IconButton({ width, height, xPos, yPos, backgroundImage, buttonOnPress, hasBrightness = false, hasBorder = false, backgrounOpacity = 0.4 }: IconButtonProps) {
+export default function IconButton({ width, height, xPos, yPos, backgroundImage, buttonOnPress, hasBrightness = false, hasBorder = false, backgrounOpacity = 0.4, shadowColor = '#ffffffff' }: IconButtonProps) {
 
 
   const StyledButtonContainer = styled.View`
@@ -45,6 +46,20 @@ export default function IconButton({ width, height, xPos, yPos, backgroundImage,
   height: ${height}px;
 `;
 
+  const dropShadowStyles = {
+    shadowColor: '#ffffffff',
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowOpacity: 2,
+    shadowRadius: 6,
+  }
+
+
+
+  const mergedDropShadowStyles = {...dropShadowStyles, shadowColor: shadowColor}
+
 
   const IconButtonChildren = () => {
     return (
@@ -60,15 +75,7 @@ export default function IconButton({ width, height, xPos, yPos, backgroundImage,
 
       {
         (hasBrightness) ?
-          <DropShadow style={{
-            shadowColor: '#ffffffff',
-            shadowOffset: {
-              width: 0,
-              height: 0,
-            },
-            shadowOpacity: 2,
-            shadowRadius: 6,
-          }}>
+          <DropShadow style={mergedDropShadowStyles}>
             <IconButtonChildren />
 
           </DropShadow>
@@ -78,5 +85,5 @@ export default function IconButton({ width, height, xPos, yPos, backgroundImage,
     </StyledButtonContainer>
 
 
-);
+  );
 }

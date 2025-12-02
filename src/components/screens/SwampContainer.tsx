@@ -3,7 +3,7 @@ import { Images, Roles } from "../../helpers/constants/constants";
 import { Text, View, Dimensions } from "react-native";
 import ScreenContainer from "./ScreenContainer";
 import IconButton from "./IconButton";
-import { AcolyteInitialScreenContext, InventoryContext } from "../../helpers/contexts/contexts";
+import { AcolyteInitialScreenContext, CollectionContext, InventoryContext } from "../../helpers/contexts/contexts";
 import KaotikaPlayer from "../../helpers/interfaces/KaotikaPlayer";
 
 const { width, height } = Dimensions.get('window');
@@ -17,13 +17,18 @@ export default function SwampContainer({ user, backgroundImage, children }: Prop
 
   // --- INVENTORY CONTEXT ---
   const inventoryContext = useContext(InventoryContext);
+  const collectionContext = useContext(CollectionContext);
 
   if (!inventoryContext) {
     return <Text>ERROR! InventoryContext Provider is missing</Text>;
   }
 
-  const [isInventoryOpen, setIsInventoryOpen] = inventoryContext;
-
+  if(!collectionContext) {
+      return <Text>ERROR! CollectionContext Provider is missing</Text>;
+    }
+  
+    const [isInventoryOpen, setIsInventoryOpen] = inventoryContext;
+    const [areAllArtifactsCollected] = collectionContext
 
   // --- INITIAL SCREEN CONTEXT ---
   const initialRouterScreen = useContext(AcolyteInitialScreenContext);
@@ -47,7 +52,33 @@ export default function SwampContainer({ user, backgroundImage, children }: Prop
 
         {
           (user.rol === Roles.ACOLYTE) ? 
-            <IconButton width={width * 0.3} height={height * 0.07} hasBrightness={true} backgroundImage={Images.BACK_ARROW} buttonOnPress={() => setInitialScreen(null)} xPos={width * 0.02} yPos={height * 0.02} hasBorder={false} backgrounOpacity={0} />
+        
+          areAllArtifactsCollected ?
+          <IconButton
+          width={width * 0.3}
+          height={height * 0.07}
+          hasBrightness={true}
+          backgroundImage={Images.BACK_ARROW}
+          buttonOnPress={() => setInitialScreen(null)}
+          xPos={width * 0.02}
+          yPos={height * 0.02}
+          hasBorder={false}
+          backgrounOpacity={0}
+          shadowColor= '#ffd000ff'
+          /> 
+          :
+          <IconButton
+          width={width * 0.3}
+          height={height * 0.07}
+          hasBrightness={true}
+          backgroundImage={Images.BACK_ARROW}
+          buttonOnPress={() => setInitialScreen(null)}
+          xPos={width * 0.02}
+          yPos={height * 0.02}
+          hasBorder={false}
+          backgrounOpacity={0}
+          /> 
+        
           : 
           <></>
         }
