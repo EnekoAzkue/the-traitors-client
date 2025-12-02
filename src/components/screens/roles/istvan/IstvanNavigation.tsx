@@ -1,27 +1,24 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import IstvanHome from './IstvanHome';
+import Swamp from '../../Swamp';
 import IstvanLab from './IstvanLab';
+import IstvanHome from './IstvanHome';
 import IstvanSettings from './IstvanSettings';
 import styled from 'styled-components/native';
-import { Images, Screens } from '../../../../helpers/constants/constants';
 import { BlurView } from '@react-native-community/blur';
-import Swamp from '../../Swamp';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Images, Screens } from '../../../../helpers/constants/constants';
 
 const Stack = createBottomTabNavigator();
 
-
-const IconImage = styled.Image`
-  position: relative;
-  top: 5px;
-  width: 35px;
-  height: 35px;
-`;
-
-
-
 function RootNavigation({ initialRouteScreen }: any) {
+
+  const IconImage = styled.Image`
+    position: relative;
+    top: 5px;
+    width: 35px;
+    height: 35px;
+  `;
 
   return (
     <Stack.Navigator
@@ -32,7 +29,6 @@ function RootNavigation({ initialRouteScreen }: any) {
         tabBarBackground: () => (
           <BlurView blurAmount={1}
             overlayColor="rgba(255 255 255 / 0.1)"
-
             style={{ height: '100%', backgroundColor: 'rgba(0, 0, 0, 1)' }} />
         ),
         tabBarStyle: {
@@ -61,14 +57,13 @@ function RootNavigation({ initialRouteScreen }: any) {
             case Screens.ISTVAN_SETTINGS:
               tabIconSource = Images.SETTINGS_ICON;
               break;
-
           }
 
           return <IconImage source={tabIconSource} style={{ opacity: focused ? 1 : 0.5, transform: [{ scale: focused ? 1.15 : 1 }], }}/>;
         },
       })}
-
     >
+
       <Stack.Screen name={Screens.ISTVAN_HOME} component={IstvanHome} />
       <Stack.Screen name={Screens.ISTVAN_LAB} component={IstvanLab} />
       <Stack.Screen name={Screens.ISTVAN_SWAMP} component={Swamp} />
@@ -76,6 +71,7 @@ function RootNavigation({ initialRouteScreen }: any) {
 
     </Stack.Navigator>
   );
+
 }
 
 export default function IstvanNavigation() {
@@ -85,9 +81,7 @@ export default function IstvanNavigation() {
       <NavigationContainer>
         <RootNavigation initialRouteScreen={Screens.ISTVAN_HOME} />
       </NavigationContainer>
-
-
     </>
-
   );
+  
 }

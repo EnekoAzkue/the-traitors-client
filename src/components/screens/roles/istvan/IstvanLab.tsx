@@ -1,16 +1,14 @@
-import React, { useState, useContext } from 'react';
-import { StyleSheet } from 'react-native';
-import { useCameraPermission, Camera, useCameraDevice, useCodeScanner, Code } from 'react-native-vision-camera';
-import { ModalContext } from '../../../../helpers/contexts/contexts';
-import { useNavigation } from '@react-navigation/native';
-import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import Button from '../../../Button';
-import { Images, SocketClientToServerEvents } from '../../../../helpers/constants/constants';
-import { socket } from '../../../../helpers/socket/socket';
+import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
-import { Dimensions } from 'react-native';
-
-const { width, height } = Dimensions.get('window');
+import React, { useState, useContext } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { socket } from '../../../../helpers/socket/socket';
+import { ModalContext } from '../../../../helpers/contexts/contexts';
+import { width, height } from '../../../../helpers/constants/constants';
+import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { Images, SocketClientToServerEvents } from '../../../../helpers/constants/constants';
+import { useCameraPermission, Camera, useCameraDevice, useCodeScanner, Code } from 'react-native-vision-camera';
 
 type RootTabParamList = {
   IstvanHome: undefined;
@@ -20,15 +18,16 @@ type RootTabParamList = {
 };
 
 const IstvanLab = () => {
+
+  // --- STATES, CONTEXTS && CONSTANTS --- //
   const [isCameraOpen, setIsCameraOpen] = useState(false);
   const setModalMessage = useContext(ModalContext)!;
   const navigation = useNavigation<BottomTabNavigationProp<RootTabParamList>>();
-
   const device = useCameraDevice('back');
   const { hasPermission, requestPermission } = useCameraPermission();
-
   const codeScanner = useCodeScanner({ codeTypes: ['qr'], onCodeScanned });
 
+  // --- COMPONENT FUNCTIONS --- //
   async function handlePress() {
     if (!hasPermission) {
       const granted = await requestPermission();
@@ -64,14 +63,15 @@ const IstvanLab = () => {
     toggleCameraAndTabBar();
   }
 
+  // --- COMPONENT STYLES --- //
   const BackgroundImage = styled.ImageBackground`
-  width: ${width}px;
-  height: ${Math.floor(height * 0.938)}px;
+    width: ${width}px;
+    height: ${Math.floor(height * 0.938)}px;
   `;
 
   const StyledContainer = styled.View`
-  width: ${width}px;
-  height: ${Math.floor(height * 0.938)}px;
+    width: ${width}px;
+    height: ${Math.floor(height * 0.938)}px;
   `;
 
   const StyledCameraContainer = styled.View`
@@ -85,9 +85,6 @@ const IstvanLab = () => {
     top: ${height * 0.67}px;
   `;
 
-
-
-
   return (
     <StyledContainer>
       {
@@ -97,24 +94,19 @@ const IstvanLab = () => {
             <StyledButtonContainer>
               <Button onPress={toggleCameraAndTabBar} buttonText="Close Camera" />
             </StyledButtonContainer>
-           </StyledCameraContainer>
+          </StyledCameraContainer>
           :
-
           <>
-            {/* <View style={{ marginBottom: navigationTabMarginBottomForScreens }}> */}
-              <BackgroundImage source={Images.ISTVAN_LAB}>
-                <StyledButtonContainer>
-                  <Button buttonText="Open Camera" onPress={handlePress} />
-                </StyledButtonContainer>
-              </BackgroundImage>
-            {/* </View> */}
+            <BackgroundImage source={Images.ISTVAN_LAB}>
+              <StyledButtonContainer>
+                <Button buttonText="Open Camera" onPress={handlePress} />
+              </StyledButtonContainer>
+            </BackgroundImage>
           </>
-
       }
-
     </StyledContainer>
-
   );
+
 };
 
 export default IstvanLab;

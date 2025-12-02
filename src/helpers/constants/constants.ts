@@ -1,3 +1,5 @@
+import { useWindowDimensions } from "react-native";
+
 enum ModalMessages {
   ERROR_USER_COULD_NOT_VERIFY = 'You usurper! You have been spelled from this land.',
 }
@@ -220,6 +222,8 @@ enum SocketClientToServerEventsForTesting {
   GET_FCM_MESSAGE = "test get fcm message",
 
 }
+
+export const { width, height, fontScale, scale } = useWindowDimensions();
 
 export {
 
