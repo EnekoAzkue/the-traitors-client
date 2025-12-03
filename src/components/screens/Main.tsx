@@ -1,6 +1,6 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components/native';
-import { MortimerInitialScreenContext, MortimerToastTextContext, UserContext } from '../../helpers/contexts/contexts';
+import { MortimerInitialScreenContext, MortimerToastTextContext } from '../../helpers/contexts/contexts';
 import IstvanNavigation from './roles/istvan/IstvanNavigation';
 import { Roles } from '../../helpers/constants/constants';
 import { Text } from 'react-native';
@@ -8,19 +8,20 @@ import MortimerNavigation from './roles/mortimer/MortimerNavigation';
 import VillainNavigation from './roles/villain/VillainNavigation';
 import Acolyte from './roles/acolyte/Acolyte';
 import Toast from '../Toast';
+import { useUserStore } from '../../helpers/stores/useUserStore';
 
 const Container = styled.View`
   height: 100%;
 `;
 
 const Main = () => {
-  const userContext = useContext(UserContext);
   const screenContext = useContext(MortimerInitialScreenContext);
+  const user = useUserStore( state => state.user);
+
 
   const [initialScreen, setInitialScreen] = screenContext!;
-  if (!userContext) return <Text>User context is null at Home Component!!!"</Text>;
+  if (!user) return <Text>User is null at Main Component!!!"</Text>;
 
-  const [user, setUser] = userContext;
 
   const mortimerToastTextContext = useContext(MortimerToastTextContext);
   if (!mortimerToastTextContext) return;

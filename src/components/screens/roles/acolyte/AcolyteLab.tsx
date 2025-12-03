@@ -2,31 +2,25 @@ import React, { useContext, useEffect, useState } from "react";
 import { View } from "react-native";
 import { Images } from "../../../../helpers/constants/constants";
 import QRCodeContainer from "../../QR";
-import { UserContext } from "../../../../helpers/contexts/contexts";
 import AcolyteScreenContainer from "./AcolyteScreenContainer";
+import { useUserStore } from "../../../../helpers/stores/useUserStore";
 
 function AcolyteLab() {
-  // --- CONTEXTS --- //
-  const userContext = useContext(UserContext);
+  // --- STATES, STORES && CONSTANTS --- //
+  const user = useUserStore( state => state.user );
   const [backgroundImg, setBackgroundImg] = useState(Images.ACOLYTE_LAB);
 
-  // --- STATES --- //
-  const [, setAccesedIn] = useState<boolean>(false);
+  if (!user) return;
 
   // --- EFFECTS --- //
   useEffect(() => {
-    if (!userContext) return;
-
-    const [user] = userContext;
-
     if (user.isInside) {
-      setBackgroundImg(Images.ACOLYTE_LAB_INSIDE)
-      setAccesedIn(true);
+      setBackgroundImg(Images.ACOLYTE_LAB_INSIDE);
       return;
     } else {
       setBackgroundImg(Images.ACOLYTE_LAB);
     }
-  }, [userContext]);
+  }, [user]);
 
   return (
     <AcolyteScreenContainer backgroundImage={backgroundImg}>

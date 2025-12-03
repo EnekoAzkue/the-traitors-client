@@ -3,17 +3,11 @@ import { useState } from 'react';
 import Button from '../Button';
 import React from 'react';
 import QRCode from 'react-native-qrcode-svg';
-import { Text } from 'react-native';
+import { Text, useWindowDimensions } from 'react-native';
 import { Images } from '../../helpers/constants/constants';
 import { useUserStore } from '../../helpers/stores/useUserStore';
-import { width, height } from '../../helpers/constants/constants';
 
-const Container = styled.View`
-  justify-content: center;
-  align-items: center;
-  height: ${height* 0.15}px;
-  width: ${width * 0.27}px;
-`;
+
 
 const QRCodeContainer = () => {
 
@@ -24,6 +18,9 @@ const QRCodeContainer = () => {
 
   if ( !user ) return <Text>User context is null at QR Component!!!"</Text>;
 
+  const { width, height } = useWindowDimensions();
+
+  // --- FUNCTIONS --- //
   async function showQR() {
     setShowingQR(!showingQR);
   }
@@ -64,6 +61,15 @@ const QRCodeContainer = () => {
     fontFamily: 'KochAltschrift';
     font-size: ${width * 0.07}px;
   `;
+
+
+  const Container = styled.View`
+    justify-content: center;
+    align-items: center;
+    height: ${height* 0.15}px;
+    width: ${width * 0.27}px;
+  `;
+
 
   return (
 

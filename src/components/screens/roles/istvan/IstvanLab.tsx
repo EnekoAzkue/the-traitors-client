@@ -1,11 +1,10 @@
 import Button from '../../../Button';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, useWindowDimensions } from 'react-native';
 import styled from 'styled-components/native';
 import React, { useState, useContext } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { socket } from '../../../../helpers/socket/socket';
 import { ModalContext } from '../../../../helpers/contexts/contexts';
-import { width, height } from '../../../../helpers/constants/constants';
 import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { Images, SocketClientToServerEvents } from '../../../../helpers/constants/constants';
 import { useCameraPermission, Camera, useCameraDevice, useCodeScanner, Code } from 'react-native-vision-camera';
@@ -26,6 +25,7 @@ const IstvanLab = () => {
   const device = useCameraDevice('back');
   const { hasPermission, requestPermission } = useCameraPermission();
   const codeScanner = useCodeScanner({ codeTypes: ['qr'], onCodeScanned });
+  const { width, height } = useWindowDimensions();
 
   // --- COMPONENT FUNCTIONS --- //
   async function handlePress() {

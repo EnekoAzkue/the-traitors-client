@@ -1,4 +1,3 @@
-import { useWindowDimensions } from "react-native";
 
 enum ModalMessages {
   ERROR_USER_COULD_NOT_VERIFY = 'You usurper! You have been spelled from this land.',
@@ -137,7 +136,7 @@ enum Routes {
 
 }
 
-export const CURRENT_DOMAIN   = Domains.LOCALHOST;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN) 
+export const CURRENT_DOMAIN   = Domains.LOCALHOST;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN)
 export const CURRENT_ROUTE    = `${CURRENT_DOMAIN}player/`;
 
 enum Roles {
@@ -175,7 +174,7 @@ const swampArtifactCoordinates = [
     latitude: 43.309534,
     longitude: -2.002030,
   },
-  { 
+  {
     latitude: 43.309801,
     longitude: -2.003381,
   },
@@ -224,8 +223,6 @@ enum SocketClientToServerEventsForTesting {
   GET_FCM_MESSAGE = "test get fcm message",
 
 }
-
-export const { width, height, fontScale, scale } = useWindowDimensions();
 
 export {
 

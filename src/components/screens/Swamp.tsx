@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import { Dimensions, StyleSheet, Text, useWindowDimensions, View } from "react-native";
 import MapView, { Marker } from 'react-native-maps';
 import Geolocation, { GeolocationResponse } from '@react-native-community/geolocation';
 import { CollectionContext, InventoryContext } from "../../helpers/contexts/contexts";
@@ -12,7 +12,6 @@ import { socket } from "../../helpers/socket/socket";
 import Artifact from "../../helpers/interfaces/Artifact";
 import KaotikaPlayer from "../../helpers/interfaces/KaotikaPlayer";
 import { useUserStore } from "../../helpers/stores/useUserStore";
-import { width, height } from "../../helpers/constants/constants";
 
 async function requestPermission() {
   const fine = await PermissionsAndroid.request(
@@ -35,6 +34,7 @@ function Swamp() {
   const [isInventoryOpen, setIsInventoryOpen] = useState<boolean>(false);
   const [areAllArtifactsCollected, setAreAllArtifactsCollected] = useState<boolean>(false);
   const user = useUserStore( state => state.user );
+  const { width, height } = useWindowDimensions(); 
   const fakeCoordenates = [
     // { original
     //   latitude: 43.3097,

@@ -1,11 +1,10 @@
-import { View } from "react-native";
+import { useWindowDimensions, View } from "react-native";
 import IconButton from "../../IconButton";
 import { socket } from "../../../../helpers/socket/socket";
 import AcolyteTowerContainer from "./AcolyteTowerContainer";
 import React, { useContext, useEffect, useState } from "react";
 import { ScrollContext } from "../../../../helpers/contexts/contexts";
 import { useUserStore } from "../../../../helpers/stores/useUserStore";
-import { width, height } from "../../../../helpers/constants/constants";
 import { Images, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
 
 
@@ -19,6 +18,7 @@ function AcolyteTower() {
   if (!user) return;
 
   const [scrollActive, setScrollActive] = scrollContext;
+  const { width, height } = useWindowDimensions(); 
 
   // --- STATES --- //
   const [backgroundImage, setBackgroundImage] = useState(Images.TOWER);
