@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Dimensions, StyleSheet, Text, useWindowDimensions, View } from "react-native";
+import {  Dimensions, StyleSheet, Text, useWindowDimensions, View } from "react-native";
 import MapView, { Marker } from 'react-native-maps';
 import Geolocation, { GeolocationResponse } from '@react-native-community/geolocation';
 import { CollectionContext, InventoryContext } from "../../helpers/contexts/contexts";
@@ -12,6 +12,8 @@ import { socket } from "../../helpers/socket/socket";
 import Artifact from "../../helpers/interfaces/Artifact";
 import KaotikaPlayer from "../../helpers/interfaces/KaotikaPlayer";
 import { useUserStore } from "../../helpers/stores/useUserStore";
+import { useArtifactsStore } from "../../helpers/stores/useArtifactStore";
+import { useCollectionStore } from "../../helpers/stores/useCollectionStore";
 
 async function requestPermission() {
   const fine = await PermissionsAndroid.request(
@@ -24,22 +26,22 @@ async function requestPermission() {
 
 function Swamp() {
 
-  const collectionContext = useContext(CollectionContext)
+  const { width, height } = Dimensions.get('window');
   
-  if (!collectionContext) return
-
-  const setAreAllArtifactsCollected = collectionContext[1]
-
   // --- STATES, STORES && CONSTANTS --- //
   const [currentPosition, setCurrentPosition] = useState<GeolocationResponse | null>(null);
-  const [acolytesInSwamp, setAcolytesInSwamp] = useState<KaotikaPlayer[]>([]); 
+  const [acolytesInSwamp, setAcolytesInSwamp] = useState<KaotikaPlayer[]>([]);
   const [animatedPosition, setAnimatedPosition] = useState({ latitude: 0, longitude: 0 });
   const [nearArtifacts, setNearArtifacts] = useState<{ [name: string]: boolean }>({});
-  const [artifacts, setArtifacts] = useState<Artifact[]>([]);
   const [activatedArtifacts, setActivatedArtifacts] = useState<Artifact[]>([]);
   const [isInventoryOpen, setIsInventoryOpen] = useState<boolean>(false);
-  const user = useUserStore( state => state.user );
-  const { width, height } = useWindowDimensions(); 
+  
+  const user = useUserStore(state => state.user);
+  const { artifacts, setArtifacts } = useArtifactsStore(state => state);
+  const setAreAllArtifactsCollected = useCollectionStore(state => state.setAreAllArtifactsCollected)
+  
+  
+  // --- FAKE --- //
   const fakeCoordenates = [
     // { original
     //   latitude: 43.3097,
@@ -72,8 +74,8 @@ function Swamp() {
 
   // --- EFFECTS --- // 
   useEffect(() => {
-    
-    let requestInSwampInterval : number | undefined;
+
+    let requestInSwampInterval: number | undefined;
 
     async function getMyLocationAsAcolyte(user: KaotikaPlayer) {
 
@@ -117,12 +119,12 @@ function Swamp() {
     // -- La salida de nuevos acólitos al pantano
     // Todo en tiempo real.
 
-    if ( user.rol === Roles.MORTIMER || user.rol === Roles.ISTVAN || user.rol === Roles.VILLAIN) {
+    if (user.rol === Roles.MORTIMER || user.rol === Roles.ISTVAN || user.rol === Roles.VILLAIN) {
 
       // Cada segundo se solicita al server que envie los acólitos que están en el swamp, así el Mortimer, Istvan y Villain saben donde están en tiempo real los acólitos y si entra o sale uno de estos 
-      requestInSwampInterval = setInterval ( () => {socket.emit(SocketClientToServerEvents.REQUEST_SWAMP_ACOLYTES)}, 1000); 
+      requestInSwampInterval = setInterval(() => { socket.emit(SocketClientToServerEvents.REQUEST_SWAMP_ACOLYTES) }, 1000);
 
-      socket.on( SocketServerToClientEvents.GET_IN_SWAMP_ACOLYTES , (acolytes) => {
+      socket.on(SocketServerToClientEvents.GET_IN_SWAMP_ACOLYTES, (acolytes) => {
         setAcolytesInSwamp(acolytes);
       });
 

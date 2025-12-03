@@ -47,7 +47,6 @@ function App() {
   const [acolyteInitialScreen, setacolyteInitialScreen] = useState<string | null>(null);
   const [mortimerInitialScreen, setMortimerInitialScreen] = useState<string>('MortimerHome');
   const [scrollActive, setScrollActive] = useState(true);
-  const [areAllArtifactsCollected, setAreAllArtifactsCollected] = useState<boolean>(false);
 
   const [acolyteToastText, setAcolyteToastText] = useState<string>('');
   const [mortimerToastText, setMortimerToastText] = useState<string>('');
@@ -207,7 +206,6 @@ function App() {
                         <AcolyteToastTextContext.Provider value={[acolyteToastText, setAcolyteToastText]}>
                           <MortimerInitialScreenContext.Provider value={[mortimerInitialScreen, setMortimerInitialScreen]}>
                             <ModalContext value={setModalMessage}>
-                                <CollectionContext.Provider value={[areAllArtifactsCollected, setAreAllArtifactsCollected]}>
                                 <Main />
                                 {user?.rol === 'acolyte' &&
                                   <AcolyteToast toastText={acolyteToastText} setAcolyteToastText={setAcolyteToastText} />
@@ -215,7 +213,6 @@ function App() {
                                 {user?.rol === 'mortimer' &&
                                   <Toast toastText={mortimerToastText} setMortimerToastText={setMortimerToastText} />
                                 }
-                                </CollectionContext.Provider>
                             </ModalContext>
                           </MortimerInitialScreenContext.Provider>
                         </AcolyteToastTextContext.Provider>

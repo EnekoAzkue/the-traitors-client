@@ -2,11 +2,12 @@ import React, { PropsWithChildren, useContext, useEffect } from "react";
 import { Text, View } from "react-native";
 import { Dimensions } from 'react-native';
 import { Images, Roles, SocketClientToServerEvents } from "../../helpers/constants/constants";
-import { AcolyteInitialScreenContext, CollectionContext, UserContext } from "../../helpers/contexts/contexts";
+import { AcolyteInitialScreenContext, CollectionContext } from "../../helpers/contexts/contexts";
 import ScreenContainer from "./ScreenContainer";
 import IconButton from "./IconButton";
 import { socket } from "../../helpers/socket/socket";
 import Button from "../Button";
+import { useUserStore } from "../../helpers/stores/useUserStore";
 
 const { width, height } = Dimensions.get('window');
 
@@ -17,15 +18,14 @@ type AcolyteScreenContainer = {
 export default function HallContainer({ backgroundImage, children }: PropsWithChildren<AcolyteScreenContainer>) {
 
   // --- CONTEXTS --- //
-  const userContext = useContext(UserContext);
+  const user = useUserStore( state => state.user);
   const initialRouterScreen = useContext(AcolyteInitialScreenContext);
   const collectionContext = useContext(CollectionContext)
 
-  if (!userContext) return null;
+  if (!user) return null;
   if (!initialRouterScreen) return (<Text>ERROR! Initial Router Context not got</Text>);
   if (!collectionContext) return
 
-  const [user] = userContext;
   const setInitialScreen = initialRouterScreen[1];
   const [areAllArtifactsCollected, setAreAllArtifactsCollected] = collectionContext
 

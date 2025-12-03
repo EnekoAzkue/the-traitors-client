@@ -1,15 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Text, Dimensions } from "react-native";
+import { Text, Dimensions, useWindowDimensions } from "react-native";
 import styled from "styled-components/native";
 import { AllAcolytesContext, InventoryContext, MortimerInitialScreenContext } from "../../../../helpers/contexts/contexts";
 import Artifact from "../../../../helpers/interfaces/Artifact";
 import IndividualArtifactContainer from "./IndividualArtifactContainer";
 
 export default function InventoryContainer(artifacts: any) {
-  // --- CONTEXTS --- ///
+
+  
+  // --- CONTEXTS && CONSTANTS --- ///
   const allAcolytesContext = useContext(AllAcolytesContext);
   const inventoryContext = useContext(InventoryContext);
   const initialScreenContext = useContext(MortimerInitialScreenContext);
+  const { width, height} = useWindowDimensions();
 
   if (!allAcolytesContext) return <Text>User context is null at Home Component!!!"</Text>;
   if (!inventoryContext) return null;
@@ -18,19 +21,7 @@ export default function InventoryContainer(artifacts: any) {
   const [isInventoryOpen] = inventoryContext;
   if (!isInventoryOpen) return null;
 
-  // --- STATES --- //
-  const [screen, setScreen] = useState(Dimensions.get("window"));
 
-  // --- EFFECTS --- //
-  useEffect(() => {
-    const subscription = Dimensions.addEventListener("change", ({ window }) => {
-      setScreen(window);
-    });
-
-    return () => subscription.remove();
-  }, []);
-
-  const { width, height } = screen;
 
   // --- STYLES --- //
   const InventoryContainerStyled = styled.View`
