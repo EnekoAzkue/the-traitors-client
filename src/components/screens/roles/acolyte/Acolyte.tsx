@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import AcolyteMap from "./AcolyteMap";
-import { Screens, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
+import { Screens, SocketClientToServerEvents,  } from "../../../../helpers/constants/constants";
 import { AcolyteInitialScreenContext, UserContext } from "../../../../helpers/contexts/contexts";
 import { socket } from "../../../../helpers/socket/socket";
 import AcolyteSchoolMap from "./AcolyteSchoolMap";
@@ -8,7 +8,7 @@ import AcolyteHome from "./AcolyteHome";
 import AcolyteLab from "./AcolyteLab";
 import AcolyteSettings from "./AcolyteSettings";
 import AcolyteTower from "./AcolyteTower";
-import AcolyteHall from "../../AcolyteHall";
+import HallOfSages from "../../HallOfSages";
 import Swamp from "../../Swamp";
 
 export default function Acolyte() {
@@ -37,7 +37,7 @@ export default function Acolyte() {
       {initialScreen === 'AcolyteLab' && <AcolyteLab />}
       {initialScreen === 'AcolyteSettings' && <AcolyteSettings />}
       {initialScreen === 'AcolyteTower' && <AcolyteTower />}
-      {initialScreen === 'AcolyteHall' && <AcolyteHall />}
+      {initialScreen === 'HallOfSages' && <HallOfSages />}
       {initialScreen === 'Swamp' && <Swamp />}
     </>
   );
