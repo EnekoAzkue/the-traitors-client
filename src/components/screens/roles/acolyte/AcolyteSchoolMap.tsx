@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { ImageBackground, Text, StyleSheet } from "react-native";
 import { Images, Screens } from "../../../../helpers/constants/constants";
 import IconButton from "../../IconButton";
-import { AcolyteInitialScreenContext, ScrollContext } from "../../../../helpers/contexts/contexts";
+import { AcolyteInitialScreenContext, CollectionContext, ScrollContext } from "../../../../helpers/contexts/contexts";
 import { Dimensions } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
@@ -11,18 +11,20 @@ export default function AcolyteSchoolMap() {
   // --- CONTEXTS --- //
   const initialRouterScreen = useContext(AcolyteInitialScreenContext);
   const scrollContext = useContext(ScrollContext);
+  const collectionContext = useContext(CollectionContext)
 
   if (!initialRouterScreen) return <Text>ERROR! Initial Router Context not got</Text>;
   if (!scrollContext) return;
+  if (!collectionContext) return
 
   const [, setInitialScreen] = initialRouterScreen;
-  const [scrollActive] = scrollContext;
+  const [areAllArtifactsCollected] = collectionContext
 
   // --- FUNCTIONS --- //
   const selectInitialHomeScreen = () => setInitialScreen(Screens.ACOLYTE_HOME);
   const selectInitialLabScreen = () => setInitialScreen(Screens.ACOLYTE_LAB);
   const selectInitialSettingsScreen = () => setInitialScreen(Screens.ACOLYTE_SETTINGS);
-  const selectInitialHallScreen = () => setInitialScreen(Screens.ACOLYTE_HALL);
+  const selectInitialHallScreen = () => setInitialScreen(Screens.HALL_OF_SAGES);
 
   // --- STYLES --- //
   const styles = StyleSheet.create({
@@ -75,17 +77,28 @@ export default function AcolyteSchoolMap() {
         backgroundImage={Images.SETTINGS_ICON}
         buttonOnPress={selectInitialSettingsScreen}
       />
-      {!scrollActive &&
-        <IconButton
-          width={width * 0.1}
-          height={width * 0.1}
-          xPos={width * 0.751}
-          yPos={height * 0.305}
-          hasBorder={true}
-          backgroundImage={Images.HALL_ICON}
-          buttonOnPress={selectInitialHallScreen}
-        />
-      }
+      {areAllArtifactsCollected ?
+      <IconButton
+        width={width * 0.1}
+        height={width * 0.1}
+        xPos={width * 0.751}
+        yPos={height * 0.305}
+        hasBorder={true}
+        backgroundImage={Images.HALL_ICON}
+        buttonOnPress={selectInitialHallScreen}
+        hasBrightness={true}
+        shadowColor='#ffd000ff'
+      /> :
+      <IconButton
+        width={width * 0.1}
+        height={width * 0.1}
+        xPos={width * 0.751}
+        yPos={height * 0.305}
+        hasBorder={true}
+        backgroundImage={Images.HALL_ICON}
+        buttonOnPress={selectInitialHallScreen}
+      /> 
+}
     </ImageBackground>
   );
 }

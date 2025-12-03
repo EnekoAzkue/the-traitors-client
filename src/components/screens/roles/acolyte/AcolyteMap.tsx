@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef } from "react";
 import { Animated, Image, Text, StyleSheet, View } from "react-native";
 import { Images, Screens } from "../../../../helpers/constants/constants";
 import IconButton from "../../IconButton";
-import { AcolyteInitialScreenContext } from "../../../../helpers/contexts/contexts";
+import { AcolyteInitialScreenContext, CollectionContext } from "../../../../helpers/contexts/contexts";
 import { useScreenDimensions } from "../../../../helpers/stores/useScreenDimensionsStore";
 import styled from "styled-components/native";
 
@@ -10,12 +10,16 @@ export default function AcolyteMap() {
   // --- CONTEXTS --- //
   const screenDimensions = useScreenDimensions(state => state.screenDimensions);
   const initialRouterScreen = useContext(AcolyteInitialScreenContext);
+  const collectionContext = useContext(CollectionContext)
 
   if (!screenDimensions) return;
   if (!initialRouterScreen) return <Text>ERROR! Initial Router Context not got</Text>;
+  if (!collectionContext) return
 
   const [, setInitialScreen] = initialRouterScreen;
+  const [areAllArtifactsCollected] = collectionContext
 
+  console.log('are all artifacts collected?:', areAllArtifactsCollected)
   // --- FUNCTIONS --- //
   const selectInitialHomeScreen = () => setInitialScreen(Screens.SCHOOL_MAP);
   const selectInitialTowerScreen = () => setInitialScreen(Screens.ACOLYTE_TOWER);
@@ -87,15 +91,28 @@ export default function AcolyteMap() {
         backgroundImage={Images.TOWER_ICON}
         buttonOnPress={selectInitialTowerScreen}
       />
-      <IconButton
-        width={screenDimensions.width * 0.1}
-        height={screenDimensions.width * 0.1}
-        xPos={screenDimensions.width * 0.33}
-        yPos={screenDimensions.height * 0.35}
-        hasBorder={true}
-        backgroundImage={Images.HOME_ICON}
-        buttonOnPress={selectInitialHomeScreen}
-      />
+      {areAllArtifactsCollected ?
+        <IconButton
+          width={screenDimensions.width * 0.1}
+          height={screenDimensions.width * 0.1}
+          xPos={screenDimensions.width * 0.33}
+          yPos={screenDimensions.height * 0.35}
+          hasBorder={true}
+          backgroundImage={Images.HOME_ICON}
+          buttonOnPress={selectInitialHomeScreen}
+          hasBrightness={true}
+          shadowColor='#ffd000ff'
+        /> :
+        <IconButton
+          width={screenDimensions.width * 0.1}
+          height={screenDimensions.width * 0.1}
+          xPos={screenDimensions.width * 0.33}
+          yPos={screenDimensions.height * 0.35}
+          hasBorder={true}
+          backgroundImage={Images.HOME_ICON}
+          buttonOnPress={selectInitialHomeScreen}
+        />
+      }
       <IconButton
         width={screenDimensions.width * 0.1}
         height={screenDimensions.width * 0.1}

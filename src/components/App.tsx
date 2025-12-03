@@ -14,7 +14,7 @@ import { initialWindowMetrics, SafeAreaProvider, SafeAreaView } from 'react-nati
 import KaotikaPlayer from '../helpers/interfaces/KaotikaPlayer';
 
 // --- Contexts ---
-import { ModalContext, UserContext, AllAcolytesContext, AcolyteInitialScreenContext, ScrollContext, MortimerToastTextContext, MortimerInitialScreenContext, AcolyteToastTextContext } from '../helpers/contexts/contexts';
+import { ModalContext, UserContext, AllAcolytesContext, AcolyteInitialScreenContext, ScrollContext, MortimerToastTextContext, MortimerInitialScreenContext, AcolyteToastTextContext, CollectionContext } from '../helpers/contexts/contexts';
 
 
 // --- Functions & Hooks ---
@@ -46,12 +46,13 @@ function App() {
   const [acolyteInitialScreen, setacolyteInitialScreen] = useState<string | null>(null);
   const [mortimerInitialScreen, setMortimerInitialScreen] = useState<string>('MortimerHome');
   const [scrollActive, setScrollActive] = useState(true);
+  const [areAllArtifactsCollected, setAreAllArtifactsCollected] = useState<boolean>(false);
 
   const [acolyteToastText, setAcolyteToastText] = useState<string>('');
   const [mortimerToastText, setMortimerToastText] = useState<string>('');
 
   const {screenDimensions, setScreenDimensions} = useScreenDimensions();
-  const screenDimensionsValue = useWindowDimensions(); 
+  const screenDimensionsValue = useWindowDimensions();
 
 
   const userHandler = (newUser: KaotikaPlayer | null) => {
@@ -125,8 +126,6 @@ function App() {
         await updateUserStateWithPushToken({ user, setUser });
 
         // Inicializar la conexión con SocketIO.
-        console.log("user at socket initialization:");
-        console.log(user);
         if (user?.email) {
           initSocket(user);
         }
@@ -208,13 +207,15 @@ function App() {
                           <AcolyteToastTextContext.Provider value={[acolyteToastText, setAcolyteToastText]}>
                             <MortimerInitialScreenContext.Provider value={[mortimerInitialScreen, setMortimerInitialScreen]}>
                               <ModalContext value={setModalMessage}>
-                                <Main />
-                                {user?.rol === 'acolyte' &&
-                                  <AcolyteToast toastText={acolyteToastText} setAcolyteToastText={setAcolyteToastText} />
-                                }
-                                {user?.rol === 'mortimer' &&
-                                  <Toast toastText={mortimerToastText} setMortimerToastText={setMortimerToastText} />
-                                }
+                                <CollectionContext.Provider value={[areAllArtifactsCollected, setAreAllArtifactsCollected]}>
+                                  <Main />
+                                  {user?.rol === 'acolyte' &&
+                                    <AcolyteToast toastText={acolyteToastText} setAcolyteToastText={setAcolyteToastText} />
+                                  }
+                                  {user?.rol === 'mortimer' &&
+                                    <Toast toastText={mortimerToastText} setMortimerToastText={setMortimerToastText} />
+                                  }
+                                </CollectionContext.Provider>
                               </ModalContext>
                             </MortimerInitialScreenContext.Provider>
                           </AcolyteToastTextContext.Provider>

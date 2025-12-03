@@ -1,14 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
-import AcolyteTowerContainer from "./roles/acolyte/AcolyteTowerContainer";
 import MapView, { Marker, Circle } from 'react-native-maps';
 import Geolocation, { GeolocationResponse } from '@react-native-community/geolocation';
 import { CollectionContext, InventoryContext, UserContext } from "../../helpers/contexts/contexts";
-import IconButton from "./IconButton";
 import { PermissionsAndroid } from "react-native";
 import SwampContainer from "./SwampContainer";
 import InventoryContainer from "./roles/acolyte/InventoryContainer";
-import { Images, Roles, SocketClientToServerEvents, SocketServerToClientEvents, swampArtifactCoordinates, swampArtifactIcons } from "../../helpers/constants/constants";
+import { Roles, SocketClientToServerEvents, SocketServerToClientEvents, swampArtifactCoordinates, swampArtifactIcons } from "../../helpers/constants/constants";
 import Button from "../Button";
 import { socket } from "../../helpers/socket/socket";
 import Artifact from "../../helpers/interfaces/Artifact";
@@ -28,13 +26,22 @@ async function requestPermission() {
 
 function Swamp() {
 
+  const collectionContext = useContext(CollectionContext)
+  const userContext = useContext(UserContext)
+  
+  if (!userContext) return;
+  if (!collectionContext) return
+
+  const [, setAreAllArtifactsCollected] = collectionContext
+  const [user] = userContext
+
+
   const [currentPosition, setCurrentPosition] = useState<GeolocationResponse | null>(null)
   const [animatedPosition, setAnimatedPosition] = useState({ latitude: 0, longitude: 0 });
   const [nearArtifacts, setNearArtifacts] = useState<{ [name: string]: boolean }>({});
   const [artifacts, setArtifacts] = useState<Artifact[]>([])
   const [activatedArtifacts, setActivatedArtifacts] = useState<Artifact[]>([])
   const [isInventoryOpen, setIsInventoryOpen] = useState<boolean>(false);
-  const [areAllArtifactsCollected, setAreAllArtifactsCollected] = useState<boolean>(false);
   const fakeCoordenates = [
     // { original
     //   latitude: 43.3097,
@@ -75,9 +82,6 @@ function Swamp() {
 
 
 
-  const userContext = useContext(UserContext)
-  if (!userContext) return;
-  const [user] = userContext
 
 
   useEffect(() => {
@@ -88,7 +92,7 @@ function Swamp() {
 
       const granted = await requestPermission();
       if (!granted) {
-        console.log("Permiso NO otorgado");
+        // console.log("Permiso NO otorgado");
         return;
       }
 
@@ -96,7 +100,7 @@ function Swamp() {
         info => {
           setCurrentPosition(info)
 
-          console.log("POSICIÓN:", info.coords.latitude, "", info.coords.longitude);
+          // console.log("POSICIÓN:", info.coords.latitude, "", info.coords.longitude);
         },
       );
 
@@ -135,7 +139,6 @@ function Swamp() {
     const activatedArtifacts = artifacts.filter(a => a.state === "active" || a.state === "collected");
     const collectedArtifacts = artifacts.filter(a => a.state === 'collected')
     if (collectedArtifacts.length === 4) {
-      console.log("all artifacts collected")
       setAreAllArtifactsCollected(true)
     }
     setActivatedArtifacts(activatedArtifacts);
@@ -172,11 +175,11 @@ function Swamp() {
     );
 
 
-    console.log("watchPosition started");
+    // console.log("watchPosition started");
 
     return () => {
       Geolocation.clearWatch(watchId);
-      console.log("watchPosition cleared");
+      // console.log("watchPosition cleared");
     };
   }, []);
 
@@ -210,7 +213,7 @@ function Swamp() {
       //   socket.emit(SocketClientToServerEvents.COLLECT, artifact.name)
       // }
     });
-    console.log(updated)
+    // console.log(updated)
     setNearArtifacts(updated);
   }
 
@@ -259,58 +262,56 @@ function Swamp() {
   return (
     <>
       <InventoryContext.Provider value={[isInventoryOpen, setIsInventoryOpen]}>
-        <CollectionContext.Provider value={[areAllArtifactsCollected, setAreAllArtifactsCollected]}>
 
-          <SwampContainer user={user}>
-            {(user.rol === Roles.ACOLYTE || user.rol === Roles.MORTIMER) ? <InventoryContainer artifacts={activatedArtifacts} /> : <></>}
-            <View style={styles.container}>
-              <MapView
-                provider={"google"}
-                style={styles.map}
-                region={mapRegion}
-                rotateEnabled={false}
-                showsCompass={false}
-                showsPointsOfInterests={false}
-              >
+        <SwampContainer user={user}>
+          {(user.rol === Roles.ACOLYTE || user.rol === Roles.MORTIMER) ? <InventoryContainer artifacts={activatedArtifacts} /> : <></>}
+          <View style={styles.container}>
+            <MapView
+              provider={"google"}
+              style={styles.map}
+              region={mapRegion}
+              rotateEnabled={false}
+              showsCompass={false}
+              showsPointsOfInterests={false}
+            >
+              {
+                /* Players own ubication Marker */
+                currentPosition &&
+                <Marker
+                  coordinate={{ latitude: animatedPosition.latitude, longitude: animatedPosition.longitude }}
+                  image={{ uri: `${user.avatar}` }}
+                  title={user.nickname}
+                />
+
+              }
+              <>
                 {
-                  /* Players own ubication Marker */
-                  currentPosition &&
-                  <Marker
-                    coordinate={{ latitude: animatedPosition.latitude, longitude: animatedPosition.longitude }}
-                    image={{ uri: `${user.avatar}` }}
-                    title={user.nickname}
-                  />
+                  /*  */
+                  activatedArtifacts.map((a, i) => {
+                    if (a.state === 'active') {
+                      return (
+                        <View key={i}>
+                          <Marker
+                            coordinate={{ latitude: swampArtifactCoordinates[i].latitude, longitude: swampArtifactCoordinates[i].longitude }}
+                            image={swampArtifactIcons[a.icon]}
+                            title={a.name}
+                          />
+                        </View>
+                      )
+                    }
+                  })}
+              </>
 
-                }
-                <>
-                  {
-                    /*  */
-                    activatedArtifacts.map((a, i) => {
-                      if (a.state === 'active') {
-                        return (
-                          <View key={i}>
-                            <Marker
-                              coordinate={{ latitude: swampArtifactCoordinates[i].latitude, longitude: swampArtifactCoordinates[i].longitude }}
-                              image={swampArtifactIcons[a.icon]}
-                              title={a.name}
-                            />
-                          </View>
-                        )
-                      }
-                    })}
-                </>
+            </MapView>
+            {activatedArtifacts.map((artifact, j) =>
+              nearArtifacts[artifact.name] && artifact.state === 'active' ? (
+                <Button key={j} buttonText={`collect artifact`} onPress={() => { collectArtifact(artifact) }} />
+              ) : null
+            )}
+            <Text style={{ zIndex: 1000 }}>Lat: {currentPosition?.coords.latitude} Lon: {currentPosition?.coords.longitude}</Text>
 
-              </MapView>
-              {activatedArtifacts.map((artifact, j) =>
-                nearArtifacts[artifact.name] && artifact.state === 'active' ? (
-                  <Button key={j} buttonText={`collect artifact`} onPress={() => { collectArtifact(artifact) }} />
-                ) : null
-              )}
-              <Text style={{ zIndex: 1000 }}>Lat: {currentPosition?.coords.latitude} Lon: {currentPosition?.coords.longitude}</Text>
-
-            </View>
-          </SwampContainer>
-        </CollectionContext.Provider>
+          </View>
+        </SwampContainer>
 
       </InventoryContext.Provider>
 

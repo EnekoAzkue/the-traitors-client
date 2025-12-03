@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { View } from "react-native";
 import { Images, Roles, SocketClientToServerEvents } from "../../helpers/constants/constants";
-import { ArtifactsContext, UserContext } from "../../helpers/contexts/contexts";
+import { UserContext } from "../../helpers/contexts/contexts";
 import { socket } from "../../helpers/socket/socket";
 import HallContainer from "./HallContainer";
 
@@ -9,10 +9,8 @@ function HallOfSages() {
 
   // --- CONTEXTS --- // 
   const userContext = useContext(UserContext)
-  const artifactsContext = useContext(ArtifactsContext)
 
   if (!userContext) return
-  if (!artifactsContext) return
 
   const [user] = userContext
 
