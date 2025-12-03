@@ -1,15 +1,12 @@
 import styled from 'styled-components/native';
-import { useContext, useState } from 'react';
-import { ModalContext, UserContext } from '../../helpers/contexts/contexts';
+import { useState } from 'react';
 import Button from '../Button';
 import React from 'react';
 import QRCode from 'react-native-qrcode-svg';
 import { Text } from 'react-native';
 import { Images } from '../../helpers/constants/constants';
-import { Dimensions } from 'react-native';
-
-
-const { width, height } = Dimensions.get('window');
+import { useUserStore } from '../../helpers/stores/useUserStore';
+import { width, height } from '../../helpers/constants/constants';
 
 const Container = styled.View`
   justify-content: center;
@@ -20,22 +17,19 @@ const Container = styled.View`
 
 const QRCodeContainer = () => {
 
+  // --- STATES, STORES && CONSTANTS --- //
   const [showingQR, setShowingQR] = useState<boolean>(false)
 
-  const setModalMessage = useContext(ModalContext)!;
-  const userContext = useContext(UserContext);
+  const user = useUserStore( state => state.user );
 
-  if (!userContext) return <Text>User context is null at QR Component!!!"</Text>;
-
-  const [user, setUser] = userContext;
+  if ( !user ) return <Text>User context is null at QR Component!!!"</Text>;
 
   async function showQR() {
     setShowingQR(!showingQR);
   }
 
-
+  // --- STYLED COMPONENTS --- //
   // TODO (REFACTOR): Move all this styled components to their own directory
-
   const StyledQRTextContainer = styled.View`
     border: ${width * 0.002}px solid orange;
     border-radius: 8px;

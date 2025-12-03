@@ -5,6 +5,7 @@ import {
 } from '../constants/constants';
 import Artifact from './Artifact';
 import { ArtifactListProps } from './ArtifactListProps';
+import KaotikaPlayer from './KaotikaPlayer';
 
 // Declaration of the events used when receiving events from the server
 interface ServerToClientEvents {
@@ -28,6 +29,9 @@ interface ServerToClientEvents {
     artifacts: Artifact[],
   ) => void;
 
+  [SocketServerToClientEvents.GET_IN_SWAMP_ACOLYTES] : (inSwampAcolytes: KaotikaPlayer[]) => void;
+
+
   [SocketServerToClientEvents.COLLECTED]: () => void;
   
 }
@@ -49,8 +53,10 @@ interface ClientToServerEvents {
   [SocketClientToServerEvents.UPDATE_INTOWER]: (userEmail: string, inTower: boolean) => void;
   [SocketClientToServerEvents.SEND_NOTIFICATION_TO_MORTIMER]: (messsage: {}) => void;
   [SocketClientToServerEvents.SCROLL_VANISH]: (messsage: {}) => void;
-  [SocketClientToServerEvents.SEND_FOUND_SCROLL]: ( ) => void;
+  [SocketClientToServerEvents.SEND_FOUND_SCROLL]: () => void;
   [SocketClientToServerEvents.REQUEST_ARTIFACTS]: (userRol: string) => void;
+  [SocketClientToServerEvents.REQUEST_SWAMP_ACOLYTES] : () => void;
+
   [SocketClientToServerEvents.COLLECT]: (artifactName: string) => void;
 
 

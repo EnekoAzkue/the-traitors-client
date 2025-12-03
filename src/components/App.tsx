@@ -14,7 +14,7 @@ import { initialWindowMetrics, SafeAreaProvider, SafeAreaView } from 'react-nati
 import KaotikaPlayer from '../helpers/interfaces/KaotikaPlayer';
 
 // --- Contexts ---
-import { ModalContext, UserContext, AllAcolytesContext, AcolyteInitialScreenContext, ScrollContext, MortimerToastTextContext, MortimerInitialScreenContext, AcolyteToastTextContext } from '../helpers/contexts/contexts';
+import { ModalContext, AllAcolytesContext, AcolyteInitialScreenContext, ScrollContext, MortimerToastTextContext, MortimerInitialScreenContext, AcolyteToastTextContext } from '../helpers/contexts/contexts';
 
 
 // --- Functions & Hooks ---
@@ -34,10 +34,11 @@ import messaging from '@react-native-firebase/messaging';
 import { getAcolytes, updateUserStateWithPushToken } from '../helpers/componentUtils/appUtils/appUtils';
 import { useScreenDimensions } from '../helpers/stores/useScreenDimensionsStore';
 import { useWindowDimensions } from 'react-native';
+import { useUserStore } from '../helpers/stores/useUserStore';
 
 function App() {
 
-  const [user, setUser] = useState<KaotikaPlayer | null>(null);
+  const { user, setUser } = useUserStore(state => state);
   const [allAcolytes, setAllAcolytes] = useState<KaotikaPlayer[] | undefined>(undefined);
   const [initialConf, setInitialConf] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string>('');
@@ -50,8 +51,8 @@ function App() {
   const [acolyteToastText, setAcolyteToastText] = useState<string>('');
   const [mortimerToastText, setMortimerToastText] = useState<string>('');
 
-  const {screenDimensions, setScreenDimensions} = useScreenDimensions();
-  const screenDimensionsValue = useWindowDimensions(); 
+  const { screenDimensions, setScreenDimensions } = useScreenDimensions();
+  const screenDimensionsValue = useWindowDimensions();
 
 
   const userHandler = (newUser: KaotikaPlayer | null) => {
@@ -203,23 +204,21 @@ function App() {
                 <MortimerInitialScreenContext.Provider value={[mortimerInitialScreen, setMortimerInitialScreen]}>
                   <AcolyteInitialScreenContext.Provider value={[acolyteInitialScreen, setacolyteInitialScreen]}>
                     <AllAcolytesContext.Provider value={[allAcolytes, setAllAcolytes]}>
-                      <UserContext.Provider value={[user, setUser]}>
-                        <MortimerToastTextContext.Provider value={[mortimerToastText, setMortimerToastText]}>
-                          <AcolyteToastTextContext.Provider value={[acolyteToastText, setAcolyteToastText]}>
-                            <MortimerInitialScreenContext.Provider value={[mortimerInitialScreen, setMortimerInitialScreen]}>
-                              <ModalContext value={setModalMessage}>
-                                <Main />
-                                {user?.rol === 'acolyte' &&
-                                  <AcolyteToast toastText={acolyteToastText} setAcolyteToastText={setAcolyteToastText} />
-                                }
-                                {user?.rol === 'mortimer' &&
-                                  <Toast toastText={mortimerToastText} setMortimerToastText={setMortimerToastText} />
-                                }
-                              </ModalContext>
-                            </MortimerInitialScreenContext.Provider>
-                          </AcolyteToastTextContext.Provider>
-                        </MortimerToastTextContext.Provider>
-                      </UserContext.Provider>
+                      <MortimerToastTextContext.Provider value={[mortimerToastText, setMortimerToastText]}>
+                        <AcolyteToastTextContext.Provider value={[acolyteToastText, setAcolyteToastText]}>
+                          <MortimerInitialScreenContext.Provider value={[mortimerInitialScreen, setMortimerInitialScreen]}>
+                            <ModalContext value={setModalMessage}>
+                              <Main />
+                              {user?.rol === 'acolyte' &&
+                                <AcolyteToast toastText={acolyteToastText} setAcolyteToastText={setAcolyteToastText} />
+                              }
+                              {user?.rol === 'mortimer' &&
+                                <Toast toastText={mortimerToastText} setMortimerToastText={setMortimerToastText} />
+                              }
+                            </ModalContext>
+                          </MortimerInitialScreenContext.Provider>
+                        </AcolyteToastTextContext.Provider>
+                      </MortimerToastTextContext.Provider>
                     </AllAcolytesContext.Provider>
                   </AcolyteInitialScreenContext.Provider>
                 </MortimerInitialScreenContext.Provider>

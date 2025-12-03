@@ -1,24 +1,24 @@
-import React, { useContext, useEffect, useState } from "react";
 import { View } from "react-native";
-import { Images, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
-import { ScrollContext, UserContext } from "../../../../helpers/contexts/contexts";
 import IconButton from "../../IconButton";
-import AcolyteTowerContainer from "./AcolyteTowerContainer";
-import { Dimensions } from 'react-native';
 import { socket } from "../../../../helpers/socket/socket";
+import AcolyteTowerContainer from "./AcolyteTowerContainer";
+import React, { useContext, useEffect, useState } from "react";
+import { ScrollContext } from "../../../../helpers/contexts/contexts";
+import { useUserStore } from "../../../../helpers/stores/useUserStore";
+import { width, height } from "../../../../helpers/constants/constants";
+import { Images, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
 
-const { width, height } = Dimensions.get('window');
 
 function AcolyteTower() {
-  // --- CONTEXTS --- //
-  const userContext = useContext(UserContext);
+
+  // --- CONTEXTS && STORES --- //
   const scrollContext = useContext(ScrollContext);
+  const user = useUserStore( state => state.user);
 
   if (!scrollContext) return;
-  if (!userContext) return;
+  if (!user) return;
 
   const [scrollActive, setScrollActive] = scrollContext;
-  const [user] = userContext;
 
   // --- STATES --- //
   const [backgroundImage, setBackgroundImage] = useState(Images.TOWER);

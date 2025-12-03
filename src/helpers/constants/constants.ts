@@ -198,6 +198,7 @@ enum SocketServerToClientEvents {
   RECIEVED_FOUND_SCROLL = 'recieved found scroll',
   SCROLL_VANISH = 'scroll vanish',
   SENDING_ARTIFACTS = 'sending artifacts',
+  GET_IN_SWAMP_ACOLYTES = "sending acolytes in swamp",
   COLLECTED = 'collected',
 
 }
@@ -213,6 +214,7 @@ enum SocketClientToServerEvents {
   SCROLL_VANISH = 'scroll vanish',
   SEND_FOUND_SCROLL = 'send found scroll',
   REQUEST_ARTIFACTS = 'request artifacts',
+  REQUEST_SWAMP_ACOLYTES = 'request swamp acolytes',
   COLLECT = 'collect',
 
 }
