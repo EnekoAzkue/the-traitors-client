@@ -11,7 +11,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Images, Screens } from '../../../../helpers/constants/constants';
 import { MortimerInitialScreenContext } from '../../../../helpers/contexts/contexts';
-import HallOfSages from '../../AcolyteHall';
+import HallOfSages from '../../HallOfSages';
 
 const Stack = createBottomTabNavigator();
 

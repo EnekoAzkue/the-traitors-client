@@ -118,7 +118,7 @@ enum Screens {
 enum Domains {
 
   // LOCALHOST = 'http://localhost:3000/',
-  LOCALHOST = 'http://10.70.0.113:3000/',
+  LOCALHOST = 'http://10.70.0.41:3000/',
   RENDER = 'https://the-traitors-server.onrender.com/',
   PORTAINER = 'http://10.50.0.50:6001/',
 
@@ -209,6 +209,7 @@ enum SocketClientToServerEvents {
   SEND_FOUND_SCROLL = 'send found scroll',
   REQUEST_ARTIFACTS = 'request artifacts',
   COLLECT = 'collect',
+  ENTER_EXIT_HALL = 'enter/exit hall',
 
 }
 

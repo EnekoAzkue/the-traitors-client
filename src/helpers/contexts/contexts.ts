@@ -1,12 +1,18 @@
 import { createContext } from 'react';
 import { SetModalMessage } from '../interfaces/components/Modal';
 import KaotikaPlayer from '../interfaces/KaotikaPlayer';
+import Artifact from '../interfaces/Artifact';
 
 export const ModalContext = createContext<SetModalMessage | null>(null);
 export const UserContext = createContext<[KaotikaPlayer, (newUser: KaotikaPlayer | null) => void] | null>(null);
 export const AllAcolytesContext = createContext<[KaotikaPlayer[] | undefined, (newAllAcolytesList: KaotikaPlayer[] | undefined) => void] | null >(null);
 export const InventoryContext = createContext<[boolean, (isOpen: boolean) => void]>([false, () => {}]);
 export const CollectionContext = createContext<[boolean, (areCollected: boolean) => void]>([false, () => {}])
+export const ArtifactsContext = createContext<[Artifact[], (newArtifacts: Artifact[]) => void]>([
+  [],
+  () => {}
+]);
+
   
 
 

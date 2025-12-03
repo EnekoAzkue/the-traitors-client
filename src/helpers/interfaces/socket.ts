@@ -52,6 +52,7 @@ interface ClientToServerEvents {
   [SocketClientToServerEvents.SEND_FOUND_SCROLL]: ( ) => void;
   [SocketClientToServerEvents.REQUEST_ARTIFACTS]: (userRol: string) => void;
   [SocketClientToServerEvents.COLLECT]: (artifactName: string) => void;
+  [SocketClientToServerEvents.ENTER_EXIT_HALL]: (acolyteMail: string, inHall: any) => void;
 
 
   // TEST ONES

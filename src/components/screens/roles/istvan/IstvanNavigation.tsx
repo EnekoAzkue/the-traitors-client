@@ -8,7 +8,7 @@ import styled from 'styled-components/native';
 import { Images, Screens } from '../../../../helpers/constants/constants';
 import { BlurView } from '@react-native-community/blur';
 import Swamp from '../../Swamp';
-import HallOfSages from '../../AcolyteHall';
+import HallOfSages from '../../HallOfSages';
 
 const Stack = createBottomTabNavigator();
 
