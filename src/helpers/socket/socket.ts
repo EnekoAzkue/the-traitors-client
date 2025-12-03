@@ -15,8 +15,7 @@ const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
 );
 
 function initSocket(user: KaotikaPlayer) {
-  console.log("----------------------------------------------------------------------");
-  console.log(`Creating a connection to server using SocketID with ${user.email} `);
+
   socket.connect();
 
   // Conecta el cliente con el server por medio de SokcetID
@@ -25,13 +24,11 @@ function initSocket(user: KaotikaPlayer) {
   // Nada más inicializar la conexión con socket, se obtiene el tokenID para los permisos de FCM y se actualiza el player para asignarselo tanto en DB como en el state user del client.
   handleFCMInitialization(user);
 
-  console.log("----------------------------------------------------------------------");
 }
 
 
 // 
 const handleFCMInitialization = (user: KaotikaPlayer) => {
-  console.log(`Push Token val: [${user.pushToken}]`);
   socket.emit(SocketClientToServerEvents.UPDATE_USER, user.email , {pushToken: user.pushToken});
 }
 

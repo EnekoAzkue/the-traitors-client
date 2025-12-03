@@ -25,8 +25,6 @@ interface appUserState {
 }
 
 export const updateUserStateWithPushToken = async ({ user, setUser }: appUserState) => {
-  console.log("Injecting Push Notification Token to the user");
-  console.log("User is actually:", user);
   const userPushToken = user;
   if (userPushToken) userPushToken.pushToken = await getFCMToken();
   setUser(userPushToken);

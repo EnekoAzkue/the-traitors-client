@@ -26,13 +26,9 @@ export const getCurrentUser = async (setModalMessage: Function) => {
   const hasPreviouslySignedIn = await hasPreviousSignIn();
   if (hasPreviouslySignedIn) {
     const currentUser = GoogleSignin.getCurrentUser();
-    console.log('THE CURRENT USER IS: ', currentUser);
     const currentUserIdToken = (currentUser?.idToken) ? currentUser.idToken : '';
 
     const userAuthResponse: AuthenticatePlayerReturnValue = await authenticatePlayer(ApiEndpoints.LOGGED_IN, currentUserIdToken);
-
-    console.log('USER AUTH RESPONSE: ');
-    console.log(userAuthResponse);
 
     if (userAuthResponse.statusCode === 200 || userAuthResponse.statusCode === 201) {
       return userAuthResponse.player;

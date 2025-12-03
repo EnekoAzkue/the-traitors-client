@@ -28,6 +28,5 @@ export const callMessageReceiverListener = (setMoritmerToastText: Function, setA
 
 export const getFCMToken = async () => {
   const token = await messaging().getToken();
-  console.log('Device FCM Token:', token);
   return token;
 };
