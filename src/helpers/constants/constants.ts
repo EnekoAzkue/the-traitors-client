@@ -119,7 +119,7 @@ enum Screens {
 enum Domains {
 
   // LOCALHOST = 'http://localhost:3000/',
-  LOCALHOST = 'http://10.70.0.41:3000/',
+  LOCALHOST = 'http://192.168.1.137:3000/',
   RENDER = 'https://the-traitors-server.onrender.com/',
   PORTAINER = 'http://10.50.0.50:6001/',
 
@@ -196,6 +196,7 @@ enum SocketServerToClientEvents {
   SENDING_ARTIFACTS = 'sending artifacts',
   GET_IN_SWAMP_ACOLYTES = "sending acolytes in swamp",
   COLLECTED = 'collected',
+  SENDING_ACOLYTES_IN_HALL = 'sending acolytes in hall',
 
 }
 
@@ -213,6 +214,8 @@ enum SocketClientToServerEvents {
   REQUEST_SWAMP_ACOLYTES = 'request swamp acolytes',
   COLLECT = 'collect',
   ENTER_EXIT_HALL = 'enter/exit hall',
+  SHOW_ARTIFACTS = 'show artifacts',
+  SEARCH_FOR_ACOLYTES_IN_HALL = 'search for acolytes in hall',
 
 }
 

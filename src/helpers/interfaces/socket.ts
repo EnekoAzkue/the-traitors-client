@@ -33,7 +33,8 @@ interface ServerToClientEvents {
 
 
   [SocketServerToClientEvents.COLLECTED]: () => void;
-  
+
+  [SocketServerToClientEvents.SENDING_ACOLYTES_IN_HALL]: (acolytesInHall: KaotikaPlayer[]) => void;
 }
 
   
@@ -56,9 +57,10 @@ interface ClientToServerEvents {
   [SocketClientToServerEvents.SEND_FOUND_SCROLL]: () => void;
   [SocketClientToServerEvents.REQUEST_ARTIFACTS]: (userRol: string) => void;
   [SocketClientToServerEvents.REQUEST_SWAMP_ACOLYTES] : () => void;
-
   [SocketClientToServerEvents.COLLECT]: (artifactName: string) => void;
   [SocketClientToServerEvents.ENTER_EXIT_HALL]: (acolyteMail: string, inHall: any) => void;
+  [SocketClientToServerEvents.SHOW_ARTIFACTS]: () => void;
+  [SocketClientToServerEvents.SEARCH_FOR_ACOLYTES_IN_HALL]: () => void;
 
 
   // TEST ONES
