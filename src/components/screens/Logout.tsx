@@ -1,43 +1,38 @@
-import styled from 'styled-components/native';
-import { useContext } from 'react';
-import { AcolyteInitialScreenContext, ModalContext, UserContext } from '../../helpers/contexts/contexts';
-import Button from '../Button';
 import React from 'react';
-
+import Button from '../Button';
+import { useContext } from 'react';
+import styled from 'styled-components/native';
+import { AcolyteInitialScreenContext, ModalContext } from '../../helpers/contexts/contexts';
 import { signOut } from '../../helpers/googleSignInUtils/googleSignInUtils';
 import { performSocketCleanUp } from '../../helpers/socket/socket';
-
-
-const Container = styled.View`
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-`;
+import { useUserStore } from '../../helpers/stores/useUserStore';
 
 const Logout = () => {
 
   const screenContext = useContext(AcolyteInitialScreenContext)
-  if(!screenContext) return;
-  const [initialScreen, setInitialScreen] = screenContext
-
-
-
-
   const setModalMessage = useContext(ModalContext)!;
+  const { user, setUser } = useUserStore(state => state);
 
-  const  userContext = useContext(UserContext);
+  if (!screenContext) return;
+  if (!user) return;
 
-  if (!userContext) return;
-  
-  const [user, setUser] = userContext;
+  const setInitialScreen = screenContext[1];
 
   async function logOut() {
-    setInitialScreen(null);
-    performSocketCleanUp(user.email); // Borrar conexión de sockets 
-    await signOut();
-    setUser(null);
-    setModalMessage('The gate closes behind you.\nSession over.');
+    if (user) {
+      setInitialScreen(null);
+      performSocketCleanUp(user.email); // Borrar conexión de sockets 
+      await signOut();
+      setUser(null);
+      setModalMessage('The gate closes behind you.\nSession over.');
+    }
   }
+
+  const Container = styled.View`
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  `;
 
   return (
     <Container>
@@ -47,6 +42,7 @@ const Logout = () => {
       />
     </Container>
   );
+
 };
 
 export default Logout;

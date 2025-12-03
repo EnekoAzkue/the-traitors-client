@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components/native";
 import { Text, useWindowDimensions } from "react-native";
 import { AcolyteTowerRegisterProps } from "../../../../helpers/interfaces/components/AcolyteTowerRegisterProps";
 
 const AcolyteTowerRegister = ({ acolyte }: AcolyteTowerRegisterProps) => {
   
-  // --- STATES && CONSTANTS --- //
-  const [insideTower] = useState(acolyte.insideTower);
+  // --- CONSTANTS --- //
   const {width, height} = useWindowDimensions();
   const acolytePhoto = { uri: acolyte.avatar };
 
@@ -24,7 +23,7 @@ const AcolyteTowerRegister = ({ acolyte }: AcolyteTowerRegisterProps) => {
     margin-vertical: 8px;
     width: ${componentWidth}px;
     height: ${componentHeight}px;
-    opacity: ${insideTower ? 1 : 0.5};
+    opacity: ${( acolyte.insideTower ) ? 1 : 0.5};
     flex-direction: column;
     justify-content: center;
     padding-left: 16px;

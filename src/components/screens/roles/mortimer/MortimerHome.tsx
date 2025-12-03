@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 import ScreenContainer from "../../ScreenContainer";
 import React, { useContext, useEffect } from "react";
-import { Images } from "../../../../helpers/constants/constants";
+import { Images, Screens } from "../../../../helpers/constants/constants";
 import { MortimerInitialScreenContext } from "../../../../helpers/contexts/contexts";
 
 function MortimerHome() {
@@ -11,11 +11,11 @@ function MortimerHome() {
 
   if(!initialScreenContext) return null;
 
-  const [, setInitialScreen] = initialScreenContext;
+  const setInitialScreen = initialScreenContext[1];
   
   // --- EFFECT --- //
   useEffect(() => {
-      setInitialScreen("MortimerHome");
+      setInitialScreen(Screens.MORTIMER_HOME);
   }, []);
 
   // --- STYLED COMPONENTS --- //

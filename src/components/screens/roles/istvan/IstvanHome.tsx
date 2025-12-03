@@ -9,9 +9,7 @@ function IstvanHome() {
       <ScreenContainer backgroundImg={Images.ISTVAN_HOME} />
     </>
   );
+  
 }
-
-
-
 
 export default IstvanHome;

@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components/native";
 import { Text, useWindowDimensions } from "react-native";
 import { AcolyteLabRegisterProps } from "../../../../helpers/interfaces/components/AcolyteLabRegisterProps";
 
 const AcolyteLabRegister = ({ acolyte }: AcolyteLabRegisterProps) => {
 
-  // --- STATES && CONSTANTS --- //
-  const [isInside] = useState(acolyte.isInside);
+  // --- CONSTANTS --- //
   const { width, height } = useWindowDimensions();
   const acolytePhoto = { uri: acolyte.avatar };
 
@@ -24,7 +23,7 @@ const AcolyteLabRegister = ({ acolyte }: AcolyteLabRegisterProps) => {
     margin-vertical: 8px;
     width: ${componentWidth}px;
     height: ${componentHeight}px;
-    opacity: ${isInside ? 1 : 0.5};
+    opacity: ${acolyte.isInside ? 1 : 0.5};
     flex-direction: column;
     justify-content: center;
     padding-left: 16px;

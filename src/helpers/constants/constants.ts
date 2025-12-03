@@ -1,3 +1,4 @@
+
 enum ModalMessages {
   ERROR_USER_COULD_NOT_VERIFY = 'You usurper! You have been spelled from this land.',
 }
@@ -132,7 +133,7 @@ enum Routes {
 
 }
 
-export const CURRENT_DOMAIN   = Domains.LOCALHOST;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN) 
+export const CURRENT_DOMAIN   = Domains.LOCALHOST;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN)
 export const CURRENT_ROUTE    = `${CURRENT_DOMAIN}player/`;
 
 enum Roles {
@@ -170,7 +171,7 @@ const swampArtifactCoordinates = [
     latitude: 43.309534,
     longitude: -2.002030,
   },
-  { 
+  {
     latitude: 43.309801,
     longitude: -2.003381,
   },
@@ -193,6 +194,7 @@ enum SocketServerToClientEvents {
   RECIEVED_FOUND_SCROLL = 'recieved found scroll',
   SCROLL_VANISH = 'scroll vanish',
   SENDING_ARTIFACTS = 'sending artifacts',
+  GET_IN_SWAMP_ACOLYTES = "sending acolytes in swamp",
   COLLECTED = 'collected',
 
 }
@@ -208,6 +210,7 @@ enum SocketClientToServerEvents {
   SCROLL_VANISH = 'scroll vanish',
   SEND_FOUND_SCROLL = 'send found scroll',
   REQUEST_ARTIFACTS = 'request artifacts',
+  REQUEST_SWAMP_ACOLYTES = 'request swamp acolytes',
   COLLECT = 'collect',
   ENTER_EXIT_HALL = 'enter/exit hall',
 

@@ -1,41 +1,32 @@
 import styled from 'styled-components/native';
-import { useContext, useState } from 'react';
-import { ModalContext, UserContext } from '../../helpers/contexts/contexts';
+import { useState } from 'react';
 import Button from '../Button';
 import React from 'react';
 import QRCode from 'react-native-qrcode-svg';
-import { Text } from 'react-native';
+import { Text, useWindowDimensions } from 'react-native';
 import { Images } from '../../helpers/constants/constants';
-import { Dimensions } from 'react-native';
+import { useUserStore } from '../../helpers/stores/useUserStore';
 
 
-const { width, height } = Dimensions.get('window');
-
-const Container = styled.View`
-  justify-content: center;
-  align-items: center;
-  height: ${height* 0.15}px;
-  width: ${width * 0.27}px;
-`;
 
 const QRCodeContainer = () => {
 
+  // --- STATES, STORES && CONSTANTS --- //
   const [showingQR, setShowingQR] = useState<boolean>(false)
 
-  const setModalMessage = useContext(ModalContext)!;
-  const userContext = useContext(UserContext);
+  const user = useUserStore( state => state.user );
 
-  if (!userContext) return <Text>User context is null at QR Component!!!"</Text>;
+  if ( !user ) return <Text>User context is null at QR Component!!!"</Text>;
 
-  const [user, setUser] = userContext;
+  const { width, height } = useWindowDimensions();
 
+  // --- FUNCTIONS --- //
   async function showQR() {
     setShowingQR(!showingQR);
   }
 
-
+  // --- STYLED COMPONENTS --- //
   // TODO (REFACTOR): Move all this styled components to their own directory
-
   const StyledQRTextContainer = styled.View`
     border: ${width * 0.002}px solid orange;
     border-radius: 8px;
@@ -70,6 +61,15 @@ const QRCodeContainer = () => {
     fontFamily: 'KochAltschrift';
     font-size: ${width * 0.07}px;
   `;
+
+
+  const Container = styled.View`
+    justify-content: center;
+    align-items: center;
+    height: ${height* 0.15}px;
+    width: ${width * 0.27}px;
+  `;
+
 
   return (
 

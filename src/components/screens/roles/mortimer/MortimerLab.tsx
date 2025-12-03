@@ -3,7 +3,7 @@ import ScreenContainer from "../../ScreenContainer";
 import React, { useContext, useEffect } from "react";
 import AcolyteLabRegister from "./AcolyteLabRegister";
 import { Text, useWindowDimensions } from "react-native";
-import { Images } from "../../../../helpers/constants/constants";
+import { Images, Screens } from "../../../../helpers/constants/constants";
 import { AllAcolytesContext, MortimerInitialScreenContext } from "../../../../helpers/contexts/contexts";
 
 function MortimerLab() {
@@ -22,7 +22,7 @@ function MortimerLab() {
 
   // --- EFFECTS --- //
   useEffect(() => {
-    setInitialScreen("MortimerLab");
+    setInitialScreen(Screens.MORTIMER_LAB);
   }, []);
 
   // --- STYLED COMPONENTS --- //

@@ -17,7 +17,7 @@ function MortimerTower() {
   if (!initialScreenContext) return;
 
   const [acolytes] = allAcolytesContext;
-  const [, setInitialScreen] = initialScreenContext;
+  const setInitialScreen = initialScreenContext[1];
 
   // --- EFFECTS --- //
   useEffect(() => {

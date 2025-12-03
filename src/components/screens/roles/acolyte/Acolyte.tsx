@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import AcolyteMap from "./AcolyteMap";
-import { Screens, SocketClientToServerEvents,  } from "../../../../helpers/constants/constants";
-import { AcolyteInitialScreenContext, UserContext } from "../../../../helpers/contexts/contexts";
+import { Screens, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
+import { AcolyteInitialScreenContext } from "../../../../helpers/contexts/contexts";
 import { socket } from "../../../../helpers/socket/socket";
 import AcolyteSchoolMap from "./AcolyteSchoolMap";
 import AcolyteHome from "./AcolyteHome";
@@ -10,14 +10,17 @@ import AcolyteSettings from "./AcolyteSettings";
 import AcolyteTower from "./AcolyteTower";
 import HallOfSages from "../../HallOfSages";
 import Swamp from "../../Swamp";
+import { useUserStore } from "../../../../helpers/stores/useUserStore";
 
 export default function Acolyte() {
-  // --- CONTEXTS --- //
-  const userContext = useContext(UserContext)
-  const initialScreenContext = useContext(AcolyteInitialScreenContext)
-  if (!userContext) return;
-  if (!initialScreenContext) return;
-  const [user] = userContext;
+
+  // --- CONTEXTS && STORES --- //
+  const initialScreenContext = useContext( AcolyteInitialScreenContext );
+  const user = useUserStore( state => state.user );
+
+  if ( !initialScreenContext ) return;
+  if ( !user ) return;
+
   const [initialScreen] = initialScreenContext;
 
   // --- EFFECTS --- //
@@ -41,4 +44,5 @@ export default function Acolyte() {
       {initialScreen === 'Swamp' && <Swamp />}
     </>
   );
+
 }
