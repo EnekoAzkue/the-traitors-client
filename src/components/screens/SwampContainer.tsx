@@ -5,6 +5,7 @@ import ScreenContainer from "./ScreenContainer";
 import IconButton from "./IconButton";
 import { AcolyteInitialScreenContext, CollectionContext, InventoryContext } from "../../helpers/contexts/contexts";
 import KaotikaPlayer from "../../helpers/interfaces/KaotikaPlayer";
+import { useCollectionStore } from "../../helpers/stores/useCollectionStore";
 
 const { width, height } = Dimensions.get('window');
 
@@ -17,18 +18,17 @@ export default function SwampContainer({ user, backgroundImage, children }: Prop
 
   // --- INVENTORY CONTEXT ---
   const inventoryContext = useContext(InventoryContext);
-  const collectionContext = useContext(CollectionContext);
+  const areAllArtifactsCollected = useCollectionStore(state => state.areAllArtifactsCollected)
 
   if (!inventoryContext) {
     return <Text>ERROR! InventoryContext Provider is missing</Text>;
   }
 
-  if(!collectionContext) {
+  if(!areAllArtifactsCollected) {
       return <Text>ERROR! CollectionContext Provider is missing</Text>;
     }
   
     const [isInventoryOpen, setIsInventoryOpen] = inventoryContext;
-    const [areAllArtifactsCollected] = collectionContext
 
   // --- INITIAL SCREEN CONTEXT ---
   const initialRouterScreen = useContext(AcolyteInitialScreenContext);

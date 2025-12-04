@@ -25,8 +25,9 @@ export default function AcolyteMap() {
   if (!user) return
 
   const [, setInitialScreen] = initialRouterScreen;
-  const [areAllArtifactsCollected] = collectionContext
+  const areAllArtifactsCollected = useCollectionStore(state => state.areAllArtifactsCollected)
 
+  
   console.log('are all artifacts collected?:', areAllArtifactsCollected)
   // --- FUNCTIONS --- //
   const selectInitialHomeScreen = () => setInitialScreen(Screens.SCHOOL_MAP);

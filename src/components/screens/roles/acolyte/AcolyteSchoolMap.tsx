@@ -4,6 +4,7 @@ import { Images, Screens } from "../../../../helpers/constants/constants";
 import IconButton from "../../IconButton";
 import { AcolyteInitialScreenContext, CollectionContext, ScrollContext } from "../../../../helpers/contexts/contexts";
 import { Dimensions } from 'react-native';
+import { useCollectionStore } from "../../../../helpers/stores/useCollectionStore";
 
 const { width, height } = Dimensions.get('window');
 
@@ -18,7 +19,7 @@ export default function AcolyteSchoolMap() {
   if (!collectionContext) return
 
   const [, setInitialScreen] = initialRouterScreen;
-  const [areAllArtifactsCollected] = collectionContext
+  const areAllArtifactsCollected = useCollectionStore(state => state.areAllArtifactsCollected)
 
   // --- FUNCTIONS --- //
   const selectInitialHomeScreen = () => setInitialScreen(Screens.ACOLYTE_HOME);
@@ -77,7 +78,7 @@ export default function AcolyteSchoolMap() {
         backgroundImage={Images.SETTINGS_ICON}
         buttonOnPress={selectInitialSettingsScreen}
       />
-      {areAllArtifactsCollected ?
+      {areAllArtifactsCollected &&
       <IconButton
         width={width * 0.1}
         height={width * 0.1}
@@ -88,15 +89,6 @@ export default function AcolyteSchoolMap() {
         buttonOnPress={selectInitialHallScreen}
         hasBrightness={true}
         shadowColor='#ffd000ff'
-      /> :
-      <IconButton
-        width={width * 0.1}
-        height={width * 0.1}
-        xPos={width * 0.751}
-        yPos={height * 0.305}
-        hasBorder={true}
-        backgroundImage={Images.HALL_ICON}
-        buttonOnPress={selectInitialHallScreen}
       /> 
 }
     </ImageBackground>

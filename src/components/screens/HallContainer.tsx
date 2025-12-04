@@ -11,6 +11,7 @@ import { useUserStore } from "../../helpers/stores/useUserStore";
 import AcolytesInHall from "./AcolytesInHallList";
 import styled from "styled-components/native";
 import KaotikaPlayer from "../../helpers/interfaces/KaotikaPlayer";
+import { useCollectionStore } from "../../helpers/stores/useCollectionStore";
 
 const { width, height } = Dimensions.get('window');
 
@@ -30,7 +31,7 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
   if (!collectionContext) return
 
   const setInitialScreen = initialRouterScreen[1];
-  const [areAllArtifactsCollected, setAreAllArtifactsCollected] = collectionContext
+  const areAllArtifactsCollected = useCollectionStore(state => state.areAllArtifactsCollected)
 
   const [acolytesInHall, setAcolytesInHall] = useState<KaotikaPlayer[]>([]);
 
@@ -92,10 +93,11 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
               hasBorder={false}
               backgrounOpacity={0}
             />
-
+            {/* pendiente para la siguiente historia
             {areAllArtifactsCollected && (
               <Button buttonText="Show artifacts" onPress={showArtifacts} />
             )}
+              */}
           </>
         )}
         {user.rol === Roles.MORTIMER && (

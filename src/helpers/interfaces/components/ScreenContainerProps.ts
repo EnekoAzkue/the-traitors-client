@@ -1,4 +1,4 @@
-import { Images } from "../constants/constants";
+import { Images } from "../../constants/constants";
 
 interface ScreenContainerProps {
   backgroundImg?: Images;
