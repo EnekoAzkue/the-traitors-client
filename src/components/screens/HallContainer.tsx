@@ -36,25 +36,28 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
   const areAllArtifactsCollected = useCollectionStore(state => state.areAllArtifactsCollected)
 
 
-  // --- EFFECTS --- //
-  useEffect(() => {
+// --- EFFECTS --- //
+useEffect(() => {
+  socket.emit(SocketClientToServerEvents.SEARCH_FOR_ACOLYTES_IN_HALL);
+}, []);
 
+useEffect( () => {
+
+  socket.on(SocketServerToClientEvents.SENDING_ACOLYTES_IN_HALL, (acolytes: KaotikaPlayer[]) => {
+
+    setAcolytesInHall(acolytes);
+  })
+
+  socket.on(SocketServerToClientEvents.ACOLYTE_ENTERED_EXITED_HALL, () => {
     socket.emit(SocketClientToServerEvents.SEARCH_FOR_ACOLYTES_IN_HALL);
+  })
 
-    socket.on(SocketServerToClientEvents.SENDING_ACOLYTES_IN_HALL, (acolytes: KaotikaPlayer[]) => {
-      setAcolytesInHall(acolytes);
-    })
+  return (() => {
+    socket.off(SocketServerToClientEvents.SENDING_ACOLYTES_IN_HALL);
+    socket.off(SocketServerToClientEvents.ACOLYTE_ENTERED_EXITED_HALL);
+  });
 
-    socket.on(SocketServerToClientEvents.ACOLYTE_ENTERED_EXITED_HALL, () => {
-      socket.emit(SocketClientToServerEvents.SEARCH_FOR_ACOLYTES_IN_HALL);
-    })
-
-    return (() => {
-      socket.off(SocketServerToClientEvents.SENDING_ACOLYTES_IN_HALL);
-      socket.off(SocketServerToClientEvents.ACOLYTE_ENTERED_EXITED_HALL);
-    });
-
-  }, []);
+}, [acolytesInHall]);
 
   // --- FUNCTIONS --- //
   const returnToMap = () => {
