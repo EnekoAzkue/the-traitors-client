@@ -1,10 +1,10 @@
+import IconButton from "../../IconButton";
+import styled from "styled-components/native";
 import React, { useContext, useEffect, useRef } from "react";
 import { Animated, Image, Text, StyleSheet, View } from "react-native";
 import { Images, Screens } from "../../../../helpers/constants/constants";
-import IconButton from "../../IconButton";
 import { AcolyteInitialScreenContext } from "../../../../helpers/contexts/contexts";
 import { useScreenDimensions } from "../../../../helpers/stores/useScreenDimensionsStore";
-import styled from "styled-components/native";
 
 export default function AcolyteMap() {
   // --- CONTEXTS --- //

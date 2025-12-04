@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
-import { Images } from "../../../../helpers/constants/constants";
 import AcolyteScreenContainer from "./AcolyteScreenContainer";
+import { Images } from "../../../../helpers/constants/constants";
 
 function AcolyteHome() {
 
@@ -11,6 +11,7 @@ function AcolyteHome() {
       </View>
     </AcolyteScreenContainer>
   );
+
 }
 
 export default AcolyteHome;

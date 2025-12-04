@@ -1,16 +1,16 @@
-import React, { useContext, useEffect } from "react";
-import AcolyteMap from "./AcolyteMap";
-import { Screens, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
-import { AcolyteInitialScreenContext } from "../../../../helpers/contexts/contexts";
-import { socket } from "../../../../helpers/socket/socket";
-import AcolyteSchoolMap from "./AcolyteSchoolMap";
-import AcolyteHome from "./AcolyteHome";
-import AcolyteLab from "./AcolyteLab";
-import AcolyteSettings from "./AcolyteSettings";
-import AcolyteTower from "./AcolyteTower";
-import AcolyteHall from "./AcolyteHall";
 import Swamp from "../../Swamp";
+import AcolyteMap from "./AcolyteMap";
+import AcolyteLab from "./AcolyteLab";
+import AcolyteHall from "./AcolyteHall";
+import AcolyteHome from "./AcolyteHome";
+import AcolyteTower from "./AcolyteTower";
+import AcolyteSettings from "./AcolyteSettings";
+import AcolyteSchoolMap from "./AcolyteSchoolMap";
+import React, { useContext, useEffect } from "react";
+import { socket } from "../../../../helpers/socket/socket";
 import { useUserStore } from "../../../../helpers/stores/useUserStore";
+import { AcolyteInitialScreenContext } from "../../../../helpers/contexts/contexts";
+import { Screens, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
 
 export default function Acolyte() {
 
@@ -34,20 +34,20 @@ export default function Acolyte() {
     if (initialScreen === Screens.SWAMP) {
       socket.emit(SocketClientToServerEvents.UPDATE_USER, user.email, { inSwamp : true });
     } else {
-      socket.emit(SocketClientToServerEvents.UPDATE_USER, user.email, { inSwamp : false});
+      socket.emit(SocketClientToServerEvents.UPDATE_USER, user.email, { inSwamp : false });
     }
   }, [initialScreen])
 
   return (
     <>
-      {initialScreen === null               && <AcolyteMap />}
-      {initialScreen === 'SchoolMap'        && <AcolyteSchoolMap />}
-      {initialScreen === 'AcolyteHome'      && <AcolyteHome />}
-      {initialScreen === 'AcolyteLab'       && <AcolyteLab />}
-      {initialScreen === 'AcolyteSettings'  && <AcolyteSettings />}
-      {initialScreen === 'AcolyteTower'     && <AcolyteTower />}
-      {initialScreen === 'AcolyteHall'      && <AcolyteHall />}
-      {initialScreen === 'Swamp'            && <Swamp />}
+      {initialScreen === null                     && <AcolyteMap />}
+      {initialScreen === Screens.SCHOOL_MAP       && <AcolyteSchoolMap />}
+      {initialScreen === Screens.ACOLYTE_HOME     && <AcolyteHome />}
+      {initialScreen === Screens.ACOLYTE_LAB      && <AcolyteLab />}
+      {initialScreen === Screens.ACOLYTE_SETTINGS && <AcolyteSettings />}
+      {initialScreen === Screens.ACOLYTE_TOWER    && <AcolyteTower />}
+      {initialScreen === Screens.ACOLYTE_HALL     && <AcolyteHall />}
+      {initialScreen === Screens.SWAMP            && <Swamp />}
     </>
   );
 

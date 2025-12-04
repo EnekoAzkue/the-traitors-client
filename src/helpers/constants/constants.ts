@@ -95,10 +95,10 @@ enum Screens {
 
 
   // --- ISTVAN --- //
-  ISTVAN_LAB      = 'IstvanLab',
-  ISTVAN_HOME     = 'IstvanHome',
-  ISTVAN_SWAMP    = 'IstvanSwamp',
-  ISTVAN_SETTINGS = 'IstvanSettings',
+  ISTVAN_LAB        = 'IstvanLab',
+  ISTVAN_HOME       = 'IstvanHome',
+  ISTVAN_SWAMP      = 'IstvanSwamp',
+  ISTVAN_SETTINGS   = 'IstvanSettings',
 
   // --- MORTIMER --- //
   MORTIMER_LAB      = 'MortimerLab',
@@ -191,13 +191,14 @@ enum SocketGeneralEvents {
 enum SocketServerToClientEvents {
 
   ACOLYTE_INSIDE_OUTSIDE_LAB      = 'acolyte inside/outside lab',
-  SEND_UPDATED_PLAYER_TO_MORTIMER = "send updated player to mortimer",
-  UPDATE_USER_IN_CLIENT           = "update user in client",
+  SEND_UPDATED_PLAYER_TO_MORTIMER = 'send updated player to mortimer',
+  UPDATE_USER_IN_CLIENT           = 'update user in client',
   ACOLYTE_INSIDE_OUTSIDE_TOWER    = 'acolyte inside/outside tower',
   RECIEVED_FOUND_SCROLL           = 'recieved found scroll',
   SCROLL_VANISH                   = 'scroll vanish',
   SENDING_ARTIFACTS               = 'sending artifacts',
-  GET_IN_SWAMP_ACOLYTES           = "sending acolytes in swamp",
+  GET_IN_SWAMP_ACOLYTES           = 'sending acolytes in swamp',
+  GET_ACOLYTE_NEW_COORDS          = 'sending acolytes in swamp coords',
   COLLECTED                       = 'collected',
 
 }
@@ -215,6 +216,7 @@ enum SocketClientToServerEvents {
   REQUEST_ARTIFACTS             = 'request artifacts',
   REQUEST_SWAMP_ACOLYTES        = 'request swamp acolytes',
   COLLECT                       = 'collect',
+  SEND_ACOLYTES_COORDS          = 'send acolytes coords',
 
 }
 

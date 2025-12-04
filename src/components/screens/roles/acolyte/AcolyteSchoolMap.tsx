@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
+import { Dimensions } from 'react-native';
+import IconButton from "../../IconButton";
 import { ImageBackground, Text, StyleSheet } from "react-native";
 import { Images, Screens } from "../../../../helpers/constants/constants";
-import IconButton from "../../IconButton";
 import { AcolyteInitialScreenContext, ScrollContext } from "../../../../helpers/contexts/contexts";
-import { Dimensions } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 

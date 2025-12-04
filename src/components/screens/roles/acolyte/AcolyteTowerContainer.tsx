@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Text, useWindowDimensions, View } from "react-native";
 import IconButton from "../../IconButton";
 import { Dimensions } from 'react-native';
 import ScreenContainer from "../../ScreenContainer";
@@ -8,22 +8,22 @@ import { useUserStore } from "../../../../helpers/stores/useUserStore";
 import { AcolyteInitialScreenContext } from "../../../../helpers/contexts/contexts";
 
 
-const { width, height } = Dimensions.get('window');
 
 type AcolyteScreenContainer = {
   backgroundImage?: Images,
 };
 
 export default function AcolyteTowerContainer({ backgroundImage, children }: PropsWithChildren<AcolyteScreenContainer>) {
-
-  // --- CONTEXTS --- //
+  
+  // --- CONTEXTS && CONSTANTS --- //
   const user = useUserStore( state => state.user);
   const initialRouterScreen = useContext(AcolyteInitialScreenContext);
-
+  const { width, height } = useWindowDimensions();
+  
   if (!user) return (<Text>ERROR! User is null!</Text>);
   if (!initialRouterScreen) return (<Text>ERROR! Initial Router Context not got</Text>);
 
-  const [, setInitialScreen] = initialRouterScreen;
+  const setInitialScreen = initialRouterScreen[1];
 
   return (
     <View>
