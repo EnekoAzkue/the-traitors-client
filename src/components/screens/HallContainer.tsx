@@ -70,14 +70,14 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
   align-items: center; 
   flex: 1; 
   width: ${width}px;
-  margin-top: ${height * 0.05}px;
   position: absolute;
+  ${user.rol === Roles.ACOLYTE ? `margin-top: ${height * 0.11}px;` : `margin-top: ${height * 0.05}px;`}
 `;
 
   const AcolytesRegisterListContainer = styled.View`
   flex: 1;
   width: ${width * 0.9}px;
-  height: ${height * 0.17}px;
+  ${user.rol === Roles.ACOLYTE ? `height: ${height * 0.17}px;` : `height: ${height * 0.23}px;`}
   border: 1px solid rgba(0, 144, 171);
   border-radius: 8px;
   background-color: rgba(0,0,0,0.3);
