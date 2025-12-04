@@ -7,15 +7,13 @@ import Login from './screens/Login';
 import Main from './screens/Main';
 import Splash from "./screens/Splash";
 import GeneralModal from './Modal';
-import { initialWindowMetrics, SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-
+import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-context';
 
 // --- Interfaces ---
 import KaotikaPlayer from '../helpers/interfaces/KaotikaPlayer';
 
 // --- Contexts ---
 import { ModalContext, AllAcolytesContext, AcolyteInitialScreenContext, ScrollContext, MortimerToastTextContext, MortimerInitialScreenContext, AcolyteToastTextContext } from '../helpers/contexts/contexts';
-
 
 // --- Functions & Hooks ---
 import { useEffect, useState } from "react";
@@ -25,7 +23,7 @@ import styled from 'styled-components/native';
 import { authClient } from '../helpers/googleSignInUtils/googleSignInUtils';
 
 import { initSocket, socket } from '../helpers/socket/socket';
-import { callMessageReceiverListener, getFCMToken, requestUserPermission } from '../helpers/firebaseCloudMessages/pushNotifications';
+import { callMessageReceiverListener, requestUserPermission } from '../helpers/firebaseCloudMessages/pushNotifications';
 import Toast from './Toast';
 import ScrollModal from './ScrollModal';
 
@@ -136,8 +134,6 @@ function App() {
 
       initializeSocketConnection();
 
-      const manageSendUpdatedPlayerToMortimerSocketEvent = null;
-
       // Inicializado ya el socket ahora hay que controlas los eventos de server a cliente
       // console.log("Now clients watchs SEND_UPDATED_PLAYER_TO_MORTIMER socket event");
       socket.on(SocketServerToClientEvents.SEND_UPDATED_PLAYER_TO_MORTIMER, (updatedAcolyte: KaotikaPlayer) => {
@@ -149,9 +145,6 @@ function App() {
         });
         setAllAcolytes(newAcolytes);
       });
-
-
-      const manageUpdateUserInClient = null;
 
       // console.log("Now clients watchs UPDATE_USER_IN_CLIENT socket event");
       socket.on(SocketServerToClientEvents.UPDATE_USER_IN_CLIENT, (updatedClient: KaotikaPlayer) => {
@@ -166,9 +159,6 @@ function App() {
       });
 
     }
-
-
-
 
     return (() => {
       // TODO: HERE (inside return) socketCleanup --> . Disconnect    . removeAllListeners 
