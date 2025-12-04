@@ -35,6 +35,9 @@ interface ServerToClientEvents {
   [SocketServerToClientEvents.COLLECTED]: () => void;
 
   [SocketServerToClientEvents.SENDING_ACOLYTES_IN_HALL]: (acolytesInHall: KaotikaPlayer[]) => void;
+
+  [SocketServerToClientEvents.ACOLYTE_ENTERED_EXITED_HALL]: () => void;
+  
 }
 
   

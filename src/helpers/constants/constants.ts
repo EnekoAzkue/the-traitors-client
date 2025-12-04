@@ -197,6 +197,8 @@ enum SocketServerToClientEvents {
   GET_IN_SWAMP_ACOLYTES = "sending acolytes in swamp",
   COLLECTED = 'collected',
   SENDING_ACOLYTES_IN_HALL = 'sending acolytes in hall',
+  ACOLYTE_ENTERED_EXITED_HALL = 'acolyte entered/exited the hall',
+
 
 }
 

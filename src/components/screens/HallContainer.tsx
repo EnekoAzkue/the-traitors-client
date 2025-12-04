@@ -35,18 +35,19 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
   const [acolytesInHall, setAcolytesInHall] = useState<KaotikaPlayer[]>([]);
 
   // --- EFFECTS --- //
-  useEffect(() => {
-    if (user.rol === Roles.MORTIMER) {
-      console.log('Mortimer entered HallContainer, searching for acolytes in hall');
+  if (user.rol !== Roles.ACOLYTE) {
+    useEffect(() => {
       socket.emit(SocketClientToServerEvents.SEARCH_FOR_ACOLYTES_IN_HALL);
-    }
+    }, []);
 
+    socket.on(SocketServerToClientEvents.SENDING_ACOLYTES_IN_HALL, (acolytes: KaotikaPlayer[]) => {
+      setAcolytesInHall(acolytes);
+    })
 
-  }, []);
-
-  socket.on(SocketServerToClientEvents.SENDING_ACOLYTES_IN_HALL, (acolytes: KaotikaPlayer[]) => {
-    setAcolytesInHall(acolytes);
-  })
+    socket.on(SocketServerToClientEvents.ACOLYTE_ENTERED_EXITED_HALL, () => {
+      socket.emit(SocketClientToServerEvents.SEARCH_FOR_ACOLYTES_IN_HALL);
+    })
+  }
 
   // --- FUNCTIONS --- //
   const returnToMap = () => {
@@ -73,7 +74,6 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
   border: 1px solid rgba(0, 144, 171);
   border-radius: 8px;
   background-color: rgba(0,0,0,0.3);
-  
 `;
 
   return (
