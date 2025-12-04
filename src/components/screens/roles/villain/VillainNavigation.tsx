@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import VillainHome from './VillainHome';
@@ -9,6 +9,7 @@ import { Images, Screens } from '../../../../helpers/constants/constants';
 import { BlurView } from '@react-native-community/blur';
 import Swamp from '../../Swamp';
 import HallOfSages from '../../HallOfSages';
+import { VillainInitialScreenContext } from '../../../../helpers/contexts/contexts';
 
 const Stack = createBottomTabNavigator();
 
@@ -20,11 +21,18 @@ const IconImage = styled.Image`
   height: 35px;
 `;
 
-function RootNavigation({ initialRouteScreen }: any) {
+function RootNavigation({  }: any) {
+  
+  // --- CONTEXTS--- //
+  const initialScreenContext = useContext(VillainInitialScreenContext);
+
+  if (!initialScreenContext) return null;
+
+  const initialScreen = initialScreenContext[0];
 
   return (
     <Stack.Navigator
-      initialRouteName={initialRouteScreen}
+      initialRouteName={initialScreen}
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarShowLabel: false,

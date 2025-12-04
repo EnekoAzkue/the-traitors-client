@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Swamp from '../../Swamp';
 import IstvanLab from './IstvanLab';
 import IstvanHome from './IstvanHome';
@@ -9,22 +9,32 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Images, Screens } from '../../../../helpers/constants/constants';
 import HallOfSages from '../../HallOfSages';
+import { IstvanInitialScreenContext } from '../../../../helpers/contexts/contexts';
 
 const Stack = createBottomTabNavigator();
 
 
 
 
-function RootNavigation({ initialRouteScreen }: any) {
-const IconImage = styled.Image`
-  position: relative;
-  top: 5px;
-  width: 35px;
-  height: 35px;
-`;
+function RootNavigation({  }: any) {
+
+  // --- CONTEXTS--- //
+  const initialRouteScreen = useContext(IstvanInitialScreenContext);
+
+  if (!initialRouteScreen) return null;
+
+  const initialScreen = initialRouteScreen[0];
+
+  const IconImage = styled.Image`
+    position: relative;
+    top: 5px;
+    width: 35px;
+    height: 35px;
+  `;
+
   return (
     <Stack.Navigator
-      initialRouteName={initialRouteScreen}
+      initialRouteName={initialScreen}
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarShowLabel: false,

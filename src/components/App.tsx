@@ -1,6 +1,6 @@
 // --- Constants ---
 import React from 'react';
-import { SocketServerToClientEvents } from '../helpers/constants/constants';
+import { Screens, SocketServerToClientEvents } from '../helpers/constants/constants';
 
 // --- Components ---
 import Login from './screens/Login';
@@ -13,7 +13,7 @@ import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-c
 import KaotikaPlayer from '../helpers/interfaces/KaotikaPlayer';
 
 // --- Contexts ---
-import { ModalContext, AllAcolytesContext, AcolyteInitialScreenContext, ScrollContext, MortimerToastTextContext, MortimerInitialScreenContext, AcolyteToastTextContext, CollectionContext } from '../helpers/contexts/contexts';
+import { ModalContext, AllAcolytesContext, AcolyteInitialScreenContext, ScrollContext, MortimerToastTextContext, MortimerInitialScreenContext, AcolyteToastTextContext, CollectionContext, IstvanInitialScreenContext, VillainInitialScreenContext } from '../helpers/contexts/contexts';
 
 // --- Functions & Hooks ---
 import { useEffect, useState } from "react";
@@ -43,13 +43,15 @@ function App() {
   const [scrollModalMessage, setScrollModalMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [acolyteInitialScreen, setacolyteInitialScreen] = useState<string | null>(null);
-  const [mortimerInitialScreen, setMortimerInitialScreen] = useState<string>('MortimerHome');
+  const [mortimerInitialScreen, setMortimerInitialScreen] = useState<string>(Screens.MORTIMER_HOME);
+  const [istvanInitialScreen, setistvanInitialScreen] = useState<string>(Screens.ISTVAN_HOME);
+  const [villainInitialScreen, setvillainInitialScreen] = useState<string>(Screens.VILLAIN_HOME);
   const [scrollActive, setScrollActive] = useState(true);
 
   const [acolyteToastText, setAcolyteToastText] = useState<string>('');
   const [mortimerToastText, setMortimerToastText] = useState<string>('');
 
-  const {screenDimensions, setScreenDimensions} = useScreenDimensions();
+  const { screenDimensions, setScreenDimensions } = useScreenDimensions();
   const screenDimensionsValue = useWindowDimensions();
 
 
@@ -191,23 +193,27 @@ function App() {
               <ScrollContext.Provider value={[scrollActive, setScrollActive]}>
                 <MortimerInitialScreenContext.Provider value={[mortimerInitialScreen, setMortimerInitialScreen]}>
                   <AcolyteInitialScreenContext.Provider value={[acolyteInitialScreen, setacolyteInitialScreen]}>
-                    <AllAcolytesContext.Provider value={[allAcolytes, setAllAcolytes]}>
-                      <MortimerToastTextContext.Provider value={[mortimerToastText, setMortimerToastText]}>
-                        <AcolyteToastTextContext.Provider value={[acolyteToastText, setAcolyteToastText]}>
-                          <MortimerInitialScreenContext.Provider value={[mortimerInitialScreen, setMortimerInitialScreen]}>
-                            <ModalContext value={setModalMessage}>
-                                <Main />
-                                {user?.rol === 'acolyte' &&
-                                  <AcolyteToast toastText={acolyteToastText} setAcolyteToastText={setAcolyteToastText} />
-                                }
-                                {user?.rol === 'mortimer' &&
-                                  <Toast toastText={mortimerToastText} setMortimerToastText={setMortimerToastText} />
-                                }
-                            </ModalContext>
-                          </MortimerInitialScreenContext.Provider>
-                        </AcolyteToastTextContext.Provider>
-                      </MortimerToastTextContext.Provider>
-                    </AllAcolytesContext.Provider>
+                    <IstvanInitialScreenContext.Provider value={[istvanInitialScreen, setistvanInitialScreen]}>
+                      <VillainInitialScreenContext.Provider value={[villainInitialScreen, setvillainInitialScreen]}>
+                        <AllAcolytesContext.Provider value={[allAcolytes, setAllAcolytes]}>
+                          <MortimerToastTextContext.Provider value={[mortimerToastText, setMortimerToastText]}>
+                            <AcolyteToastTextContext.Provider value={[acolyteToastText, setAcolyteToastText]}>
+                              <MortimerInitialScreenContext.Provider value={[mortimerInitialScreen, setMortimerInitialScreen]}>
+                                <ModalContext value={setModalMessage}>
+                                  <Main />
+                                  {user?.rol === 'acolyte' &&
+                                    <AcolyteToast toastText={acolyteToastText} setAcolyteToastText={setAcolyteToastText} />
+                                  }
+                                  {user?.rol === 'mortimer' &&
+                                    <Toast toastText={mortimerToastText} setMortimerToastText={setMortimerToastText} />
+                                  }
+                                </ModalContext>
+                              </MortimerInitialScreenContext.Provider>
+                            </AcolyteToastTextContext.Provider>
+                          </MortimerToastTextContext.Provider>
+                        </AllAcolytesContext.Provider>
+                      </VillainInitialScreenContext.Provider>
+                    </IstvanInitialScreenContext.Provider>
                   </AcolyteInitialScreenContext.Provider>
                 </MortimerInitialScreenContext.Provider>
               </ScrollContext.Provider>

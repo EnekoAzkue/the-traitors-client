@@ -22,24 +22,24 @@ type AcolyteScreenContainer = {
 export default function HallContainer({ backgroundImage, children }: PropsWithChildren<AcolyteScreenContainer>) {
 
   // --- CONTEXTS --- //
+  const [acolytesInHall, setAcolytesInHall] = useState<KaotikaPlayer[]>([]);
+
   const user = useUserStore(state => state.user);
   const initialRouterScreen = useContext(AcolyteInitialScreenContext);
   const collectionContext = useContext(CollectionContext)
 
-  if (!user) return null;
+  if (!user) return;
   if (!initialRouterScreen) return (<Text>ERROR! Initial Router Context not got</Text>);
-  if (!collectionContext) return
+  if (!collectionContext) return;
 
   const setInitialScreen = initialRouterScreen[1];
   const areAllArtifactsCollected = useCollectionStore(state => state.areAllArtifactsCollected)
 
-  const [acolytesInHall, setAcolytesInHall] = useState<KaotikaPlayer[]>([]);
 
   // --- EFFECTS --- //
-  if (user.rol !== Roles.ACOLYTE) {
-    useEffect(() => {
-      socket.emit(SocketClientToServerEvents.SEARCH_FOR_ACOLYTES_IN_HALL);
-    }, []);
+  useEffect(() => {
+
+    socket.emit(SocketClientToServerEvents.SEARCH_FOR_ACOLYTES_IN_HALL);
 
     socket.on(SocketServerToClientEvents.SENDING_ACOLYTES_IN_HALL, (acolytes: KaotikaPlayer[]) => {
       setAcolytesInHall(acolytes);
@@ -48,16 +48,22 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
     socket.on(SocketServerToClientEvents.ACOLYTE_ENTERED_EXITED_HALL, () => {
       socket.emit(SocketClientToServerEvents.SEARCH_FOR_ACOLYTES_IN_HALL);
     })
-  }
+
+    return (() => {
+      socket.off(SocketServerToClientEvents.SENDING_ACOLYTES_IN_HALL);
+      socket.off(SocketServerToClientEvents.ACOLYTE_ENTERED_EXITED_HALL);
+    });
+
+  }, []);
 
   // --- FUNCTIONS --- //
   const returnToMap = () => {
     setInitialScreen('SchoolMap')
-    socket.emit(SocketClientToServerEvents.ENTER_EXIT_HALL, user.email, false)
+    socket.emit(SocketClientToServerEvents.ENTER_EXIT_HALL, user.email, false);
   }
 
   const showArtifacts = () => {
-    socket.emit(SocketClientToServerEvents.SHOW_ARTIFACTS)
+    socket.emit(SocketClientToServerEvents.SHOW_ARTIFACTS);
   }
 
   const AcolytesRegisterScreenContainer = styled.View`
@@ -100,21 +106,19 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
               */}
           </>
         )}
-        {user.rol === Roles.MORTIMER && (
-          <>
-            <AcolytesRegisterScreenContainer>
-              <AcolytesRegisterListContainer >
-                {acolytesInHall.length === 0 ? (
-                  <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-                    <Text style={{ color: 'white', fontFamily: 'KochAltschrift', fontSize: 30 }}>Waiting for acolytes to enter...</Text>
-                  </View>)
-                  :
-                  <AcolytesInHall acolytesInHall={acolytesInHall} />
-                }
-              </AcolytesRegisterListContainer>
-            </AcolytesRegisterScreenContainer>
-          </>
-        )}
+        <>
+          <AcolytesRegisterScreenContainer>
+            <AcolytesRegisterListContainer >
+              {acolytesInHall.length === 0 ? (
+                <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+                  <Text style={{ color: 'white', fontFamily: 'KochAltschrift', fontSize: 30 }}>Waiting for acolytes to enter...</Text>
+                </View>)
+                :
+                <AcolytesInHall acolytesInHall={acolytesInHall} />
+              }
+            </AcolytesRegisterListContainer>
+          </AcolytesRegisterScreenContainer>
+        </>
         {children}
       </ScreenContainer>
     </View>

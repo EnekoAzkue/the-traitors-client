@@ -22,7 +22,7 @@ function RootNavigation({ }: any) {
 
   if (!initialRouteScreen) return null;
 
-  const [initialScreen] = initialRouteScreen;
+  const initialScreen = initialRouteScreen[0];
 
   // --- STYLED COMPONENTS --- //
   const { width, height } = useWindowDimensions();
