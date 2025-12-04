@@ -95,6 +95,8 @@ function Swamp() {
 
       Geolocation.getCurrentPosition(
         info => {
+          socket.emit(SocketClientToServerEvents.SEND_ACOLYTES_COORDS, {email: user.email, coords: info.coords}); // [ {EMAIL, COORDS}, {EMAIL, COORDS}, {EMAIL, COORDS}, ... ]
+
           setCurrentPosition(info)
 
           // console.log("POSICIÓN:", info.coords.latitude, "", info.coords.longitude);

@@ -18,6 +18,7 @@ export default function SwampContainer({ user, backgroundImage, children }: Prop
 
   // --- INVENTORY CONTEXT ---
   const inventoryContext = useContext(InventoryContext);
+  const initialRouterScreen = useContext(AcolyteInitialScreenContext);
   const areAllArtifactsCollected = useCollectionStore(state => state.areAllArtifactsCollected)
 
   if (!inventoryContext) {
@@ -31,7 +32,6 @@ export default function SwampContainer({ user, backgroundImage, children }: Prop
     const [isInventoryOpen, setIsInventoryOpen] = inventoryContext;
 
   // --- INITIAL SCREEN CONTEXT ---
-  const initialRouterScreen = useContext(AcolyteInitialScreenContext);
 
   if (!inventoryContext)    return <Text>ERROR! InventoryContext Provider is missing</Text>;
   if (!initialRouterScreen) return <Text>ERROR! Initial Router Context not found</Text>;
