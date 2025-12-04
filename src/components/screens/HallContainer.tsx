@@ -106,7 +106,7 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
               <AcolytesRegisterListContainer >
                 {acolytesInHall.length === 0 ? (
                   <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-                    <Text style={{ color: 'white', fontFamily: 'KochAltschrift', fontSize: 40 }}>No acolytes in hall</Text>
+                    <Text style={{ color: 'white', fontFamily: 'KochAltschrift', fontSize: 30 }}>Waiting for acolytes to enter...</Text>
                   </View>)
                   :
                   <AcolytesInHall acolytesInHall={acolytesInHall} />
