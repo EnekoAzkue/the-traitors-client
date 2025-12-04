@@ -30,18 +30,24 @@ export default function Acolyte() {
     } else {
       socket.emit(SocketClientToServerEvents.UPDATE_INTOWER, user.email, false)
     }
+
+    if (initialScreen === Screens.SWAMP) {
+      socket.emit(SocketClientToServerEvents.UPDATE_USER, user.email, { inSwamp : true });
+    } else {
+      socket.emit(SocketClientToServerEvents.UPDATE_USER, user.email, { inSwamp : false});
+    }
   }, [initialScreen])
 
   return (
     <>
-      {initialScreen === null && <AcolyteMap />}
-      {initialScreen === 'SchoolMap' && <AcolyteSchoolMap />}
-      {initialScreen === 'AcolyteHome' && <AcolyteHome />}
-      {initialScreen === 'AcolyteLab' && <AcolyteLab />}
-      {initialScreen === 'AcolyteSettings' && <AcolyteSettings />}
-      {initialScreen === 'AcolyteTower' && <AcolyteTower />}
-      {initialScreen === 'AcolyteHall' && <AcolyteHall />}
-      {initialScreen === 'Swamp' && <Swamp />}
+      {initialScreen === null               && <AcolyteMap />}
+      {initialScreen === 'SchoolMap'        && <AcolyteSchoolMap />}
+      {initialScreen === 'AcolyteHome'      && <AcolyteHome />}
+      {initialScreen === 'AcolyteLab'       && <AcolyteLab />}
+      {initialScreen === 'AcolyteSettings'  && <AcolyteSettings />}
+      {initialScreen === 'AcolyteTower'     && <AcolyteTower />}
+      {initialScreen === 'AcolyteHall'      && <AcolyteHall />}
+      {initialScreen === 'Swamp'            && <Swamp />}
     </>
   );
 
