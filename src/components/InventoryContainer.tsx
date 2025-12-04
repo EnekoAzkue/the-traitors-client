@@ -1,29 +1,27 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Text, Dimensions, useWindowDimensions } from "react-native";
+import React, { useContext } from "react";
+import { Text, useWindowDimensions } from "react-native";
 import styled from "styled-components/native";
-import { AllAcolytesContext, InventoryContext, MortimerInitialScreenContext } from "../../../../helpers/contexts/contexts";
-import Artifact from "../../../../helpers/interfaces/Artifact";
+import { AllAcolytesContext, InventoryContext, MortimerInitialScreenContext } from "../helpers/contexts/contexts";
+import Artifact from "../helpers/interfaces/Artifact";
 import IndividualArtifactContainer from "./IndividualArtifactContainer";
 
 export default function InventoryContainer(artifacts: any) {
 
-  
   // --- CONTEXTS && CONSTANTS --- ///
-  const allAcolytesContext = useContext(AllAcolytesContext);
-  const inventoryContext = useContext(InventoryContext);
-  const initialScreenContext = useContext(MortimerInitialScreenContext);
-  const { width, height} = useWindowDimensions();
+  const { width, height }     = useWindowDimensions();
+  const allAcolytesContext    = useContext(AllAcolytesContext);
+  const inventoryContext      = useContext(InventoryContext);
+  const initialScreenContext  = useContext(MortimerInitialScreenContext);
 
-  if (!allAcolytesContext) return <Text>User context is null at Home Component!!!"</Text>;
-  if (!inventoryContext) return null;
-  if (!initialScreenContext) return null;
+  if (!allAcolytesContext)    return <Text>User context is null at Home Component!!!"</Text>;
+  if (!inventoryContext)      return <Text>Not valid inventory context!!!"</Text>;
+  if (!initialScreenContext)  return <Text>Not valid initial Screen context!!!"</Text>;
 
-  const [isInventoryOpen] = inventoryContext;
-  if (!isInventoryOpen) return null;
+  const isInventoryOpen = inventoryContext[1];
 
+  if (!isInventoryOpen) return;
 
-
-  // --- STYLES --- //
+  // --- STYLED COMPONENTS --- //
   const InventoryContainerStyled = styled.View`
     align-items: center; 
     flex: 1; 

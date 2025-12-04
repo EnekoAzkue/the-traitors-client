@@ -1,5 +1,5 @@
-import { useWindowDimensions, View } from "react-native";
 import IconButton from "../../IconButton";
+import { useWindowDimensions, View } from "react-native";
 import { socket } from "../../../../helpers/socket/socket";
 import AcolyteTowerContainer from "./AcolyteTowerContainer";
 import React, { useContext, useEffect, useState } from "react";

@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
 import { View } from "react-native";
-import { Images } from "../../../../helpers/constants/constants";
 import QRCodeContainer from "../../QR";
+import React, { useEffect, useState } from "react";
 import AcolyteScreenContainer from "./AcolyteScreenContainer";
+import { Images } from "../../../../helpers/constants/constants";
 import { useUserStore } from "../../../../helpers/stores/useUserStore";
 
 function AcolyteLab() {

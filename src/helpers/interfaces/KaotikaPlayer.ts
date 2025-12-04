@@ -16,6 +16,8 @@ interface KaotikaPlayer {
   isInside: boolean;
   inTower: boolean;
   insideTower: boolean;
+  inSwamp: boolean;
+  inHall: boolean;
   attributes: Modifiers;
   equipment: Equipment;
   inventory: Inventory;

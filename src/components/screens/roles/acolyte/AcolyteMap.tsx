@@ -1,10 +1,10 @@
+import IconButton from "../../IconButton";
+import styled from "styled-components/native";
 import React, { useContext, useEffect, useRef } from "react";
 import { Animated, Image, Text, StyleSheet, View } from "react-native";
 import { Images, Screens, SocketClientToServerEvents, SocketServerToClientEvents } from "../../../../helpers/constants/constants";
-import IconButton from "../../IconButton";
 import { AcolyteInitialScreenContext, CollectionContext } from "../../../../helpers/contexts/contexts";
 import { useScreenDimensions } from "../../../../helpers/stores/useScreenDimensionsStore";
-import styled from "styled-components/native";
 import { socket } from "../../../../helpers/socket/socket";
 import { useArtifactsStore } from "../../../../helpers/stores/useArtifactStore";
 import { useUserStore } from "../../../../helpers/stores/useUserStore";

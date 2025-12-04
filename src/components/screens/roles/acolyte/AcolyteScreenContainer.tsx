@@ -1,11 +1,11 @@
+import { Text, View } from "react-native";
+import { Dimensions } from 'react-native';
+import IconButton from "../../IconButton";
+import ScreenContainer from "../../ScreenContainer";
 import React, { PropsWithChildren, useContext } from "react";
 import { Images } from "../../../../helpers/constants/constants";
-import { Text, View } from "react-native";
-import ScreenContainer from "../../ScreenContainer";
-import IconButton from "../../IconButton";
-import { AcolyteInitialScreenContext } from "../../../../helpers/contexts/contexts";
-import { Dimensions } from 'react-native';
 import { useUserStore } from "../../../../helpers/stores/useUserStore";
+import { AcolyteInitialScreenContext } from "../../../../helpers/contexts/contexts";
 
 const { width, height } = Dimensions.get('window');
 

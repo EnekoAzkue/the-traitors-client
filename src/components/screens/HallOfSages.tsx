@@ -6,7 +6,7 @@ import HallContainer from "./HallContainer";
 import { useUserStore } from "../../helpers/stores/useUserStore";
 
 function HallOfSages() {
- 
+  
   // --- CONTEXTS --- // 
   const user = useUserStore(state => state.user);
   if (!user) return;
