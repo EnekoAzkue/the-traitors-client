@@ -9,8 +9,10 @@ export const InventoryContext = createContext<[boolean, (isOpen: boolean) => voi
 export const CollectionContext = createContext<[boolean, (areCollected: boolean) => void]>([false, () => {}])
 
 // Acolyte context for map and navigator: 
-export const AcolyteInitialScreenContext = createContext<[string | null, (newScreen: string | null) => void] | null>(null);
+export const AcolyteInitialScreenContext  = createContext<[string | null, (newScreen: string | null) => void] | null>(null);
 export const MortimerInitialScreenContext = createContext<[string, (newScreen: string) => void] | null>(null);
+export const IstvanInitialScreenContext   = createContext<[string, (newScreen: string) => void] | null>(null);
+export const VillainInitialScreenContext  = createContext<[string, (newScreen: string) => void] | null>(null);
 
 
 export const ScrollContext = createContext<[boolean, (value: boolean) => void] | null>(null);

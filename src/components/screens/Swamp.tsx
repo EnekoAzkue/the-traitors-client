@@ -354,7 +354,7 @@ function Swamp() {
                       return <Marker 
                         key={index}
                         coordinate={{ latitude: acolytesInSwampCoords[index].coords.latitude, longitude: acolytesInSwampCoords[index].coords.longitude }}
-                        image={{ uri: `${user.avatar}` }}
+                        image={{ uri: `${acolyte.avatar}` }}
                         title={acolyte.name}
                         />
 
