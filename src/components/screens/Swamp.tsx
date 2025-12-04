@@ -96,7 +96,7 @@ function Swamp() {
       Geolocation.getCurrentPosition(
         info => {
           socket.emit(SocketClientToServerEvents.SEND_ACOLYTES_COORDS, {email: user.email, coords: info.coords}); // [ {EMAIL, COORDS}, {EMAIL, COORDS}, {EMAIL, COORDS}, ... ]
-
+          console.log('sending initial coords to server as acolyte', info.coords);
           setCurrentPosition(info)
 
           // console.log("POSICIÓN:", info.coords.latitude, "", info.coords.longitude);
@@ -140,22 +140,24 @@ function Swamp() {
 
     }
     
-    socket.on(SocketServerToClientEvents.GET_ACOLYTE_NEW_COORDS, (newCoords: {email: string, coords: GeolacationCoords}) => {
-      const acolyteCoords = acolytesInSwampCoords.find( (elem) => {elem.email === newCoords.email} );
-      console.log(`ACOLYTES COORDS ARRAY: ${acolytesInSwampCoords}`);
-      if ( acolyteCoords ){
-        const addedNewCords = [...acolytesInSwampCoords, newCoords];
-        setAcolytesInSwampCoords(addedNewCords);
-      } else {
-        const acolyteCoordsModified = [...acolytesInSwampCoords];
-        acolyteCoordsModified.map( (item) => { 
-          if (item.email === newCoords.email){
-            item = {...item, coords: newCoords.coords};
-          }
-        }); 
-        setAcolytesInSwampCoords(acolyteCoordsModified);
-      }
+    socket.on(SocketServerToClientEvents.GET_ACOLYTE_NEW_COORDS, (newCoords) => {
+      setAcolytesInSwampCoords(prev => {
+        
+        console.log("PREV:", prev); // ← Aquí SÍ verás el array actualizado
+    
+        const exists = prev.find(acolyte => acolyte.email === newCoords.email);
+    
+        if (!exists) {
+          return [...prev, newCoords];
+        }
+    
+        return prev.map(acolyte =>
+          acolyte.email === newCoords.email? { ...acolyte, coords: newCoords.coords }: acolyte
+        );
+      });
     });
+    
+    
     
     getMyLocationAsAcolyte(user);
     
@@ -206,6 +208,7 @@ function Swamp() {
         }
 
         socket.emit(SocketClientToServerEvents.SEND_ACOLYTES_COORDS, {email: user.email, coords: info.coords}); // [ {EMAIL, COORDS}, {EMAIL, COORDS}, {EMAIL, COORDS}, ... ]
+        console.log('sending live coords to server as acolyte', info.coords);
 
         setCurrentPosition(info);
       },
