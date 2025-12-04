@@ -54,20 +54,18 @@ export default function AcolyteMap() {
       }),
     ]).start();
 
-      socket.emit(SocketClientToServerEvents.REQUEST_ARTIFACTS, user.rol);
+    socket.emit(SocketClientToServerEvents.REQUEST_ARTIFACTS, user.rol);
 
-      socket.on(SocketServerToClientEvents.SENDING_ARTIFACTS, (artifacts) => {
-        setArtifacts(artifacts)
-      })
+    socket.on(SocketServerToClientEvents.SENDING_ARTIFACTS, (artifacts) => {
 
-      socket.on(SocketServerToClientEvents.COLLECTED, () => {
-        socket.emit(SocketClientToServerEvents.REQUEST_ARTIFACTS, user.rol)
-      })
 
-    const collectedArtifacts = artifacts.filter(a => a.state === 'collected')
-    if (collectedArtifacts.length === 4) {
-      setAreAllArtifactsCollected(true)
-    }
+      const collectedArtifacts = artifacts.filter(a => a.state === 'collected')
+      if (collectedArtifacts.length === 4) {
+        setAreAllArtifactsCollected(true)
+      }
+      setArtifacts(artifacts)
+    })
+
   }, []);
 
   // --- STYLES --- //

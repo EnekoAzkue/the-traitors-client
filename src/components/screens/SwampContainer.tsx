@@ -24,10 +24,6 @@ export default function SwampContainer({ user, backgroundImage, children }: Prop
   if (!inventoryContext) {
     return <Text>ERROR! InventoryContext Provider is missing</Text>;
   }
-
-  if(!areAllArtifactsCollected) {
-      return <Text>ERROR! CollectionContext Provider is missing</Text>;
-    }
   
     const [isInventoryOpen, setIsInventoryOpen] = inventoryContext;
 
