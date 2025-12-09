@@ -1,7 +1,7 @@
 import Button from "../Button";
 import SwampContainer from "./SwampContainer";
 import { PermissionsAndroid } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import MapView, { Marker } from 'react-native-maps';
 import { socket } from "../../helpers/socket/socket";
 import InventoryContainer from "../InventoryContainer";
@@ -10,11 +10,12 @@ import { useUserStore } from "../../helpers/stores/useUserStore";
 import KaotikaPlayer from "../../helpers/interfaces/KaotikaPlayer";
 import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
 import Geolocation, { GeolocationResponse } from '@react-native-community/geolocation';
-import { Roles, SocketClientToServerEvents, SocketServerToClientEvents, swampArtifactCoordinates, swampArtifactIcons } from "../../helpers/constants/constants";
+import { Roles, Screens, SocketClientToServerEvents, SocketServerToClientEvents, swampArtifactCoordinates, swampArtifactIcons } from "../../helpers/constants/constants";
 import { GeolacationCoords } from "../../helpers/interfaces/Geolocation";
 import { useArtifactsStore } from "../../helpers/stores/useArtifactStore";
 import { useCollectionStore } from "../../helpers/stores/useCollectionStore";
-import { InventoryContext } from "../../helpers/contexts/contexts";
+import { InventoryContext, IstvanInitialScreenContext, MortimerInitialScreenContext, VillainInitialScreenContext } from "../../helpers/contexts/contexts";
+import styled from "styled-components/native";
 
 async function requestPermission() {
   const fine = await PermissionsAndroid.request(
@@ -25,60 +26,82 @@ async function requestPermission() {
     fine === PermissionsAndroid.RESULTS.GRANTED);
 }
 
-function Swamp() {  
+function Swamp() {
   // --- STATES, STORES && CONSTANTS --- //
-  
+
   const { artifacts, setArtifacts } = useArtifactsStore(state => state);
   const setAreAllArtifactsCollected = useCollectionStore(state => state.setAreAllArtifactsCollected)
+
+  const user = useUserStore(state => state.user);
+  const { width, height } = useWindowDimensions();
+  const [currentPosition, setCurrentPosition] = useState<GeolocationResponse | null>(null);
+  const [acolytesInSwamp, setAcolytesInSwamp] = useState<KaotikaPlayer[]>([]);
+  const [acolytesInSwampCoords, setAcolytesInSwampCoords] = useState<{ email: string, coords: GeolacationCoords }[]>([]);
+  const [animatedPosition, setAnimatedPosition] = useState({ latitude: 0, longitude: 0 });
+  const [nearArtifacts, setNearArtifacts] = useState<{ [name: string]: boolean }>({});
+  const [activatedArtifacts, setActivatedArtifacts] = useState<Artifact[]>([]);
+  const [isInventoryOpen, setIsInventoryOpen] = useState<boolean>(false);
+
+  const mortimerInitialScreenContext = useContext(MortimerInitialScreenContext);
+  const istvanInitialScreenContext = useContext(IstvanInitialScreenContext);
+  const villainInitialScreenContext = useContext(VillainInitialScreenContext);
+
   
-  const user                                                    = useUserStore(state => state.user);
-  const { width, height }                                       = useWindowDimensions();
-  const [currentPosition, setCurrentPosition]                   = useState<GeolocationResponse | null>(null);
-  const [acolytesInSwamp, setAcolytesInSwamp]                   = useState<KaotikaPlayer[]>([]);
-  const [acolytesInSwampCoords, setAcolytesInSwampCoords]       = useState<{ email: string, coords: GeolacationCoords }[]>([]);
-  const [animatedPosition, setAnimatedPosition]                 = useState({ latitude: 0, longitude: 0 });
-  const [nearArtifacts, setNearArtifacts]                       = useState<{ [name: string]: boolean }>({});
-  const [activatedArtifacts, setActivatedArtifacts]             = useState<Artifact[]>([]);
-  const [isInventoryOpen, setIsInventoryOpen]                   = useState<boolean>(false);
+  if (!user) return;
+  if (!mortimerInitialScreenContext) return;
+  if (!istvanInitialScreenContext) return;
+  if (!villainInitialScreenContext) return;
+
+  const setMortimerInitialScreen = mortimerInitialScreenContext[1];
+  const setIstvanInitialScreen   = istvanInitialScreenContext[1];
+  const setVillainInitialScreen  = villainInitialScreenContext[1];
+
   // --- FAKE --- //
   const fakeCoordenates = [
-    // { original
-    //   latitude: 43.3097,
-    //   longitude: -2.0021,
-    // },
-    {
-      latitude: 43.3094074,
-      longitude: -2.0019351,
+      {
+      latitude: 43.30967,
+      longitude: -2.0021,
     },
     {
       latitude: 43.3097,
-      longitude: -2.0025,
+      longitude: -2.00245,
     },
-    // {
-    //   latitude: 43.3096,
-    //   longitude: -2.0023,
-    // },
     {
-      latitude: 43.3094074,
-      longitude: -2.0019351,
+      latitude: 43.3096,
+      longitude: -2.0021,
     },
     {
       latitude: 43.30967,
       longitude: -2.0023,
     },
-
   ];
 
   if (!user) return;
 
   // --- FUNCTIONS --- //
   async function requestPermission() {
-    const fine = await PermissionsAndroid.request( PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION );
+    const fine = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
     return (fine === PermissionsAndroid.RESULTS.GRANTED);
   }
 
   // --- EFFECTS --- // 
   useEffect(() => {
+
+    switch (user.rol) {
+
+      case (Roles.MORTIMER):
+        setMortimerInitialScreen(Screens.SWAMP);
+        break;
+
+      case (Roles.ISTVAN):
+        setIstvanInitialScreen(Screens.SWAMP);
+        break;
+
+      case (Roles.VILLAIN):
+        setVillainInitialScreen(Screens.SWAMP);
+        break;
+
+    }
 
     let requestInSwampInterval: number | undefined;
 
@@ -95,7 +118,7 @@ function Swamp() {
 
       Geolocation.getCurrentPosition(
         info => {
-          socket.emit(SocketClientToServerEvents.SEND_ACOLYTES_COORDS, {email: user.email, coords: info.coords}); // [ {EMAIL, COORDS}, {EMAIL, COORDS}, {EMAIL, COORDS}, ... ]
+          socket.emit(SocketClientToServerEvents.SEND_ACOLYTES_COORDS, { email: user.email, coords: info.coords }); // [ {EMAIL, COORDS}, {EMAIL, COORDS}, {EMAIL, COORDS}, ... ]
           console.log('sending initial coords to server as acolyte', info.coords);
           setCurrentPosition(info)
 
@@ -128,10 +151,10 @@ function Swamp() {
 
     // --- GESTIÓN DE LOS EVENTOS SOCKET TRATADOS EN ESTE COMPONENTE --- //
     if (user.rol === Roles.MORTIMER || user.rol === Roles.ISTVAN || user.rol === Roles.VILLAIN) {
-      
+
       // Cada segundo se solicita al server que envie los acólitos que están en el swamp, así el Mortimer, Istvan y Villain saben donde están en tiempo real los acólitos y si entra o sale uno de estos 
       requestInSwampInterval = setInterval(() => { console.log("Sending to server request for swamp acolytes"); socket.emit(SocketClientToServerEvents.REQUEST_SWAMP_ACOLYTES); }, 1000);
-      
+
       socket.on(SocketServerToClientEvents.GET_IN_SWAMP_ACOLYTES, (acolytes) => {
         console.log("GET ACOLYTES IN SWAMP: ");
         console.log(acolytes);
@@ -139,28 +162,28 @@ function Swamp() {
       });
 
     }
-    
+
     socket.on(SocketServerToClientEvents.GET_ACOLYTE_NEW_COORDS, (newCoords) => {
       setAcolytesInSwampCoords(prev => {
-        
+
         console.log("PREV:", prev); // ← Aquí SÍ verás el array actualizado
-    
+
         const exists = prev.find(acolyte => acolyte.email === newCoords.email);
-    
+
         if (!exists) {
           return [...prev, newCoords];
         }
-    
+
         return prev.map(acolyte =>
-          acolyte.email === newCoords.email? { ...acolyte, coords: newCoords.coords }: acolyte
+          acolyte.email === newCoords.email ? { ...acolyte, coords: newCoords.coords } : acolyte
         );
       });
     });
-    
-    
-    
+
+
+
     getMyLocationAsAcolyte(user);
-    
+
     return () => {
 
       if (user.rol === Roles.ACOLYTE || user.rol === Roles.MORTIMER) {
@@ -207,7 +230,7 @@ function Swamp() {
           return;
         }
 
-        socket.emit(SocketClientToServerEvents.SEND_ACOLYTES_COORDS, {email: user.email, coords: info.coords}); // [ {EMAIL, COORDS}, {EMAIL, COORDS}, {EMAIL, COORDS}, ... ]
+        socket.emit(SocketClientToServerEvents.SEND_ACOLYTES_COORDS, { email: user.email, coords: info.coords }); // [ {EMAIL, COORDS}, {EMAIL, COORDS}, {EMAIL, COORDS}, ... ]
         console.log('sending live coords to server as acolyte', info.coords);
 
         setCurrentPosition(info);
@@ -311,66 +334,78 @@ function Swamp() {
     return (<></>);
   }
 
+  // --- STYLED COMPONENTS --- // 
+  const StyledCollectButtonContainer = styled.View`
+    width: ${width};
+    position: relative;
+    top: ${-height * 0.24};
+    justify-content: center;
+    align-items: center;
+  `;
+
   return (
     <>
-          <InventoryContext.Provider value={[isInventoryOpen, setIsInventoryOpen]}>
+      <InventoryContext.Provider value={[isInventoryOpen, setIsInventoryOpen]}>
 
-          <SwampContainer user={user}>
-            
-            {getInventory()}
-            <View style={styles.container}>
-              <MapView provider={"google"} style={styles.map} region={mapRegion} rotateEnabled={false} showsCompass={false} showsPointsOfInterests={false}>
+        <SwampContainer user={user}>
+
+          {getInventory()}
+          <View style={styles.container}>
+            <MapView provider={"google"} style={styles.map} region={mapRegion} rotateEnabled={false} showsCompass={false} showsPointsOfInterests={false}>
+              {
+                /* Players own ubication Marker */
+                currentPosition &&
+                <Marker
+                  coordinate={{ latitude: animatedPosition.latitude, longitude: animatedPosition.longitude }}
+                  image={{ uri: `${user.avatar}` }}
+                  title={user.nickname}
+                />
+              }
+              <>
                 {
-                  /* Players own ubication Marker */
-                  currentPosition &&
-                  <Marker
-                    coordinate={{ latitude: animatedPosition.latitude, longitude: animatedPosition.longitude }}
-                    image={{ uri: `${user.avatar}` }}
-                    title={user.nickname}
-                  />
-                }
-                <>
-                  {
-                    /*  */
-                    activatedArtifacts.map((a, i) => {
-                      if (a.state === 'active') {
-                        return (
-                          <View key={i}>
-                            <Marker
-                              coordinate={{ latitude: swampArtifactCoordinates[i].latitude, longitude: swampArtifactCoordinates[i].longitude }}
-                              image={swampArtifactIcons[a.icon]}
-                              title={a.name}
-                            />
-                          </View>
-                        )
-                      }
-                    })}
-                </>
+                  /*  */
+                  activatedArtifacts.map((a, i) => {
+                    if (a.state === 'active') {
+                      return (
+                        <View key={i}>
+                          <Marker
+                            // coordinate={{ latitude: swampArtifactCoordinates[i].latitude, longitude: swampArtifactCoordinates[i].longitude }}
+                            coordinate={{ latitude: fakeCoordenates[i].latitude, longitude: fakeCoordenates[i].longitude}}
+                            image={swampArtifactIcons[a.icon]}
+                            title={a.name}
+                          />
+                        </View>
+                      )
+                    }
+                  })}
+              </>
 
-                { 
-                  ( user.rol === Roles.MORTIMER || user.rol === Roles.ISTVAN || user.rol === Roles.VILLAIN ) ? 
-                    acolytesInSwamp.map( (acolyte, index) => {
+              {
+                (user.rol === Roles.MORTIMER || user.rol === Roles.ISTVAN || user.rol === Roles.VILLAIN) ?
+                  acolytesInSwamp.map((acolyte, index) => {
 
-                      return <Marker 
-                        key={index}
-                        coordinate={{ latitude: acolytesInSwampCoords[index].coords.latitude, longitude: acolytesInSwampCoords[index].coords.longitude }}
-                        image={{ uri: `${acolyte.avatar}` }}
-                        title={acolyte.name}
-                        />
+                    return <Marker
+                      key={index}
+                      coordinate={{ latitude: acolytesInSwampCoords[index].coords.latitude, longitude: acolytesInSwampCoords[index].coords.longitude }}
+                      image={{ uri: `${acolyte.avatar}` }}
+                      title={acolyte.name}
+                    />
 
-                    }) 
-                  : <></> 
-                }
-              </MapView>
+                  })
+                  : <></>
+              }
+            </MapView>
+
+            <StyledCollectButtonContainer >
               {activatedArtifacts.map((artifact, j) =>
                 nearArtifacts[artifact.name] && artifact.state === 'active' ? (
-                  <Button key={j} buttonText={`collect artifact`} onPress={() => { collectArtifact(artifact) }} />
+
+                  <Button key={j} buttonText={`Collect artifact`} onPress={() => { collectArtifact(artifact) }} />
                 ) : null
               )}
-              <Text style={{ zIndex: 1000 }}>Lat: {currentPosition?.coords.latitude} Lon: {currentPosition?.coords.longitude}</Text>
-
-            </View>
-          </SwampContainer>
+            </StyledCollectButtonContainer>
+          </View>
+        </SwampContainer>
 
       </InventoryContext.Provider>
 

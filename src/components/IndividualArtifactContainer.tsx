@@ -1,40 +1,30 @@
-import React, { useState, useEffect } from "react";
-import { Dimensions } from "react-native";
+import React, { useState } from "react";
+import { useWindowDimensions } from "react-native";
 import styled from "styled-components/native";
 
 const IndividualArtifactContainer = ({ artifact }: any) => {
-  if (!artifact) return
+  if (!artifact) return;
 
-  // --- STATES --- //
+  // --- STATES && CONSTANTS  --- //
   const [state] = useState(artifact.state);
+  const { width, height } = useWindowDimensions();
+  const artifactImage = { uri: artifact.image };
 
-  const [screen, setScreen] = useState(Dimensions.get("window"));
-  useEffect(() => {
-    const sub = Dimensions.addEventListener("change", ({ window }) => {
-      setScreen(window);
-    });
-    return () => sub.remove();
-  }, []);
 
-  const { width, height } = screen;
-
-  // --- STYLES --- //
-  const componentWidth = height * 0.1;
-  const componentHeight = height * 0.1;
+  // --- STYLE COMPONENTS --- //
+  const componentWidth = width * 0.2;
+  const componentHeight = width * 0.2;
   const imageSize = componentHeight * 0.9;
 
   const ComponentContainer = styled.View`
     border: 1px solid rgba(47, 0, 75, 1);
     border-radius: 8px;
     background: rgba(0,0,0,0.6);
-    margin-vertical: 8px;
     width: ${componentWidth}px;
     height: ${componentHeight}px;
     justify-content: center;
     align-items: center;
-    padding-left: 30px;
-    padding-right: 30px;
-    margin: 5px 5px 5px 5px;
+    margin: ${ width * 0.011 }px ${ width * 0.028 }px ${ width * 0.03 }px ${ width * 0.0126 }px;
   `;
 
   const AcolyteImage = styled.Image`
@@ -43,8 +33,6 @@ const IndividualArtifactContainer = ({ artifact }: any) => {
     border: 1px solid rgba(48, 0, 88, 1);
     position: absolute;
   `;
-
-  const artifactImage = { uri: artifact.image };
 
   return (
     <ComponentContainer>

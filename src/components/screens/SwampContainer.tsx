@@ -1,13 +1,12 @@
 import React, { PropsWithChildren, useContext } from "react";
 import { Images, Roles } from "../../helpers/constants/constants";
-import { Text, View, Dimensions } from "react-native";
+import { Text, View, useWindowDimensions } from "react-native";
 import ScreenContainer from "./ScreenContainer";
 import IconButton from "./IconButton";
-import { AcolyteInitialScreenContext, CollectionContext, InventoryContext } from "../../helpers/contexts/contexts";
+import { AcolyteInitialScreenContext, InventoryContext } from "../../helpers/contexts/contexts";
 import KaotikaPlayer from "../../helpers/interfaces/KaotikaPlayer";
 import { useCollectionStore } from "../../helpers/stores/useCollectionStore";
 
-const { width, height } = Dimensions.get('window');
 
 type AcolyteScreenContainer = {
   user: KaotikaPlayer,
@@ -17,22 +16,18 @@ type AcolyteScreenContainer = {
 export default function SwampContainer({ user, backgroundImage, children }: PropsWithChildren<AcolyteScreenContainer>) {
 
   // --- INVENTORY CONTEXT ---
+  const { width, height } = useWindowDimensions();
   const inventoryContext = useContext(InventoryContext);
   const initialRouterScreen = useContext(AcolyteInitialScreenContext);
   const areAllArtifactsCollected = useCollectionStore(state => state.areAllArtifactsCollected)
 
-  if (!inventoryContext) {
-    return <Text>ERROR! InventoryContext Provider is missing</Text>;
-  }
-  
-    const [isInventoryOpen, setIsInventoryOpen] = inventoryContext;
-
   // --- INITIAL SCREEN CONTEXT ---
-
   if (!inventoryContext)    return <Text>ERROR! InventoryContext Provider is missing</Text>;
   if (!initialRouterScreen) return <Text>ERROR! Initial Router Context not found</Text>;
+  if (!inventoryContext)    return <Text>ERROR! InventoryContext Provider is missing</Text>;
 
-  const setInitialScreen                      = initialRouterScreen[1];
+  const [isInventoryOpen, setIsInventoryOpen] = inventoryContext;
+  const setInitialScreen = initialRouterScreen[1];
 
   // --- HANDLERS --- //
   const toggleInventory = () => {

@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, useContext, useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { Text, useWindowDimensions, View } from "react-native";
 import { Dimensions } from 'react-native';
 import { Images, Roles, SocketClientToServerEvents, SocketServerToClientEvents } from "../../helpers/constants/constants";
 import { AcolyteInitialScreenContext, CollectionContext } from "../../helpers/contexts/contexts";
@@ -13,8 +13,6 @@ import styled from "styled-components/native";
 import KaotikaPlayer from "../../helpers/interfaces/KaotikaPlayer";
 import { useCollectionStore } from "../../helpers/stores/useCollectionStore";
 
-const { width, height } = Dimensions.get('window');
-
 type AcolyteScreenContainer = {
   backgroundImage?: Images,
 };
@@ -22,24 +20,24 @@ type AcolyteScreenContainer = {
 export default function HallContainer({ backgroundImage, children }: PropsWithChildren<AcolyteScreenContainer>) {
 
   // --- CONTEXTS --- //
+  const {width, height}                     = useWindowDimensions(); 
   const [acolytesInHall, setAcolytesInHall] = useState<KaotikaPlayer[]>([]);
 
-  const user = useUserStore(state => state.user);
-  const initialRouterScreen = useContext(AcolyteInitialScreenContext);
-  const collectionContext = useContext(CollectionContext)
+  const user                                = useUserStore(state => state.user);
+  const initialRouterScreen                 = useContext(AcolyteInitialScreenContext);
+  const collectionContext                   = useContext(CollectionContext);
 
-  if (!user) return;
-  if (!initialRouterScreen) return (<Text>ERROR! Initial Router Context not got</Text>);
-  if (!collectionContext) return;
+  if (!user)                  return;
+  if (!initialRouterScreen)   return (<Text>ERROR! Initial Router Context not got</Text>);
+  if (!collectionContext)     return;
 
-  const setInitialScreen = initialRouterScreen[1];
-  const areAllArtifactsCollected = useCollectionStore(state => state.areAllArtifactsCollected)
+  const setInitialScreen          = initialRouterScreen[1];
+  const areAllArtifactsCollected  = useCollectionStore(state => state.areAllArtifactsCollected);
 
-
-// --- EFFECTS --- //
-useEffect(() => {
-  socket.emit(SocketClientToServerEvents.SEARCH_FOR_ACOLYTES_IN_HALL);
-}, []);
+  // --- EFFECTS --- //
+  useEffect(() => {
+    socket.emit(SocketClientToServerEvents.SEARCH_FOR_ACOLYTES_IN_HALL);
+  }, []);
 
 useEffect( () => {
 
@@ -69,22 +67,30 @@ useEffect( () => {
     socket.emit(SocketClientToServerEvents.SHOW_ARTIFACTS);
   }
 
+  // --- STYLED COMPONENTS --- //
   const AcolytesRegisterScreenContainer = styled.View`
-  align-items: center; 
-  flex: 1; 
-  width: ${width}px;
-  position: absolute;
-  ${user.rol === Roles.ACOLYTE ? `margin-top: ${height * 0.11}px;` : `margin-top: ${height * 0.05}px;`}
-`;
+    align-items: center; 
+    flex: 1; 
+    width: ${width}px;
+    position: absolute;
+    ${user.rol === Roles.ACOLYTE ? `margin-top: ${height * 0.11}px;` : `margin-top: ${height * 0.05}px;`}
+  `;
 
   const AcolytesRegisterListContainer = styled.View`
-  flex: 1;
-  width: ${width * 0.9}px;
-  ${user.rol === Roles.ACOLYTE ? `height: ${height * 0.17}px;` : `height: ${height * 0.23}px;`}
-  border: 1px solid rgba(0, 144, 171);
-  border-radius: 8px;
-  background-color: rgba(0,0,0,0.3);
-`;
+    flex: 1;
+    width: ${width * 0.9}px;
+    ${user.rol === Roles.ACOLYTE ? `height: ${height * 0.17}px;` : `height: ${height * 0.23}px;`}
+    border: 1px solid rgba(0, 144, 171);
+    border-radius: 8px;
+    background-color: rgba(0,0,0,0.3);
+  `;
+
+  const StyledHallContainerText = styled.Text`
+    color: white;
+    fontFamily: 'KochAltschrift';
+    font-size: ${width * 0.08};
+  `;
+
 
   return (
     <View>
@@ -114,7 +120,7 @@ useEffect( () => {
             <AcolytesRegisterListContainer >
               {acolytesInHall.length === 0 ? (
                 <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-                  <Text style={{ color: 'white', fontFamily: 'KochAltschrift', fontSize: 30 }}>Waiting for acolytes to enter...</Text>
+                  <StyledHallContainerText>Waiting for acolytes to enter...</StyledHallContainerText>
                 </View>)
                 :
                 <AcolytesInHall acolytesInHall={acolytesInHall} />
