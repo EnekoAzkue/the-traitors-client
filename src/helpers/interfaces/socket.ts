@@ -65,6 +65,8 @@ interface ClientToServerEvents {
   [SocketClientToServerEvents.ENTER_EXIT_HALL]: (acolyteMail: string, inHall: any) => void;
   [SocketClientToServerEvents.SHOW_ARTIFACTS]: () => void;
   [SocketClientToServerEvents.SEARCH_FOR_ACOLYTES_IN_HALL]: () => void;
+  [SocketClientToServerEvents.DISMISS_ARTIFACTS]: () => void;
+  [SocketClientToServerEvents.VALIDATE_ARTIFACTS]: () => void;
 
 
   // TEST ONES

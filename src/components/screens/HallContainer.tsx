@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, useContext, useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import { Dimensions } from 'react-native';
-import { Images, Roles, SocketClientToServerEvents, SocketServerToClientEvents } from "../../helpers/constants/constants";
+import { Images, Roles, SocketClientToServerEvents, SocketServerToClientEvents, swampArtifactIcons } from "../../helpers/constants/constants";
 import { AcolyteInitialScreenContext, CollectionContext } from "../../helpers/contexts/contexts";
 import ScreenContainer from "./ScreenContainer";
 import IconButton from "./IconButton";
@@ -12,6 +12,8 @@ import AcolytesInHall from "./AcolytesInHallList";
 import styled from "styled-components/native";
 import KaotikaPlayer from "../../helpers/interfaces/KaotikaPlayer";
 import { useCollectionStore } from "../../helpers/stores/useCollectionStore";
+import { useActivatedArtifactStore } from "../../helpers/stores/useActivatedArtifactStore";
+import Artifact from "../../helpers/interfaces/Artifact";
 
 const { width, height } = Dimensions.get('window');
 
@@ -23,17 +25,23 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
 
   // --- CONTEXTS --- //
   const user = useUserStore(state => state.user);
+  const { activatedArtifacts, setActivatedArtifacts } = useActivatedArtifactStore(state => state);
+  const { areAllArtifactsCollected, setAreAllArtifactsCollected } = useCollectionStore(state => state)
+
   const initialRouterScreen = useContext(AcolyteInitialScreenContext);
   const collectionContext = useContext(CollectionContext)
+
 
   if (!user) return null;
   if (!initialRouterScreen) return (<Text>ERROR! Initial Router Context not got</Text>);
   if (!collectionContext) return
 
   const setInitialScreen = initialRouterScreen[1];
-  const areAllArtifactsCollected = useCollectionStore(state => state.areAllArtifactsCollected)
+  // --- STATE --- //
 
   const [acolytesInHall, setAcolytesInHall] = useState<KaotikaPlayer[]>([]);
+  const [areArtifactsShowing, setAreArtifactsShowing] = useState<boolean>(false);
+  const [artifactsToShow, setArtifactsToShow] = useState<Artifact[]>([]);
 
   // --- EFFECTS --- //
   if (user.rol !== Roles.ACOLYTE) {
@@ -48,7 +56,13 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
     socket.on(SocketServerToClientEvents.ACOLYTE_ENTERED_EXITED_HALL, () => {
       socket.emit(SocketClientToServerEvents.SEARCH_FOR_ACOLYTES_IN_HALL);
     })
+
+    socket.on(SocketServerToClientEvents.SENDING_ARTIFACTS, (artifacts) => {
+      setArtifactsToShow(artifacts);
+      setAreArtifactsShowing(true);
+    });
   }
+
 
   // --- FUNCTIONS --- //
   const returnToMap = () => {
@@ -58,7 +72,22 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
 
   const showArtifacts = () => {
     socket.emit(SocketClientToServerEvents.SHOW_ARTIFACTS)
+    setActivatedArtifacts([])
+    setAreAllArtifactsCollected(false)
   }
+
+  const dismissArtifacts = () => {
+    socket.emit(SocketClientToServerEvents.DISMISS_ARTIFACTS)
+    setArtifactsToShow([])
+    setAreArtifactsShowing(false)
+  }
+
+  const validateArtifacts = () => {
+    socket.emit(SocketClientToServerEvents.VALIDATE_ARTIFACTS)
+    setArtifactsToShow([])
+    setAreArtifactsShowing(false)
+  }
+
 
   const AcolytesRegisterScreenContainer = styled.View`
   align-items: center; 
@@ -77,6 +106,15 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
   background-color: rgba(0,0,0,0.3);
 `;
 
+  const ArtifactContainer = styled.View`
+  position: absolute;
+  top: ${height * 0.5}px;
+  height: ${height * 0.6}px;
+  width: ${width}px;
+  align-items: center;
+  border: 1px solid rgba(0, 144, 171);
+  `;
+
   return (
     <View>
       <ScreenContainer backgroundImg={backgroundImage}>
@@ -93,11 +131,9 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
               hasBorder={false}
               backgrounOpacity={0}
             />
-            {/* pendiente para la siguiente historia
             {areAllArtifactsCollected && (
               <Button buttonText="Show artifacts" onPress={showArtifacts} />
             )}
-              */}
           </>
         )}
         {user.rol === Roles.MORTIMER && (
@@ -113,6 +149,19 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
                 }
               </AcolytesRegisterListContainer>
             </AcolytesRegisterScreenContainer>
+            {areArtifactsShowing && (
+              <>
+                <ArtifactContainer>
+                  {artifactsToShow.map((artifact, index) => (
+                    <View key={index}>
+                      <IconButton  backgroundImage={swampArtifactIcons[artifact.icon]} buttonOnPress={undefined} height={width * 0.1} width={width * 0.1} xPos={width * ((index * 0.2))} yPos={height * 0.5}/>
+                    </View>
+                  ))}
+                </ArtifactContainer>
+                <Button buttonText="Dismiss Artifacts" onPress={dismissArtifacts} />
+                <Button buttonText="Validate artifacts" onPress={validateArtifacts} />
+              </>
+            )}
           </>
         )}
         {children}

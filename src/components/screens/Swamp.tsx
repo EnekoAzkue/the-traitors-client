@@ -15,6 +15,7 @@ import { GeolacationCoords } from "../../helpers/interfaces/Geolocation";
 import { useArtifactsStore } from "../../helpers/stores/useArtifactStore";
 import { useCollectionStore } from "../../helpers/stores/useCollectionStore";
 import { InventoryContext } from "../../helpers/contexts/contexts";
+import { useActivatedArtifactStore } from "../../helpers/stores/useActivatedArtifactStore";
 
 async function requestPermission() {
   const fine = await PermissionsAndroid.request(
@@ -29,6 +30,7 @@ function Swamp() {
   // --- STATES, STORES && CONSTANTS --- //
   
   const { artifacts, setArtifacts } = useArtifactsStore(state => state);
+  const { activatedArtifacts, setActivatedArtifacts } = useActivatedArtifactStore(state => state);
   const setAreAllArtifactsCollected = useCollectionStore(state => state.setAreAllArtifactsCollected)
   
   const user                                                    = useUserStore(state => state.user);
@@ -38,7 +40,6 @@ function Swamp() {
   const [acolytesInSwampCoords, setAcolytesInSwampCoords]       = useState<{ email: string, coords: GeolacationCoords }[]>([]);
   const [animatedPosition, setAnimatedPosition]                 = useState({ latitude: 0, longitude: 0 });
   const [nearArtifacts, setNearArtifacts]                       = useState<{ [name: string]: boolean }>({});
-  const [activatedArtifacts, setActivatedArtifacts]             = useState<Artifact[]>([]);
   const [isInventoryOpen, setIsInventoryOpen]                   = useState<boolean>(false);
   // --- FAKE --- //
   const fakeCoordenates = [
