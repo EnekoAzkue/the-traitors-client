@@ -103,7 +103,7 @@ function Swamp() {
 
     }
 
-    let requestInSwampInterval: number | undefined;
+    let requestInSwampInterval: NodeJS.Timeout | undefined;
 
     async function getMyLocationAsAcolyte(user: KaotikaPlayer) {
 
