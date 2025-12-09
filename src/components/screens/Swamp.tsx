@@ -1,6 +1,6 @@
 import Button from "../Button";
 import SwampContainer from "./SwampContainer";
-import { PermissionsAndroid } from "react-native";
+import { Image, PermissionsAndroid } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import MapView, { Marker } from 'react-native-maps';
 import { socket } from "../../helpers/socket/socket";
@@ -10,7 +10,7 @@ import { useUserStore } from "../../helpers/stores/useUserStore";
 import KaotikaPlayer from "../../helpers/interfaces/KaotikaPlayer";
 import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
 import Geolocation, { GeolocationResponse } from '@react-native-community/geolocation';
-import { Roles, Screens, SocketClientToServerEvents, SocketServerToClientEvents, swampArtifactCoordinates, swampArtifactIcons } from "../../helpers/constants/constants";
+import { Images, Roles, Screens, SocketClientToServerEvents, SocketServerToClientEvents, swampArtifactCoordinates, swampArtifactIcons } from "../../helpers/constants/constants";
 import { GeolacationCoords } from "../../helpers/interfaces/Geolocation";
 import { useArtifactsStore } from "../../helpers/stores/useArtifactStore";
 import { useCollectionStore } from "../../helpers/stores/useCollectionStore";
@@ -343,6 +343,12 @@ function Swamp() {
     align-items: center;
   `;
 
+  const StyledArtifactImage = styled.Image`
+    width: ${width* 0.04};
+    height: ${width* 0.04};
+    border-radius: ${height}px;
+  `;
+
   return (
     <>
       <InventoryContext.Provider value={[isInventoryOpen, setIsInventoryOpen]}>
@@ -357,9 +363,29 @@ function Swamp() {
                 currentPosition &&
                 <Marker
                   coordinate={{ latitude: animatedPosition.latitude, longitude: animatedPosition.longitude }}
-                  image={{ uri: `${user.avatar}` }}
                   title={user.nickname}
-                />
+                >
+                  {/* Añadir estilos con react-native-maps es mejor no usar styled components ya que no lo recoge bien */}
+                  <View style={{ width: width * 0.1, height: width * 0.1, alignItems: 'center', justifyContent: 'center' }}>
+                    <Image
+                      source={Images.AVATAR_CONTAINER}
+                      style={{ width: '100%', height: '100%', position:'absolute' }}
+                      resizeMode="contain"
+                    />
+
+                    <Image
+                      source={{ uri: user.avatar }}
+                      style={{ 
+                        width: '47%', 
+                        height: '47%', 
+                        borderRadius: (width * 0.1 * 0.47) / 2, 
+                        position:'relative'
+                      }}
+                      resizeMode="cover"
+                    />
+                  </View>
+                  
+                </Marker>
               }
               <>
                 {
@@ -367,14 +393,17 @@ function Swamp() {
                   activatedArtifacts.map((a, i) => {
                     if (a.state === 'active') {
                       return (
-                        <View key={i}>
-                          <Marker
-                            // coordinate={{ latitude: swampArtifactCoordinates[i].latitude, longitude: swampArtifactCoordinates[i].longitude }}
-                            coordinate={{ latitude: fakeCoordenates[i].latitude, longitude: fakeCoordenates[i].longitude}}
-                            image={swampArtifactIcons[a.icon]}
-                            title={a.name}
-                          />
-                        </View>
+                        <Marker
+                          key={i}
+                          // coordinate={{ latitude: swampArtifactCoordinates[i].latitude, longitude: swampArtifactCoordinates[i].longitude }}
+                          coordinate={{ latitude: fakeCoordenates[i].latitude, longitude: fakeCoordenates[i].longitude}}
+                          title={a.name}
+                        >
+                          <StyledArtifactImage 
+                            source={swampArtifactIcons[a.icon]}
+                            resizeMode="contain"
+                          />   
+                        </Marker>
                       )
                     }
                   })}

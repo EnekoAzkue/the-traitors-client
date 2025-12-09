@@ -22,55 +22,56 @@ enum Logs {
 enum Images {
 
   // --- GENERAL SCREEN IMAGES --- //
-  LOGGING_SCREEN  = require('../../assets/images/LoginScreen.png'),
-  SPLASH_SCREEN   = require('../../assets/images/SplashScreen.png'),
-  HALL_OF_SAGES   = require('../../assets/images/HallOfSages.png'),
+  LOGGING_SCREEN          = require('../../assets/images/LoginScreen.png'),
+  SPLASH_SCREEN           = require('../../assets/images/SplashScreen.png'),
+  HALL_OF_SAGES           = require('../../assets/images/HallOfSages.png'),
 
   // --- ACOLYTE IMAGES --- //
-  ACOLYTE_HOME        = require('../../assets/images/AcolyteHome.png'),
-  ACOLYTE_SETTINGS    = require('../../assets/images/AcolyteSettings.png'),
-  ACOLYTE_LAB         = require('../../assets/images/AcolyteLab.png'),
-  ACOLYTE_LAB_OPEN    = require('../../assets/images/AcolyteLabOpen.png'),
-  ACOLYTE_LAB_INSIDE  = require('../../assets/images/AcolyteLabInside.png'),
-  ACOLYTE_MAP         = require('../../assets/images/AcolytesMap.png'),
-  SCHOOL_MAP          = require('../../assets/images/SchoolMap.png'),
-  TOWER               = require('../../assets/images/Tower.png'),
-  TOWER_INSIDE        = require('../../assets/images/TowerInside.png'),
+  ACOLYTE_HOME            = require('../../assets/images/AcolyteHome.png'),
+  ACOLYTE_SETTINGS        = require('../../assets/images/AcolyteSettings.png'),
+  ACOLYTE_LAB             = require('../../assets/images/AcolyteLab.png'),
+  ACOLYTE_LAB_OPEN        = require('../../assets/images/AcolyteLabOpen.png'),
+  ACOLYTE_LAB_INSIDE      = require('../../assets/images/AcolyteLabInside.png'),
+  ACOLYTE_MAP             = require('../../assets/images/AcolytesMap.png'),
+  SCHOOL_MAP              = require('../../assets/images/SchoolMap.png'),
+  TOWER                   = require('../../assets/images/Tower.png'),
+  TOWER_INSIDE            = require('../../assets/images/TowerInside.png'),
 
   // --- ISTVAN IMAGES --- //
-  ISTVAN_HOME     = require('../../assets/images/IstvanHome.png'),
-  ISTVAN_SETTINGS = require('../../assets/images/IstvanSettings.png'),
-  ISTVAN_LAB      = require('../../assets/images/IstvanLab.png'),
+  ISTVAN_HOME             = require('../../assets/images/IstvanHome.png'),
+  ISTVAN_SETTINGS         = require('../../assets/images/IstvanSettings.png'),
+  ISTVAN_LAB              = require('../../assets/images/IstvanLab.png'),
 
   // --- MORTIMER IMAGES --- //
-  MORTIMER_HOME     = require('../../assets/images/MortimerHome.png'),
-  MORTIMER_SETTINGS = require('../../assets/images/MortimerSettings.png'),
-  MORTIMER_LAB      = require('../../assets/images/MortimerLab.png'),
-  MORTIMER_TOWER    = require('../../assets/images/MortimerTower.png'),
+  MORTIMER_HOME           = require('../../assets/images/MortimerHome.png'),
+  MORTIMER_SETTINGS       = require('../../assets/images/MortimerSettings.png'),
+  MORTIMER_LAB            = require('../../assets/images/MortimerLab.png'),
+  MORTIMER_TOWER          = require('../../assets/images/MortimerTower.png'),
 
   // --- VILLAIN IMAGES --- //
-  VILLAIN_HOME      = require('../../assets/images/VillainHome.png'),
-  VILLAIN_SETTINGS  = require('../../assets/images/VillainSettings.png'),
-  VILLAIN_LAB       = require('../../assets/images/VillainLab.png'),
+  VILLAIN_HOME            = require('../../assets/images/VillainHome.png'),
+  VILLAIN_SETTINGS        = require('../../assets/images/VillainSettings.png'),
+  VILLAIN_LAB             = require('../../assets/images/VillainLab.png'),
 
   // --- LOCATION ICONS --- //
-  HOME_ICON     = require('../../assets/images/logos/home_icon.png'),
-  LAB_ICON      = require('../../assets/images/logos/lab_icon.png'),
-  SETTINGS_ICON = require('../../assets/images/logos/settings_icon.png'),
-  TOWER_ICON    = require('../../assets/images/logos/TowerIcon.png'),
-  MAP_ICON      = require('../../assets/images/logos/MapIcon.png'),
-  MAIN_ICON     = require('../../assets/images/logos/main.png'),
-  HALL_ICON     = require('../../assets/images/logos/hall_icon.png'),
-  SCROLL        = require('../../assets/images/logos/scroll.png'),
-  SWAMP_ICON    = require('../../assets/images/logos/swamp_icon.png'),
+  HOME_ICON               = require('../../assets/images/logos/home_icon.png'),
+  LAB_ICON                = require('../../assets/images/logos/lab_icon.png'),
+  SETTINGS_ICON           = require('../../assets/images/logos/settings_icon.png'),
+  TOWER_ICON              = require('../../assets/images/logos/TowerIcon.png'),
+  MAP_ICON                = require('../../assets/images/logos/MapIcon.png'),
+  MAIN_ICON               = require('../../assets/images/logos/main.png'),
+  HALL_ICON               = require('../../assets/images/logos/hall_icon.png'),
+  SCROLL                  = require('../../assets/images/logos/scroll.png'),
+  SWAMP_ICON              = require('../../assets/images/logos/swamp_icon.png'),
 
   // --- GENERAL IMAGES --- //
-  LOGO        = require('../../assets/images/logo.png'),
-  CLOUDS      = require('../../assets/images/Clouds.png'),
-  BACK_ARROW  = require('../../assets/images/BackArrow.png'),
-  BAG         = require('../../assets/images/logos/bag.png'),
-  BUTTON      = require('../../assets/images/Button_1.png'),
-  MODAL       = require('../../assets/images/Modal.png'),
+  LOGO                    = require('../../assets/images/logo.png'),
+  CLOUDS                  = require('../../assets/images/Clouds.png'),
+  BACK_ARROW              = require('../../assets/images/BackArrow.png'),
+  BAG                     = require('../../assets/images/logos/bag.png'),
+  BUTTON                  = require('../../assets/images/Button_1.png'),
+  MODAL                   = require('../../assets/images/Modal.png'),
+  AVATAR_CONTAINER        = require('../../assets/images/AvatarContainer.png'),
 
   // --- ARTIFACT ICONS --- //
   DRAGON_HEART_ICON       = require('../../assets/artifactImages/Dragon_heart_icon.png'),
