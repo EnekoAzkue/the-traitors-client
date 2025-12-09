@@ -7,16 +7,18 @@ import { SocketClientToServerEvents, SocketClientToServerEventsForTesting, Socke
 interface ServerToClientEvents {
 
   [SocketServerToClientEvents.RECIEVED_FOUND_SCROLL]            : () => void;
-  [SocketServerToClientEvents.SCROLL_VANISH]                    : () => void;
+  // [SocketServerToClientEvents.SCROLL_VANISH]                    : () => void;
   [SocketServerToClientEvents.COLLECTED]                        : () => void;
   [SocketServerToClientEvents.SEND_UPDATED_PLAYER_TO_MORTIMER]  : ( acolyteData: any ) => void;
   [SocketServerToClientEvents.UPDATE_USER_IN_CLIENT]            : ( acolyteData: any ) => void;
   [SocketServerToClientEvents.SENDING_ARTIFACTS]                : ( artifacts: Artifact[] ) => void;
   [SocketServerToClientEvents.GET_IN_SWAMP_ACOLYTES]            : ( inSwampAcolytes: KaotikaPlayer[] ) => void;
-  [SocketServerToClientEvents.ACOLYTE_INSIDE_OUTSIDE_LAB]       : ( acolyteData: AcolyteDataAfterAccessExitLab ) => void;
+  // [SocketServerToClientEvents.ACOLYTE_INSIDE_OUTSIDE_LAB]       : ( acolyteData: AcolyteDataAfterAccessExitLab ) => void;
+  // [SocketServerToClientEvents.ACOLYTE_INSIDE_OUTSIDE_TOWER]       : ( acolyteData: AcolyteDataAfterAccessExitTower ) => void;
   [SocketServerToClientEvents.GET_ACOLYTE_NEW_COORDS]           : ( newCoords: {email: string, coords: GeolacationCoords} ) => void;
-  [SocketServerToClientEvents.SENDING_ACOLYTES_IN_HALL]: (acolytesInHall: KaotikaPlayer[]) => void;
-  [SocketServerToClientEvents.ACOLYTE_ENTERED_EXITED_HALL]: () => void;
+  [SocketServerToClientEvents.SENDING_ACOLYTES_IN_HALL]         : (acolytesInHall: KaotikaPlayer[]) => void;
+  [SocketServerToClientEvents.ACOLYTE_ENTERED_EXITED_HALL]      : () => void;
+
 };
   
 // --- CLIENT TO SERVER SOCKECT EVENT DECLARATION --- //
@@ -48,6 +50,16 @@ interface AcolyteDataAfterAccessExitLab {
   nickname  : string;
   avatar    : string;
 }
+
+interface AcolyteDataAfterAccessExitTower {
+
+  email     : string;
+  inTower   : boolean;
+  nickname  : string;
+  avatar    : string;
+
+}
+
 
 // Declaration of the events used when sending events to the server
 interface ClientToServerEvents {

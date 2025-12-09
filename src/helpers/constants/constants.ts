@@ -192,12 +192,12 @@ enum SocketGeneralEvents {
 
 enum SocketServerToClientEvents {
 
-  ACOLYTE_INSIDE_OUTSIDE_LAB      = 'acolyte inside/outside lab',
+  // ACOLYTE_INSIDE_OUTSIDE_LAB      = 'acolyte inside/outside lab',
   SEND_UPDATED_PLAYER_TO_MORTIMER = 'send updated player to mortimer',
   UPDATE_USER_IN_CLIENT           = 'update user in client',
-  ACOLYTE_INSIDE_OUTSIDE_TOWER    = 'acolyte inside/outside tower',
+  // ACOLYTE_INSIDE_OUTSIDE_TOWER    = 'acolyte inside/outside tower',
   RECIEVED_FOUND_SCROLL           = 'recieved found scroll',
-  SCROLL_VANISH                   = 'scroll vanish',
+  // SCROLL_VANISH                   = 'scroll vanish',
   SENDING_ARTIFACTS               = 'sending artifacts',
   GET_IN_SWAMP_ACOLYTES           = 'sending acolytes in swamp',
   GET_ACOLYTE_NEW_COORDS          = 'sending acolytes in swamp coords',
@@ -211,8 +211,8 @@ enum SocketServerToClientEvents {
 enum SocketClientToServerEvents {
 
   CONNECTION_OPEN               = 'connection open',
-  ACCESS_TO_EXIT_FROM_LAB       = 'access to/exit from lab',
   CONNECTION_CLOSE              = 'connection close',
+  ACCESS_TO_EXIT_FROM_LAB       = 'access to/exit from lab',
   UPDATE_USER                   = 'update user in DB',
   UPDATE_INTOWER                = 'update inTower',
   SEND_NOTIFICATION_TO_MORTIMER = "send notification to mortimer",

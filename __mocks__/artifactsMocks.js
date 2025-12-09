@@ -21,7 +21,7 @@ export const artifactCoords = [
     {latitude: 10, longitude: 10.000011},
 ]
 
-export const userCoords = {latitude: 10, longitude: 10.000003}
+export const userCoords = {latitude: 10, longitude: 10.000003, altitude: null, accuracy: 5, altitudeAccuracy: null, heading: null, speed: null};
 
 export function setActiveArtifacts(artifacts) {
     const activatedArtifacts = artifacts.filter(a => a.state === "active" || a.state === "collected");
