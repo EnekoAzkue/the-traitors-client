@@ -57,3 +57,16 @@ jest.mock('react-native-google-auth', () => ({
     signOut: jest.fn(),
   },
 }));
+
+jest.mock("socket.io-client", () => {
+  const mockedSocket = {
+    emit: jest.fn(),
+    on: jest.fn(),
+    off: jest.fn(),
+    disconnect: jest.fn(),
+  };
+  return {
+    io: jest.fn(() => mockedSocket),
+  };
+});
+

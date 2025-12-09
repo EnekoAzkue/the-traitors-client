@@ -17,15 +17,6 @@ import { useCollectionStore } from "../../helpers/stores/useCollectionStore";
 import { InventoryContext, IstvanInitialScreenContext, MortimerInitialScreenContext, VillainInitialScreenContext } from "../../helpers/contexts/contexts";
 import styled from "styled-components/native";
 
-async function requestPermission() {
-  const fine = await PermissionsAndroid.request(
-    PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
-  );
-
-  return (
-    fine === PermissionsAndroid.RESULTS.GRANTED);
-}
-
 function Swamp() {
   // --- STATES, STORES && CONSTANTS --- //
 
@@ -46,35 +37,15 @@ function Swamp() {
   const istvanInitialScreenContext = useContext(IstvanInitialScreenContext);
   const villainInitialScreenContext = useContext(VillainInitialScreenContext);
 
-  
+
   if (!user) return;
   if (!mortimerInitialScreenContext) return;
   if (!istvanInitialScreenContext) return;
   if (!villainInitialScreenContext) return;
 
   const setMortimerInitialScreen = mortimerInitialScreenContext[1];
-  const setIstvanInitialScreen   = istvanInitialScreenContext[1];
-  const setVillainInitialScreen  = villainInitialScreenContext[1];
-
-  // --- FAKE --- //
-  const fakeCoordenates = [
-      {
-      latitude: 43.30967,
-      longitude: -2.0021,
-    },
-    {
-      latitude: 43.3097,
-      longitude: -2.00245,
-    },
-    {
-      latitude: 43.3096,
-      longitude: -2.0021,
-    },
-    {
-      latitude: 43.30967,
-      longitude: -2.0023,
-    },
-  ];
+  const setIstvanInitialScreen = istvanInitialScreenContext[1];
+  const setVillainInitialScreen = villainInitialScreenContext[1];
 
   if (!user) return;
 
@@ -82,6 +53,19 @@ function Swamp() {
   async function requestPermission() {
     const fine = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
     return (fine === PermissionsAndroid.RESULTS.GRANTED);
+  }
+
+  function setActiveArtifacts(artifacts: Artifact[]) {
+    const activatedArtifacts = artifacts.filter(a => a.state === "active" || a.state === "collected");
+    setActivatedArtifacts(activatedArtifacts);
+    return activatedArtifacts
+  }
+
+  function setCollectedArtifacts(artifact: Artifact[]) {
+    const collectedArtifacts = artifacts.filter(a => a.state === 'collected');
+    if (collectedArtifacts.length === 4) {
+      setAreAllArtifactsCollected(true)
+    }
   }
 
   // --- EFFECTS --- // 
@@ -107,28 +91,24 @@ function Swamp() {
 
     async function getMyLocationAsAcolyte(user: KaotikaPlayer) {
 
-      // Solo si se es Acolito se debe recibir la ubicación actual
       if (user.rol !== Roles.ACOLYTE) return;
 
       const granted = await requestPermission();
       if (!granted) {
-        // console.log("Permiso NO otorgado");
         return;
       }
 
       Geolocation.getCurrentPosition(
         info => {
-          socket.emit(SocketClientToServerEvents.SEND_ACOLYTES_COORDS, { email: user.email, coords: info.coords }); // [ {EMAIL, COORDS}, {EMAIL, COORDS}, {EMAIL, COORDS}, ... ]
+          socket.emit(SocketClientToServerEvents.SEND_ACOLYTES_COORDS, { email: user.email, coords: info.coords }); 
           console.log('sending initial coords to server as acolyte', info.coords);
           setCurrentPosition(info)
 
-          // console.log("POSICIÓN:", info.coords.latitude, "", info.coords.longitude);
         },
       );
 
     };
 
-    // Si el rol del usuario que ejecuta la aplicación son mortimer o acolyte se les muestra los artefactos, solo a ellos.
     if (user.rol === Roles.ACOLYTE || user.rol === Roles.MORTIMER) {
 
       socket.emit(SocketClientToServerEvents.REQUEST_ARTIFACTS, user.rol);
@@ -152,7 +132,6 @@ function Swamp() {
     // --- GESTIÓN DE LOS EVENTOS SOCKET TRATADOS EN ESTE COMPONENTE --- //
     if (user.rol === Roles.MORTIMER || user.rol === Roles.ISTVAN || user.rol === Roles.VILLAIN) {
 
-      // Cada segundo se solicita al server que envie los acólitos que están en el swamp, así el Mortimer, Istvan y Villain saben donde están en tiempo real los acólitos y si entra o sale uno de estos 
       requestInSwampInterval = setInterval(() => { console.log("Sending to server request for swamp acolytes"); socket.emit(SocketClientToServerEvents.REQUEST_SWAMP_ACOLYTES); }, 1000);
 
       socket.on(SocketServerToClientEvents.GET_IN_SWAMP_ACOLYTES, (acolytes) => {
@@ -166,7 +145,7 @@ function Swamp() {
     socket.on(SocketServerToClientEvents.GET_ACOLYTE_NEW_COORDS, (newCoords) => {
       setAcolytesInSwampCoords(prev => {
 
-        console.log("PREV:", prev); // ← Aquí SÍ verás el array actualizado
+        console.log("PREV:", prev);
 
         const exists = prev.find(acolyte => acolyte.email === newCoords.email);
 
@@ -201,14 +180,8 @@ function Swamp() {
   }, []);
 
   useEffect(() => {
-
-    // Filter for only activated artifacts
-    const activatedArtifacts = artifacts.filter(a => a.state === "active" || a.state === "collected");
-    const collectedArtifacts = artifacts.filter(a => a.state === 'collected');
-    if (collectedArtifacts.length === 4) {
-      setAreAllArtifactsCollected(true)
-    }
-    setActivatedArtifacts(activatedArtifacts);
+    setActiveArtifacts(artifacts)
+    setCollectedArtifacts(artifacts)
   }, [artifacts]);
 
   useEffect(() => {
@@ -221,7 +194,7 @@ function Swamp() {
   }, [currentPosition]);
 
   useEffect(() => {
-    const MIN_ACCURACY = 50; // valores con >50 metros los descarto
+    const MIN_ACCURACY = 50; 
 
     const watchId = Geolocation.watchPosition(
       (info) => {
@@ -230,7 +203,7 @@ function Swamp() {
           return;
         }
 
-        socket.emit(SocketClientToServerEvents.SEND_ACOLYTES_COORDS, { email: user.email, coords: info.coords }); // [ {EMAIL, COORDS}, {EMAIL, COORDS}, {EMAIL, COORDS}, ... ]
+        socket.emit(SocketClientToServerEvents.SEND_ACOLYTES_COORDS, { email: user.email, coords: info.coords }); 
         console.log('sending live coords to server as acolyte', info.coords);
 
         setCurrentPosition(info);
@@ -244,12 +217,10 @@ function Swamp() {
       }
     );
 
-    // console.log("watchPosition started");
 
     return () => {
 
       Geolocation.clearWatch(watchId);
-      // console.log("watchPosition cleared");
     };
 
   }, []);
@@ -259,7 +230,6 @@ function Swamp() {
   }, [currentPosition]);
 
 
-  //Check distance with artifacts at first render
   useEffect(() => {
     checkDistanceWithArtifacts()
   }, [activatedArtifacts]);
@@ -274,17 +244,13 @@ function Swamp() {
       const distance = getDistanceFromLatLonInMeters(
         currentPosition.coords.latitude,
         currentPosition.coords.longitude,
-        fakeCoordenates[i].latitude,
-        fakeCoordenates[i].longitude
+        swampArtifactCoordinates[i].latitude,
+        swampArtifactCoordinates[i].longitude
       );
 
       updated[artifact.name] = distance <= 1;
-      // console.log(`Distancia a ${artifact.name}: ${distance.toFixed(2)} m`);
-      // if(distance <= 10) {
-      //   socket.emit(SocketClientToServerEvents.COLLECT, artifact.name)
-      // }
+
     });
-    // console.log(updated)
     setNearArtifacts(updated);
   }
 
@@ -292,7 +258,6 @@ function Swamp() {
   const styles = StyleSheet.create({
     container: {
       ...StyleSheet.absoluteFill,
-      //TODO: refactor dimensions in geolocation map
       height: height,
       width: width,
       justifyContent: 'flex-end',
@@ -344,8 +309,8 @@ function Swamp() {
   `;
 
   const StyledArtifactImage = styled.Image`
-    width: ${width* 0.04};
-    height: ${width* 0.04};
+    width: ${width * 0.04};
+    height: ${width * 0.04};
     border-radius: ${height}px;
   `;
 
@@ -369,22 +334,22 @@ function Swamp() {
                   <View style={{ width: width * 0.1, height: width * 0.1, alignItems: 'center', justifyContent: 'center' }}>
                     <Image
                       source={Images.AVATAR_CONTAINER}
-                      style={{ width: '100%', height: '100%', position:'absolute' }}
+                      style={{ width: '100%', height: '100%', position: 'absolute' }}
                       resizeMode="contain"
                     />
 
                     <Image
                       source={{ uri: user.avatar }}
-                      style={{ 
-                        width: '47%', 
-                        height: '47%', 
-                        borderRadius: (width * 0.1 * 0.47) / 2, 
-                        position:'relative'
+                      style={{
+                        width: '47%',
+                        height: '47%',
+                        borderRadius: (width * 0.1 * 0.47) / 2,
+                        position: 'relative'
                       }}
                       resizeMode="cover"
                     />
                   </View>
-                  
+
                 </Marker>
               }
               <>
@@ -395,14 +360,13 @@ function Swamp() {
                       return (
                         <Marker
                           key={i}
-                          // coordinate={{ latitude: swampArtifactCoordinates[i].latitude, longitude: swampArtifactCoordinates[i].longitude }}
-                          coordinate={{ latitude: fakeCoordenates[i].latitude, longitude: fakeCoordenates[i].longitude}}
+                          coordinate={{ latitude: swampArtifactCoordinates[i].latitude, longitude: swampArtifactCoordinates[i].longitude }}
                           title={a.name}
                         >
-                          <StyledArtifactImage 
+                          <StyledArtifactImage
                             source={swampArtifactIcons[a.icon]}
                             resizeMode="contain"
-                          />   
+                          />
                         </Marker>
                       )
                     }

@@ -59,22 +59,12 @@ function App() {
     setUser(newUser);
   }
 
-  // Borrar
-  useEffect(() => {
-    console.log("Mortimer toast text changed:", mortimerToastText);
-  }, [mortimerToastText]);
-
-
-
   useEffect(() => {
     setTimeout(() => {
       authClient(true, { userHandler, setModalMessage, setInitialConf });
     }, 1000);
 
     setScreenDimensions(screenDimensionsValue);
-    console.log(`Screen dimesions value is: `);
-    console.log(screenDimensionsValue);
-
 
     // Initial FCM message permission
     requestUserPermission();

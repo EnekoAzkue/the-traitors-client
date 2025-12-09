@@ -1,0 +1,1050 @@
+{
+  "_id": {
+    "$oid": "66e960cbbe0f1b9dc7e46384"
+  },
+  "active": true,
+  "rol": "acolyte",
+  "socketId": "BJyac-0qOnKxMh8mAAAD",
+  "pushToken": "dtXbOhLHS5KD02AHt31pDz:APA91bF-fZGB829NQSlj1dLtj-KMUniDzeQMNxuaLjDxWQFa7TgpfkUIw7wpun7DzoAl5S2Q--3femMhyvJSuGGn4TK2aEkrydxWLGnBCBZdkRtN0-apNTg",
+  "cardId": "",
+  "isInside": false,
+  "inTower": false,
+  "insideTower": false,
+  "inSwamp": false,
+  "inHall": false,
+  "attributes": {
+    "intelligence": 22,
+    "dexterity": 29,
+    "charisma": 31,
+    "constitution": 74,
+    "strength": 64,
+    "insanity": 20
+  },
+  "equipment": {
+    "helmet": {
+      "modifiers": {
+        "intelligence": 4,
+        "dexterity": 5,
+        "charisma": 1,
+        "constitution": 7,
+        "strength": 5,
+        "insanity": 2
+      },
+      "name": "Sunfire Helm",
+      "description": "Radiates the light of a thousand suns.",
+      "type": "helmet",
+      "image": "/images/equipment/helmets/helmet_23.png",
+      "value": 220,
+      "min_lvl": 12,
+      "defense": 30,
+      "isUnique": false,
+      "isActive": true,
+      "_id": {
+        "$oid": "66f3b3ddc8cdd090db911d94"
+      }
+    },
+    "weapon": {
+      "modifiers": {
+        "intelligence": 6,
+        "dexterity": 5,
+        "charisma": 6,
+        "constitution": 0,
+        "strength": 7,
+        "insanity": -10
+      },
+      "name": "Sword of the Eternal Eclipse",
+      "description": "A sword that exists in both light and darkness.",
+      "type": "weapon",
+      "image": "/images/equipment/weapons/sword_78.png",
+      "value": 9200,
+      "min_lvl": 14,
+      "base_percentage": 18,
+      "die_faces": 12,
+      "die_modifier": 3,
+      "die_num": 8,
+      "isUnique": false,
+      "isActive": true,
+      "_id": {
+        "$oid": "66fa619885f0d4f8e349daf6"
+      }
+    },
+    "armor": {
+      "modifiers": {
+        "intelligence": 24,
+        "dexterity": 16,
+        "charisma": 22,
+        "constitution": 0,
+        "strength": -9,
+        "insanity": 0
+      },
+      "name": "Titanstone Plate",
+      "description": "Forged in the heart of a dying titan.",
+      "type": "armor",
+      "image": "/images/equipment/armors/armor_65.png",
+      "value": 820,
+      "min_lvl": 13,
+      "defense": 97,
+      "isUnique": false,
+      "isActive": true,
+      "_id": {
+        "$oid": "66f3d2fab32d7add9a08764f"
+      }
+    },
+    "shield": {
+      "modifiers": {
+        "intelligence": 8,
+        "dexterity": 4,
+        "charisma": -23,
+        "constitution": 0,
+        "strength": 3,
+        "insanity": 19
+      },
+      "name": "Guardian of Gale's Edge",
+      "description": "Defies even the sharpest winds.",
+      "type": "shield",
+      "image": "/images/equipment/shields/shield_88.png",
+      "value": 1950,
+      "min_lvl": 15,
+      "defense": 163,
+      "isUnique": false,
+      "isActive": true,
+      "_id": {
+        "$oid": "690c81b87fdb149310a307cd"
+      }
+    },
+    "artifact": {
+      "modifiers": {
+        "intelligence": 11,
+        "dexterity": 8,
+        "charisma": 6,
+        "constitution": 9,
+        "strength": 7,
+        "insanity": 5
+      },
+      "name": "Amulet of Blazing Dawn",
+      "description": "Shines with the light of dawn.",
+      "type": "artifact",
+      "image": "/images/equipment/artifacts/artifact_48.png",
+      "value": 960,
+      "min_lvl": 18,
+      "isActive": false,
+      "isUnique": true,
+      "_id": {
+        "$oid": "66f66b084a8f1157dab87b86"
+      }
+    },
+    "boot": {
+      "modifiers": {
+        "intelligence": -22,
+        "dexterity": 10,
+        "charisma": 11,
+        "constitution": 6,
+        "strength": 3,
+        "insanity": 7
+      },
+      "name": "Boots of the Noble Watcher",
+      "description": "Insight shines within each stride.",
+      "type": "boot",
+      "image": "/images/equipment/boots/full_boot_71.png",
+      "value": 2424,
+      "min_lvl": 16,
+      "defense": 81,
+      "isActive": true,
+      "isUnique": false,
+      "_id": {
+        "$oid": "6911ada901ef7575afbf7b9d"
+      }
+    },
+    "ring": {
+      "modifiers": {
+        "intelligence": 2,
+        "dexterity": 4,
+        "charisma": 6,
+        "constitution": -7,
+        "strength": 4,
+        "insanity": 11
+      },
+      "name": "Band of the Lurking Shadow",
+      "description": "Moves unseen as darkness falls.",
+      "type": "ring",
+      "image": "/images/equipment/rings/ring_129.webp",
+      "value": 7800,
+      "min_lvl": 17,
+      "isUnique": false,
+      "isActive": true,
+      "_id": {
+        "$oid": "6910f401152a6b9e175c126a"
+      }
+    },
+    "antidote_potion": {
+      "name": "Antidote of Wailing Plague",
+      "description": "A cooling elixir brewed from the leaves of the Frostmind plant, alleviating migraines and clearing hallucinations.",
+      "type": "antidote",
+      "image": "/images/equipment/potions/antidote/antidote_3.png",
+      "value": 10,
+      "min_lvl": 1,
+      "recovery_effect": {
+        "modifiers": {
+          "hit_points": 0,
+          "intelligence": 0,
+          "dexterity": 0,
+          "charisma": -9,
+          "constitution": 0,
+          "strength": 0,
+          "insanity": 7
+        },
+        "name": "Wailing Plague",
+        "description": "An infectious disease that causes the afflicted to uncontrollably wail in pain, spreading misery and despair.",
+        "type": "illness",
+        "antidote_effects": [
+          "lesser_restore_insanity",
+          "lesser_restore_charisma"
+        ],
+        "poison_effects": [
+          "lesser_damage_insanity",
+          "lesser_damage_charisma"
+        ],
+        "_id": {
+          "$oid": "6693fd5846527d0df5f0efe9"
+        }
+      },
+      "_id": {
+        "$oid": "668bca125319ea9afdff0764"
+      }
+    },
+    "healing_potion": {
+      "modifiers": {
+        "hit_points": 20,
+        "intelligence": 0,
+        "dexterity": 0,
+        "charisma": 0,
+        "constitution": 0,
+        "strength": 0,
+        "insanity": 0
+      },
+      "name": "Essence of Vitality",
+      "description": "A rejuvenating potion that restores vigor and vitality to the drinker.",
+      "type": "essence",
+      "image": "/images/equipment/potions/healing/healing_1.png",
+      "value": 10,
+      "min_lvl": 1,
+      "_id": {
+        "$oid": "668bca125319ea9afdff0750"
+      }
+    },
+    "enhancer_potion": {
+      "modifiers": {
+        "intelligence": 0,
+        "dexterity": 0,
+        "charisma": 0,
+        "constitution": 20,
+        "strength": 0,
+        "insanity": 0
+      },
+      "name": "Elixir of Increase Constitution",
+      "description": "This hearty elixir enhances the drinker's physical resilience and endurance.",
+      "type": "elixir",
+      "image": "/images/equipment/potions/enhancer/enhancer_3.png",
+      "value": 10,
+      "min_lvl": 1,
+      "duration": 2,
+      "_id": {
+        "$oid": "668bca135319ea9afdff076f"
+      }
+    }
+  },
+  "inventory": {
+    "helmets": [
+      {
+        "modifiers": {
+          "intelligence": 0,
+          "dexterity": 0,
+          "charisma": 0,
+          "constitution": 0,
+          "strength": 0,
+          "insanity": 0
+        },
+        "name": "Eternal Guardian Helmet",
+        "description": "A helmet blessed by the spirits.",
+        "type": "helmet",
+        "image": "/images/equipment/helmets/helmet_initial.png",
+        "value": 5,
+        "min_lvl": 1,
+        "defense": 3,
+        "_id": {
+          "$oid": "66d99aac7518eb4990035363"
+        }
+      },
+      {
+        "modifiers": {
+          "intelligence": 5,
+          "dexterity": -16,
+          "charisma": 10,
+          "constitution": 2,
+          "strength": 9,
+          "insanity": -20
+        },
+        "name": "Helmet of the Enduring Seeker",
+        "description": "Calmness reigns in endless motion.",
+        "type": "helmet",
+        "image": "/images/equipment/helmets/full_helmet_36.webp",
+        "value": 1860,
+        "min_lvl": 14,
+        "defense": 66,
+        "isUnique": false,
+        "isActive": true,
+        "_id": {
+          "$oid": "6911c78001ef7575afbf7bc1"
+        }
+      }
+    ],
+    "weapons": [
+      {
+        "modifiers": {
+          "intelligence": 0,
+          "dexterity": 0,
+          "charisma": 0,
+          "constitution": 0,
+          "strength": -2,
+          "insanity": 0
+        },
+        "name": "Stonebreaker",
+        "description": "A heavy hammer used to crush rocks.",
+        "type": "weapon",
+        "image": "/images/equipment/weapons/hammer_1.png",
+        "value": 30,
+        "min_lvl": 1,
+        "base_percentage": 5,
+        "die_faces": 6,
+        "die_modifier": 3,
+        "die_num": 2,
+        "isUnique": false,
+        "isActive": true,
+        "_id": {
+          "$oid": "66f98064f9a28c1fef4dfcaa"
+        }
+      },
+      {
+        "modifiers": {
+          "intelligence": 0,
+          "dexterity": 0,
+          "charisma": 0,
+          "constitution": 0,
+          "strength": -2,
+          "insanity": 0
+        },
+        "name": "Whispering Blade",
+        "description": "A finely crafted sword with a sleek design.",
+        "type": "weapon",
+        "image": "/images/equipment/weapons/sword_4.png",
+        "value": 30,
+        "min_lvl": 1,
+        "base_percentage": 5,
+        "die_faces": 6,
+        "die_modifier": 2,
+        "die_num": 2,
+        "isUnique": false,
+        "isActive": true,
+        "_id": {
+          "$oid": "66f98473f9a28c1fef4dfcb4"
+        }
+      },
+      {
+        "modifiers": {
+          "intelligence": 12,
+          "dexterity": 3,
+          "charisma": 5,
+          "constitution": 2,
+          "strength": -9,
+          "insanity": 8
+        },
+        "name": "Frostbreaker Hammer",
+        "description": "An advanced hammer imbued with the power of frost.",
+        "type": "weapon",
+        "image": "/images/equipment/weapons/hammer_7.png",
+        "value": 600,
+        "min_lvl": 11,
+        "base_percentage": 12,
+        "die_faces": 10,
+        "die_modifier": 15,
+        "die_num": 6,
+        "isUnique": false,
+        "isActive": true,
+        "_id": {
+          "$oid": "66f981b2f9a28c1fef4dfcb2"
+        }
+      },
+      {
+        "modifiers": {
+          "intelligence": 0,
+          "dexterity": 0,
+          "charisma": 0,
+          "constitution": 0,
+          "strength": -6,
+          "insanity": 0
+        },
+        "name": "Oakfist Hammer",
+        "description": "A wooden hammer reinforced with iron.",
+        "type": "weapon",
+        "image": "/images/equipment/weapons/hammer_3.png",
+        "value": 80,
+        "min_lvl": 4,
+        "base_percentage": 5,
+        "die_faces": 10,
+        "die_modifier": 5,
+        "die_num": 4,
+        "isUnique": false,
+        "isActive": true,
+        "_id": {
+          "$oid": "66f98064f9a28c1fef4dfcac"
+        }
+      },
+      {
+        "modifiers": {
+          "intelligence": 0,
+          "dexterity": 0,
+          "charisma": 0,
+          "constitution": 0,
+          "strength": -6,
+          "insanity": 0
+        },
+        "name": "Darkwood Axe",
+        "description": "A powerful axe forged from darkwood.",
+        "type": "weapon",
+        "image": "/images/equipment/weapons/axe_8.png",
+        "value": 120,
+        "min_lvl": 4,
+        "base_percentage": 5,
+        "die_faces": 12,
+        "die_modifier": 2,
+        "die_num": 3,
+        "isUnique": false,
+        "isActive": true,
+        "_id": {
+          "$oid": "66f97720f9a28c1fef4dfca2"
+        }
+      }
+    ],
+    "armors": [
+      {
+        "modifiers": {
+          "intelligence": 16,
+          "dexterity": 9,
+          "charisma": 13,
+          "constitution": 0,
+          "strength": -6,
+          "insanity": 0
+        },
+        "name": "Dreadnought Armor",
+        "description": "Heavy armor worn by unbreakable warriors.",
+        "type": "armor",
+        "image": "/images/equipment/armors/armor_44.png",
+        "value": 600,
+        "min_lvl": 11,
+        "defense": 70,
+        "isUnique": false,
+        "isActive": true,
+        "_id": {
+          "$oid": "66f3d2fab32d7add9a087648"
+        }
+      },
+      {
+        "modifiers": {
+          "intelligence": 15,
+          "dexterity": 10,
+          "charisma": 12,
+          "constitution": 0,
+          "strength": -9,
+          "insanity": 0
+        },
+        "name": "Valkyrie's Armor",
+        "description": "Worn by legendary warriors, this armor is said to protect those worthy.",
+        "type": "armor",
+        "image": "/images/equipment/armors/heavy_armor_27.webp",
+        "value": 1030,
+        "min_lvl": 16,
+        "defense": 88,
+        "isUnique": false,
+        "isActive": true,
+        "_id": {
+          "$oid": "66f3e0f7b32d7add9a087690"
+        }
+      }
+    ],
+    "shields": [
+      {
+        "modifiers": {
+          "intelligence": 5,
+          "dexterity": 9,
+          "charisma": 1,
+          "constitution": 15,
+          "strength": 10,
+          "insanity": 0
+        },
+        "name": "Shadow's Embrace Shield",
+        "description": "A shield that shrouds the bearer in shadows.",
+        "type": "shield",
+        "image": "/images/equipment/shields/shield_33.png",
+        "value": 150,
+        "min_lvl": 12,
+        "defense": 29,
+        "isUnique": true,
+        "isActive": false,
+        "_id": {
+          "$oid": "66f27c81c114335cadf45d90"
+        }
+      }
+    ],
+    "artifacts": [
+      {
+        "modifiers": {
+          "intelligence": 10,
+          "dexterity": 0,
+          "charisma": -2,
+          "constitution": 0,
+          "strength": 0,
+          "insanity": 0
+        },
+        "name": "Crown of Eternal Wisdom",
+        "description": "This golden crown enhances intellect and wisdom.",
+        "type": "artifact",
+        "image": "/images/equipment/artifacts/artifact_2.png",
+        "value": 5,
+        "min_lvl": 1,
+        "_id": {
+          "$oid": "66a902e1b5831810990551d2"
+        }
+      },
+      {
+        "modifiers": {
+          "intelligence": 8,
+          "dexterity": 5,
+          "charisma": 4,
+          "constitution": 7,
+          "strength": 6,
+          "insanity": 3
+        },
+        "name": "Amulet of Eternal Flame",
+        "description": "Burns with an unquenchable fire.",
+        "type": "artifact",
+        "image": "/images/equipment/artifacts/artifact_12.png",
+        "value": 200,
+        "min_lvl": 15,
+        "isActive": true,
+        "isUnique": false,
+        "_id": {
+          "$oid": "66f66acd4a8f1157dab87b60"
+        }
+      }
+    ],
+    "boots": [
+      {
+        "modifiers": {
+          "intelligence": 6,
+          "dexterity": 8,
+          "charisma": 6,
+          "constitution": 5,
+          "strength": 3,
+          "insanity": 4
+        },
+        "name": "Spectral Boots",
+        "description": "Glide through realms unseen.",
+        "type": "boot",
+        "image": "/images/equipment/boots/boot_32.png",
+        "value": 620,
+        "min_lvl": 25,
+        "defense": 57,
+        "isActive": true,
+        "isUnique": false,
+        "_id": {
+          "$oid": "66f694ea4a8f1157dab87bd9"
+        }
+      },
+      {
+        "modifiers": {
+          "intelligence": 8,
+          "dexterity": 6,
+          "charisma": 4,
+          "constitution": 4,
+          "strength": 3,
+          "insanity": 5
+        },
+        "name": "Astral Boots",
+        "description": "Step among the stars.",
+        "type": "boot",
+        "image": "/images/equipment/boots/boot_33.png",
+        "value": 640,
+        "min_lvl": 26,
+        "defense": 59,
+        "isActive": true,
+        "isUnique": false,
+        "_id": {
+          "$oid": "66f694ea4a8f1157dab87bda"
+        }
+      },
+      {
+        "modifiers": {
+          "intelligence": 8,
+          "dexterity": 6,
+          "charisma": 4,
+          "constitution": 4,
+          "strength": 3,
+          "insanity": 5
+        },
+        "name": "Astral Boots",
+        "description": "Step among the stars.",
+        "type": "boot",
+        "image": "/images/equipment/boots/boot_33.png",
+        "value": 640,
+        "min_lvl": 26,
+        "defense": 59,
+        "isActive": true,
+        "isUnique": false,
+        "_id": {
+          "$oid": "66f694ea4a8f1157dab87bda"
+        }
+      },
+      {
+        "modifiers": {
+          "intelligence": 7,
+          "dexterity": 5,
+          "charisma": 5,
+          "constitution": 7,
+          "strength": 4,
+          "insanity": 5
+        },
+        "name": "Infinity Boots",
+        "description": "A gateway to limitless possibilities.",
+        "type": "boot",
+        "image": "/images/equipment/boots/boot_34.png",
+        "value": 660,
+        "min_lvl": 27,
+        "defense": 61,
+        "isActive": true,
+        "isUnique": false,
+        "_id": {
+          "$oid": "66f694ea4a8f1157dab87bdb"
+        }
+      }
+    ],
+    "rings": [
+      {
+        "modifiers": {
+          "intelligence": 3,
+          "dexterity": 4,
+          "charisma": 5,
+          "constitution": 4,
+          "strength": 4,
+          "insanity": 0
+        },
+        "name": "Ring of the Thunderclap",
+        "description": "Unleashes the sound of thunder with each blow.",
+        "type": "ring",
+        "image": "/images/equipment/rings/ring_12.png",
+        "value": 220,
+        "min_lvl": 10,
+        "isUnique": false,
+        "isActive": true,
+        "_id": {
+          "$oid": "66f3c85ec8cdd090db911dab"
+        }
+      },
+      {
+        "modifiers": {
+          "intelligence": 2,
+          "dexterity": 0,
+          "charisma": 0,
+          "constitution": 0,
+          "strength": 2,
+          "insanity": 0
+        },
+        "name": "Ring of Eternal Flame",
+        "description": "A ring that burns with eternal fire.",
+        "type": "ring",
+        "image": "/images/equipment/rings/ring_1.png",
+        "value": 10,
+        "min_lvl": 1,
+        "_id": {
+          "$oid": "66a6d6c8dfbffe7e6503970f"
+        }
+      }
+    ],
+    "antidote_potions": [],
+    "healing_potions": [],
+    "enhancer_potions": [],
+    "ingredients": []
+  },
+  "name": "ENEKO AZKUE MIERA",
+  "nickname": "Eneko el ascuas",
+  "email": "eneko.azkue@ikasle.aeg.eus",
+  "avatar": "https://lh3.googleusercontent.com/a/ACg8ocJZQVYUys9_6qhzfwMpvEzzDMkVy8pKcIJsf6-zWuUbN5Tmyh0=s96-c",
+  "classroom_Id": "100219505353302921579",
+  "level": 31,
+  "experience": 52886,
+  "is_active": true,
+  "profile": {
+    "name": "Bumbler",
+    "description": "In the chaotic tapestry of life, the Bumbler stumbles through with a charm all his own. His mismatched attire and perpetually confused expression belie a heart of gold and an uncanny knack for finding himself at the center of extraordinary events. Though he trips over his own feet and often seems lost, fate has a curious way of guiding him to where he is needed most. The Bumbler’s innocence and good intentions make him a magnet for both trouble and wonder. His misadventures, filled with laughter and unexpected heroism, endear him to all he meets. He is the unlikeliest of heroes, proving time and again that even the most seemingly hapless among us can make a profound difference in the world.",
+    "image": "/images/profiles/bumbler.jpg",
+    "attributes": [
+      {
+        "name": "Intelligence",
+        "description": "The intelligence controls the chance of success when using a potion",
+        "value": 5,
+        "_id": {
+          "$oid": "6932cb69af14cb40b589db31"
+        }
+      },
+      {
+        "name": "Dexterity",
+        "description": "Manages the chance of success when using a melee weapon and the damage a missile weapon does",
+        "value": 5,
+        "_id": {
+          "$oid": "6932cb69af14cb40b589db32"
+        }
+      },
+      {
+        "name": "Insanity",
+        "description": "Indicates the state of mental health of an adventurer. If the insanity is high, there will be more chance to make a fumble of a critical hit, and the resulting damage will be more critical. If the insanity is low, there will be less chance to make a fumble or a critical hit, and the resulting damage will be less critical",
+        "value": 15,
+        "_id": {
+          "$oid": "6932cb69af14cb40b589db33"
+        }
+      },
+      {
+        "name": "Charisma",
+        "description": "Indicates the chance to attack first in the next round",
+        "value": 5,
+        "_id": {
+          "$oid": "6932cb69af14cb40b589db34"
+        }
+      },
+      {
+        "name": "Constitution",
+        "description": "Indicates the number of Hit Points an adventurer starts with",
+        "value": 30,
+        "_id": {
+          "$oid": "6932cb69af14cb40b589db35"
+        }
+      },
+      {
+        "name": "Strength",
+        "description": "Manages the chance of success when using a melee weapon, and the damage a melee weapon does",
+        "value": 25,
+        "_id": {
+          "$oid": "6932cb69af14cb40b589db36"
+        }
+      }
+    ],
+    "_id": {
+      "$oid": "6687c31b7a5ce485a0eed47c"
+    }
+  },
+  "tasks": [
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589dafd"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589dafe"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589daff"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db00"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db01"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db02"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db03"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db04"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db05"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db06"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db07"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db08"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db09"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db0a"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db0b"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db0c"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db0d"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db0e"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db0f"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db10"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db11"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db12"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db13"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db14"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db15"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db16"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db17"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db18"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db19"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db1a"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db1b"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db1c"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db1d"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db1e"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db1f"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db20"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db21"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db22"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db23"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db24"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6932cb69af14cb40b589db25"
+      }
+    }
+  ],
+  "gold": 10566,
+  "created_date": "2024-09-17T10:58:19.944Z",
+  "isBetrayer": false,
+  "skills": [
+    {
+      "skill": {
+        "$oid": "684804a6022ac850c49be874"
+      },
+      "activeLevels": [],
+      "_id": {
+        "$oid": "691efc40a37c9ab48c8f9c16"
+      }
+    },
+    {
+      "skill": {
+        "$oid": "684804a6022ac850c49be875"
+      },
+      "activeLevels": [],
+      "_id": {
+        "$oid": "691efc40a37c9ab48c8f9c17"
+      }
+    },
+    {
+      "skill": {
+        "$oid": "684804a6022ac850c49be876"
+      },
+      "activeLevels": [],
+      "_id": {
+        "$oid": "691efc40a37c9ab48c8f9c18"
+      }
+    },
+    {
+      "skill": {
+        "$oid": "684804a6022ac850c49be877"
+      },
+      "activeLevels": [],
+      "_id": {
+        "$oid": "691efc40a37c9ab48c8f9c19"
+      }
+    },
+    {
+      "skill": {
+        "$oid": "684804a6022ac850c49be878"
+      },
+      "activeLevels": [],
+      "_id": {
+        "$oid": "691efc40a37c9ab48c8f9c1a"
+      }
+    },
+    {
+      "skill": {
+        "$oid": "684804a6022ac850c49be879"
+      },
+      "activeLevels": [],
+      "_id": {
+        "$oid": "691efc40a37c9ab48c8f9c1b"
+      }
+    },
+    {
+      "skill": {
+        "$oid": "684804a6022ac850c49be87a"
+      },
+      "activeLevels": [],
+      "_id": {
+        "$oid": "691efc40a37c9ab48c8f9c1c"
+      }
+    },
+    {
+      "skill": {
+        "$oid": "684804a6022ac850c49be87b"
+      },
+      "activeLevels": [],
+      "_id": {
+        "$oid": "691efc40a37c9ab48c8f9c1d"
+      }
+    },
+    {
+      "skill": {
+        "$oid": "68626fd7f87edf17ce379b45"
+      },
+      "activeLevels": [],
+      "_id": {
+        "$oid": "691efc40a37c9ab48c8f9c1e"
+      }
+    },
+    {
+      "skill": {
+        "$oid": "68626fd7f87edf17ce379b46"
+      },
+      "activeLevels": [
+        0,
+        1,
+        2
+      ],
+      "_id": {
+        "$oid": "691efc40a37c9ab48c8f9c1f"
+      }
+    }
+  ],
+  "__v": 34
+}
