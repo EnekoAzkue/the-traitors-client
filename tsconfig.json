@@ -3,7 +3,7 @@
   "include": [
     "**/*.ts",
     "**/*.tsx",
-    "declarations.d.ts",
+    "declarations.d.ts"
   ],
   "exclude": [
     "**/node_modules",
@@ -11,5 +11,6 @@
   ],
   "compilerOptions": {
     "jsx": "react",
+    "types": ["jest", "node"] 
   }
 }

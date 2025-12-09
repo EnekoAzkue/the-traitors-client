@@ -53,8 +53,6 @@ export async function authClient(fixed: boolean, appStateSetters: applicationsSt
     getUser(appStateSetters.userHandler, appStateSetters.setInitialConf);
   } else {
 
-    console.log("----------------------------------------------------------------");
-    console.log('Authenticating client: ');
     try {
       GoogleSignin.configure({
         webClientId: '158827850165-tfs4dej72osh9sfqstdaurec9e6nfcdc.apps.googleusercontent.com',
@@ -62,8 +60,6 @@ export async function authClient(fixed: boolean, appStateSetters: applicationsSt
 
       const currentUser = await getCurrentUser(appStateSetters.setModalMessage);
 
-
-      console.log(currentUser);
 
       // El usuario tiene que tener un correo de AEG
       if (!currentUser) {
@@ -85,9 +81,6 @@ export async function authClient(fixed: boolean, appStateSetters: applicationsSt
       performSocketCleanUp();
 
       console.error(Logs.FAILED_CONFIGURATION, error);
-    } finally {
-      console.log("----------------------------------------------------------------");
-
     }
   }
 }
@@ -117,7 +110,6 @@ export async function getIdToken(): Promise<string> {
 
 const getUser = async (userHandler: Function, setInitialConf: Function) => {
   const response = await fetch("https://kaotika-server.fly.dev/players/email/ignacio.ayaso@ikasle.aeg.eus");
-  console.log(response);
   if (response.status === 200) {
     const data = await response.json();
     console.log(data);

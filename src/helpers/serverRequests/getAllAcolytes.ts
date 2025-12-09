@@ -13,7 +13,6 @@ const getAllAcolytes = async () => {
     }
   ); 
 
-  console.log(response);
   return response;
 };
 
