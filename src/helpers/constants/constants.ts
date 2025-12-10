@@ -222,9 +222,11 @@ enum SocketClientToServerEvents {
   REQUEST_SWAMP_ACOLYTES        = 'request swamp acolytes',
   COLLECT                       = 'collect',
   SEND_ACOLYTES_COORDS          = 'send acolytes coords',
-  ENTER_EXIT_HALL = 'enter/exit hall',
-  SHOW_ARTIFACTS = 'show artifacts',
-  SEARCH_FOR_ACOLYTES_IN_HALL = 'search for acolytes in hall',
+  ENTER_EXIT_HALL               = 'enter/exit hall',
+  SHOW_ARTIFACTS                = 'show artifacts',
+  SEARCH_FOR_ACOLYTES_IN_HALL   = 'search for acolytes in hall',
+  DISMISS_ARTIFACTS             = 'dismiss artifacts',
+  VALIDATE_ARTIFACTS            = 'validate artifacts',
 
 }
 

@@ -1,42 +1,42 @@
 import Button from "../Button";
+import styled from "styled-components/native";
 import SwampContainer from "./SwampContainer";
-import { Image, PermissionsAndroid } from "react-native";
-import React, { useContext, useEffect, useState } from "react";
 import MapView, { Marker } from 'react-native-maps';
 import { socket } from "../../helpers/socket/socket";
 import InventoryContainer from "../InventoryContainer";
 import Artifact from "../../helpers/interfaces/Artifact";
+import { Image, PermissionsAndroid } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
 import { useUserStore } from "../../helpers/stores/useUserStore";
 import KaotikaPlayer from "../../helpers/interfaces/KaotikaPlayer";
 import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
-import Geolocation, { GeolocationResponse } from '@react-native-community/geolocation';
-import { Images, Roles, Screens, SocketClientToServerEvents, SocketServerToClientEvents, swampArtifactCoordinates, swampArtifactIcons } from "../../helpers/constants/constants";
 import { GeolacationCoords } from "../../helpers/interfaces/Geolocation";
 import { useArtifactsStore } from "../../helpers/stores/useArtifactStore";
 import { useCollectionStore } from "../../helpers/stores/useCollectionStore";
+import Geolocation, { GeolocationResponse } from '@react-native-community/geolocation';
+import { useActivatedArtifactStore } from "../../helpers/stores/useActivatedArtifactStore";
 import { InventoryContext, IstvanInitialScreenContext, MortimerInitialScreenContext, VillainInitialScreenContext } from "../../helpers/contexts/contexts";
-import styled from "styled-components/native";
+import { Images, Roles, Screens, SocketClientToServerEvents, SocketServerToClientEvents, swampArtifactCoordinates, swampArtifactIcons } from "../../helpers/constants/constants";
 
 function Swamp() {
+
   // --- STATES, STORES && CONSTANTS --- //
-
   const { artifacts, setArtifacts } = useArtifactsStore(state => state);
-  const setAreAllArtifactsCollected = useCollectionStore(state => state.setAreAllArtifactsCollected)
-
-  const user = useUserStore(state => state.user);
-  const { width, height } = useWindowDimensions();
-  const [currentPosition, setCurrentPosition] = useState<GeolocationResponse | null>(null);
-  const [acolytesInSwamp, setAcolytesInSwamp] = useState<KaotikaPlayer[]>([]);
-  const [acolytesInSwampCoords, setAcolytesInSwampCoords] = useState<{ email: string, coords: GeolacationCoords }[]>([]);
-  const [animatedPosition, setAnimatedPosition] = useState({ latitude: 0, longitude: 0 });
-  const [nearArtifacts, setNearArtifacts] = useState<{ [name: string]: boolean }>({});
-  const [activatedArtifacts, setActivatedArtifacts] = useState<Artifact[]>([]);
-  const [isInventoryOpen, setIsInventoryOpen] = useState<boolean>(false);
+  const { activatedArtifacts, setActivatedArtifacts } = useActivatedArtifactStore(state => state);
+  const setAreAllArtifactsCollected = useCollectionStore(state => state.setAreAllArtifactsCollected);
+  
+  const user                                                    = useUserStore(state => state.user);
+  const { width, height }                                       = useWindowDimensions();
+  const [currentPosition, setCurrentPosition]                   = useState<GeolocationResponse | null>(null);
+  const [acolytesInSwamp, setAcolytesInSwamp]                   = useState<KaotikaPlayer[]>([]);
+  const [acolytesInSwampCoords, setAcolytesInSwampCoords]       = useState<{ email: string, coords: GeolacationCoords }[]>([]);
+  const [animatedPosition, setAnimatedPosition]                 = useState({ latitude: 0, longitude: 0 });
+  const [nearArtifacts, setNearArtifacts]                       = useState<{ [name: string]: boolean }>({});
+  const [isInventoryOpen, setIsInventoryOpen]                   = useState<boolean>(false);
 
   const mortimerInitialScreenContext = useContext(MortimerInitialScreenContext);
   const istvanInitialScreenContext = useContext(IstvanInitialScreenContext);
   const villainInitialScreenContext = useContext(VillainInitialScreenContext);
-
 
   if (!user) return;
   if (!mortimerInitialScreenContext) return;
@@ -46,8 +46,6 @@ function Swamp() {
   const setMortimerInitialScreen = mortimerInitialScreenContext[1];
   const setIstvanInitialScreen = istvanInitialScreenContext[1];
   const setVillainInitialScreen = villainInitialScreenContext[1];
-
-  if (!user) return;
 
   // --- FUNCTIONS --- //
   async function requestPermission() {

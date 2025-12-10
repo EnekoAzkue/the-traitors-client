@@ -1,17 +1,18 @@
-import React, { PropsWithChildren, useContext, useEffect, useState } from "react";
-import { Text, useWindowDimensions, View } from "react-native";
-import { Dimensions } from 'react-native';
-import { Images, Roles, SocketClientToServerEvents, SocketServerToClientEvents } from "../../helpers/constants/constants";
-import { AcolyteInitialScreenContext, CollectionContext } from "../../helpers/contexts/contexts";
-import ScreenContainer from "./ScreenContainer";
-import IconButton from "./IconButton";
-import { socket } from "../../helpers/socket/socket";
 import Button from "../Button";
-import { useUserStore } from "../../helpers/stores/useUserStore";
-import AcolytesInHall from "./AcolytesInHallList";
+import IconButton from "./IconButton";
 import styled from "styled-components/native";
+import ScreenContainer from "./ScreenContainer";
+import AcolytesInHall from "./AcolytesInHallList";
+import { socket } from "../../helpers/socket/socket";
+import Artifact from "../../helpers/interfaces/Artifact";
+import { Text, useWindowDimensions, View } from "react-native";
+import { useUserStore } from "../../helpers/stores/useUserStore";
 import KaotikaPlayer from "../../helpers/interfaces/KaotikaPlayer";
 import { useCollectionStore } from "../../helpers/stores/useCollectionStore";
+import React, { PropsWithChildren, useContext, useEffect, useState } from "react";
+import { useActivatedArtifactStore } from "../../helpers/stores/useActivatedArtifactStore";
+import { AcolyteInitialScreenContext, CollectionContext } from "../../helpers/contexts/contexts";
+import { Images, Roles, SocketClientToServerEvents, SocketServerToClientEvents, swampArtifactIcons } from "../../helpers/constants/constants";
 
 type AcolyteScreenContainer = {
   backgroundImage?: Images,
@@ -21,41 +22,50 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
 
   // --- CONTEXTS --- //
   const {width, height}                     = useWindowDimensions(); 
-  const [acolytesInHall, setAcolytesInHall] = useState<KaotikaPlayer[]>([]);
-
   const user                                = useUserStore(state => state.user);
-  const initialRouterScreen                 = useContext(AcolyteInitialScreenContext);
-  const collectionContext                   = useContext(CollectionContext);
+  const { activatedArtifacts, setActivatedArtifacts } = useActivatedArtifactStore(state => state);
+  const {areAllArtifactsCollected, setAreAllArtifactsCollected} = useCollectionStore(state => state)
 
-  if (!user)                  return;
-  if (!initialRouterScreen)   return (<Text>ERROR! Initial Router Context not got</Text>);
-  if (!collectionContext)     return;
+  const initialRouterScreen = useContext(AcolyteInitialScreenContext);
+  const collectionContext = useContext(CollectionContext)
 
-  const setInitialScreen          = initialRouterScreen[1];
-  const areAllArtifactsCollected  = useCollectionStore(state => state.areAllArtifactsCollected);
+  if (!user) return;
+  if (!initialRouterScreen) return (<Text>ERROR! Initial Router Context not got</Text>);
+  if (!collectionContext) return;
+
+  const setInitialScreen = initialRouterScreen[1];
+
+  const [acolytesInHall, setAcolytesInHall] = useState<KaotikaPlayer[]>([]);
+  const [areArtifactsShowing, setAreArtifactsShowing] = useState<boolean>(false);
+  const [artifactsToShow, setArtifactsToShow] = useState<Artifact[]>([]);
 
   // --- EFFECTS --- //
   useEffect(() => {
-    socket.emit(SocketClientToServerEvents.SEARCH_FOR_ACOLYTES_IN_HALL);
+
+    if (user.rol !== Roles.ACOLYTE) {
+      socket.emit(SocketClientToServerEvents.SEARCH_FOR_ACOLYTES_IN_HALL);
+    }
+    socket.on(SocketServerToClientEvents.SENDING_ACOLYTES_IN_HALL, (acolytes: KaotikaPlayer[]) => {
+      setAcolytesInHall(acolytes);
+    });
+
+    socket.on(SocketServerToClientEvents.ACOLYTE_ENTERED_EXITED_HALL, () => {
+      socket.emit(SocketClientToServerEvents.SEARCH_FOR_ACOLYTES_IN_HALL);
+    });
+
+    socket.on(SocketServerToClientEvents.SENDING_ARTIFACTS, (artifacts) => {
+      setArtifactsToShow(artifacts);
+      setAreArtifactsShowing(true);
+    });
+
+    return (() => {
+      socket.off(SocketServerToClientEvents.SENDING_ACOLYTES_IN_HALL);
+      socket.off(SocketServerToClientEvents.ACOLYTE_ENTERED_EXITED_HALL);
+      socket.off(SocketServerToClientEvents.SENDING_ARTIFACTS);
+    });
+
   }, []);
 
-useEffect( () => {
-
-  socket.on(SocketServerToClientEvents.SENDING_ACOLYTES_IN_HALL, (acolytes: KaotikaPlayer[]) => {
-
-    setAcolytesInHall(acolytes);
-  })
-
-  socket.on(SocketServerToClientEvents.ACOLYTE_ENTERED_EXITED_HALL, () => {
-    socket.emit(SocketClientToServerEvents.SEARCH_FOR_ACOLYTES_IN_HALL);
-  })
-
-  return (() => {
-    socket.off(SocketServerToClientEvents.SENDING_ACOLYTES_IN_HALL);
-    socket.off(SocketServerToClientEvents.ACOLYTE_ENTERED_EXITED_HALL);
-  });
-
-}, [acolytesInHall]);
 
   // --- FUNCTIONS --- //
   const returnToMap = () => {
@@ -64,7 +74,21 @@ useEffect( () => {
   }
 
   const showArtifacts = () => {
-    socket.emit(SocketClientToServerEvents.SHOW_ARTIFACTS);
+    socket.emit(SocketClientToServerEvents.SHOW_ARTIFACTS)
+    setActivatedArtifacts([])
+    setAreAllArtifactsCollected(false)
+  }
+
+  const dismissArtifacts = () => {
+    socket.emit(SocketClientToServerEvents.DISMISS_ARTIFACTS)
+    setArtifactsToShow([])
+    setAreArtifactsShowing(false)
+  }
+
+  const validateArtifacts = () => {
+    socket.emit(SocketClientToServerEvents.VALIDATE_ARTIFACTS)
+    setArtifactsToShow([])
+    setAreArtifactsShowing(false)
   }
 
   // --- STYLED COMPONENTS --- //
@@ -84,6 +108,17 @@ useEffect( () => {
     border-radius: 8px;
     background-color: rgba(0,0,0,0.3);
   `;
+
+
+  const ArtifactContainer = styled.View`
+    position: absolute;
+    top: ${height * 0.5}px;
+    height: ${height * 0.6}px;
+    width: ${width}px;
+    align-items: center;
+    border: 1px solid rgba(0, 144, 171);
+  `;
+
 
   const StyledHallContainerText = styled.Text`
     color: white;
@@ -108,11 +143,9 @@ useEffect( () => {
               hasBorder={false}
               backgrounOpacity={0}
             />
-            {/* pendiente para la siguiente historia
             {areAllArtifactsCollected && (
               <Button buttonText="Show artifacts" onPress={showArtifacts} />
             )}
-              */}
           </>
         )}
         <>
@@ -127,6 +160,23 @@ useEffect( () => {
               }
             </AcolytesRegisterListContainer>
           </AcolytesRegisterScreenContainer>
+          {areArtifactsShowing && (
+            <>
+              <ArtifactContainer>
+                {artifactsToShow.map((artifact, index) => (
+                  <View key={index}>
+                    <IconButton backgroundImage={swampArtifactIcons[artifact.icon]} buttonOnPress={undefined} height={width * 0.1} width={width * 0.1} xPos={width * ((index * 0.2))} yPos={height * 0.5} />
+                  </View>
+                ))}
+              </ArtifactContainer>
+              {(user.rol === Roles.MORTIMER) && (
+                <>
+                  <Button buttonText="Dismiss Artifacts" onPress={dismissArtifacts} />
+                  <Button buttonText="Validate artifacts" onPress={validateArtifacts} />
+                </>
+              )}
+            </>
+          )}
         </>
         {children}
       </ScreenContainer>

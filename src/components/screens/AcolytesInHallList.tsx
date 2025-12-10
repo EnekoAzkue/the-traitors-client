@@ -23,7 +23,7 @@ const AcolytesInHallList = ({ acolytesInHall }: AcolytesInHallListProps) => {
         useNativeDriver: true,
       }),
     ]).start();
-  }, []);
+  }, [acolytesInHall]);
 
 
   const AnimatedCircleWrapper = styled(Animated.View)`
