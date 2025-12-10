@@ -26,55 +26,30 @@ async function requestPermission() {
     fine === PermissionsAndroid.RESULTS.GRANTED);
 }
 
-function Swamp() {  
+function Swamp() {
   // --- STATES, STORES && CONSTANTS --- //
-  
+
   const { artifacts, setArtifacts } = useArtifactsStore(state => state);
   const { activatedArtifacts, setActivatedArtifacts } = useActivatedArtifactStore(state => state);
   const setAreAllArtifactsCollected = useCollectionStore(state => state.setAreAllArtifactsCollected)
-  
-  const user                                                    = useUserStore(state => state.user);
-  const { width, height }                                       = useWindowDimensions();
-  const [currentPosition, setCurrentPosition]                   = useState<GeolocationResponse | null>(null);
-  const [acolytesInSwamp, setAcolytesInSwamp]                   = useState<KaotikaPlayer[]>([]);
-  const [acolytesInSwampCoords, setAcolytesInSwampCoords]       = useState<{ email: string, coords: GeolacationCoords }[]>([]);
-  const [animatedPosition, setAnimatedPosition]                 = useState({ latitude: 0, longitude: 0 });
-  const [nearArtifacts, setNearArtifacts]                       = useState<{ [name: string]: boolean }>({});
-  const [isInventoryOpen, setIsInventoryOpen]                   = useState<boolean>(false);
-  // --- FAKE --- //
-  const fakeCoordenates = [
-    // { original
-    //   latitude: 43.3097,
-    //   longitude: -2.0021,
-    // },
-    {
-      latitude: 43.3094074,
-      longitude: -2.0019351,
-    },
-    {
-      latitude: 43.3097,
-      longitude: -2.0025,
-    },
-    // {
-    //   latitude: 43.3096,
-    //   longitude: -2.0023,
-    // },
-    {
-      latitude: 43.3094074,
-      longitude: -2.0019351,
-    },
-    {
-      latitude: 43.30967,
-      longitude: -2.0023,
-    },
 
-  ];
+  const user = useUserStore(state => state.user);
+  const { width, height } = useWindowDimensions();
+  const [currentPosition, setCurrentPosition] = useState<GeolocationResponse | null>(null);
+  const [acolytesInSwamp, setAcolytesInSwamp] = useState<KaotikaPlayer[]>([]);
+  const [acolytesInSwampCoords, setAcolytesInSwampCoords] = useState<{ email: string, coords: GeolacationCoords }[]>([]);
+  const [animatedPosition, setAnimatedPosition] = useState({ latitude: 0, longitude: 0 });
+  const [nearArtifacts, setNearArtifacts] = useState<{ [name: string]: boolean }>({});
+  const [isInventoryOpen, setIsInventoryOpen] = useState<boolean>(false);
+
+
+
 
   if (!user) return;
 
   // --- FUNCTIONS --- //
   async function requestPermission() {
-    const fine = await PermissionsAndroid.request( PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION );
+    const fine = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
     return (fine === PermissionsAndroid.RESULTS.GRANTED);
   }
 
@@ -127,10 +102,10 @@ function Swamp() {
 
     // --- GESTIÓN DE LOS EVENTOS SOCKET TRATADOS EN ESTE COMPONENTE --- //
     if (user.rol === Roles.MORTIMER || user.rol === Roles.ISTVAN || user.rol === Roles.VILLAIN) {
-      
+
       // Cada segundo se solicita al server que envie los acólitos que están en el swamp, así el Mortimer, Istvan y Villain saben donde están en tiempo real los acólitos y si entra o sale uno de estos 
       requestInSwampInterval = setInterval(() => { console.log("Sending to server request for swamp acolytes"); socket.emit(SocketClientToServerEvents.REQUEST_SWAMP_ACOLYTES); }, 1000);
-      
+
       socket.on(SocketServerToClientEvents.GET_IN_SWAMP_ACOLYTES, (acolytes) => {
         console.log("GET ACOLYTES IN SWAMP: ");
         console.log(acolytes);
@@ -138,26 +113,26 @@ function Swamp() {
       });
 
     }
-    
-    socket.on(SocketServerToClientEvents.GET_ACOLYTE_NEW_COORDS, (newCoords: {email: string, coords: GeolacationCoords}) => {
-      const acolyteCoords = acolytesInSwampCoords.find( (elem) => {elem.email === newCoords.email} );
+
+    socket.on(SocketServerToClientEvents.GET_ACOLYTE_NEW_COORDS, (newCoords: { email: string, coords: GeolacationCoords }) => {
+      const acolyteCoords = acolytesInSwampCoords.find((elem) => { elem.email === newCoords.email });
       console.log(`ACOLYTES COORDS ARRAY: ${acolytesInSwampCoords}`);
-      if ( acolyteCoords ){
+      if (acolyteCoords) {
         const addedNewCords = [...acolytesInSwampCoords, newCoords];
         setAcolytesInSwampCoords(addedNewCords);
       } else {
         const acolyteCoordsModified = [...acolytesInSwampCoords];
-        acolyteCoordsModified.map( (item) => { 
-          if (item.email === newCoords.email){
-            item = {...item, coords: newCoords.coords};
+        acolyteCoordsModified.map((item) => {
+          if (item.email === newCoords.email) {
+            item = { ...item, coords: newCoords.coords };
           }
-        }); 
+        });
         setAcolytesInSwampCoords(acolyteCoordsModified);
       }
     });
-    
+
     getMyLocationAsAcolyte(user);
-    
+
     return () => {
 
       if (user.rol === Roles.ACOLYTE || user.rol === Roles.MORTIMER) {
@@ -204,7 +179,7 @@ function Swamp() {
           return;
         }
 
-        socket.emit(SocketClientToServerEvents.SEND_ACOLYTES_COORDS, {email: user.email, coords: info.coords}); // [ {EMAIL, COORDS}, {EMAIL, COORDS}, {EMAIL, COORDS}, ... ]
+        socket.emit(SocketClientToServerEvents.SEND_ACOLYTES_COORDS, { email: user.email, coords: info.coords }); // [ {EMAIL, COORDS}, {EMAIL, COORDS}, {EMAIL, COORDS}, ... ]
 
         setCurrentPosition(info);
       },
@@ -247,8 +222,8 @@ function Swamp() {
       const distance = getDistanceFromLatLonInMeters(
         currentPosition.coords.latitude,
         currentPosition.coords.longitude,
-        fakeCoordenates[i].latitude,
-        fakeCoordenates[i].longitude
+        swampArtifactCoordinates[i].latitude,
+        swampArtifactCoordinates[i].longitude
       );
 
       updated[artifact.name] = distance <= 1;
@@ -309,64 +284,64 @@ function Swamp() {
 
   return (
     <>
-          <InventoryContext.Provider value={[isInventoryOpen, setIsInventoryOpen]}>
+      <InventoryContext.Provider value={[isInventoryOpen, setIsInventoryOpen]}>
 
-          <SwampContainer user={user}>
-            
-            {getInventory()}
-            <View style={styles.container}>
-              <MapView provider={"google"} style={styles.map} region={mapRegion} rotateEnabled={false} showsCompass={false} showsPointsOfInterests={false}>
+        <SwampContainer user={user}>
+
+          {getInventory()}
+          <View style={styles.container}>
+            <MapView provider={"google"} style={styles.map} region={mapRegion} rotateEnabled={false} showsCompass={false} showsPointsOfInterests={false}>
+              {
+                /* Players own ubication Marker */
+                currentPosition &&
+                <Marker
+                  coordinate={{ latitude: animatedPosition.latitude, longitude: animatedPosition.longitude }}
+                  image={{ uri: `${user.avatar}` }}
+                  title={user.nickname}
+                />
+              }
+              <>
                 {
-                  /* Players own ubication Marker */
-                  currentPosition &&
-                  <Marker
-                    coordinate={{ latitude: animatedPosition.latitude, longitude: animatedPosition.longitude }}
-                    image={{ uri: `${user.avatar}` }}
-                    title={user.nickname}
-                  />
-                }
-                <>
-                  {
-                    /*  */
-                    activatedArtifacts.map((a, i) => {
-                      if (a.state === 'active') {
-                        return (
-                          <View key={i}>
-                            <Marker
-                              coordinate={{ latitude: swampArtifactCoordinates[i].latitude, longitude: swampArtifactCoordinates[i].longitude }}
-                              image={swampArtifactIcons[a.icon]}
-                              title={a.name}
-                            />
-                          </View>
-                        )
-                      }
-                    })}
-                </>
+                  /*  */
+                  activatedArtifacts.map((a, i) => {
+                    if (a.state === 'active') {
+                      return (
+                        <View key={i}>
+                          <Marker
+                            coordinate={{ latitude: swampArtifactCoordinates[i].latitude, longitude: swampArtifactCoordinates[i].longitude }}
+                            image={swampArtifactIcons[a.icon]}
+                            title={a.name}
+                          />
+                        </View>
+                      )
+                    }
+                  })}
+              </>
 
-                { 
-                  ( user.rol === Roles.MORTIMER || user.rol === Roles.ISTVAN || user.rol === Roles.VILLAIN ) ? 
-                    acolytesInSwamp.map( (acolyte, index) => {
+              {
+                (user.rol === Roles.MORTIMER || user.rol === Roles.ISTVAN || user.rol === Roles.VILLAIN) ?
+                  acolytesInSwamp.map((acolyte, index) => {
 
-                      return <Marker 
-                        key={index}
-                        coordinate={{ latitude: acolytesInSwampCoords[index].coords.latitude, longitude: acolytesInSwampCoords[index].coords.longitude }}
-                        image={{ uri: `${user.avatar}` }}
-                        title={acolyte.name}
-                        />
+                    return <Marker
+                      key={index}
+                      coordinate={{ latitude: acolytesInSwampCoords[index].coords.latitude, longitude: acolytesInSwampCoords[index].coords.longitude }}
+                      image={{ uri: `${user.avatar}` }}
+                      title={acolyte.name}
+                    />
 
-                    }) 
-                  : <></> 
-                }
-              </MapView>
-              {activatedArtifacts.map((artifact, j) =>
-                nearArtifacts[artifact.name] && artifact.state === 'active' ? (
-                  <Button key={j} buttonText={`collect artifact`} onPress={() => { collectArtifact(artifact) }} />
-                ) : null
-              )}
-              <Text style={{ zIndex: 1000 }}>Lat: {currentPosition?.coords.latitude} Lon: {currentPosition?.coords.longitude}</Text>
+                  })
+                  : <></>
+              }
+            </MapView>
+            {activatedArtifacts.map((artifact, j) =>
+              nearArtifacts[artifact.name] && artifact.state === 'active' ? (
+                <Button key={j} buttonText={`collect artifact`} onPress={() => { collectArtifact(artifact) }} />
+              ) : null
+            )}
+            <Text style={{ zIndex: 1000 }}>Lat: {currentPosition?.coords.latitude} Lon: {currentPosition?.coords.longitude}</Text>
 
-            </View>
-          </SwampContainer>
+          </View>
+        </SwampContainer>
 
       </InventoryContext.Provider>
 

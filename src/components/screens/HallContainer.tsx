@@ -44,10 +44,14 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
   const [artifactsToShow, setArtifactsToShow] = useState<Artifact[]>([]);
 
   // --- EFFECTS --- //
-  if (user.rol !== Roles.ACOLYTE) {
-    useEffect(() => {
-      socket.emit(SocketClientToServerEvents.SEARCH_FOR_ACOLYTES_IN_HALL);
-    }, []);
+  useEffect(() => {
+    setArtifactsToShow(activatedArtifacts);
+  }, []);
+
+  useEffect(() => {
+    if(user.rol !== Roles.ACOLYTE){
+    socket.emit(SocketClientToServerEvents.SEARCH_FOR_ACOLYTES_IN_HALL);
+    }
 
     socket.on(SocketServerToClientEvents.SENDING_ACOLYTES_IN_HALL, (acolytes: KaotikaPlayer[]) => {
       setAcolytesInHall(acolytes);
@@ -59,10 +63,17 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
 
     socket.on(SocketServerToClientEvents.SENDING_ARTIFACTS, (artifacts) => {
       console.log('show artifacts')
-      setArtifactsToShow(artifacts);
       setAreArtifactsShowing(true);
     });
-  }
+    return () => {
+      socket.off(SocketServerToClientEvents.SENDING_ACOLYTES_IN_HALL);
+      socket.off(SocketServerToClientEvents.ACOLYTE_ENTERED_EXITED_HALL);
+      socket.off(SocketServerToClientEvents.SENDING_ARTIFACTS);
+    };
+  }, []);
+
+
+
 
 
   // --- FUNCTIONS --- //
@@ -73,7 +84,7 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
 
   const showArtifacts = () => {
     socket.emit(SocketClientToServerEvents.SHOW_ARTIFACTS)
-    setActivatedArtifacts([])
+    console.log('show artifacts emitted')
     setAreAllArtifactsCollected(false)
   }
 
@@ -113,15 +124,24 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
   margin-top: ${height * 0.25}px;
   position: absolute;
 `;
+
   const ArtifactIconContainer = styled.View`
-  position: absolute;
   flex: 1;
   width: ${width * 0.9}px;
-  height: ${height * 0.3}px;
+  height: ${height * 0.1}px;
   border: 1px solid rgba(0, 144, 171);
   border-radius: 8px;
   background-color: rgba(0,0,0,0.3);
+  flex-direction: row;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
   `;
+
+  const ArtifactIcon = styled.Image`
+  width: ${width * 0.2}px;
+  height: ${width * 0.2}px;
+`;
 
   return (
     <View>
@@ -156,25 +176,23 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
               }
             </AcolytesRegisterListContainer>
           </AcolytesRegisterScreenContainer>
-          {!areArtifactsShowing && (
+          {areArtifactsShowing && (
             <ArtifactContainer>
               <ArtifactIconContainer>
                 {artifactsToShow.map((artifact, index) => (
                   <View key={index}>
-                    <IconButton backgroundImage={swampArtifactIcons[artifact.icon]} buttonOnPress={undefined} height={width * 0.1} width={width * 0.1} xPos={width * ((index * 0.2))} yPos={height * 0.5} />
+                    <ArtifactIcon source={swampArtifactIcons[artifact.icon]} />
                   </View>
                 ))}
               </ArtifactIconContainer>
-              {(user.rol === Roles.MORTIMER) && (
-                <View style={{top: height *0.5}}>
-                  <View style={{left: -width * 0.5}}>
-                  <Button buttonText="Dismiss" onPress={dismissArtifacts} />
+                <View style={{ top: height * 0.5 }}>
+                  <View style={{ left: -width * 0.5 }}>
+                    <Button buttonText="Dismiss" onPress={dismissArtifacts} />
                   </View>
                   <View>
-                  <Button buttonText="Validate" onPress={validateArtifacts} />
+                    <Button buttonText="Validate" onPress={validateArtifacts} />
                   </View>
                 </View>
-              )}
             </ArtifactContainer>
           )}
         </>
