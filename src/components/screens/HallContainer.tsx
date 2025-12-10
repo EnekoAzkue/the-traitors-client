@@ -58,6 +58,7 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
     })
 
     socket.on(SocketServerToClientEvents.SENDING_ARTIFACTS, (artifacts) => {
+      console.log('show artifacts')
       setArtifactsToShow(artifacts);
       setAreArtifactsShowing(true);
     });
@@ -107,12 +108,19 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
 `;
 
   const ArtifactContainer = styled.View`
-  position: absolute;
-  top: ${height * 0.5}px;
-  height: ${height * 0.6}px;
+  align-items: center; 
   width: ${width}px;
-  align-items: center;
+  margin-top: ${height * 0.25}px;
+  position: absolute;
+`;
+  const ArtifactIconContainer = styled.View`
+  position: absolute;
+  flex: 1;
+  width: ${width * 0.9}px;
+  height: ${height * 0.3}px;
   border: 1px solid rgba(0, 144, 171);
+  border-radius: 8px;
+  background-color: rgba(0,0,0,0.3);
   `;
 
   return (
@@ -148,22 +156,26 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
               }
             </AcolytesRegisterListContainer>
           </AcolytesRegisterScreenContainer>
-          {areArtifactsShowing && (
-            <>
-              <ArtifactContainer>
+          {!areArtifactsShowing && (
+            <ArtifactContainer>
+              <ArtifactIconContainer>
                 {artifactsToShow.map((artifact, index) => (
                   <View key={index}>
                     <IconButton backgroundImage={swampArtifactIcons[artifact.icon]} buttonOnPress={undefined} height={width * 0.1} width={width * 0.1} xPos={width * ((index * 0.2))} yPos={height * 0.5} />
                   </View>
                 ))}
-              </ArtifactContainer>
+              </ArtifactIconContainer>
               {(user.rol === Roles.MORTIMER) && (
-                <>
-                  <Button buttonText="Dismiss Artifacts" onPress={dismissArtifacts} />
-                  <Button buttonText="Validate artifacts" onPress={validateArtifacts} />
-                </>
+                <View style={{top: height *0.5}}>
+                  <View style={{left: -width * 0.5}}>
+                  <Button buttonText="Dismiss" onPress={dismissArtifacts} />
+                  </View>
+                  <View>
+                  <Button buttonText="Validate" onPress={validateArtifacts} />
+                  </View>
+                </View>
               )}
-            </>
+            </ArtifactContainer>
           )}
         </>
         {children}
