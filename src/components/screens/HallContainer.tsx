@@ -136,34 +136,36 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
             )}
           </>
         )}
-        {user.rol === Roles.MORTIMER && (
-          <>
-            <AcolytesRegisterScreenContainer>
-              <AcolytesRegisterListContainer >
-                {acolytesInHall.length === 0 ? (
-                  <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-                    <Text style={{ color: 'white', fontFamily: 'KochAltschrift', fontSize: 30 }}>Waiting for acolytes to enter...</Text>
-                  </View>)
-                  :
-                  <AcolytesInHall acolytesInHall={acolytesInHall} />
-                }
-              </AcolytesRegisterListContainer>
-            </AcolytesRegisterScreenContainer>
-            {areArtifactsShowing && (
-              <>
-                <ArtifactContainer>
-                  {artifactsToShow.map((artifact, index) => (
-                    <View key={index}>
-                      <IconButton  backgroundImage={swampArtifactIcons[artifact.icon]} buttonOnPress={undefined} height={width * 0.1} width={width * 0.1} xPos={width * ((index * 0.2))} yPos={height * 0.5}/>
-                    </View>
-                  ))}
-                </ArtifactContainer>
-                <Button buttonText="Dismiss Artifacts" onPress={dismissArtifacts} />
-                <Button buttonText="Validate artifacts" onPress={validateArtifacts} />
-              </>
-            )}
-          </>
-        )}
+        <>
+          <AcolytesRegisterScreenContainer>
+            <AcolytesRegisterListContainer >
+              {acolytesInHall.length === 0 ? (
+                <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+                  <Text style={{ color: 'white', fontFamily: 'KochAltschrift', fontSize: width * 0.08 }}>Waiting for acolytes to enter...</Text>
+                </View>)
+                :
+                <AcolytesInHall acolytesInHall={acolytesInHall} />
+              }
+            </AcolytesRegisterListContainer>
+          </AcolytesRegisterScreenContainer>
+          {areArtifactsShowing && (
+            <>
+              <ArtifactContainer>
+                {artifactsToShow.map((artifact, index) => (
+                  <View key={index}>
+                    <IconButton backgroundImage={swampArtifactIcons[artifact.icon]} buttonOnPress={undefined} height={width * 0.1} width={width * 0.1} xPos={width * ((index * 0.2))} yPos={height * 0.5} />
+                  </View>
+                ))}
+              </ArtifactContainer>
+              {(user.rol === Roles.MORTIMER) && (
+                <>
+                  <Button buttonText="Dismiss Artifacts" onPress={dismissArtifacts} />
+                  <Button buttonText="Validate artifacts" onPress={validateArtifacts} />
+                </>
+              )}
+            </>
+          )}
+        </>
         {children}
       </ScreenContainer>
     </View>
