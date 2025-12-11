@@ -31,7 +31,7 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
   const {width, height}                                         = useWindowDimensions(); 
   const user                                                    = useUserStore(state => state.user);
   const setIsRosetteShown                                       = useShowRosetteStore( state => state.setIsRosetteShown );
-  const setActivatedArtifacts                                   = useActivatedArtifactStore(state => state.setActivatedArtifacts);
+  const activatedArtifacts                                      = useActivatedArtifactStore(state => state.activatedArtifacts);
   const {areAllArtifactsCollected, setAreAllArtifactsCollected} = useCollectionStore(state => state);
 
   const initialRouterScreen = useContext(AcolyteInitialScreenContext);
@@ -48,8 +48,6 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
   const [artifactsToShow, setArtifactsToShow] = useState<Artifact[]>([]);
 
   // --- EFFECTS --- //
-
-
   useEffect(() => {
 
     setArtifactsToShow(activatedArtifacts);

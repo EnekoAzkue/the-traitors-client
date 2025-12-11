@@ -3,6 +3,7 @@ import styled from 'styled-components/native';
 import { Images } from '../helpers/constants/constants';
 import { Modal, useWindowDimensions } from 'react-native';
 import { ModalProps } from '../helpers/interfaces/components/Modal';
+import DropShadow from 'react-native-drop-shadow';
 
 const GeneralModal = ({ message, setMessage }: ModalProps) => {
 
@@ -45,7 +46,7 @@ const GeneralModal = ({ message, setMessage }: ModalProps) => {
     border-radius: 10px;
     padding: ${width * 0.05}px ${width * 0.1}px;
     filter: drop-shadow(0, 0, 5px, rgb(0, 0, 0));
-    background-color: rgba(0, 0, 0, 0.65);
+    background-color: rgba(0, 0, 0, 0.75);
     position: absolute;
     margin-top: ${height * 0.4}px;
   `;
