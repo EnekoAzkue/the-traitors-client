@@ -17,7 +17,6 @@ export default function AcolyteMap() {
   const collectionContext = useContext(CollectionContext)
   const user = useUserStore(state => state.user);
   const {artifacts, setArtifacts} = useArtifactsStore(state => state);
-  const setAreAllArtifactsCollected = useCollectionStore(state => state.setAreAllArtifactsCollected)
   
   if (!screenDimensions) return;
   if (!initialRouterScreen) return <Text>ERROR! Initial Router Context not got</Text>;
@@ -58,14 +57,9 @@ export default function AcolyteMap() {
 
     socket.on(SocketServerToClientEvents.SENDING_ARTIFACTS, (artifacts) => {
 
-
-      const collectedArtifacts = artifacts.filter(a => a.state === 'collected')
-      if (collectedArtifacts.length === 4) {
-        setAreAllArtifactsCollected(true)
-      }
-      setArtifacts(artifacts)
-    })
-
+      socket.on(SocketServerToClientEvents.COLLECTED, () => {
+        socket.emit(SocketClientToServerEvents.REQUEST_ARTIFACTS, user.rol)
+      })
   }, []);
 
   // --- STYLES --- //

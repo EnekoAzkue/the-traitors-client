@@ -1,6 +1,8 @@
-import Button from "../Button";
-import IconButton from "./IconButton";
-import styled from "styled-components/native";
+import React, { PropsWithChildren, useContext, useEffect, useRef, useState } from "react";
+import { Animated, Text, View } from "react-native";
+import { Dimensions } from 'react-native';
+import { Images, Roles, SocketClientToServerEvents, SocketServerToClientEvents, swampArtifactIcons } from "../../helpers/constants/constants";
+import { AcolyteInitialScreenContext, CollectionContext } from "../../helpers/contexts/contexts";
 import ScreenContainer from "./ScreenContainer";
 import AcolytesInHall from "./AcolytesInHallList";
 import { socket } from "../../helpers/socket/socket";
@@ -11,8 +13,11 @@ import KaotikaPlayer from "../../helpers/interfaces/KaotikaPlayer";
 import { useCollectionStore } from "../../helpers/stores/useCollectionStore";
 import React, { PropsWithChildren, useContext, useEffect, useState } from "react";
 import { useActivatedArtifactStore } from "../../helpers/stores/useActivatedArtifactStore";
-import { AcolyteInitialScreenContext, CollectionContext } from "../../helpers/contexts/contexts";
-import { Images, Roles, SocketClientToServerEvents, SocketServerToClientEvents, swampArtifactIcons } from "../../helpers/constants/constants";
+import Artifact from "../../helpers/interfaces/Artifact";
+import { AritfactOnHall } from "./AritfactOnHall";
+import CircleSpinner from "../Spinner";
+
+const { width, height } = Dimensions.get('window');
 
 type AcolyteScreenContainer = {
   backgroundImage?: Images,
@@ -40,11 +45,18 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
   const [artifactsToShow, setArtifactsToShow] = useState<Artifact[]>([]);
 
   // --- EFFECTS --- //
+
+
   useEffect(() => {
+
+    setArtifactsToShow(activatedArtifacts);
+    console.log(artifactsToShow)
+
 
     if (user.rol !== Roles.ACOLYTE) {
       socket.emit(SocketClientToServerEvents.SEARCH_FOR_ACOLYTES_IN_HALL);
     }
+
     socket.on(SocketServerToClientEvents.SENDING_ACOLYTES_IN_HALL, (acolytes: KaotikaPlayer[]) => {
       setAcolytesInHall(acolytes);
     });
@@ -54,17 +66,18 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
     });
 
     socket.on(SocketServerToClientEvents.SENDING_ARTIFACTS, (artifacts) => {
-      setArtifactsToShow(artifacts);
+      console.log('show artifacts')
       setAreArtifactsShowing(true);
     });
-
-    return (() => {
+    return () => {
       socket.off(SocketServerToClientEvents.SENDING_ACOLYTES_IN_HALL);
       socket.off(SocketServerToClientEvents.ACOLYTE_ENTERED_EXITED_HALL);
       socket.off(SocketServerToClientEvents.SENDING_ARTIFACTS);
-    });
-
+    };
   }, []);
+
+
+
 
 
   // --- FUNCTIONS --- //
@@ -75,7 +88,7 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
 
   const showArtifacts = () => {
     socket.emit(SocketClientToServerEvents.SHOW_ARTIFACTS)
-    setActivatedArtifacts([])
+    console.log('show artifacts emitted')
     setAreAllArtifactsCollected(false)
   }
 
@@ -111,25 +124,37 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
 
 
   const ArtifactContainer = styled.View`
-    position: absolute;
-    top: ${height * 0.5}px;
-    height: ${height * 0.6}px;
-    width: ${width}px;
-    align-items: center;
-    border: 1px solid rgba(0, 144, 171);
-  `;
+  align-items: center; 
+  width: ${width}px;
+  margin-top: ${height * 0.35}px;
+  position: absolute;
+`;
 
+  const ArtifactIconContainer = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;    
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  width: ${width * 0.9}px;
+  height: ${height * 0.2}px;
+`;
 
-  const StyledHallContainerText = styled.Text`
-    color: white;
-    fontFamily: 'KochAltschrift';
-    font-size: ${width * 0.08};
-  `;
-
+  const ArtifactIcon = styled.Image`
+  width: ${width * 0.3}px;
+  height: ${width * 0.3}px;
+`;
 
   return (
     <View>
       <ScreenContainer backgroundImg={backgroundImage}>
+        {areArtifactsShowing &&
+          <>
+            <CircleSpinner>
+              <Text style={{ color: 'white', fontFamily: 'KochAltschrift', fontSize: width * 0.08, justifyContent: 'center', alignItems: 'center' }}>Waiting for validation...</Text>
+            </CircleSpinner>
+          </>
+        }
         {user.rol === Roles.ACOLYTE && (
           <>
             <IconButton
@@ -144,7 +169,9 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
               backgrounOpacity={0}
             />
             {areAllArtifactsCollected && (
-              <Button buttonText="Show artifacts" onPress={showArtifacts} />
+              <View style={{ width: width, height: height, alignItems: "center" }}>
+                <Button buttonText="Show artifacts" onPress={showArtifacts} />
+              </View>
             )}
           </>
         )}
@@ -160,22 +187,22 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
               }
             </AcolytesRegisterListContainer>
           </AcolytesRegisterScreenContainer>
-          {areArtifactsShowing && (
-            <>
-              <ArtifactContainer>
+          {(areArtifactsShowing && user.rol === Roles.MORTIMER) && (
+            <ArtifactContainer>
+              <ArtifactIconContainer style={{ opacity }}>
                 {artifactsToShow.map((artifact, index) => (
-                  <View key={index}>
-                    <IconButton backgroundImage={swampArtifactIcons[artifact.icon]} buttonOnPress={undefined} height={width * 0.1} width={width * 0.1} xPos={width * ((index * 0.2))} yPos={height * 0.5} />
-                  </View>
+                  <AritfactOnHall key={index}icon={{ uri: artifact.image }} delay={500 * index} />
                 ))}
-              </ArtifactContainer>
-              {(user.rol === Roles.MORTIMER) && (
-                <>
-                  <Button buttonText="Dismiss Artifacts" onPress={dismissArtifacts} />
-                  <Button buttonText="Validate artifacts" onPress={validateArtifacts} />
-                </>
-              )}
-            </>
+              </ArtifactIconContainer>
+              <View style={{ top: height * 0.2 }}>
+                <View style={{ right: width * 0.5 }}>
+                  <Button buttonText="Dismiss" onPress={dismissArtifacts} />
+                </View>
+                <View>
+                  <Button buttonText="Validate" onPress={validateArtifacts} />
+                </View>
+              </View>
+            </ArtifactContainer>
           )}
         </>
         {children}
