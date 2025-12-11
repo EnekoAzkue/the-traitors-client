@@ -76,6 +76,7 @@ function Swamp() {
     switch (user.rol) {
 
       case (Roles.MORTIMER):
+        socket.emit(SocketClientToServerEvents.MORTIMER_IN_HALL, false)
         setMortimerInitialScreen(Screens.SWAMP);
         break;
 
