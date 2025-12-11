@@ -13,6 +13,7 @@ import React, { PropsWithChildren, useContext, useEffect, useState } from "react
 import { useActivatedArtifactStore } from "../../helpers/stores/useActivatedArtifactStore";
 import { AcolyteInitialScreenContext, CollectionContext } from "../../helpers/contexts/contexts";
 import { Images, Roles, SocketClientToServerEvents, SocketServerToClientEvents, swampArtifactIcons } from "../../helpers/constants/constants";
+import { useShowRosetteStore } from "../../helpers/stores/useShowRosetteStore";
 
 type AcolyteScreenContainer = {
   backgroundImage?: Images,
@@ -23,8 +24,9 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
   // --- CONTEXTS --- //
   const {width, height}                                         = useWindowDimensions(); 
   const user                                                    = useUserStore(state => state.user);
+  const setIsRosetteShown                                       = useShowRosetteStore( state => state.setIsRosetteShown );
   const setActivatedArtifacts                                   = useActivatedArtifactStore(state => state.setActivatedArtifacts);
-  const {areAllArtifactsCollected, setAreAllArtifactsCollected} = useCollectionStore(state => state)
+  const {areAllArtifactsCollected, setAreAllArtifactsCollected} = useCollectionStore(state => state);
 
   const initialRouterScreen = useContext(AcolyteInitialScreenContext);
   const collectionContext   = useContext(CollectionContext);
@@ -66,7 +68,6 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
 
   }, []);
 
-
   // --- FUNCTIONS --- //
   const returnToMap = () => {
     setInitialScreen('SchoolMap')
@@ -81,14 +82,15 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
 
   const dismissArtifacts = () => {
     socket.emit(SocketClientToServerEvents.DISMISS_ARTIFACTS)
-    setArtifactsToShow([])
+    setArtifactsToShow([]);
     setAreArtifactsShowing(false)
   }
 
   const validateArtifacts = () => {
-    socket.emit(SocketClientToServerEvents.VALIDATE_ARTIFACTS)
-    setArtifactsToShow([])
-    setAreArtifactsShowing(false)
+    socket.emit(SocketClientToServerEvents.VALIDATE_ARTIFACTS);
+    setArtifactsToShow([]);
+    setIsRosetteShown(true);
+    setAreArtifactsShowing(false);
   }
 
   // --- STYLED COMPONENTS --- //

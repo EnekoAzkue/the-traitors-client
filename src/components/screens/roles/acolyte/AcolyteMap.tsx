@@ -1,3 +1,4 @@
+import Rosette from "../../../Rosette";
 import IconButton from "../../IconButton";
 import styled from "styled-components/native";
 import React, { useContext, useEffect, useRef } from "react";
@@ -9,7 +10,7 @@ import { socket } from "../../../../helpers/socket/socket";
 import { useArtifactsStore } from "../../../../helpers/stores/useArtifactStore";
 import { useUserStore } from "../../../../helpers/stores/useUserStore";
 import { useCollectionStore } from "../../../../helpers/stores/useCollectionStore";
-import Rosette from "../../../Rosette";
+import { useShowRosetteStore } from "../../../../helpers/stores/useShowRosetteStore";
 
 export default function AcolyteMap() {
 
@@ -19,7 +20,9 @@ export default function AcolyteMap() {
   const collectionContext = useContext(CollectionContext)
   const user = useUserStore(state => state.user);
   const {artifacts, setArtifacts} = useArtifactsStore(state => state);
-  const setAreAllArtifactsCollected = useCollectionStore(state => state.setAreAllArtifactsCollected)
+  const setAreAllArtifactsCollected = useCollectionStore(state => state.setAreAllArtifactsCollected);
+  const isRosetteShown = useShowRosetteStore( state => state.isRosetteShown );
+  
   
   if (!screenDimensions) return;
   if (!initialRouterScreen) return <Text>ERROR! Initial Router Context not got</Text>;
@@ -166,7 +169,7 @@ export default function AcolyteMap() {
         <View style={styles.darkFilter} />
       </Animated.View>
       
-      <Rosette />
+      {isRosetteShown && <Rosette />}
       
     </StyledAcolyteMapContainer>
   );
