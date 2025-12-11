@@ -90,7 +90,9 @@ export default function Rosette () {
                 yPos={0}
                 hasBorder={true}
                 backgroundImage={Images.OBITUARY_ICON}
+                backgrounOpacity={1}
                 buttonOnPress={selectInitialObituaryScreen}
+                hasBrightness={true}
               />
             </StyledRelativeRosettePositionSoBeInTheMiddle>
           </RelativePositionedObituatyButton>
