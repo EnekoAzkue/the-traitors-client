@@ -57,9 +57,10 @@ export default function AcolyteMap() {
 
     socket.on(SocketServerToClientEvents.SENDING_ARTIFACTS, (artifacts) => {
 
-      socket.on(SocketServerToClientEvents.COLLECTED, () => {
-        socket.emit(SocketClientToServerEvents.REQUEST_ARTIFACTS, user.rol)
-      })
+    socket.on(SocketServerToClientEvents.COLLECTED, () => {
+      socket.emit(SocketClientToServerEvents.REQUEST_ARTIFACTS, user.rol)
+    })
+  });
   }, []);
 
   // --- STYLES --- //

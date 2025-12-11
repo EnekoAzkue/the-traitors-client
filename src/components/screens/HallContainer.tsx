@@ -7,15 +7,16 @@ import ScreenContainer from "./ScreenContainer";
 import AcolytesInHall from "./AcolytesInHallList";
 import { socket } from "../../helpers/socket/socket";
 import Artifact from "../../helpers/interfaces/Artifact";
-import { Text, useWindowDimensions, View } from "react-native";
+import { useWindowDimensions } from "react-native";
 import { useUserStore } from "../../helpers/stores/useUserStore";
 import KaotikaPlayer from "../../helpers/interfaces/KaotikaPlayer";
 import { useCollectionStore } from "../../helpers/stores/useCollectionStore";
-import React, { PropsWithChildren, useContext, useEffect, useState } from "react";
 import { useActivatedArtifactStore } from "../../helpers/stores/useActivatedArtifactStore";
-import Artifact from "../../helpers/interfaces/Artifact";
 import { AritfactOnHall } from "./AritfactOnHall";
 import CircleSpinner from "../Spinner";
+import styled from "styled-components/native";
+import IconButton from "./IconButton";
+import Button from "../Button";
 
 const { width, height } = Dimensions.get('window');
 
@@ -140,10 +141,6 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
   height: ${height * 0.2}px;
 `;
 
-  const ArtifactIcon = styled.Image`
-  width: ${width * 0.3}px;
-  height: ${width * 0.3}px;
-`;
 
   return (
     <View>
@@ -180,7 +177,7 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
             <AcolytesRegisterListContainer >
               {acolytesInHall.length === 0 ? (
                 <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-                  <StyledHallContainerText>Waiting for acolytes to enter...</StyledHallContainerText>
+                  <Text style={{ color: 'white', fontFamily: 'KochAltschrift', fontSize: width * 0.08 }}>Waiting for acolytes to enter...</Text>
                 </View>)
                 :
                 <AcolytesInHall acolytesInHall={acolytesInHall} />
@@ -189,7 +186,7 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
           </AcolytesRegisterScreenContainer>
           {(areArtifactsShowing && user.rol === Roles.MORTIMER) && (
             <ArtifactContainer>
-              <ArtifactIconContainer style={{ opacity }}>
+              <ArtifactIconContainer>
                 {artifactsToShow.map((artifact, index) => (
                   <AritfactOnHall key={index}icon={{ uri: artifact.image }} delay={500 * index} />
                 ))}
