@@ -43,6 +43,7 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
 
   const setInitialScreen = initialRouterScreen[1];
 
+  const [isSpinnerShowing, setIsSpinnerShowing] = useState<boolean>(false);
   const [acolytesInHall, setAcolytesInHall] = useState<KaotikaPlayer[]>([]);
   const [areArtifactsShowing, setAreArtifactsShowing] = useState<boolean>(false);
   const [artifactsToShow, setArtifactsToShow] = useState<Artifact[]>([]);
@@ -67,8 +68,8 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
     });
 
     socket.on(SocketServerToClientEvents.SENDING_ARTIFACTS, (artifacts) => {
-      console.log('show artifacts')
       setAreArtifactsShowing(true);
+      setIsSpinnerShowing(true);
     });
 
     socket.on(SocketServerToClientEvents.END_VALIDATION, (accepted) => {
@@ -89,14 +90,15 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
 
   // --- FUNCTIONS --- //
   const returnToMap = () => {
-    setInitialScreen('SchoolMap')
+    setInitialScreen('SchoolMap');
     socket.emit(SocketClientToServerEvents.ENTER_EXIT_HALL, user.email, false);
   }
 
   const showArtifacts = () => {
-    socket.emit(SocketClientToServerEvents.SHOW_ARTIFACTS)
-    console.log('show artifacts emitted')
-    setAreAllArtifactsCollected(false)
+    socket.emit(SocketClientToServerEvents.SHOW_ARTIFACTS);
+    console.log('show artifacts emitted');
+    setAreAllArtifactsCollected(false);
+    setIsSpinnerShowing(true);
   }
 
   const dismissArtifacts = () => {
@@ -127,33 +129,33 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
 
 
   const ArtifactContainer = styled.View`
-  align-items: center; 
-  width: ${width}px;
-  margin-top: ${height * 0.35}px;
-  position: absolute;
-`;
+    align-items: center; 
+    width: ${width}px;
+    margin-top: ${height * 0.35}px;
+    position: absolute;
+  `;
 
   const ArtifactIconContainer = styled.View`
-  flex-direction: row;
-  flex-wrap: wrap;    
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  width: ${width * 0.9}px;
-  height: ${height * 0.2}px;
-`;
+    flex-direction: row;
+    flex-wrap: wrap;    
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    width: ${width * 0.9}px;
+    height: ${height * 0.2}px;
+  `;
 
 
   return (
     <View>
       <ScreenContainer backgroundImg={backgroundImage}>
-        {/* {areArtifactsShowing &&
+        { isSpinnerShowing &&
           <>
             <CircleSpinner>
               <Text style={{ color: 'white', fontFamily: 'KochAltschrift', fontSize: width * 0.08, justifyContent: 'center', alignItems: 'center' }}>Waiting for validation...</Text>
             </CircleSpinner>
           </>
-        } */}
+        }
         {user.rol === Roles.ACOLYTE && (
           <>
             <IconButton
