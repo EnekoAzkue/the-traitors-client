@@ -11,6 +11,7 @@ import { useUserStore } from "../../../../helpers/stores/useUserStore";
 import { AcolyteInitialScreenContext } from "../../../../helpers/contexts/contexts";
 import { Screens, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
 import HallOfSages from "../../HallOfSages";
+import { Obituary } from "./Obituary";
 
 export default function Acolyte() {
 
@@ -46,8 +47,9 @@ export default function Acolyte() {
       {initialScreen === Screens.ACOLYTE_LAB      && <AcolyteLab />}
       {initialScreen === Screens.ACOLYTE_SETTINGS && <AcolyteSettings />}
       {initialScreen === Screens.ACOLYTE_TOWER    && <AcolyteTower />}
-      {initialScreen === Screens.HALL_OF_SAGES     && <HallOfSages />}
+      {initialScreen === Screens.HALL_OF_SAGES    && <HallOfSages />}
       {initialScreen === Screens.SWAMP            && <Swamp />}
+      {initialScreen === Screens.OBITURARY        && <Obituary />}
     </>
   );
 

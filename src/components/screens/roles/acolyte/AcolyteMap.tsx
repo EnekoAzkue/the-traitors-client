@@ -33,6 +33,7 @@ export default function AcolyteMap() {
   const selectInitialHomeScreen = () => setInitialScreen(Screens.SCHOOL_MAP);
   const selectInitialTowerScreen = () => setInitialScreen(Screens.ACOLYTE_TOWER);
   const selectInitialSwampScreen = () => setInitialScreen(Screens.SWAMP);
+  const selectInitialObituaryScreen = () => setInitialScreen(Screens.OBITURARY);
 
   // --- REFS --- //
   // Refs used on cloud animation
@@ -144,6 +145,17 @@ export default function AcolyteMap() {
         backgroundImage={Images.SWAMP_ICON}
         buttonOnPress={selectInitialSwampScreen}
       />
+
+      <IconButton
+        width={screenDimensions.width * 0.1}
+        height={screenDimensions.width * 0.1}
+        xPos={screenDimensions.width * 0.2}
+        yPos={screenDimensions.height * 0.62}
+        hasBorder={true}
+        backgroundImage={Images.OBITURARY_ICON}
+        buttonOnPress={selectInitialObituaryScreen}
+      />
+
       <Animated.View
         style={[
           styles.cloudOverlay,

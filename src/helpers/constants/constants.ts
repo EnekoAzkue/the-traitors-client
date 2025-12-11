@@ -25,6 +25,7 @@ enum Images {
   LOGGING_SCREEN          = require('../../assets/images/LoginScreen.png'),
   SPLASH_SCREEN           = require('../../assets/images/SplashScreen.png'),
   HALL_OF_SAGES           = require('../../assets/images/HallOfSages.png'),
+  OBITURARY               = require('../../assets/images/Obituary.png'),
 
   // --- ACOLYTE IMAGES --- //
   ACOLYTE_HOME            = require('../../assets/images/AcolyteHome.png'),
@@ -94,6 +95,7 @@ enum Screens {
   ACOLYTE_TOWER     = 'AcolyteTower',
   ACOLYTE_HALL      = 'AcolyteHall',
   SCHOOL_MAP        = 'SchoolMap',
+  OBITURARY         = 'Obituary',
 
 
   // --- ISTVAN --- //
