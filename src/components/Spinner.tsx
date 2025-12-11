@@ -2,10 +2,11 @@ import { Bounce } from 'react-native-animated-spinkit';
 import { View, StyleSheet } from 'react-native';
 import React from 'react';
 
-function CircleSpinner() {
+function CircleSpinner( {children}: any ) {
   return (
     <View style={styles.container}>
       <Bounce size={80} color="rgba(255, 255, 255, 1)" />
+      {children}
     </View>
   );
 }

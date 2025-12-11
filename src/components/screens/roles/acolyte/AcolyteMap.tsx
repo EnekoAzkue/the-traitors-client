@@ -63,14 +63,10 @@ export default function AcolyteMap() {
 
     socket.on(SocketServerToClientEvents.SENDING_ARTIFACTS, (artifacts) => {
 
-
-      const collectedArtifacts = artifacts.filter(a => a.state === 'collected')
-      if (collectedArtifacts.length === 4) {
-        setAreAllArtifactsCollected(true)
-      }
-      setArtifacts(artifacts)
+    socket.on(SocketServerToClientEvents.COLLECTED, () => {
+      socket.emit(SocketClientToServerEvents.REQUEST_ARTIFACTS, user.rol)
     })
-
+  });
   }, []);
 
   // --- STYLES --- //

@@ -39,7 +39,7 @@ const QRCodeContainer = () => {
   const StyledQRText = styled.Text`
     color: white;
     fontFamily: 'KochAltschrift';
-    font-size: ${width * 0.05}px;
+    font-size: ${width * 0.07}px;
     text-align: center;
     `;
 
@@ -59,15 +59,15 @@ const QRCodeContainer = () => {
   const StyledText_1 = styled.Text`
     color: white;
     fontFamily: 'KochAltschrift';
-    font-size: ${width * 0.07}px;
+    font-size: ${width * 0.1}px;
   `;
 
 
   const Container = styled.View`
     justify-content: center;
     align-items: center;
-    height: ${height* 0.15}px;
-    width: ${width * 0.27}px;
+    height: ${height}px;
+    width: ${width}px;
   `;
 
 
