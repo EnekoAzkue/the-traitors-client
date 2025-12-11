@@ -69,6 +69,8 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
     });
 
     socket.on(SocketServerToClientEvents.SENDING_ARTIFACTS, (artifacts) => {
+      const collectedArtifacts = artifacts.filter(artifact => artifact.state === 'collected');
+      setArtifactsToShow(collectedArtifacts);
       setAreArtifactsShowing(true);
       setIsSpinnerShowing(true);
     });
@@ -152,7 +154,7 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
   return (
     <View>
       <ScreenContainer backgroundImg={backgroundImage}>
-        { isSpinnerShowing &&
+        { (isSpinnerShowing && user.rol === Roles.ACOLYTE) &&
           <>
             <CircleSpinner>
               <Text style={{ color: 'white', fontFamily: 'KochAltschrift', fontSize: width * 0.08, justifyContent: 'center', alignItems: 'center' }}>Waiting for validation...</Text>
