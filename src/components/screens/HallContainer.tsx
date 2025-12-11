@@ -70,10 +70,20 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
       console.log('show artifacts')
       setAreArtifactsShowing(true);
     });
+
+    socket.on(SocketServerToClientEvents.END_VALIDATION, (accepted) => {
+      setArtifactsToShow([]);
+      setAreArtifactsShowing(false);
+      if(accepted) {
+        setIsRosetteShown(true);
+      }
+    })
+
     return () => {
       socket.off(SocketServerToClientEvents.SENDING_ACOLYTES_IN_HALL);
       socket.off(SocketServerToClientEvents.ACOLYTE_ENTERED_EXITED_HALL);
       socket.off(SocketServerToClientEvents.SENDING_ARTIFACTS);
+      socket.off(SocketServerToClientEvents.END_VALIDATION);
     };
   }, []);
 
@@ -90,16 +100,11 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
   }
 
   const dismissArtifacts = () => {
-    socket.emit(SocketClientToServerEvents.DISMISS_ARTIFACTS)
-    setArtifactsToShow([]);
-    setAreArtifactsShowing(false)
+    socket.emit(SocketClientToServerEvents.DISCARD_ARTIFACTS)
   }
 
   const validateArtifacts = () => {
-    socket.emit(SocketClientToServerEvents.VALIDATE_ARTIFACTS);
-    setArtifactsToShow([]);
-    setIsRosetteShown(true);
-    setAreArtifactsShowing(false);
+    socket.emit(SocketClientToServerEvents.ACCEPT_ARTIFACTS);
   }
 
   // --- STYLED COMPONENTS --- //
@@ -142,13 +147,13 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
   return (
     <View>
       <ScreenContainer backgroundImg={backgroundImage}>
-        {areArtifactsShowing &&
+        {/* {areArtifactsShowing &&
           <>
             <CircleSpinner>
               <Text style={{ color: 'white', fontFamily: 'KochAltschrift', fontSize: width * 0.08, justifyContent: 'center', alignItems: 'center' }}>Waiting for validation...</Text>
             </CircleSpinner>
           </>
-        }
+        } */}
         {user.rol === Roles.ACOLYTE && (
           <>
             <IconButton

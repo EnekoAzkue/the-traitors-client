@@ -208,6 +208,8 @@ enum SocketServerToClientEvents {
   COLLECTED                       = 'collected',
   SENDING_ACOLYTES_IN_HALL        = 'sending acolytes in hall',
   ACOLYTE_ENTERED_EXITED_HALL     = 'acolyte entered/exited the hall',
+  END_VALIDATION                  = 'end validation',
+
 
 
 }
@@ -229,9 +231,8 @@ enum SocketClientToServerEvents {
   ENTER_EXIT_HALL               = 'enter/exit hall',
   SHOW_ARTIFACTS                = 'show artifacts',
   SEARCH_FOR_ACOLYTES_IN_HALL   = 'search for acolytes in hall',
-  DISMISS_ARTIFACTS             = 'dismiss artifacts',
-  VALIDATE_ARTIFACTS            = 'validate artifacts',
-
+  DISCARD_ARTIFACTS             = 'discard artifacts',
+  ACCEPT_ARTIFACTS              = 'accept artifacts',
 }
 
 enum SocketClientToServerEventsForTesting {
