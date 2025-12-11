@@ -1,8 +1,10 @@
 import Swamp from "../../Swamp";
 import AcolyteMap from "./AcolyteMap";
 import AcolyteLab from "./AcolyteLab";
+import Obituary from "./Obituary";
 import AcolyteHome from "./AcolyteHome";
 import AcolyteTower from "./AcolyteTower";
+import HallOfSages from "../../HallOfSages";
 import AcolyteSettings from "./AcolyteSettings";
 import AcolyteSchoolMap from "./AcolyteSchoolMap";
 import React, { useContext, useEffect } from "react";
@@ -10,8 +12,7 @@ import { socket } from "../../../../helpers/socket/socket";
 import { useUserStore } from "../../../../helpers/stores/useUserStore";
 import { AcolyteInitialScreenContext } from "../../../../helpers/contexts/contexts";
 import { Screens, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
-import HallOfSages from "../../HallOfSages";
-import { Obituary } from "./Obituary";
+import Rosette from "../../../Rosette";
 
 export default function Acolyte() {
 
@@ -49,7 +50,7 @@ export default function Acolyte() {
       {initialScreen === Screens.ACOLYTE_TOWER    && <AcolyteTower />}
       {initialScreen === Screens.HALL_OF_SAGES    && <HallOfSages />}
       {initialScreen === Screens.SWAMP            && <Swamp />}
-      {initialScreen === Screens.OBITURARY        && <Obituary />}
+      {initialScreen === Screens.OBITUARY         && <Obituary />}
     </>
   );
 

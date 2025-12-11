@@ -25,7 +25,7 @@ enum Images {
   LOGGING_SCREEN          = require('../../assets/images/LoginScreen.png'),
   SPLASH_SCREEN           = require('../../assets/images/SplashScreen.png'),
   HALL_OF_SAGES           = require('../../assets/images/HallOfSages.png'),
-  OBITURARY               = require('../../assets/images/Obituary.png'),
+  OBITUARY                = require('../../assets/images/Obituary.png'),
 
   // --- ACOLYTE IMAGES --- //
   ACOLYTE_HOME            = require('../../assets/images/AcolyteHome.png'),
@@ -64,7 +64,7 @@ enum Images {
   HALL_ICON               = require('../../assets/images/logos/hall_icon.png'),
   SCROLL                  = require('../../assets/images/logos/scroll.png'),
   SWAMP_ICON              = require('../../assets/images/logos/swamp_icon.png'),
-  OBITURARY_ICON          = require('../../assets/images/logos/obituary_icon.png'),
+  OBITUARY_ICON          = require('../../assets/images/logos/obituary_icon.png'),
 
   // --- GENERAL IMAGES --- //
   LOGO                    = require('../../assets/images/logo.png'),
@@ -74,6 +74,7 @@ enum Images {
   BUTTON                  = require('../../assets/images/Button_1.png'),
   MODAL                   = require('../../assets/images/Modal.png'),
   AVATAR_CONTAINER        = require('../../assets/images/AvatarContainer.png'),
+  ROSETTE                 = require('../../assets/images/Roseta.png'),
 
   // --- ARTIFACT ICONS --- //
   DRAGON_HEART_ICON       = require('../../assets/artifactImages/Dragon_heart_icon.png'),
@@ -95,7 +96,7 @@ enum Screens {
   ACOLYTE_TOWER     = 'AcolyteTower',
   ACOLYTE_HALL      = 'AcolyteHall',
   SCHOOL_MAP        = 'SchoolMap',
-  OBITURARY         = 'Obituary',
+  OBITUARY         = 'Obituary',
 
 
   // --- ISTVAN --- //

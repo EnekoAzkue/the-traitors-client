@@ -4,9 +4,9 @@ import ScreenContainer from "../../ScreenContainer";
 import { Images } from "../../../../helpers/constants/constants";
 import IconButton from "../../IconButton";
 import { AcolyteInitialScreenContext } from "../../../../helpers/contexts/contexts";
+import Rosette from "../../../Rosette";
 
-
-export function Obituary() {
+export default function Obituary() {
 
   // --- CONSTANTS, CONTEXTS && STORES --- //
   const { width, height } = useWindowDimensions();
@@ -16,9 +16,11 @@ export function Obituary() {
 
   const setInitialScreen = initialRouterScreen[1];
 
+  // --- EFFECTS--- //
+
   return (
     <>
-      <ScreenContainer backgroundImg={Images.OBITURARY}>
+      <ScreenContainer backgroundImg={Images.OBITUARY}>
         {/* TODO: Modularizar este componente para crear un Obituary screen container que almacene este iconButton */}
           <IconButton
             width={width * 0.3}
@@ -30,8 +32,6 @@ export function Obituary() {
             yPos={20}
             hasBorder={false}
             backgrounOpacity={0} />
-
-
       </ScreenContainer>
     </>
   );

@@ -21,13 +21,13 @@ type AcolyteScreenContainer = {
 export default function HallContainer({ backgroundImage, children }: PropsWithChildren<AcolyteScreenContainer>) {
 
   // --- CONTEXTS --- //
-  const {width, height}                     = useWindowDimensions(); 
-  const user                                = useUserStore(state => state.user);
-  const { activatedArtifacts, setActivatedArtifacts } = useActivatedArtifactStore(state => state);
+  const {width, height}                                         = useWindowDimensions(); 
+  const user                                                    = useUserStore(state => state.user);
+  const setActivatedArtifacts                                   = useActivatedArtifactStore(state => state.setActivatedArtifacts);
   const {areAllArtifactsCollected, setAreAllArtifactsCollected} = useCollectionStore(state => state)
 
   const initialRouterScreen = useContext(AcolyteInitialScreenContext);
-  const collectionContext = useContext(CollectionContext)
+  const collectionContext   = useContext(CollectionContext);
 
   if (!user) return;
   if (!initialRouterScreen) return (<Text>ERROR! Initial Router Context not got</Text>);

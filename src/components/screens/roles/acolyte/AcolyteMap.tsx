@@ -9,8 +9,10 @@ import { socket } from "../../../../helpers/socket/socket";
 import { useArtifactsStore } from "../../../../helpers/stores/useArtifactStore";
 import { useUserStore } from "../../../../helpers/stores/useUserStore";
 import { useCollectionStore } from "../../../../helpers/stores/useCollectionStore";
+import Rosette from "../../../Rosette";
 
 export default function AcolyteMap() {
+
   // --- CONTEXTS --- //
   const screenDimensions = useScreenDimensions(state => state.screenDimensions);
   const initialRouterScreen = useContext(AcolyteInitialScreenContext);
@@ -24,7 +26,7 @@ export default function AcolyteMap() {
   if (!collectionContext) return
   if (!user) return
 
-  const [, setInitialScreen] = initialRouterScreen;
+  const setInitialScreen = initialRouterScreen[1];
   const areAllArtifactsCollected = useCollectionStore(state => state.areAllArtifactsCollected)
 
   
@@ -33,7 +35,6 @@ export default function AcolyteMap() {
   const selectInitialHomeScreen = () => setInitialScreen(Screens.SCHOOL_MAP);
   const selectInitialTowerScreen = () => setInitialScreen(Screens.ACOLYTE_TOWER);
   const selectInitialSwampScreen = () => setInitialScreen(Screens.SWAMP);
-  const selectInitialObituaryScreen = () => setInitialScreen(Screens.OBITURARY);
 
   // --- REFS --- //
   // Refs used on cloud animation
@@ -146,16 +147,6 @@ export default function AcolyteMap() {
         buttonOnPress={selectInitialSwampScreen}
       />
 
-      <IconButton
-        width={screenDimensions.width * 0.1}
-        height={screenDimensions.width * 0.1}
-        xPos={screenDimensions.width * 0.2}
-        yPos={screenDimensions.height * 0.62}
-        hasBorder={true}
-        backgroundImage={Images.OBITURARY_ICON}
-        buttonOnPress={selectInitialObituaryScreen}
-      />
-
       <Animated.View
         style={[
           styles.cloudOverlay,
@@ -174,6 +165,9 @@ export default function AcolyteMap() {
 
         <View style={styles.darkFilter} />
       </Animated.View>
+      
+      <Rosette />
+      
     </StyledAcolyteMapContainer>
   );
 }
