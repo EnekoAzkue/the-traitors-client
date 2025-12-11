@@ -63,6 +63,7 @@ enum Images {
   HALL_ICON               = require('../../assets/images/logos/hall_icon.png'),
   SCROLL                  = require('../../assets/images/logos/scroll.png'),
   SWAMP_ICON              = require('../../assets/images/logos/swamp_icon.png'),
+  OBITURARY_ICON          = require('../../assets/images/logos/obituary_icon.png'),
 
   // --- GENERAL IMAGES --- //
   LOGO                    = require('../../assets/images/logo.png'),
