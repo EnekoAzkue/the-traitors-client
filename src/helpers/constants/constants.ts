@@ -209,6 +209,10 @@ enum SocketServerToClientEvents {
   SENDING_ACOLYTES_IN_HALL        = 'sending acolytes in hall',
   ACOLYTE_ENTERED_EXITED_HALL     = 'acolyte entered/exited the hall',
   END_VALIDATION                  = 'end validation',
+  SENDING_MORTIMER_IN_HALL        = 'sending mortimer in hall',
+  MORTIMER_ENTERED_EXITED_HALL    = 'mortimer entered/exited the hall',
+  
+
 
 
 
@@ -233,6 +237,9 @@ enum SocketClientToServerEvents {
   SEARCH_FOR_ACOLYTES_IN_HALL   = 'search for acolytes in hall',
   DISCARD_ARTIFACTS             = 'discard artifacts',
   ACCEPT_ARTIFACTS              = 'accept artifacts',
+  MORTIMER_IN_HALL              = 'mortimer in hall',
+  SEARCH_FOR_MORTIMER_IN_HALL   = 'search for mortimer in hall',
+
 }
 
 enum SocketClientToServerEventsForTesting {

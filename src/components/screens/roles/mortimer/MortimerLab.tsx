@@ -3,8 +3,9 @@ import ScreenContainer from "../../ScreenContainer";
 import React, { useContext, useEffect } from "react";
 import AcolyteLabRegister from "./AcolyteLabRegister";
 import { Text, useWindowDimensions } from "react-native";
-import { Images, Screens } from "../../../../helpers/constants/constants";
+import { Images, Screens, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
 import { AllAcolytesContext, MortimerInitialScreenContext } from "../../../../helpers/contexts/contexts";
+import { socket } from "../../../../helpers/socket/socket";
 
 function MortimerLab() {
 
@@ -22,6 +23,7 @@ function MortimerLab() {
 
   // --- EFFECTS --- //
   useEffect(() => {
+    socket.emit(SocketClientToServerEvents.MORTIMER_IN_HALL, false)
     setInitialScreen(Screens.MORTIMER_LAB);
   }, []);
 

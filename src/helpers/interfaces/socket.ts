@@ -7,18 +7,17 @@ import { SocketClientToServerEvents, SocketClientToServerEventsForTesting, Socke
 interface ServerToClientEvents {
 
   [SocketServerToClientEvents.RECIEVED_FOUND_SCROLL]            : () => void;
-  // [SocketServerToClientEvents.SCROLL_VANISH]                    : () => void;
   [SocketServerToClientEvents.COLLECTED]                        : () => void;
   [SocketServerToClientEvents.SEND_UPDATED_PLAYER_TO_MORTIMER]  : ( acolyteData: any ) => void;
   [SocketServerToClientEvents.UPDATE_USER_IN_CLIENT]            : ( acolyteData: any ) => void;
   [SocketServerToClientEvents.SENDING_ARTIFACTS]                : ( artifacts: Artifact[] ) => void;
   [SocketServerToClientEvents.GET_IN_SWAMP_ACOLYTES]            : ( inSwampAcolytes: KaotikaPlayer[] ) => void;
-  // [SocketServerToClientEvents.ACOLYTE_INSIDE_OUTSIDE_LAB]       : ( acolyteData: AcolyteDataAfterAccessExitLab ) => void;
-  // [SocketServerToClientEvents.ACOLYTE_INSIDE_OUTSIDE_TOWER]       : ( acolyteData: AcolyteDataAfterAccessExitTower ) => void;
   [SocketServerToClientEvents.GET_ACOLYTE_NEW_COORDS]           : ( newCoords: {email: string, coords: GeolacationCoords} ) => void;
   [SocketServerToClientEvents.SENDING_ACOLYTES_IN_HALL]         : (acolytesInHall: KaotikaPlayer[]) => void;
   [SocketServerToClientEvents.ACOLYTE_ENTERED_EXITED_HALL]      : () => void;
   [SocketServerToClientEvents.END_VALIDATION]                   : (accepted: boolean) => void;
+  [SocketServerToClientEvents.SENDING_MORTIMER_IN_HALL]         : (inHall: boolean) => void;
+  [SocketServerToClientEvents.MORTIMER_ENTERED_EXITED_HALL]     : (inHall: boolean) => void;
 
 };
   
@@ -37,6 +36,9 @@ interface ClientToServerEvents {
   [SocketClientToServerEvents.SEND_ACOLYTES_COORDS]             : ( userCoords: UserCoords ) => void;
   [SocketClientToServerEvents.UPDATE_USER]                      : ( acolyteEmail: string, changes: any ) => void;
   [SocketClientToServerEvents.UPDATE_INTOWER]                   : ( userEmail: string, inTower: boolean ) => void;
+  [SocketClientToServerEvents.ENTER_EXIT_HALL]                 : ( acolyteMail: string, inHall: any ) => void;
+
+
 
   // --- FOR TEST PURPOUSE --- //
   [SocketClientToServerEventsForTesting.GET_FCM_MESSAGE]        : ( getSuccesfully: boolean ) => void;
@@ -80,6 +82,8 @@ interface ClientToServerEvents {
   [SocketClientToServerEvents.SEARCH_FOR_ACOLYTES_IN_HALL]: () => void;
   [SocketClientToServerEvents.DISCARD_ARTIFACTS]: () => void;
   [SocketClientToServerEvents.ACCEPT_ARTIFACTS]: () => void;
+  [SocketClientToServerEvents.MORTIMER_IN_HALL]: (inHall: boolean) => void;
+  [SocketClientToServerEvents.SEARCH_FOR_MORTIMER_IN_HALL]: () => void;
 
 
   // TEST ONES

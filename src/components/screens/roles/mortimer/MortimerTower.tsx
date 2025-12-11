@@ -2,9 +2,10 @@ import styled from "styled-components/native";
 import ScreenContainer from "../../ScreenContainer";
 import AcolyteTowerRegister from "./AcolyteTowerRegister";
 import React, { useContext, useEffect, useState } from "react";
-import { Images } from "../../../../helpers/constants/constants";
+import { Images, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
 import { Text, Dimensions, useWindowDimensions } from "react-native";
 import { AllAcolytesContext, MortimerInitialScreenContext } from "../../../../helpers/contexts/contexts";
+import { socket } from "../../../../helpers/socket/socket";
 
 function MortimerTower() {
 
@@ -21,6 +22,8 @@ function MortimerTower() {
 
   // --- EFFECTS --- //
   useEffect(() => {
+    socket.emit(SocketClientToServerEvents.MORTIMER_IN_HALL, false)
+
     setInitialScreen("MortimerTower");
   }, []);
 

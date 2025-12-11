@@ -1,8 +1,9 @@
 import styled from "styled-components/native";
 import ScreenContainer from "../../ScreenContainer";
 import React, { useContext, useEffect } from "react";
-import { Images, Screens } from "../../../../helpers/constants/constants";
+import { Images, Screens, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
 import { MortimerInitialScreenContext } from "../../../../helpers/contexts/contexts";
+import { socket } from "../../../../helpers/socket/socket";
 
 function MortimerHome() {
 
@@ -15,6 +16,7 @@ function MortimerHome() {
   
   // --- EFFECT --- //
   useEffect(() => {
+    socket.emit(SocketClientToServerEvents.MORTIMER_IN_HALL, false)
       setInitialScreen(Screens.MORTIMER_HOME);
   }, []);
 

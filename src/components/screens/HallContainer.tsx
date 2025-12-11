@@ -48,6 +48,7 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
   const [acolytesInHall, setAcolytesInHall] = useState<KaotikaPlayer[]>([]);
   const [areArtifactsShowing, setAreArtifactsShowing] = useState<boolean>(false);
   const [artifactsToShow, setArtifactsToShow] = useState<Artifact[]>([]);
+  const [mortimerInHall, setMortimerInHall] = useState<boolean>(false);
 
   // --- EFFECTS --- //
   useEffect(() => {
@@ -58,10 +59,20 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
 
     if (user.rol !== Roles.ACOLYTE) {
       socket.emit(SocketClientToServerEvents.SEARCH_FOR_ACOLYTES_IN_HALL);
+    } else if (user.rol === Roles.ACOLYTE) {
+      socket.emit(SocketClientToServerEvents.SEARCH_FOR_MORTIMER_IN_HALL);
     }
 
     socket.on(SocketServerToClientEvents.SENDING_ACOLYTES_IN_HALL, (acolytes: KaotikaPlayer[]) => {
       setAcolytesInHall(acolytes);
+    });
+
+    socket.on(SocketServerToClientEvents.SENDING_MORTIMER_IN_HALL, (inHall) => {
+      setMortimerInHall(inHall);
+    })
+
+    socket.on(SocketServerToClientEvents.MORTIMER_ENTERED_EXITED_HALL, () => {
+      socket.emit(SocketClientToServerEvents.SEARCH_FOR_MORTIMER_IN_HALL)
     });
 
     socket.on(SocketServerToClientEvents.ACOLYTE_ENTERED_EXITED_HALL, () => {
@@ -90,6 +101,7 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
       socket.off(SocketServerToClientEvents.ACOLYTE_ENTERED_EXITED_HALL);
       socket.off(SocketServerToClientEvents.SENDING_ARTIFACTS);
       socket.off(SocketServerToClientEvents.END_VALIDATION);
+
     };
   }, []);
 
@@ -174,7 +186,7 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
               hasBorder={false}
               backgrounOpacity={0}
             />
-            {areAllArtifactsCollected && (
+            {(areAllArtifactsCollected && mortimerInHall) && (
               <View style={{ width: width, height: height, alignItems: "center" }}>
                 <Button buttonText="Show artifacts" onPress={showArtifacts} />
               </View>

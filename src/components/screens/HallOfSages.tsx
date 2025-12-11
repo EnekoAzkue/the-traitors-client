@@ -34,6 +34,7 @@ function HallOfSages() {
 
       case (Roles.MORTIMER):
         setMortimerInitialScreen(Screens.HALL_OF_SAGES);
+        socket.emit(SocketClientToServerEvents.MORTIMER_IN_HALL, true);
       break;
       
       case (Roles.ISTVAN): 

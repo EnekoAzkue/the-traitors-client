@@ -1,8 +1,9 @@
 import React, { useContext, useEffect } from "react";
 import ScreenContainer from "../../ScreenContainer";
-import { Images, Screens } from "../../../../helpers/constants/constants";
+import { Images, Screens, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
 import Logout from "../../Logout";
 import { MortimerInitialScreenContext } from "../../../../helpers/contexts/contexts";
+import { socket } from "../../../../helpers/socket/socket";
 
 
 function MortimerSettings() {
@@ -14,6 +15,7 @@ function MortimerSettings() {
   
   // --- EFFECTS --- //
   useEffect(() => {
+    socket.emit(SocketClientToServerEvents.MORTIMER_IN_HALL, false)
     setInitialScreen(Screens.MORTIMER_SETTINGS);
   }, []);
 
