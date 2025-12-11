@@ -14,12 +14,12 @@ export default function Rosette () {
   // --- CONSTANTS, CONTEXTS && STORES --- //
   const { width, height } = useWindowDimensions();
   const activatedArtifacts = useActivatedArtifactStore( state => state.activatedArtifacts );
-    const initialRouterScreen = useContext(AcolyteInitialScreenContext);
+  const initialRouterScreen = useContext(AcolyteInitialScreenContext);
   
   const artifactsInRosettePositionsPercents = [{x: 20, y: 20}, {x: 80, y: 20}, {x: 20, y: 80}, {x: 80, y: 80}];
   
 
-  if (activatedArtifacts.length === 0) return;
+  // if (activatedArtifacts.length === 0) return;
   if (!initialRouterScreen) return <Text>ERROR! Initial Router Context not got</Text>;
   
   const setInitialScreen = initialRouterScreen[1];
@@ -67,6 +67,8 @@ export default function Rosette () {
 
   // --- EFFECTS --- //
   useEffect(() => {
+    console.log('object');
+    console.log("activated artifacts:", activatedArtifacts);
   }, []);
 
   return (

@@ -20,6 +20,7 @@ import Button from "../Button";
 
 const { width, height } = Dimensions.get('window');
 import { useShowRosetteStore } from "../../helpers/stores/useShowRosetteStore";
+import Rosette from "../Rosette";
 
 type AcolyteScreenContainer = {
   backgroundImage?: Images,
@@ -73,9 +74,11 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
     });
 
     socket.on(SocketServerToClientEvents.END_VALIDATION, (accepted) => {
+      setIsSpinnerShowing(false);
       setArtifactsToShow([]);
       setAreArtifactsShowing(false);
       if(accepted) {
+        console.log("accepted rosette");
         setIsRosetteShown(true);
       }
     })

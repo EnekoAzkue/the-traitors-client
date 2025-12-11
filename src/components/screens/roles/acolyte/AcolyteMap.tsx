@@ -1,16 +1,16 @@
 import Rosette from "../../../Rosette";
 import IconButton from "../../IconButton";
 import styled from "styled-components/native";
-import React, { useContext, useEffect, useRef } from "react";
-import { Animated, Image, Text, StyleSheet, View } from "react-native";
-import { Images, Screens, SocketClientToServerEvents, SocketServerToClientEvents } from "../../../../helpers/constants/constants";
-import { AcolyteInitialScreenContext, CollectionContext } from "../../../../helpers/contexts/contexts";
-import { useScreenDimensions } from "../../../../helpers/stores/useScreenDimensionsStore";
 import { socket } from "../../../../helpers/socket/socket";
-import { useArtifactsStore } from "../../../../helpers/stores/useArtifactStore";
+import React, { useContext, useEffect, useRef } from "react";
 import { useUserStore } from "../../../../helpers/stores/useUserStore";
+import { Animated, Image, Text, StyleSheet, View } from "react-native";
+import { useArtifactsStore } from "../../../../helpers/stores/useArtifactStore";
 import { useCollectionStore } from "../../../../helpers/stores/useCollectionStore";
 import { useShowRosetteStore } from "../../../../helpers/stores/useShowRosetteStore";
+import { useScreenDimensions } from "../../../../helpers/stores/useScreenDimensionsStore";
+import { AcolyteInitialScreenContext, CollectionContext } from "../../../../helpers/contexts/contexts";
+import { Images, Screens, SocketClientToServerEvents, SocketServerToClientEvents } from "../../../../helpers/constants/constants";
 
 export default function AcolyteMap() {
 
@@ -67,6 +67,10 @@ export default function AcolyteMap() {
       socket.emit(SocketClientToServerEvents.REQUEST_ARTIFACTS, user.rol)
     })
   });
+
+  console.log('is ros sh?', isRosetteShown);
+  
+
   }, []);
 
   // --- STYLES --- //
@@ -164,7 +168,7 @@ export default function AcolyteMap() {
 
         <View style={styles.darkFilter} />
       </Animated.View>
-      
+
       {isRosetteShown && <Rosette />}
       
     </StyledAcolyteMapContainer>
