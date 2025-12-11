@@ -118,7 +118,7 @@ export default function AcolyteMap() {
         backgroundImage={Images.TOWER_ICON}
         buttonOnPress={selectInitialTowerScreen}
       />
-      {areAllArtifactsCollected ?
+      {( !isRosetteShown && areAllArtifactsCollected) ?
         <IconButton
           width={screenDimensions.width * 0.1}
           height={screenDimensions.width * 0.1}

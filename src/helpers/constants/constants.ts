@@ -210,7 +210,7 @@ enum SocketServerToClientEvents {
   ACOLYTE_ENTERED_EXITED_HALL     = 'acolyte entered/exited the hall',
   END_VALIDATION                  = 'end validation',
   SENDING_MORTIMER_IN_HALL        = 'sending mortimer in hall',
-  MORTIMER_ENTERED_EXITED_HALL    = 'mortimer entered/exited the hall',
+  MORTIMER_ENTERED_EXITED_HALL    = 'mortimer entered/exited hall',
   
 
 

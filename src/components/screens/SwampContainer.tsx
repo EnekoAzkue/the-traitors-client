@@ -6,6 +6,7 @@ import IconButton from "./IconButton";
 import { AcolyteInitialScreenContext, InventoryContext } from "../../helpers/contexts/contexts";
 import KaotikaPlayer from "../../helpers/interfaces/KaotikaPlayer";
 import { useCollectionStore } from "../../helpers/stores/useCollectionStore";
+import { useShowRosetteStore } from "../../helpers/stores/useShowRosetteStore";
 
 
 type AcolyteScreenContainer = {
@@ -20,6 +21,7 @@ export default function SwampContainer({ user, backgroundImage, children }: Prop
   const inventoryContext = useContext(InventoryContext);
   const initialRouterScreen = useContext(AcolyteInitialScreenContext);
   const areAllArtifactsCollected = useCollectionStore(state => state.areAllArtifactsCollected)
+  const isRosetteShown = useShowRosetteStore( state => state.isRosetteShown );
 
   // --- INITIAL SCREEN CONTEXT ---
   if (!inventoryContext)    return <Text>ERROR! InventoryContext Provider is missing</Text>;
@@ -34,18 +36,13 @@ export default function SwampContainer({ user, backgroundImage, children }: Prop
     setIsInventoryOpen(!isInventoryOpen);
   };
 
-  // Esta función solo le va a servir al acoluto ya que es el unico al que le va a aparecer el boton de go back
-  const exitFromSwamp = () => {
-    
-  }
-
   return (
     <View>
       <ScreenContainer backgroundImg={backgroundImage}>
         {
           (user.rol === Roles.ACOLYTE) ?
 
-            areAllArtifactsCollected ?
+            (!isRosetteShown && areAllArtifactsCollected) ?
               <IconButton 
                 width={width * 0.3}
                 height={height * 0.07}

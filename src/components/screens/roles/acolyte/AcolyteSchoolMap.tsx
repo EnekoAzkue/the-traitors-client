@@ -1,31 +1,40 @@
-import React, { useContext } from "react";
-import { Dimensions } from 'react-native';
 import IconButton from "../../IconButton";
+import { useWindowDimensions } from 'react-native';
+import React, { useContext, useEffect } from "react";
 import { ImageBackground, Text, StyleSheet } from "react-native";
 import { Images, Screens } from "../../../../helpers/constants/constants";
-import { AcolyteInitialScreenContext, CollectionContext, ScrollContext } from "../../../../helpers/contexts/contexts";
 import { useCollectionStore } from "../../../../helpers/stores/useCollectionStore";
-
-const { width, height } = Dimensions.get('window');
+import { useShowRosetteStore } from "../../../../helpers/stores/useShowRosetteStore";
+import { AcolyteInitialScreenContext, CollectionContext, ScrollContext } from "../../../../helpers/contexts/contexts";
 
 export default function AcolyteSchoolMap() {
-  // --- CONTEXTS --- //
+
+  // --- CONTEXTS && STORES --- //
+  const { width, height } = useWindowDimensions();
   const initialRouterScreen = useContext(AcolyteInitialScreenContext);
   const scrollContext = useContext(ScrollContext);
-  const collectionContext = useContext(CollectionContext)
-
+  const collectionContext = useContext(CollectionContext);
+  const isRosetteShown = useShowRosetteStore( state => state.isRosetteShown );
+  let hallOfSagesDropShadowColor = '#ffffffff';
+  
   if (!initialRouterScreen) return <Text>ERROR! Initial Router Context not got</Text>;
   if (!scrollContext) return;
   if (!collectionContext) return
-
-  const [, setInitialScreen] = initialRouterScreen;
+  
+  const setInitialScreen = initialRouterScreen[1];
   const areAllArtifactsCollected = useCollectionStore(state => state.areAllArtifactsCollected)
-
+  
   // --- FUNCTIONS --- //
   const selectInitialHomeScreen = () => setInitialScreen(Screens.ACOLYTE_HOME);
   const selectInitialLabScreen = () => setInitialScreen(Screens.ACOLYTE_LAB);
   const selectInitialSettingsScreen = () => setInitialScreen(Screens.ACOLYTE_SETTINGS);
   const selectInitialHallScreen = () => setInitialScreen(Screens.HALL_OF_SAGES);
+
+  // --- EFFECTS --- //
+  useEffect( () => {
+    if (!isRosetteShown) hallOfSagesDropShadowColor = '#ffd000ff';
+    console.log(hallOfSagesDropShadowColor);
+  }, [] );
 
   // --- STYLES --- //
   const styles = StyleSheet.create({
@@ -78,7 +87,8 @@ export default function AcolyteSchoolMap() {
         backgroundImage={Images.SETTINGS_ICON}
         buttonOnPress={selectInitialSettingsScreen}
       />
-      {areAllArtifactsCollected &&
+      { /* Si la rosetta se muestra el areAllArtifacts collected se cambia haciendo que este icono desaparezca, entonces para evitar eso, se pone el isRosetteShown */}
+      { (isRosetteShown || areAllArtifactsCollected) &&
       <IconButton
         width={width * 0.1}
         height={width * 0.1}
@@ -88,9 +98,9 @@ export default function AcolyteSchoolMap() {
         backgroundImage={Images.HALL_ICON}
         buttonOnPress={selectInitialHallScreen}
         hasBrightness={true}
-        shadowColor='#ffd000ff'
+        shadowColor={hallOfSagesDropShadowColor}
       /> 
-}
+    }
     </ImageBackground>
   );
 }
