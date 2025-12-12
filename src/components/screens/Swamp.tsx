@@ -49,8 +49,6 @@ function Swamp() {
   const setIstvanInitialScreen = istvanInitialScreenContext[1];
   const setVillainInitialScreen = villainInitialScreenContext[1];
 
-  if (!user) return;
-
   // --- FUNCTIONS --- //
   async function requestPermission() {
     const fine = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
@@ -161,8 +159,6 @@ function Swamp() {
         );
       });
     });
-
-
 
     getMyLocationAsAcolyte(user);
 
@@ -379,14 +375,46 @@ function Swamp() {
               {
                 (user.rol === Roles.MORTIMER || user.rol === Roles.ISTVAN || user.rol === Roles.VILLAIN) ?
                   acolytesInSwamp.map((acolyte, index) => {
+                    console.log("acolytes: ");
+                    console.log(acolytesInSwamp);
+                    console.log(acolytesInSwampCoords);
+                    if(acolytesInSwampCoords.length > 0)
+                    return (  
+                    <View key={index}>
+                      <Marker
+                        coordinate={{ latitude: acolytesInSwampCoords[index].coords.latitude, longitude: acolytesInSwampCoords[index].coords.longitude }}
+                        title={acolyte.nickname}
+                      >
+                        {/* Añadir estilos con react-native-maps es mejor no usar styled components ya que no lo recoge bien */}
+                        <View style={{ width: width * 0.2, height: width * 0.2, alignItems: 'center', justifyContent: 'center' }}>
+                          <Image
+                            source={Images.AVATAR_CONTAINER}
+                            style={{ width: '100%', height: '100%', position: 'absolute' }}
+                            resizeMode="contain"
+                          />
 
-                    return <Marker
-                      key={index}
-                      coordinate={{ latitude: acolytesInSwampCoords[index].coords.latitude, longitude: acolytesInSwampCoords[index].coords.longitude }}
-                      image={{ uri: `${acolyte.avatar}` }}
-                      title={acolyte.name}
-                    />
+                          <Image
+                            source={{ uri: acolyte.avatar }}
+                            style={{
+                              width: '47%',
+                              height: '47%',
+                              borderRadius: (width * 0.2 * 0.47) / 2,
+                              position: 'relative'
+                            }}
+                            resizeMode="cover"
+                          />
+                        </View>
+                      </Marker>
+{/*                       
+                      <Marker
+                        key={index}
+                        coordinate={{ latitude: acolytesInSwampCoords[index].coords.latitude, longitude: acolytesInSwampCoords[index].coords.longitude }}
+                        image={{ uri: `${acolyte.avatar}` }}
+                        title={acolyte.name}
+                      /> */}
 
+                    </View >                  
+                    );
                   })
                   : <></>
               }

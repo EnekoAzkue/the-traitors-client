@@ -169,20 +169,20 @@ const swampArtifactIcons = [
 const swampArtifactCoordinates = [
 
   {
-    latitude: 43.310625,
-    longitude: -2.003209,
+    latitude: 43.3097,
+    longitude: -2.0021,
   },
   {
-    latitude: 43.310673,
-    longitude: -2.002441,
+    latitude: 43.3097,
+    longitude: -2.0025,
   },
   {
-    latitude: 43.309534,
-    longitude: -2.002030,
+    latitude: 43.3096,
+    longitude: -2.0023,
   },
   {
-    latitude: 43.309801,
-    longitude: -2.003381,
+    latitude: 43.30967,
+    longitude: -2.0023,
   },
 
 ];
