@@ -15,7 +15,7 @@ interface ServerToClientEvents {
   [SocketServerToClientEvents.GET_ACOLYTE_NEW_COORDS]           : ( newCoords: {email: string, coords: GeolacationCoords} ) => void;
   [SocketServerToClientEvents.SENDING_ACOLYTES_IN_HALL]         : (acolytesInHall: KaotikaPlayer[]) => void;
   [SocketServerToClientEvents.ACOLYTE_ENTERED_EXITED_HALL]      : () => void;
-  [SocketServerToClientEvents.END_VALIDATION]                   : (accepted: boolean) => void;
+  [SocketServerToClientEvents.END_VALIDATION]                   : (request: {accepted: boolean}) => void;
   [SocketServerToClientEvents.SENDING_MORTIMER_IN_HALL]         : (inHall: boolean) => void;
   [SocketServerToClientEvents.MORTIMER_ENTERED_EXITED_HALL]     : (inHall: boolean) => void;
 

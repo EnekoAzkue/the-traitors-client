@@ -86,11 +86,12 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
       setIsSpinnerShowing(true);
     });
 
-    socket.on(SocketServerToClientEvents.END_VALIDATION, (accepted) => {
+    socket.on(SocketServerToClientEvents.END_VALIDATION, (request) => {
+      console.log('end validation, accepted: ', request.accepted)
       setIsSpinnerShowing(false);
       setArtifactsToShow([]);
       setAreArtifactsShowing(false);
-      if(accepted) {
+      if(request?.accepted) {
         console.log("accepted rosette");
         setIsRosetteShown(true);
       }
