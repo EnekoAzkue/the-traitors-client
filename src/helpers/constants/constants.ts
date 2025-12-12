@@ -211,6 +211,8 @@ enum SocketServerToClientEvents {
   END_VALIDATION                  = 'end validation',
   SENDING_MORTIMER_IN_HALL        = 'sending mortimer in hall',
   MORTIMER_ENTERED_EXITED_HALL    = 'mortimer entered/exited hall',
+  SHOWING_ARTIFACS                = 'showing artifacts',
+
   
 
 

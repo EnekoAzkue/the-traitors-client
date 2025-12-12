@@ -86,6 +86,10 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
       setIsSpinnerShowing(true);
     });
 
+    socket.on(SocketServerToClientEvents.SHOWING_ARTIFACS, () => {
+      setIsSpinnerShowing(true)
+    }) 
+
     socket.on(SocketServerToClientEvents.END_VALIDATION, (request) => {
       console.log('end validation, accepted: ', request.accepted)
       setIsSpinnerShowing(false);

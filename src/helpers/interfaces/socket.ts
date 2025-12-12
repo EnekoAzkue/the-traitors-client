@@ -18,6 +18,9 @@ interface ServerToClientEvents {
   [SocketServerToClientEvents.END_VALIDATION]                   : (request: {accepted: boolean}) => void;
   [SocketServerToClientEvents.SENDING_MORTIMER_IN_HALL]         : (inHall: boolean) => void;
   [SocketServerToClientEvents.MORTIMER_ENTERED_EXITED_HALL]     : (inHall: boolean) => void;
+  [SocketServerToClientEvents.SHOWING_ARTIFACS]                 : () => void;
+
+  
 
 };
   
