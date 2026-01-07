@@ -38,6 +38,7 @@ export default function AcolyteMap() {
   const selectInitialHomeScreen = () => setInitialScreen(Screens.SCHOOL_MAP);
   const selectInitialTowerScreen = () => setInitialScreen(Screens.ACOLYTE_TOWER);
   const selectInitialSwampScreen = () => setInitialScreen(Screens.SWAMP);
+  const selectInitialInnScreen = () => setInitialScreen(Screens.ACOLYTE_INN);  
 
   // --- REFS --- //
   // Refs used on cloud animation
@@ -149,7 +150,15 @@ export default function AcolyteMap() {
         backgroundImage={Images.SWAMP_ICON}
         buttonOnPress={selectInitialSwampScreen}
       />
-
+      <IconButton
+        width={screenDimensions.width * 0.1}
+        height={screenDimensions.width * 0.1}
+        xPos={screenDimensions.width * 0.5}
+        yPos={screenDimensions.height * 0.5}
+        hasBorder={true}
+        backgroundImage={Images.INN_ICON}
+        buttonOnPress={selectInitialInnScreen}
+      />
       <Animated.View
         style={[
           styles.cloudOverlay,

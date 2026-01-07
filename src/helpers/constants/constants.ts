@@ -37,6 +37,10 @@ enum Images {
   SCHOOL_MAP              = require('../../assets/images/SchoolMap.png'),
   TOWER                   = require('../../assets/images/Tower.png'),
   TOWER_INSIDE            = require('../../assets/images/TowerInside.png'),
+  ACOLYTE_INN_BASE        = require('../../assets/images/AcolyteInnBase.png'),
+  ACOLYTE_INN_LOYAL       = require('../../assets/images/AcolyteInnLoyals.png'),
+  ACOLYTE_INN_TRAITORS    = require('../../assets/images/AcolyteInnTraitors.png'),
+  ACOLYTE_HOLLOW          = require('../../assets/images/AcolyteHollow.png'),
 
   // --- ISTVAN IMAGES --- //
   ISTVAN_HOME             = require('../../assets/images/IstvanHome.png'),
@@ -64,7 +68,9 @@ enum Images {
   HALL_ICON               = require('../../assets/images/logos/hall_icon.png'),
   SCROLL                  = require('../../assets/images/logos/scroll.png'),
   SWAMP_ICON              = require('../../assets/images/logos/swamp_icon.png'),
-  OBITUARY_ICON          = require('../../assets/images/logos/obituary_icon.png'),
+  OBITUARY_ICON           = require('../../assets/images/logos/obituary_icon.png'),
+  INN_ICON                = require('../../assets/images/logos/inn_icon.png'),
+  DUNGEON_ICON            = require('../../assets/images/logos/dungeon_icon.png'),
 
   // --- GENERAL IMAGES --- //
   LOGO                    = require('../../assets/images/logo.png'),
@@ -75,6 +81,7 @@ enum Images {
   MODAL                   = require('../../assets/images/Modal.png'),
   AVATAR_CONTAINER        = require('../../assets/images/AvatarContainer.png'),
   ROSETTE                 = require('../../assets/images/Roseta.png'),
+  SCHOOL_DUNGEON          = require('../../assets/images/AcolyteHollow.png'),
 
   // --- ARTIFACT ICONS --- //
   DRAGON_HEART_ICON       = require('../../assets/artifactImages/Dragon_heart_icon.png'),
@@ -96,7 +103,9 @@ enum Screens {
   ACOLYTE_TOWER     = 'AcolyteTower',
   ACOLYTE_HALL      = 'AcolyteHall',
   SCHOOL_MAP        = 'SchoolMap',
-  OBITUARY         = 'Obituary',
+  OBITUARY          = 'Obituary',
+  ACOLYTE_INN       = 'Inn',
+  ACOLYTE_HOLLOW    = 'Hollow',
 
 
   // --- ISTVAN --- //
@@ -119,8 +128,9 @@ enum Screens {
   VILLAIN_SETTINGS  = 'VillainSettings',
 
   // --- GENERAL --- //
-  SWAMP = 'Swamp',
-  HALL_OF_SAGES = 'HallOfSages',
+  SWAMP             = 'Swamp',
+  HALL_OF_SAGES     = 'HallOfSages',
+  DUNGEON           = 'Dungeon'
 
 }
 
