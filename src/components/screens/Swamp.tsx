@@ -16,7 +16,7 @@ import { useCollectionStore } from "../../helpers/stores/useCollectionStore";
 import Geolocation, { GeolocationResponse } from '@react-native-community/geolocation';
 import { useActivatedArtifactStore } from "../../helpers/stores/useActivatedArtifactStore";
 import { InventoryContext, IstvanInitialScreenContext, MortimerInitialScreenContext, VillainInitialScreenContext } from "../../helpers/contexts/contexts";
-import { Images, Roles, Screens, SocketClientToServerEvents, SocketServerToClientEvents, swampArtifactCoordinates, swampArtifactIcons } from "../../helpers/constants/constants";
+import { Images, Roles, Screens, SocketClientToServerEvents, SocketServerToClientEvents, swampArtifactIcons } from "../../helpers/constants/constants";
 
 function Swamp() {
   // --- STATES, STORES && CONSTANTS --- //
@@ -243,8 +243,8 @@ function Swamp() {
       const distance = getDistanceFromLatLonInMeters(
         currentPosition.coords.latitude,
         currentPosition.coords.longitude,
-        swampArtifactCoordinates[i].latitude,
-        swampArtifactCoordinates[i].longitude
+        artifact.coordenates.latitude,
+        artifact.coordenates.longitude
       );
 
       updated[artifact.name] = distance <= 1;
@@ -359,7 +359,7 @@ function Swamp() {
                       return (
                         <Marker
                           key={i}
-                          coordinate={{ latitude: swampArtifactCoordinates[i].latitude, longitude: swampArtifactCoordinates[i].longitude }}
+                          coordinate={{ latitude: a.coordenates.latitude, longitude: a.coordenates.longitude }}
                           title={a.name}
                         >
                           <StyledArtifactImage

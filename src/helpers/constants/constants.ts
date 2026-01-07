@@ -179,27 +179,6 @@ const swampArtifactIcons = [
 
 ];
 
-const swampArtifactCoordinates = [
-
-  {
-    latitude: 43.3097,
-    longitude: -2.0021,
-  },
-  {
-    latitude: 43.3097,
-    longitude: -2.0025,
-  },
-  {
-    latitude: 43.3096,
-    longitude: -2.0023,
-  },
-  {
-    latitude: 43.30967,
-    longitude: -2.0023,
-  },
-
-];
-
 enum SocketGeneralEvents {
 
   CONNECT = 'connect',
@@ -274,7 +253,6 @@ export {
   Routes,
   Roles,
   swampArtifactIcons,
-  swampArtifactCoordinates,
   Domains,
   SocketClientToServerEvents,
   SocketServerToClientEvents,
