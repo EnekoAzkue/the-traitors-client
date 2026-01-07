@@ -12,12 +12,15 @@ function MortimerTower() {
   // --- STATES & CONTEXTS --- //
   const [screen, setScreen] = useState(useWindowDimensions());
   const allAcolytesContext = useContext(AllAcolytesContext);
+  const loyalAcolytesContext = useContext(AllAcolytesContext);
   const initialScreenContext = useContext(MortimerInitialScreenContext);
 
   if (!allAcolytesContext) return;
+  if (!loyalAcolytesContext) return;
   if (!initialScreenContext) return;
 
   const [acolytes] = allAcolytesContext;
+  const [loyalAcolytes] = loyalAcolytesContext;
   const setInitialScreen = initialScreenContext[1];
 
   // --- EFFECTS --- //
@@ -61,8 +64,8 @@ function MortimerTower() {
       <>
         <AcolytesRegisterScreenContainer>
           <AcolytesRegisterListContainer contentContainerStyle={{ alignItems: "center" }}>
-            {acolytes
-              ? acolytes.map((acolyte, index) => (
+            {loyalAcolytes
+              ? loyalAcolytes.map((acolyte, index) => (
                 <AcolyteTowerRegister key={index} acolyte={acolyte} />
               ))
               : <Text>NO USERS?</Text>}

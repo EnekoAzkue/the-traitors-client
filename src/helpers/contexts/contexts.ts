@@ -5,6 +5,9 @@ import Artifact from '../interfaces/Artifact';
 
 export const ModalContext = createContext<SetModalMessage | null>(null);
 export const AllAcolytesContext = createContext<[KaotikaPlayer[] | undefined, (newAllAcolytesList: KaotikaPlayer[] | undefined) => void] | null >(null);
+export const LoyalAcolytesContext = createContext<[KaotikaPlayer[] | undefined, (newAllAcolytesList: KaotikaPlayer[] | undefined) => void] | null >(null);
+export const BetrayerAcolytesContext = createContext<[KaotikaPlayer[] | undefined, (newAllAcolytesList: KaotikaPlayer[] | undefined) => void] | null >(null);
+
 export const InventoryContext = createContext<[boolean, (isOpen: boolean) => void]>([false, () => {}]);
 export const CollectionContext = createContext<[boolean, (areCollected: boolean) => void]>([false, () => {}])
 

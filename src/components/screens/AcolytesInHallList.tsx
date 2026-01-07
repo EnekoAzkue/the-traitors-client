@@ -54,6 +54,7 @@ const AcolytesInHallList = ({ acolytesInHall }: AcolytesInHallListProps) => {
   return (
     <Container>
       {acolytesInHall.map((acolyte, index) => {
+        if (acolyte.isBetrayer) return null;
         return (
           <AnimatedCircleWrapper
             key={index}

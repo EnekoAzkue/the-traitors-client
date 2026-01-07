@@ -4,19 +4,22 @@ import React, { useContext, useEffect } from "react";
 import AcolyteLabRegister from "./AcolyteLabRegister";
 import { Text, useWindowDimensions } from "react-native";
 import { Images, Screens, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
-import { AllAcolytesContext, MortimerInitialScreenContext } from "../../../../helpers/contexts/contexts";
+import { AllAcolytesContext, LoyalAcolytesContext, MortimerInitialScreenContext } from "../../../../helpers/contexts/contexts";
 import { socket } from "../../../../helpers/socket/socket";
 
 function MortimerLab() {
 
   // --- CONTEXTS & COMPONENT CONSTANTS --- //
   const allAcolytesContext = useContext(AllAcolytesContext);
+  const loyalAcolytesContext = useContext(LoyalAcolytesContext);
   const initialScreenContext = useContext(MortimerInitialScreenContext);
 
   if (!allAcolytesContext) return;
+  if (!loyalAcolytesContext) return;
   if (!initialScreenContext) return;
 
   const acolytes = allAcolytesContext[0];
+  const loyalAcolytes = loyalAcolytesContext[0];
   const setInitialScreen = initialScreenContext[1];
 
   const { width, height } = useWindowDimensions();
@@ -50,8 +53,8 @@ function MortimerLab() {
     <ScreenContainer backgroundImg={Images.MORTIMER_LAB}>
       <AcolytesRegisterScreenContainer>
         <AcolytesRegisterListContainer contentContainerStyle={{ alignItems: "center", justifyContent: "center" }}>
-          {acolytes
-            ? acolytes.map((acolyte, index) => (
+          {loyalAcolytes
+            ? loyalAcolytes.map((acolyte, index) => (
               <AcolyteLabRegister key={index} acolyte={acolyte} />
             ))
             : <Text>NO USERS?</Text>}
