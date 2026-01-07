@@ -39,6 +39,7 @@ export default function AcolyteMap() {
   const selectInitialTowerScreen = () => setInitialScreen(Screens.ACOLYTE_TOWER);
   const selectInitialSwampScreen = () => setInitialScreen(Screens.SWAMP);
   const selectInitialInnScreen = () => setInitialScreen(Screens.ACOLYTE_INN);  
+  const selectInitialHollowScreen = () => setInitialScreen(Screens.ACOLYTE_HOLLOW);  
 
   // --- REFS --- //
   // Refs used on cloud animation
@@ -68,10 +69,6 @@ export default function AcolyteMap() {
       socket.emit(SocketClientToServerEvents.REQUEST_ARTIFACTS, user.rol)
     })
   });
-
-  console.log('is ros sh?', isRosetteShown);
-  
-
   }, []);
 
   // --- STYLES --- //
@@ -159,6 +156,15 @@ export default function AcolyteMap() {
         backgroundImage={Images.INN_ICON}
         buttonOnPress={selectInitialInnScreen}
       />
+      <IconButton
+          width={screenDimensions.width * 0.1}
+          height={screenDimensions.width * 0.1}
+          xPos={screenDimensions.width * 0.33}
+          yPos={screenDimensions.height * 0.40}
+          hasBorder={true}
+          backgroundImage={Images.HOLLOW_ICON}
+          buttonOnPress={selectInitialHollowScreen}
+        />
       <Animated.View
         style={[
           styles.cloudOverlay,

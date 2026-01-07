@@ -71,6 +71,7 @@ enum Images {
   OBITUARY_ICON           = require('../../assets/images/logos/obituary_icon.png'),
   INN_ICON                = require('../../assets/images/logos/inn_icon.png'),
   DUNGEON_ICON            = require('../../assets/images/logos/dungeon_icon.png'),
+  HOLLOW_ICON             = require('../../assets/images/logos/hollow_icon.png'),
 
   // --- GENERAL IMAGES --- //
   LOGO                    = require('../../assets/images/logo.png'),
@@ -81,7 +82,7 @@ enum Images {
   MODAL                   = require('../../assets/images/Modal.png'),
   AVATAR_CONTAINER        = require('../../assets/images/AvatarContainer.png'),
   ROSETTE                 = require('../../assets/images/Roseta.png'),
-  SCHOOL_DUNGEON          = require('../../assets/images/AcolyteHollow.png'),
+  SCHOOL_DUNGEON          = require('../../assets/images/Dungeon.png'),
 
   // --- ARTIFACT ICONS --- //
   DRAGON_HEART_ICON       = require('../../assets/artifactImages/Dragon_heart_icon.png'),

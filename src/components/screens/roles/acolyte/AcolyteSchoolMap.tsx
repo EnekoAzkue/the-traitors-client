@@ -29,6 +29,7 @@ export default function AcolyteSchoolMap() {
   const selectInitialLabScreen = () => setInitialScreen(Screens.ACOLYTE_LAB);
   const selectInitialSettingsScreen = () => setInitialScreen(Screens.ACOLYTE_SETTINGS);
   const selectInitialHallScreen = () => setInitialScreen(Screens.HALL_OF_SAGES);
+  const selectInitialDungeonScreen = () => setInitialScreen(Screens.DUNGEON);
 
   // --- EFFECTS --- //
   useEffect( () => {
@@ -99,8 +100,17 @@ export default function AcolyteSchoolMap() {
         buttonOnPress={selectInitialHallScreen}
         hasBrightness={true}
         shadowColor={hallOfSagesDropShadowColor}
-      /> 
-    }
+      />
+      }
+      <IconButton
+        width={width * 0.1}
+        height={width * 0.1}
+        xPos={width * 0.44}
+        yPos={height * 0.44}
+        hasBorder={true}
+        backgroundImage={Images.DUNGEON_ICON}
+        buttonOnPress={selectInitialDungeonScreen}
+      />
     </ImageBackground>
   );
 }
