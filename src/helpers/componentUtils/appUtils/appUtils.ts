@@ -1,22 +1,34 @@
 import { getFCMToken } from "../../firebaseCloudMessages/pushNotifications";
 import KaotikaPlayer from "../../interfaces/KaotikaPlayer";
 import getAllAcolytes from "../../serverRequests/getAllAcolytes";
+import getBetrayerAcolytes from "../../serverRequests/getBetrayerAcolytes";
+import getLoyalAcolytes from "../../serverRequests/getLoyalAcolytes";
 
 interface getAcolytesParams {
   setAllAcolytes: (acolytes: KaotikaPlayer[] | undefined) => void,
 };
 
-export const getAcolytes = async ({ setAllAcolytes }: getAcolytesParams) => {
+export const getAcolytes = async () => {
   // Get all acolytes: 
-  const response = await getAllAcolytes();
-  let acolytes = null;
-
-  if (response.status === 200) {
-    acolytes = await response.json();
-    setAllAcolytes(acolytes);
-  } else {
-    throw new Error("Error happened while client was trying to get all acolytes from server.");
+  try {
+    
+    const response = await Promise.all([
+      getAllAcolytes(),
+      getLoyalAcolytes(),
+      getBetrayerAcolytes()
+    ])
+    
+    let acolyteTypes: KaotikaPlayer[][] = [];
+    response.forEach(async response => {
+      acolyteTypes.push(await response.json())
+    })
+    
+    return acolyteTypes;
+    
+  } catch (error) {
+    throw new Error("Error happened while client was trying to get all acolytes from server.");    
   }
+  
 }
 
 interface appUserState {

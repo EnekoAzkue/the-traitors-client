@@ -38,6 +38,8 @@ function App() {
 
   const { user, setUser } = useUserStore(state => state);
   const [allAcolytes, setAllAcolytes] = useState<KaotikaPlayer[] | undefined>(undefined);
+  const [loyals, setLoyals] = useState<KaotikaPlayer[] | undefined>(undefined);
+  const [betrayers, setBetrayers] = useState<KaotikaPlayer[] | undefined>(undefined);
   const [initialConf, setInitialConf] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string>('');
   const [scrollModalMessage, setScrollModalMessage] = useState<string>('');
@@ -73,9 +75,20 @@ function App() {
     callMessageReceiverListener(setMortimerToastText, setAcolyteToastText);
 
     // Initial acolytes JSON for app state 
-    getAcolytes({ setAllAcolytes });
+    setAcolytes()
 
   }, []);
+
+  const setAcolytes = async () => {
+    const acolytes = await getAcolytes();
+    setAllAcolytes(acolytes[0]);
+
+    setLoyals(acolytes[1])
+
+    setBetrayers(acolytes[2])
+    
+
+  }
 
   useEffect(() => {
 

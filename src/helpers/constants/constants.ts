@@ -8,6 +8,8 @@ enum ApiEndpoints {
   LOGGED_IN         = 'logged-in',
   UPDATE_PLAYER     = 'update/',
   GET_ALL_ACOLYTES  = 'get-acolytes/',
+  GET_LOYALS        = 'get-loyals/',
+  GET_BETRAYERS     = 'get-betrayers',
 }
 
 enum ClientID {
