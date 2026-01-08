@@ -82,6 +82,7 @@ enum Images {
   BAG                     = require('../../assets/images/logos/bag.png'),
   BUTTON                  = require('../../assets/images/Button_1.png'),
   MODAL                   = require('../../assets/images/Modal.png'),
+  BETRAYER_MODAL          = require('../../assets/images/BetrayerModal.png'),
   AVATAR_CONTAINER        = require('../../assets/images/AvatarContainer.png'),
   ROSETTE                 = require('../../assets/images/Roseta.png'),
   SCHOOL_DUNGEON          = require('../../assets/images/Dungeon.png'),
