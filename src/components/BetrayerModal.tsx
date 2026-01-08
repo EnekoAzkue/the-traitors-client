@@ -3,24 +3,32 @@ import styled from 'styled-components/native';
 import { socket } from '../helpers/socket/socket';
 import { Modal, useWindowDimensions } from 'react-native';
 import { ModalProps } from '../helpers/interfaces/components/Modal';
-import { Images, SocketClientToServerEvents } from '../helpers/constants/constants';
+import { Images, INN_STATES, SocketClientToServerEvents } from '../helpers/constants/constants';
 import { useUserStore } from '../helpers/stores/useUserStore';
+import { useInnStore } from '../helpers/stores/useInnStateStore';
+import { InnerScreen } from 'react-native-screens';
 
 export default function BetrayerModal() {
 
-  // --- CONSTANTS --- //
+  // --- CONSTANTS && ZUSTAND STORES --- //
   const { width, height } = useWindowDimensions();
   const user = useUserStore(state => state.user);
+  const setInnState = useInnStore(state => state.setInnState);
 
-  if (!user) return;
+  if (!user) return null;
 
   // --- FUNCTIONS --- //
   function betray(): void {
-    if (user)
-    socket.emit(SocketClientToServerEvents.UPDATE_USER, user.email, {"isBetrayer" : "true"} );
+    if (user){
+      user.isBetrayer = true;
+      socket.emit(SocketClientToServerEvents.UPDATE_USER, user.email, {"isBetrayer" : "true"} );
+      setInnState(INN_STATES.INSIDE_INN);
+      console.log("BETRAY");
+    }
   }
-
     function stayLoyal(): void {
+      setInnState(INN_STATES.INSIDE_INN);
+
   }
 
   // --- STYLED COMPONENTS --- //
@@ -82,8 +90,7 @@ export default function BetrayerModal() {
   return (
     <Modal
       animationType="fade"
-      backdropColor="rgba(0 0 0 / 0.5)"
-      // visible={!!message}
+      backdropColor="rgba(0,0,0 / 0.5)"
     >
       <Container>
         <BackgroundImage

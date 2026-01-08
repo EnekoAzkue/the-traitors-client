@@ -206,11 +206,6 @@ enum SocketServerToClientEvents {
   MORTIMER_ENTERED_EXITED_HALL    = 'mortimer entered/exited hall',
   SHOWING_ARTIFACS                = 'showing artifacts',
 
-  
-
-
-
-
 }
 
 enum SocketClientToServerEvents {
@@ -243,8 +238,14 @@ enum SocketClientToServerEventsForTesting {
 
 }
 
-export {
 
+enum INN_STATES {
+  SHOW_BETRAYER_MODAL= 0,
+  INSIDE_INN = 1,
+};
+
+export {
+  
   ModalMessages,
   ApiEndpoints,
   ClientID,
@@ -259,5 +260,6 @@ export {
   SocketServerToClientEvents,
   SocketClientToServerEventsForTesting,
   SocketGeneralEvents,
-
+  INN_STATES,
+  
 };
