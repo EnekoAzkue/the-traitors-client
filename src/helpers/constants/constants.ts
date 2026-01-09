@@ -156,7 +156,7 @@ enum Routes {
 
 }
 
-export const CURRENT_DOMAIN   = Domains.RENDER;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN)
+export const CURRENT_DOMAIN   = Domains.LOCALHOST;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN)
 export const CURRENT_ROUTE    = `${CURRENT_DOMAIN}player/`;
 
 enum Roles {
@@ -205,6 +205,8 @@ enum SocketServerToClientEvents {
   SENDING_MORTIMER_IN_HALL        = 'sending mortimer in hall',
   MORTIMER_ENTERED_EXITED_HALL    = 'mortimer entered/exited hall',
   SHOWING_ARTIFACS                = 'showing artifacts',
+  UPDATE_TRAITORS                 = 'update traitors',
+
 
 }
 
@@ -229,6 +231,7 @@ enum SocketClientToServerEvents {
   ACCEPT_ARTIFACTS              = 'accept artifacts',
   MORTIMER_IN_HALL              = 'mortimer in hall',
   SEARCH_FOR_MORTIMER_IN_HALL   = 'search for mortimer in hall',
+  BETRAYAL                      = 'betrayal',
 
 }
 

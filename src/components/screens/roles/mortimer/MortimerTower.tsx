@@ -66,7 +66,9 @@ function MortimerTower() {
           <AcolytesRegisterListContainer contentContainerStyle={{ alignItems: "center" }}>
             {loyalAcolytes
               ? loyalAcolytes.map((acolyte, index) => (
-                <AcolyteTowerRegister key={index} acolyte={acolyte} />
+                <>
+                 {!acolyte.isBetrayer && <AcolyteTowerRegister key={index} acolyte={acolyte} />}
+                </>
               ))
               : <Text>NO USERS?</Text>}
           </AcolytesRegisterListContainer>

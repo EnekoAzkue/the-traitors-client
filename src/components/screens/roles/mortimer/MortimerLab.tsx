@@ -55,7 +55,9 @@ function MortimerLab() {
         <AcolytesRegisterListContainer contentContainerStyle={{ alignItems: "center", justifyContent: "center" }}>
           {loyalAcolytes
             ? loyalAcolytes.map((acolyte, index) => (
-              <AcolyteLabRegister key={index} acolyte={acolyte} />
+              <>
+                {!acolyte.isBetrayer && <AcolyteLabRegister key={index} acolyte={acolyte} />}
+              </>
             ))
             : <Text>NO USERS?</Text>}
         </AcolytesRegisterListContainer>

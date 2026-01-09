@@ -19,6 +19,7 @@ interface ServerToClientEvents {
   [SocketServerToClientEvents.SENDING_MORTIMER_IN_HALL]         : (inHall: boolean) => void;
   [SocketServerToClientEvents.MORTIMER_ENTERED_EXITED_HALL]     : (inHall: boolean) => void;
   [SocketServerToClientEvents.SHOWING_ARTIFACS]                 : () => void;
+  [SocketServerToClientEvents.UPDATE_TRAITORS]                  : (acolyteGroups: KaotikaPlayer [][]) => void
 
   
 
@@ -87,6 +88,8 @@ interface ClientToServerEvents {
   [SocketClientToServerEvents.ACCEPT_ARTIFACTS]: () => void;
   [SocketClientToServerEvents.MORTIMER_IN_HALL]: (inHall: boolean) => void;
   [SocketClientToServerEvents.SEARCH_FOR_MORTIMER_IN_HALL]: () => void;
+  [SocketClientToServerEvents.BETRAYAL]: () => void;
+
 
 
   // TEST ONES
