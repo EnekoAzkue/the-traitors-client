@@ -8,6 +8,7 @@ import MortimerNavigation from './roles/mortimer/MortimerNavigation';
 import VillainNavigation from './roles/villain/VillainNavigation';
 import Acolyte from './roles/acolyte/Acolyte';
 import { useUserStore } from '../../helpers/stores/useUserStore';
+import AcolyteNavigation from './roles/acolyte/AcolyteNavigation';
 
 const Main = () => {
 
@@ -25,7 +26,7 @@ const Main = () => {
         return (<IstvanNavigation />);
 
       case (Roles.ACOLYTE):
-        return (<Acolyte />);
+        return (<AcolyteNavigation />);
 
       case (Roles.VILLAIN):
         return (<VillainNavigation />);

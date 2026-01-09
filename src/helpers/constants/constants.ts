@@ -106,6 +106,7 @@ enum Screens {
   ACOLYTE_LAB       = 'AcolyteLab',
   ACOLYTE_TOWER     = 'AcolyteTower',
   ACOLYTE_HALL      = 'AcolyteHall',
+  ACOLYTE_MAP       = 'AcolyteMap',
   SCHOOL_MAP        = 'SchoolMap',
   OBITUARY          = 'Obituary',
   ACOLYTE_INN       = 'Inn',

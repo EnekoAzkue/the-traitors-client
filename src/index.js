@@ -12,9 +12,4 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
   console.log('Message handled in the background!', remoteMessage);
 });
 
-
-function checkMortimerTowerCheck(){
-
-}
-
 AppRegistry.registerComponent(appName, () => App);
