@@ -1,7 +1,7 @@
 import Swamp from './Swamp';
 import MortimerLab from './roles/mortimer/MortimerLab';
 import MortimerHome from './roles/mortimer/MortimerHome';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import MortimerTower from './roles/mortimer/MortimerTower';
 import styled from 'styled-components/native';
 import MortimerSettings from './roles/mortimer/MortimerSettings';
@@ -11,8 +11,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Images, Screens } from '../../helpers/constants/constants';
 import { MortimerInitialScreenContext } from '../../helpers/contexts/contexts';
-import HallOfSages from './HallOfSages';
-import Acolyte from './roles/acolyte/Acolyte';
+
+import Router from './Router';
 
 const Stack = createBottomTabNavigator();
 
@@ -41,14 +41,14 @@ function RootNavigation({ }: any) {
         tabBarShowLabel: false,
         tabBarBackground: () => (
           <BlurView blurAmount={1}
-            overlayColor="rgba(255 255 255 / 0.1)"
+            overlayColor="rgba(255, 255, 255, 0.1)"
             style={{ height: '100%', backgroundColor: 'rgba(0, 0, 0, 1)' }} />
         ),
         tabBarStyle: {
           position: 'absolute',
           overflow: 'hidden',
           borderTopWidth: 0,
-          boxShadow: `0 -${height * 0.01}px ${height * 0.01}px rgba(255 255 255 / 0.1)`,
+          boxShadow: `0 -${height * 0.01}px ${height * 0.01}px rgba(255, 255, 255, 0.1)`,
         },
         tabBarIcon: ({ focused }) => {
 
@@ -69,19 +69,18 @@ function RootNavigation({ }: any) {
         },
       })}
     >
-      <Stack.Screen name={Screens.MAP} component={Acolyte} />
+      <Stack.Screen name={Screens.MAP} component={Router} />
       <Stack.Screen name={Screens.SETTINGS} component={MortimerSettings} />
     </Stack.Navigator>
   );
 
 }
 
-export default function MortimerNavigation() {
+export default function Navigation() {
 
   return (
     <>
       <NavigationContainer>
-        <Router />
         <RootNavigation initialRouteScreen={null} />
       </NavigationContainer>
     </>

@@ -7,10 +7,11 @@ import Logout from "../../Logout";
 function VillainSettings() {
 
   return (
-    <ScreenContainer backgroundImg={Images.VILLAIN_SETTINGS}>
-      <Logout />
-    </ScreenContainer>
+    <>
+      <ScreenContainer backgroundImg={Images.VILLAIN_SETTINGS} />
+    </>
   );
+  
 }
 
 

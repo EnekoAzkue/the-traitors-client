@@ -35,14 +35,6 @@ enum Images {
   ACOLYTE_LAB             = require('../../assets/images/AcolyteLab.png'),
   ACOLYTE_LAB_OPEN        = require('../../assets/images/AcolyteLabOpen.png'),
   ACOLYTE_LAB_INSIDE      = require('../../assets/images/AcolyteLabInside.png'),
-  ACOLYTE_MAP             = require('../../assets/images/AcolytesMap.png'),
-  SCHOOL_MAP              = require('../../assets/images/SchoolMap.png'),
-  TOWER                   = require('../../assets/images/Tower.png'),
-  TOWER_INSIDE            = require('../../assets/images/TowerInside.png'),
-  ACOLYTE_INN_BASE        = require('../../assets/images/AcolyteInnBase.png'),
-  ACOLYTE_INN_LOYAL       = require('../../assets/images/AcolyteInnLoyals.png'),
-  ACOLYTE_INN_TRAITORS    = require('../../assets/images/AcolyteInnTraitors.png'),
-  ACOLYTE_HOLLOW          = require('../../assets/images/AcolyteHollow.png'),
 
   // --- ISTVAN IMAGES --- //
   ISTVAN_HOME             = require('../../assets/images/IstvanHome.png'),
@@ -86,6 +78,15 @@ enum Images {
   AVATAR_CONTAINER        = require('../../assets/images/AvatarContainer.png'),
   ROSETTE                 = require('../../assets/images/Roseta.png'),
   SCHOOL_DUNGEON          = require('../../assets/images/Dungeon.png'),
+  MAP             = require('../../assets/images/AcolytesMap.png'),
+  SCHOOL_MAP              = require('../../assets/images/SchoolMap.png'),
+  TOWER                   = require('../../assets/images/Tower.png'),
+  TOWER_INSIDE            = require('../../assets/images/TowerInside.png'),
+  INN_BASE        = require('../../assets/images/AcolyteInnBase.png'),
+  INN_LOYAL       = require('../../assets/images/AcolyteInnLoyals.png'),
+  INN_TRAITORS    = require('../../assets/images/AcolyteInnTraitors.png'),
+  HOLLOW          = require('../../assets/images/AcolyteHollow.png'),
+
 
   // --- ARTIFACT ICONS --- //
   DRAGON_HEART_ICON       = require('../../assets/artifactImages/Dragon_heart_icon.png'),
@@ -150,7 +151,7 @@ enum Screens {
 enum Domains {
 
   // LOCALHOST = 'http://localhost:3000/',
-  LOCALHOST = 'http://10.70.0.41:3000/',
+  LOCALHOST = 'http://192.168.1.134:3000/',
   RENDER    = 'https://the-traitors-server.onrender.com/',
   PORTAINER = 'http://10.50.0.50:6001/',
 
@@ -164,7 +165,7 @@ enum Routes {
 
 }
 
-export const CURRENT_DOMAIN   = Domains.PORTAINER;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN)
+export const CURRENT_DOMAIN   = Domains.LOCALHOST;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN)
 export const CURRENT_ROUTE    = `${CURRENT_DOMAIN}player/`;
 
 enum Roles {

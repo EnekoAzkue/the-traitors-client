@@ -12,7 +12,7 @@ import { useScreenDimensions } from "../../helpers/stores/useScreenDimensionsSto
 import { AcolyteInitialScreenContext, CollectionContext } from "../../helpers/contexts/contexts";
 import { Images, Screens, SocketClientToServerEvents, SocketServerToClientEvents } from "../../helpers/constants/constants";
 
-export default function AcolyteMap() {
+export default function Map() {
 
   // --- CONTEXTS --- //
   const screenDimensions = useScreenDimensions(state => state.screenDimensions);
@@ -106,7 +106,7 @@ export default function AcolyteMap() {
 
   return (
     <StyledAcolyteMapContainer
-      source={Images.ACOLYTE_MAP}
+      source={Images.MAP}
       resizeMode="cover"
     >
       <IconButton

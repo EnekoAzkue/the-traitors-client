@@ -1,16 +1,15 @@
 import React from "react";
-import { View } from "react-native";
 import ScreenContainer from "../../ScreenContainer";
 import { Images } from "../../../../helpers/constants/constants";
 
-function VillainHome() {
+function IstvanHome() {
 
   return (
     <>
-      <ScreenContainer backgroundImg={Images.VILLAIN_HOME} />
+      <ScreenContainer backgroundImg={Images.INN_LOYAL} />
     </>
   );
   
 }
 
-export default VillainHome;
+export default IstvanHome;

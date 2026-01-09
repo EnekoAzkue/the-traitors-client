@@ -6,7 +6,7 @@ import { useCollectionStore } from "../../helpers/stores/useCollectionStore";
 import { useShowRosetteStore } from "../../helpers/stores/useShowRosetteStore";
 import IconButton from "./IconButton";
 
-export default function AcolyteSchoolMap() {
+export default function SchoolMap() {
 
   // --- CONTEXTS && STORES --- //
   const { width, height } = useWindowDimensions();
@@ -24,7 +24,6 @@ export default function AcolyteSchoolMap() {
   const areAllArtifactsCollected = useCollectionStore(state => state.areAllArtifactsCollected)
   
   // --- FUNCTIONS --- //
-  const selectInitialHomeScreen = () => setInitialScreen(Screens.HOME);
   const selectInitialLabScreen = () => setInitialScreen(Screens.LAB);
   const selectInitialSettingsScreen = () => setInitialScreen(Screens.SETTINGS);
   const selectInitialHallScreen = () => setInitialScreen(Screens.HALL_OF_SAGES);
@@ -67,7 +66,7 @@ export default function AcolyteSchoolMap() {
         yPos={height * 0.85}
         hasBorder={true}
         backgroundImage={Images.MAIN_ICON}
-        buttonOnPress={selectInitialHomeScreen}
+        buttonOnPress={setInitialScreen(null)}
       />
       <IconButton
         width={width * 0.1}

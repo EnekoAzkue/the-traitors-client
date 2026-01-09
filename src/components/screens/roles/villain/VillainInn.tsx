@@ -7,7 +7,7 @@ function VillainHome() {
 
   return (
     <>
-      <ScreenContainer backgroundImg={Images.VILLAIN_HOME} />
+      <ScreenContainer backgroundImg={Images.INN_LOYAL} />
     </>
   );
   

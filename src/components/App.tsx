@@ -33,6 +33,7 @@ import { getAcolytes, updateUserStateWithPushToken } from '../helpers/componentU
 import { useScreenDimensions } from '../helpers/stores/useScreenDimensionsStore';
 import { useWindowDimensions } from 'react-native';
 import { useUserStore } from '../helpers/stores/useUserStore';
+import Navigation from './screens/Navigation';
 
 function App() {
 

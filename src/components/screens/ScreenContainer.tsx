@@ -17,6 +17,8 @@ const ScreenContainer = ({backgroundImg, children}: PropsWithChildren<ScreenCont
   
   const StyledContainer = styled.View`
     margin: 0 0 50px;
+    border: 1px solid blue;
+
   `;
   return (
     <StyledContainer>

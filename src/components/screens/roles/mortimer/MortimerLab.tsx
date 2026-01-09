@@ -27,7 +27,7 @@ function MortimerLab() {
   // --- EFFECTS --- //
   useEffect(() => {
     socket.emit(SocketClientToServerEvents.MORTIMER_IN_HALL, false)
-    setInitialScreen(Screens.MORTIMER_LAB);
+    setInitialScreen(Screens.LAB);
   }, []);
 
   // --- STYLED COMPONENTS --- //
