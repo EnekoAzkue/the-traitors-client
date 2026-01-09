@@ -9,27 +9,24 @@ interface getAcolytesParams {
 };
 
 export const getAcolytes = async () => {
-  // Get all acolytes: 
   try {
-    
-    const response = await Promise.all([
+    const responses = await Promise.all([
       getAllAcolytes(),
       getLoyalAcolytes(),
       getBetrayerAcolytes()
-    ])
-    
-    let acolyteTypes: KaotikaPlayer[][] = [];
-    response.forEach(async response => {
-      acolyteTypes.push(await response.json())
-    })
-    
+    ]);
+
+    const acolyteTypes: KaotikaPlayer[][] = await Promise.all(
+      responses.map(r => r.json())
+    );
+
     return acolyteTypes;
-    
+
   } catch (error) {
     throw new Error("Error happened while client was trying to get all acolytes from server.");    
   }
-  
 }
+
 
 interface appUserState {
   user: KaotikaPlayer,
