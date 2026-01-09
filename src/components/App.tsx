@@ -161,6 +161,14 @@ function App() {
         setScrollModalMessage('An acolyte has found the scroll!');
       });
 
+      socket.on(SocketServerToClientEvents.UPDATE_TRAITORS, (acolyteGroups: KaotikaPlayer[][]) => {
+        setBetrayers(acolyteGroups[0])
+        setLoyals(acolyteGroups[1])
+      })
+      
+      setacolyteInitialScreen(user?.homeLocation)
+
+
     }
 
     return (() => {

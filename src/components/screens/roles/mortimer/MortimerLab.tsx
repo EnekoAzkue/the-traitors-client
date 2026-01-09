@@ -2,7 +2,7 @@ import styled from "styled-components/native";
 import ScreenContainer from "../../ScreenContainer";
 import React, { useContext, useEffect } from "react";
 import AcolyteLabRegister from "./AcolyteLabRegister";
-import { Text, useWindowDimensions } from "react-native";
+import { Text, useWindowDimensions, View } from "react-native";
 import { Images, Screens, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
 import { AllAcolytesContext, LoyalAcolytesContext, MortimerInitialScreenContext } from "../../../../helpers/contexts/contexts";
 import { socket } from "../../../../helpers/socket/socket";
@@ -55,7 +55,9 @@ function MortimerLab() {
         <AcolytesRegisterListContainer contentContainerStyle={{ alignItems: "center", justifyContent: "center" }}>
           {loyalAcolytes
             ? loyalAcolytes.map((acolyte, index) => (
-              <AcolyteLabRegister key={index} acolyte={acolyte} />
+              <View key={index}>
+                {!acolyte.isBetrayer && <AcolyteLabRegister acolyte={acolyte} />}
+              </View>
             ))
             : <Text>NO USERS?</Text>}
         </AcolytesRegisterListContainer>

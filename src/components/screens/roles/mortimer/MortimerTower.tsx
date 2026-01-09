@@ -3,7 +3,7 @@ import ScreenContainer from "../../ScreenContainer";
 import AcolyteTowerRegister from "./AcolyteTowerRegister";
 import React, { useContext, useEffect, useState } from "react";
 import { Images, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
-import { Text, Dimensions, useWindowDimensions } from "react-native";
+import { Text, Dimensions, useWindowDimensions, View } from "react-native";
 import { AllAcolytesContext, MortimerInitialScreenContext } from "../../../../helpers/contexts/contexts";
 import { socket } from "../../../../helpers/socket/socket";
 
@@ -66,7 +66,9 @@ function MortimerTower() {
           <AcolytesRegisterListContainer contentContainerStyle={{ alignItems: "center" }}>
             {loyalAcolytes
               ? loyalAcolytes.map((acolyte, index) => (
-                <AcolyteTowerRegister key={index} acolyte={acolyte} />
+                <View key={index}>
+                  {!acolyte.isBetrayer && <AcolyteTowerRegister key={index} acolyte={acolyte} />}
+                </View>
               ))
               : <Text>NO USERS?</Text>}
           </AcolytesRegisterListContainer>

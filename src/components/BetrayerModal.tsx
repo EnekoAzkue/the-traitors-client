@@ -22,6 +22,7 @@ export default function BetrayerModal() {
     if (user){
       user.isBetrayer = true;
       socket.emit(SocketClientToServerEvents.UPDATE_USER, user.email, {"isBetrayer" : "true"} );
+      socket.emit(SocketClientToServerEvents.BETRAYAL)  
       setInnState(INN_STATES.INSIDE_INN);
       console.log("BETRAY");
     }
