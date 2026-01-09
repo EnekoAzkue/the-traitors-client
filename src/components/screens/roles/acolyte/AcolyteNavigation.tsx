@@ -18,9 +18,7 @@ function RootNavigation({ }: any) {
 
   if (!initialRouteScreen) return null;
 
-  initialRouteScreen
-
-  const initialScreen = initialRouteScreen[0];
+  const initialScreen = initialRouteScreen;
 
   // --- STYLED COMPONENTS --- //
   const { width, height } = useWindowDimensions();

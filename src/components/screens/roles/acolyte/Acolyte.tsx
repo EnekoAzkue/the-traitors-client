@@ -7,7 +7,7 @@ import AcolyteTower from "./AcolyteTower";
 import HallOfSages from "../../HallOfSages";
 import AcolyteSettings from "./AcolyteSettings";
 import AcolyteSchoolMap from "./AcolyteSchoolMap";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { socket } from "../../../../helpers/socket/socket";
 import { useUserStore } from "../../../../helpers/stores/useUserStore";
 import { AcolyteInitialScreenContext } from "../../../../helpers/contexts/contexts";
@@ -26,7 +26,7 @@ export default function Acolyte() {
   if ( !initialScreenContext ) return;
   if ( !user ) return;
 
-  const [initialScreen] = initialScreenContext;
+  const [initialScreen, setInitialScreen] = initialScreenContext;
 
   // --- EFFECTS --- //
   useEffect(() => {

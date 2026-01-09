@@ -26,7 +26,7 @@ const Main = () => {
         return (<IstvanNavigation />);
 
       case (Roles.ACOLYTE):
-        return (<AcolyteNavigation />);
+        return (<Acolyte />);
 
       case (Roles.VILLAIN):
         return (<VillainNavigation />);
