@@ -8,6 +8,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Images, Screens } from '../../../../helpers/constants/constants';
 import { useAcolytesCurrentNavigationTabStore } from '../../../../helpers/stores/useAcolytesCurrentNavigationTabStore';
+import Acolyte from './Acolyte';
 
 const Stack = createBottomTabNavigator();
 
@@ -64,7 +65,7 @@ function RootNavigation({ }: any) {
         },
       })}
     >
-      <Stack.Screen name={Screens.ACOLYTE_MAP} component={AcolyteMap} />
+      <Stack.Screen name={Screens.ACOLYTE_MAP} component={Acolyte} />
       <Stack.Screen name={Screens.ACOLYTE_SETTINGS} component={AcolyteSettings} />
     </Stack.Navigator>
   );
