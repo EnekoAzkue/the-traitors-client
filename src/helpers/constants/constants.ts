@@ -86,6 +86,7 @@ enum Images {
   AVATAR_CONTAINER        = require('../../assets/images/AvatarContainer.png'),
   ROSETTE                 = require('../../assets/images/Roseta.png'),
   SCHOOL_DUNGEON          = require('../../assets/images/Dungeon.png'),
+  NAVIGATION_MAP_ICON     = require('../../assets/images/logos/Map_nav_icon.png'),
 
   // --- ARTIFACT ICONS --- //
   DRAGON_HEART_ICON       = require('../../assets/artifactImages/Dragon_heart_icon.png'),

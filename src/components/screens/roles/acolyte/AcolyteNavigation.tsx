@@ -25,8 +25,10 @@ function RootNavigation({ }: any) {
   const { width, height } = useWindowDimensions();
 
   const IconImage = styled.Image`
-    width: ${width * 0.1}px;
-    height: ${width * 0.1}px;
+    width: ${width * 0.11}px;
+    height: ${width * 0.11}px;
+    position: relative;
+    top: 20%
   `;
 
   return (
@@ -44,7 +46,7 @@ function RootNavigation({ }: any) {
           position: 'absolute',
           overflow: 'hidden',
           borderTopWidth: 0,
-          boxShadow: `0 -${height * 0.01}px ${height * 0.01}px rgba(255 255 255 / 0.1)`,
+          boxShadow: `0 -${height * 0.01}px ${height * 0.01}px rgba(255, 255, 255, 0.75)`,
         },
         tabBarIcon: ({ focused }) => {
 
@@ -52,7 +54,7 @@ function RootNavigation({ }: any) {
 
           switch (route.name) {
             case Screens.ACOLYTE_MAP:
-              tabIconSource = Images.HOME_ICON;
+              tabIconSource = Images.NAVIGATION_MAP_ICON;
             break;
 
             case Screens.ACOLYTE_SETTINGS:
