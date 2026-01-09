@@ -48,6 +48,8 @@ export default function AcolyteMap() {
 
   // --- EFFECTS --- //
   useEffect(() => {
+
+    console.log(user)
     Animated.parallel([
       Animated.timing(cloudOpacity, {
         toValue: 0,
@@ -116,28 +118,32 @@ export default function AcolyteMap() {
         backgroundImage={Images.TOWER_ICON}
         buttonOnPress={selectInitialTowerScreen}
       />
-      {( !isRosetteShown && areAllArtifactsCollected) ?
-        <IconButton
-          width={screenDimensions.width * 0.1}
-          height={screenDimensions.width * 0.1}
-          xPos={screenDimensions.width * 0.33}
-          yPos={screenDimensions.height * 0.35}
-          hasBorder={true}
-          backgroundImage={Images.HOME_ICON}
-          buttonOnPress={selectInitialHomeScreen}
-          hasBrightness={true}
-          shadowColor='#ffd000ff'
-        /> :
-        <IconButton
-          width={screenDimensions.width * 0.1}
-          height={screenDimensions.width * 0.1}
-          xPos={screenDimensions.width * 0.33}
-          yPos={screenDimensions.height * 0.35}
-          hasBorder={true}
-          backgroundImage={Images.HOME_ICON}
-          buttonOnPress={selectInitialHomeScreen}
-        />
-      }
+      {!user.isBetrayer && (
+        <>
+          {(!isRosetteShown && areAllArtifactsCollected) ?
+            <IconButton
+              width={screenDimensions.width * 0.1}
+              height={screenDimensions.width * 0.1}
+              xPos={screenDimensions.width * 0.33}
+              yPos={screenDimensions.height * 0.35}
+              hasBorder={true}
+              backgroundImage={Images.HOME_ICON}
+              buttonOnPress={selectInitialHomeScreen}
+              hasBrightness={true}
+              shadowColor='#ffd000ff'
+            /> :
+            <IconButton
+              width={screenDimensions.width * 0.1}
+              height={screenDimensions.width * 0.1}
+              xPos={screenDimensions.width * 0.33}
+              yPos={screenDimensions.height * 0.35}
+              hasBorder={true}
+              backgroundImage={Images.HOME_ICON}
+              buttonOnPress={selectInitialHomeScreen}
+            />
+          }
+        </>
+      )}
       <IconButton
         width={screenDimensions.width * 0.1}
         height={screenDimensions.width * 0.1}
@@ -156,15 +162,17 @@ export default function AcolyteMap() {
         backgroundImage={Images.INN_ICON}
         buttonOnPress={selectInitialInnScreen}
       />
+      {user.isBetrayer &&
       <IconButton
-          width={screenDimensions.width * 0.1}
-          height={screenDimensions.width * 0.1}
-          xPos={screenDimensions.width * 0.33}
-          yPos={screenDimensions.height * 0.40}
-          hasBorder={true}
-          backgroundImage={Images.HOLLOW_ICON}
-          buttonOnPress={selectInitialHollowScreen}
-        />
+      width={screenDimensions.width * 0.1}
+      height={screenDimensions.width * 0.1}
+      xPos={screenDimensions.width * 0.33}
+      yPos={screenDimensions.height * 0.35}
+      hasBorder={true}
+      backgroundImage={Images.HOLLOW_ICON}
+      buttonOnPress={selectInitialHollowScreen}
+      />
+    }
       <Animated.View
         style={[
           styles.cloudOverlay,

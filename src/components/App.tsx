@@ -161,6 +161,7 @@ function App() {
         setScrollModalMessage('An acolyte has found the scroll!');
       });
 
+      setacolyteInitialScreen(user?.homeLocation)
     }
 
     return (() => {
