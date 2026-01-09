@@ -86,7 +86,7 @@ function App() {
     setLoyals(acolytes[1])
 
     setBetrayers(acolytes[2])
-    
+
 
   }
 
@@ -165,7 +165,7 @@ function App() {
         setBetrayers(acolyteGroups[0])
         setLoyals(acolyteGroups[1])
       })
-      
+
       setacolyteInitialScreen(user?.homeLocation)
 
 
@@ -213,7 +213,7 @@ function App() {
                                 <AcolyteToastTextContext.Provider value={[acolyteToastText, setAcolyteToastText]}>
                                   <MortimerInitialScreenContext.Provider value={[mortimerInitialScreen, setMortimerInitialScreen]}>
                                     <ModalContext value={setModalMessage}>
-                                      <Main />
+                                      <Navigation />
                                       {user?.rol === 'acolyte' &&
                                         <AcolyteToast toastText={acolyteToastText} setAcolyteToastText={setAcolyteToastText} />
                                       }

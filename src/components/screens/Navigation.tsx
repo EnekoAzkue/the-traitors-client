@@ -1,17 +1,18 @@
-import Swamp from '../../Swamp';
-import MortimerLab from './MortimerLab';
-import MortimerHome from './MortimerHome';
+import Swamp from './Swamp';
+import MortimerLab from './roles/mortimer/MortimerLab';
+import MortimerHome from './roles/mortimer/MortimerHome';
 import React, { useContext } from 'react';
-import MortimerTower from './MortimerTower';
+import MortimerTower from './roles/mortimer/MortimerTower';
 import styled from 'styled-components/native';
-import MortimerSettings from './MortimerSettings';
+import MortimerSettings from './roles/mortimer/MortimerSettings';
 import { useWindowDimensions } from 'react-native';
 import { BlurView } from '@react-native-community/blur';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Images, Screens } from '../../../../helpers/constants/constants';
-import { MortimerInitialScreenContext } from '../../../../helpers/contexts/contexts';
-import HallOfSages from '../../HallOfSages';
+import { Images, Screens } from '../../helpers/constants/constants';
+import { MortimerInitialScreenContext } from '../../helpers/contexts/contexts';
+import HallOfSages from './HallOfSages';
+import Acolyte from './roles/acolyte/Acolyte';
 
 const Stack = createBottomTabNavigator();
 
@@ -54,41 +55,22 @@ function RootNavigation({ }: any) {
           let tabIconSource;
 
           switch (route.name) {
-            case Screens.MORTIMER_HOME:
+            case Screens.MAP:
               tabIconSource = Images.HOME_ICON;
               break;
 
-            case Screens.MORTIMER_LAB:
-              tabIconSource = Images.LAB_ICON;
-              break;
-
-            case Screens.SWAMP:
-              tabIconSource = Images.SWAMP_ICON;
-              break;
-
-            case Screens.MORTIMER_SETTINGS:
+            case Screens.SETTINGS:
               tabIconSource = Images.SETTINGS_ICON;
               break;
 
-            case Screens.MORTIMER_TOWER:
-              tabIconSource = Images.TOWER_ICON;
-              break;
-
-            case Screens.HALL_OF_SAGES:
-              tabIconSource = Images.HALL_ICON;
-              break;
           }
 
           return <IconImage source={tabIconSource} style={{ opacity: focused ? 1 : 0.5, transform: [{ scale: focused ? 1.15 : 1 }], }} />;
         },
       })}
     >
-      <Stack.Screen name={Screens.MORTIMER_HOME} component={MortimerHome} />
-      <Stack.Screen name={Screens.MORTIMER_LAB} component={MortimerLab} />
-      <Stack.Screen name={Screens.MORTIMER_TOWER} component={MortimerTower} />
-      <Stack.Screen name={Screens.SWAMP} component={Swamp} />
-      <Stack.Screen name={Screens.HALL_OF_SAGES} component={HallOfSages} />      
-      <Stack.Screen name={Screens.MORTIMER_SETTINGS} component={MortimerSettings} />
+      <Stack.Screen name={Screens.MAP} component={Acolyte} />
+      <Stack.Screen name={Screens.SETTINGS} component={MortimerSettings} />
     </Stack.Navigator>
   );
 
@@ -99,7 +81,8 @@ export default function MortimerNavigation() {
   return (
     <>
       <NavigationContainer>
-        <RootNavigation initialRouteScreen={Screens.MORTIMER_HOME} />
+        <Router />
+        <RootNavigation initialRouteScreen={null} />
       </NavigationContainer>
     </>
   );

@@ -1,11 +1,10 @@
-import IconButton from "../../IconButton";
-import { useWindowDimensions } from 'react-native';
 import React, { useContext, useEffect } from "react";
-import { ImageBackground, Text, StyleSheet } from "react-native";
-import { Images, Screens } from "../../../../helpers/constants/constants";
-import { useCollectionStore } from "../../../../helpers/stores/useCollectionStore";
-import { useShowRosetteStore } from "../../../../helpers/stores/useShowRosetteStore";
-import { AcolyteInitialScreenContext, CollectionContext, ScrollContext } from "../../../../helpers/contexts/contexts";
+import { useWindowDimensions, Text, StyleSheet, ImageBackground } from "react-native";
+import { Screens, Images } from "../../helpers/constants/constants";
+import { AcolyteInitialScreenContext, ScrollContext, CollectionContext } from "../../helpers/contexts/contexts";
+import { useCollectionStore } from "../../helpers/stores/useCollectionStore";
+import { useShowRosetteStore } from "../../helpers/stores/useShowRosetteStore";
+import IconButton from "./IconButton";
 
 export default function AcolyteSchoolMap() {
 
@@ -25,9 +24,9 @@ export default function AcolyteSchoolMap() {
   const areAllArtifactsCollected = useCollectionStore(state => state.areAllArtifactsCollected)
   
   // --- FUNCTIONS --- //
-  const selectInitialHomeScreen = () => setInitialScreen(Screens.ACOLYTE_HOME);
-  const selectInitialLabScreen = () => setInitialScreen(Screens.ACOLYTE_LAB);
-  const selectInitialSettingsScreen = () => setInitialScreen(Screens.ACOLYTE_SETTINGS);
+  const selectInitialHomeScreen = () => setInitialScreen(Screens.HOME);
+  const selectInitialLabScreen = () => setInitialScreen(Screens.LAB);
+  const selectInitialSettingsScreen = () => setInitialScreen(Screens.SETTINGS);
   const selectInitialHallScreen = () => setInitialScreen(Screens.HALL_OF_SAGES);
   const selectInitialDungeonScreen = () => setInitialScreen(Screens.DUNGEON);
 

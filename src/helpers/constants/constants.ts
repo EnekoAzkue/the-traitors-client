@@ -101,39 +101,47 @@ enum Images {
 enum Screens {
 
   // --- ACOLYTE --- //
-  ACOLYTE_HOME      = 'AcolyteHome',
-  ACOLYTE_SETTINGS  = 'AcolyteSettings',
-  ACOLYTE_LAB       = 'AcolyteLab',
-  ACOLYTE_TOWER     = 'AcolyteTower',
-  ACOLYTE_HALL      = 'AcolyteHall',
-  SCHOOL_MAP        = 'SchoolMap',
-  OBITUARY          = 'Obituary',
-  ACOLYTE_INN       = 'Inn',
-  ACOLYTE_HOLLOW    = 'Hollow',
+  // ACOLYTE_HOME      = 'AcolyteHome',
+  // ACOLYTE_SETTINGS  = 'AcolyteSettings',
+  // ACOLYTE_LAB       = 'AcolyteLab',
+  // ACOLYTE_TOWER     = 'AcolyteTower',
+  // ACOLYTE_HALL      = 'AcolyteHall',
+  // SCHOOL_MAP        = 'SchoolMap',
+  // OBITUARY          = 'Obituary',
+  // ACOLYTE_INN       = 'Inn',
+  // ACOLYTE_HOLLOW    = 'Hollow',
 
 
   // --- ISTVAN --- //
-  ISTVAN_LAB        = 'IstvanLab',
-  ISTVAN_HOME       = 'IstvanHome',
-  ISTVAN_SWAMP      = 'IstvanSwamp',
-  ISTVAN_SETTINGS   = 'IstvanSettings',
+  // ISTVAN_LAB        = 'IstvanLab',
+  // ISTVAN_HOME       = 'IstvanHome',
+  // ISTVAN_SWAMP      = 'IstvanSwamp',
+  // ISTVAN_SETTINGS   = 'IstvanSettings',
 
   // --- MORTIMER --- //
-  MORTIMER_LAB      = 'MortimerLab',
-  MORTIMER_HOME     = 'MortimerHome',
-  MORTIMER_SWAMP    = 'MortimerSwamp',
-  MORTIMER_SETTINGS = 'MortimerSettings',
-  MORTIMER_TOWER    = 'MortimerTower',
+  // MORTIMER_LAB      = 'MortimerLab',
+  // MORTIMER_HOME     = 'MortimerHome',
+  // MORTIMER_SWAMP    = 'MortimerSwamp',
+  // MORTIMER_SETTINGS = 'MortimerSettings',
+  // MORTIMER_TOWER    = 'MortimerTower',
 
   // --- VILLAIN --- //
-  VILLAIN_LAB       = 'VillainLab',
-  VILLAIN_HOME      = 'VillainHome',
-  VILLAIN_SWAMP     = 'VillainSwamp',
-  VILLAIN_SETTINGS  = 'VillainSettings',
+  // VILLAIN_LAB       = 'VillainLab',
+  // VILLAIN_HOME      = 'VillainHome',
+  // VILLAIN_SWAMP     = 'VillainSwamp',
+  // VILLAIN_SETTINGS  = 'VillainSettings',
 
   // --- GENERAL --- //
+  SETTINGS          = 'Settings',
+  LAB               = 'Lab',
+  TOWER             = 'Tower',
+  MAP               = 'Map',
+  SCHOOL_MAP        = 'SchoolMap',
+  INN               = 'Inn',
+  HOLLOW            = 'Hollow',
   SWAMP             = 'Swamp',
   HALL_OF_SAGES     = 'HallOfSages',
+  OBITUARY          = 'Obituary',
   DUNGEON           = 'Dungeon'
 
 }
@@ -156,7 +164,7 @@ enum Routes {
 
 }
 
-export const CURRENT_DOMAIN   = Domains.RENDER;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN)
+export const CURRENT_DOMAIN   = Domains.PORTAINER;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN)
 export const CURRENT_ROUTE    = `${CURRENT_DOMAIN}player/`;
 
 enum Roles {

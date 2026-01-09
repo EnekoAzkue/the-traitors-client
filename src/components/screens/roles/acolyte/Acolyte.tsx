@@ -1,5 +1,5 @@
 import Swamp from "../../Swamp";
-import AcolyteMap from "./AcolyteMap";
+import AcolyteMap from "../../Map";
 import AcolyteLab from "./AcolyteLab";
 import Obituary from "./Obituary";
 import AcolyteHome from "./AcolyteHome";
@@ -16,6 +16,7 @@ import Rosette from "../../../Rosette";
 import AcolyteInn from "./AcolyteInn";
 import AcolyteHollow from "./AcolyteHollow";
 import SchoolDungen from "../../SchoolDungeon";
+import { Screen } from "react-native-screens";
 
 export default function Acolyte() {
 
@@ -30,7 +31,7 @@ export default function Acolyte() {
 
   // --- EFFECTS --- //
   useEffect(() => {
-    if (initialScreen === Screens.ACOLYTE_TOWER) {
+    if (initialScreen === Screens.TOWER) {
       socket.emit(SocketClientToServerEvents.UPDATE_INTOWER, user.email, true)
     } else {
       socket.emit(SocketClientToServerEvents.UPDATE_INTOWER, user.email, false)
@@ -45,17 +46,17 @@ export default function Acolyte() {
 
   return (
     <>
-      {initialScreen === null                     && <AcolyteMap />}
-      {initialScreen === Screens.SCHOOL_MAP       && <AcolyteSchoolMap />}
-      {initialScreen === Screens.ACOLYTE_HOME     && <AcolyteHome />}
-      {initialScreen === Screens.ACOLYTE_LAB      && <AcolyteLab />}
-      {initialScreen === Screens.ACOLYTE_SETTINGS && <AcolyteSettings />}
-      {initialScreen === Screens.ACOLYTE_TOWER    && <AcolyteTower />}
+      {initialScreen === null     && <Home />}
+      {initialScreen === Screens.MAP                     && <Map />}
+      {initialScreen === Screens.SCHOOL_MAP       && <SchoolMap />}
+      {initialScreen === Screens.LAB      && <Lab />}
+      {initialScreen === Screens.SETTINGS && <Settings />}
+      {initialScreen === Screens.TOWER    && <Tower />}
       {initialScreen === Screens.HALL_OF_SAGES    && <HallOfSages />}
       {initialScreen === Screens.SWAMP            && <Swamp />}
       {initialScreen === Screens.OBITUARY         && <Obituary />}
-      {initialScreen === Screens.ACOLYTE_INN      && <AcolyteInn />}
-      {initialScreen === Screens.ACOLYTE_HOLLOW   && <AcolyteHollow />}
+      {initialScreen === Screens.INN      && <Inn />}
+      {initialScreen === Screens.HOLLOW   && <Hollow />}
       {initialScreen === Screens.DUNGEON          && <SchoolDungen />}
     </>
   );

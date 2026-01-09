@@ -1,16 +1,16 @@
-import Rosette from "../../../Rosette";
-import IconButton from "../../IconButton";
+import Rosette from "../Rosette";
+import IconButton from "./IconButton";
 import styled from "styled-components/native";
-import { socket } from "../../../../helpers/socket/socket";
+import { socket } from "../../helpers/socket/socket";
 import React, { useContext, useEffect, useRef } from "react";
-import { useUserStore } from "../../../../helpers/stores/useUserStore";
+import { useUserStore } from "../../helpers/stores/useUserStore";
 import { Animated, Image, Text, StyleSheet, View } from "react-native";
-import { useArtifactsStore } from "../../../../helpers/stores/useArtifactStore";
-import { useCollectionStore } from "../../../../helpers/stores/useCollectionStore";
-import { useShowRosetteStore } from "../../../../helpers/stores/useShowRosetteStore";
-import { useScreenDimensions } from "../../../../helpers/stores/useScreenDimensionsStore";
-import { AcolyteInitialScreenContext, CollectionContext } from "../../../../helpers/contexts/contexts";
-import { Images, Screens, SocketClientToServerEvents, SocketServerToClientEvents } from "../../../../helpers/constants/constants";
+import { useArtifactsStore } from "../../helpers/stores/useArtifactStore";
+import { useCollectionStore } from "../../helpers/stores/useCollectionStore";
+import { useShowRosetteStore } from "../../helpers/stores/useShowRosetteStore";
+import { useScreenDimensions } from "../../helpers/stores/useScreenDimensionsStore";
+import { AcolyteInitialScreenContext, CollectionContext } from "../../helpers/contexts/contexts";
+import { Images, Screens, SocketClientToServerEvents, SocketServerToClientEvents } from "../../helpers/constants/constants";
 
 export default function AcolyteMap() {
 
@@ -36,10 +36,10 @@ export default function AcolyteMap() {
   console.log('are all artifacts collected?:', areAllArtifactsCollected)
   // --- FUNCTIONS --- //
   const selectInitialHomeScreen = () => setInitialScreen(Screens.SCHOOL_MAP);
-  const selectInitialTowerScreen = () => setInitialScreen(Screens.ACOLYTE_TOWER);
+  const selectInitialTowerScreen = () => setInitialScreen(Screens.TOWER);
   const selectInitialSwampScreen = () => setInitialScreen(Screens.SWAMP);
-  const selectInitialInnScreen = () => setInitialScreen(Screens.ACOLYTE_INN);  
-  const selectInitialHollowScreen = () => setInitialScreen(Screens.ACOLYTE_HOLLOW);  
+  const selectInitialInnScreen = () => setInitialScreen(Screens.INN);  
+  const selectInitialHollowScreen = () => setInitialScreen(Screens.HOLLOW);  
 
   // --- REFS --- //
   // Refs used on cloud animation
