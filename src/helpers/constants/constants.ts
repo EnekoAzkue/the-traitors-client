@@ -108,7 +108,6 @@ enum Screens {
   ACOLYTE_TOWER     = 'AcolyteTower',
   ACOLYTE_HALL      = 'AcolyteHall',
   ACOLYTE_MAP       = 'AcolyteMap',
-  SCHOOL_MAP        = 'SchoolMap',
   OBITUARY          = 'Obituary',
   ACOLYTE_INN       = 'Inn',
   ACOLYTE_HOLLOW    = 'Hollow',
@@ -126,6 +125,7 @@ enum Screens {
   MORTIMER_SWAMP    = 'MortimerSwamp',
   MORTIMER_SETTINGS = 'MortimerSettings',
   MORTIMER_TOWER    = 'MortimerTower',
+  MORTIMER_MAP      = 'MortimerMap',
 
   // --- VILLAIN --- //
   VILLAIN_LAB       = 'VillainLab',
@@ -134,6 +134,12 @@ enum Screens {
   VILLAIN_SETTINGS  = 'VillainSettings',
 
   // --- GENERAL --- //
+  HOME = 'Home',
+  LAB = 'Lab',
+  TOWER = 'Tower',
+  SCHOOL_MAP = 'SchoolMap',
+  MAP = 'Map',
+  SETTINGS = 'Settings',
   SWAMP             = 'Swamp',
   HALL_OF_SAGES     = 'HallOfSages',
   DUNGEON           = 'Dungeon'
@@ -158,7 +164,7 @@ enum Routes {
 
 }
 
-export const CURRENT_DOMAIN   = Domains.RENDER;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN)
+export const CURRENT_DOMAIN   = Domains.LOCALHOST;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN)
 export const CURRENT_ROUTE    = `${CURRENT_DOMAIN}player/`;
 
 enum Roles {

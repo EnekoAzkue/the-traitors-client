@@ -1,14 +1,13 @@
-import AcolyteMap from './AcolyteMap';
-import React, { useContext } from 'react';
-import AcolyteSettings from './AcolyteSettings';
+import React from 'react';
 import styled from 'styled-components/native';
 import { useWindowDimensions } from 'react-native';
 import { BlurView } from '@react-native-community/blur';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Images, Screens } from '../../../../helpers/constants/constants';
-import { useAcolytesCurrentNavigationTabStore } from '../../../../helpers/stores/useAcolytesCurrentNavigationTabStore';
-import Acolyte from './Acolyte';
+import { Images, Screens } from '../../helpers/constants/constants';
+import { useAcolytesCurrentNavigationTabStore } from '../../helpers/stores/useAcolytesCurrentNavigationTabStore';
+import Router from '../Router';
+import Settings from './Settings';
 
 const Stack = createBottomTabNavigator();
 
@@ -53,13 +52,13 @@ function RootNavigation({ }: any) {
           let tabIconSource;
 
           switch (route.name) {
-            case Screens.ACOLYTE_MAP:
+            case Screens.MAP:
               tabIconSource = Images.NAVIGATION_MAP_ICON;
-            break;
+              break;
 
-            case Screens.ACOLYTE_SETTINGS:
+            case Screens.SETTINGS:
               tabIconSource = Images.SETTINGS_ICON;
-            break;
+              break;
 
           }
 
@@ -67,21 +66,25 @@ function RootNavigation({ }: any) {
         },
       })}
     >
-      <Stack.Screen name={Screens.ACOLYTE_MAP} component={Acolyte} />
-      <Stack.Screen name={Screens.ACOLYTE_SETTINGS} component={AcolyteSettings} />
+      <Stack.Screen name={Screens.MAP} component={Router} />
+      <Stack.Screen name={Screens.SETTINGS} component={Settings} />
     </Stack.Navigator>
   );
 
 }
 
-export default function AcolyteNavigation() {
+export default function Navigation() {
+
+  const Container = styled.View`
+    height: 100%;
+  `;
 
   return (
-    <>
+    <Container>
       <NavigationContainer>
-        <RootNavigation initialRouteScreen={Screens.ACOLYTE_MAP} />
+        <RootNavigation initialRouteScreen={Screens.MAP} />
       </NavigationContainer>
-    </>
+    </Container>
   );
 
 }

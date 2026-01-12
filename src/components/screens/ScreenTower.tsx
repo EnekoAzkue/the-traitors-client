@@ -1,14 +1,14 @@
-import IconButton from "../../IconButton";
+import IconButton from "../IconButton";
 import { useWindowDimensions, View } from "react-native";
-import { socket } from "../../../../helpers/socket/socket";
-import AcolyteTowerContainer from "./AcolyteTowerContainer";
+import { socket } from "../../helpers/socket/socket";
+import AcolyteTowerContainer from "./roles/acolyte/AcolyteTowerContainer";
 import React, { useContext, useEffect, useState } from "react";
-import { ScrollContext } from "../../../../helpers/contexts/contexts";
-import { useUserStore } from "../../../../helpers/stores/useUserStore";
-import { Images, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
+import { ScrollContext } from "../../helpers/contexts/contexts";
+import { useUserStore } from "../../helpers/stores/useUserStore";
+import { Images, SocketClientToServerEvents } from "../../helpers/constants/constants";
 
 
-function AcolyteTower() {
+function ScreenTower() {
 
   // --- CONTEXTS && STORES --- //
   const scrollContext = useContext(ScrollContext);
@@ -60,4 +60,4 @@ function AcolyteTower() {
   );
 }
 
-export default AcolyteTower;
+export default ScreenTower;

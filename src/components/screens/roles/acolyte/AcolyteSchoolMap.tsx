@@ -1,4 +1,4 @@
-import IconButton from "../../IconButton";
+import IconButton from "../../../IconButton";
 import { useWindowDimensions } from 'react-native';
 import React, { useContext, useEffect } from "react";
 import { ImageBackground, Text, StyleSheet } from "react-native";
@@ -25,8 +25,8 @@ export default function AcolyteSchoolMap() {
   const areAllArtifactsCollected = useCollectionStore(state => state.areAllArtifactsCollected)
   
   // --- FUNCTIONS --- //
-  const selectInitialHomeScreen = () => setInitialScreen(Screens.ACOLYTE_HOME);
-  const selectInitialLabScreen = () => setInitialScreen(Screens.ACOLYTE_LAB);
+  const selectInitialHomeScreen = () => setInitialScreen(Screens.HOME);
+  const selectInitialLabScreen = () => setInitialScreen(Screens.LAB);
   const selectInitialSettingsScreen = () => setInitialScreen(Screens.ACOLYTE_SETTINGS);
   const selectInitialHallScreen = () => setInitialScreen(Screens.HALL_OF_SAGES);
   const selectInitialDungeonScreen = () => setInitialScreen(Screens.DUNGEON);
@@ -69,6 +69,8 @@ export default function AcolyteSchoolMap() {
         hasBorder={true}
         backgroundImage={Images.MAIN_ICON}
         buttonOnPress={selectInitialHomeScreen}
+        iconText="Home"
+
       />
       <IconButton
         width={width * 0.1}
@@ -78,15 +80,8 @@ export default function AcolyteSchoolMap() {
         hasBorder={true}
         backgroundImage={Images.LAB_ICON}
         buttonOnPress={selectInitialLabScreen}
-      />
-      <IconButton
-        width={width * 0.1}
-        height={width * 0.1}
-        xPos={width * 0.751}
-        yPos={height * 0.59}
-        hasBorder={true}
-        backgroundImage={Images.SETTINGS_ICON}
-        buttonOnPress={selectInitialSettingsScreen}
+        iconText="Lab"
+
       />
       { /* Si la rosetta se muestra el areAllArtifacts collected se cambia haciendo que este icono desaparezca, entonces para evitar eso, se pone el isRosetteShown */}
       { (isRosetteShown || areAllArtifactsCollected) &&
@@ -100,6 +95,8 @@ export default function AcolyteSchoolMap() {
         buttonOnPress={selectInitialHallScreen}
         hasBrightness={true}
         shadowColor={hallOfSagesDropShadowColor}
+        iconText="Hall"
+
       />
       }
       <IconButton
@@ -110,6 +107,8 @@ export default function AcolyteSchoolMap() {
         hasBorder={true}
         backgroundImage={Images.DUNGEON_ICON}
         buttonOnPress={selectInitialDungeonScreen}
+        iconText="Dungeon"
+
       />
     </ImageBackground>
   );

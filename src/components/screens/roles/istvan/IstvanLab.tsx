@@ -8,6 +8,7 @@ import { ModalContext } from '../../../../helpers/contexts/contexts';
 import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { Images, SocketClientToServerEvents } from '../../../../helpers/constants/constants';
 import { useCameraPermission, Camera, useCameraDevice, useCodeScanner, Code } from 'react-native-vision-camera';
+import AcolyteScreenContainer from '../acolyte/AcolyteScreenContainer';
 
 type RootTabParamList = {
   IstvanHome: undefined;
@@ -86,7 +87,7 @@ const IstvanLab = () => {
   `;
 
   return (
-    <StyledContainer>
+    <AcolyteScreenContainer backgroundImage={Images.ISTVAN_LAB}>
       {
         (isCameraOpen && device) ?
           <StyledCameraContainer>
@@ -97,14 +98,12 @@ const IstvanLab = () => {
           </StyledCameraContainer>
           :
           <>
-            <BackgroundImage source={Images.ISTVAN_LAB}>
               <StyledButtonContainer>
                 <Button buttonText="Open Camera" onPress={handlePress} />
               </StyledButtonContainer>
-            </BackgroundImage>
           </>
       }
-    </StyledContainer>
+    </AcolyteScreenContainer>
   );
 
 };

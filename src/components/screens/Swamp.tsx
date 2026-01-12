@@ -6,7 +6,7 @@ import { socket } from "../../helpers/socket/socket";
 import InventoryContainer from "../InventoryContainer";
 import Artifact from "../../helpers/interfaces/Artifact";
 import { Image, PermissionsAndroid } from "react-native";
-import React, { useContext, useEffect, useState } from "react";
+import React, {useEffect, useState } from "react";
 import { useUserStore } from "../../helpers/stores/useUserStore";
 import KaotikaPlayer from "../../helpers/interfaces/KaotikaPlayer";
 import { StyleSheet, useWindowDimensions, View } from "react-native";
@@ -15,7 +15,7 @@ import { useArtifactsStore } from "../../helpers/stores/useArtifactStore";
 import { useCollectionStore } from "../../helpers/stores/useCollectionStore";
 import Geolocation, { GeolocationResponse } from '@react-native-community/geolocation';
 import { useActivatedArtifactStore } from "../../helpers/stores/useActivatedArtifactStore";
-import { InventoryContext, IstvanInitialScreenContext, MortimerInitialScreenContext, VillainInitialScreenContext } from "../../helpers/contexts/contexts";
+import { InventoryContext } from "../../helpers/contexts/contexts";
 import { Images, Roles, Screens, SocketClientToServerEvents, SocketServerToClientEvents, swampArtifactIcons } from "../../helpers/constants/constants";
 
 function Swamp() {
@@ -35,19 +35,10 @@ function Swamp() {
 
   const { activatedArtifacts, setActivatedArtifacts } = useActivatedArtifactStore(state => state);
 
-  const mortimerInitialScreenContext = useContext(MortimerInitialScreenContext);
-  const istvanInitialScreenContext = useContext(IstvanInitialScreenContext);
-  const villainInitialScreenContext = useContext(VillainInitialScreenContext);
 
 
   if (!user) return;
-  if (!mortimerInitialScreenContext) return;
-  if (!istvanInitialScreenContext) return;
-  if (!villainInitialScreenContext) return;
 
-  const setMortimerInitialScreen = mortimerInitialScreenContext[1];
-  const setIstvanInitialScreen = istvanInitialScreenContext[1];
-  const setVillainInitialScreen = villainInitialScreenContext[1];
 
   // --- FUNCTIONS --- //
   async function requestPermission() {
@@ -75,15 +66,6 @@ function Swamp() {
 
       case (Roles.MORTIMER):
         socket.emit(SocketClientToServerEvents.MORTIMER_IN_HALL, false)
-        setMortimerInitialScreen(Screens.SWAMP);
-        break;
-
-      case (Roles.ISTVAN):
-        setIstvanInitialScreen(Screens.SWAMP);
-        break;
-
-      case (Roles.VILLAIN):
-        setVillainInitialScreen(Screens.SWAMP);
         break;
 
     }

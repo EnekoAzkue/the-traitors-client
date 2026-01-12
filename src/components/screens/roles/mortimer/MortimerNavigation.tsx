@@ -1,8 +1,4 @@
-import Swamp from '../../Swamp';
-import MortimerLab from './MortimerLab';
-import MortimerHome from './MortimerHome';
 import React, { useContext } from 'react';
-import MortimerTower from './MortimerTower';
 import styled from 'styled-components/native';
 import MortimerSettings from './MortimerSettings';
 import { useWindowDimensions } from 'react-native';
@@ -11,7 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Images, Screens } from '../../../../helpers/constants/constants';
 import { MortimerInitialScreenContext } from '../../../../helpers/contexts/contexts';
-import HallOfSages from '../../HallOfSages';
+import Acolyte from '../../../Router';
 
 const Stack = createBottomTabNavigator();
 
@@ -55,27 +51,11 @@ function RootNavigation({ }: any) {
 
           switch (route.name) {
             case Screens.MORTIMER_HOME:
-              tabIconSource = Images.HOME_ICON;
-              break;
-
-            case Screens.MORTIMER_LAB:
-              tabIconSource = Images.LAB_ICON;
-              break;
-
-            case Screens.SWAMP:
-              tabIconSource = Images.SWAMP_ICON;
+              tabIconSource = Images.NAVIGATION_MAP_ICON;
               break;
 
             case Screens.MORTIMER_SETTINGS:
               tabIconSource = Images.SETTINGS_ICON;
-              break;
-
-            case Screens.MORTIMER_TOWER:
-              tabIconSource = Images.TOWER_ICON;
-              break;
-
-            case Screens.HALL_OF_SAGES:
-              tabIconSource = Images.HALL_ICON;
               break;
           }
 
@@ -83,11 +63,7 @@ function RootNavigation({ }: any) {
         },
       })}
     >
-      <Stack.Screen name={Screens.MORTIMER_HOME} component={MortimerHome} />
-      <Stack.Screen name={Screens.MORTIMER_LAB} component={MortimerLab} />
-      <Stack.Screen name={Screens.MORTIMER_TOWER} component={MortimerTower} />
-      <Stack.Screen name={Screens.SWAMP} component={Swamp} />
-      <Stack.Screen name={Screens.HALL_OF_SAGES} component={HallOfSages} />      
+      <Stack.Screen name={Screens.MORTIMER_HOME} component={Acolyte} />
       <Stack.Screen name={Screens.MORTIMER_SETTINGS} component={MortimerSettings} />
     </Stack.Navigator>
   );

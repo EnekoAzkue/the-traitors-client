@@ -4,7 +4,7 @@ import { View } from "react-native";
 import ScreenContainer from "../../ScreenContainer";
 import { Images } from "../../../../helpers/constants/constants";
 
-function Settings() {
+function IstvanSettings() {
 
   return (
     <View>
@@ -16,4 +16,4 @@ function Settings() {
   );
 }
 
-export default Settings;
+export default IstvanSettings;

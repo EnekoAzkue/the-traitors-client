@@ -1,4 +1,4 @@
-import { Images, INN_STATES } from "../../../../helpers/constants/constants";
+import { Images, INN_STATES, Roles } from "../../../../helpers/constants/constants";
 import { useInnStore } from "../../../../helpers/stores/useInnStateStore";
 import { useUserStore } from "../../../../helpers/stores/useUserStore";
 import BetrayerModal from "../../../BetrayerModal";
@@ -45,7 +45,7 @@ function AcolyteInn() {
 
   return (
     <>
-      {(innState === INN_STATES.SHOW_BETRAYER_MODAL && 
+      {((innState === INN_STATES.SHOW_BETRAYER_MODAL && user.rol === Roles.ACOLYTE) && 
         <BetrayerModal/>
       )}
 

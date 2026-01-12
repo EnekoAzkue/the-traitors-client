@@ -1,5 +1,5 @@
 import Rosette from "../../../Rosette";
-import IconButton from "../../IconButton";
+import IconButton from "../../../IconButton";
 import styled from "styled-components/native";
 import { socket } from "../../../../helpers/socket/socket";
 import React, { useContext, useEffect, useRef } from "react";
@@ -117,6 +117,7 @@ export default function AcolyteMap() {
         hasBorder={true}
         backgroundImage={Images.TOWER_ICON}
         buttonOnPress={selectInitialTowerScreen}
+        iconText="Tower"
       />
       {!user.isBetrayer && (
         <>
@@ -131,6 +132,8 @@ export default function AcolyteMap() {
               buttonOnPress={selectInitialHomeScreen}
               hasBrightness={true}
               shadowColor='#ffd000ff'
+              iconText="Old School"
+
             /> :
             <IconButton
               width={screenDimensions.width * 0.1}
@@ -140,7 +143,9 @@ export default function AcolyteMap() {
               hasBorder={true}
               backgroundImage={Images.HOME_ICON}
               buttonOnPress={selectInitialHomeScreen}
-            />
+              iconText="Old School"
+
+              />
           }
         </>
       )}
@@ -152,6 +157,8 @@ export default function AcolyteMap() {
         hasBorder={true}
         backgroundImage={Images.SWAMP_ICON}
         buttonOnPress={selectInitialSwampScreen}
+        iconText="Swamp"
+
       />
       <IconButton
         width={screenDimensions.width * 0.1}
@@ -161,6 +168,8 @@ export default function AcolyteMap() {
         hasBorder={true}
         backgroundImage={Images.INN_ICON}
         buttonOnPress={selectInitialInnScreen}
+        iconText="Inn"
+
       />
       {user.isBetrayer &&
       <IconButton
@@ -171,6 +180,8 @@ export default function AcolyteMap() {
         hasBorder={true}
         backgroundImage={Images.HOLLOW_ICON}
         buttonOnPress={selectInitialHollowScreen}
+        iconText="Hollow"
+
       />
     }
       <Animated.View

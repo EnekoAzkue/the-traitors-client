@@ -4,20 +4,14 @@ import React, { useContext, useEffect } from "react";
 import { Images, Screens, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
 import { MortimerInitialScreenContext } from "../../../../helpers/contexts/contexts";
 import { socket } from "../../../../helpers/socket/socket";
+import AcolyteScreenContainer from "../acolyte/AcolyteScreenContainer";
 
 function MortimerHome() {
 
-  // --- CONTEXT --- //
-  const initialScreenContext = useContext(MortimerInitialScreenContext);
-
-  if(!initialScreenContext) return null;
-
-  const setInitialScreen = initialScreenContext[1];
   
   // --- EFFECT --- //
   useEffect(() => {
     socket.emit(SocketClientToServerEvents.MORTIMER_IN_HALL, false)
-      setInitialScreen(Screens.MORTIMER_HOME);
   }, []);
 
   // --- STYLED COMPONENTS --- //
@@ -28,9 +22,9 @@ function MortimerHome() {
   `;
 
   return (
-    <ScreenContainer backgroundImg={Images.MORTIMER_HOME}>
+    <AcolyteScreenContainer backgroundImage={Images.MORTIMER_HOME} >
       <StyledMortimerHome />
-    </ScreenContainer>
+    </AcolyteScreenContainer>
   );
   
 }

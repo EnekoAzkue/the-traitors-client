@@ -4,7 +4,6 @@ import { Screens, SocketServerToClientEvents } from '../helpers/constants/consta
 
 // --- Components ---
 import Login from './screens/Login';
-import Main from './screens/Main';
 import Splash from "./screens/Splash";
 import GeneralModal from './Modal';
 import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-context';
@@ -33,6 +32,7 @@ import { getAcolytes, updateUserStateWithPushToken } from '../helpers/componentU
 import { useScreenDimensions } from '../helpers/stores/useScreenDimensionsStore';
 import { useWindowDimensions } from 'react-native';
 import { useUserStore } from '../helpers/stores/useUserStore';
+import Navigation from './screens/Navigation';
 
 function App() {
 
@@ -213,7 +213,7 @@ function App() {
                                 <AcolyteToastTextContext.Provider value={[acolyteToastText, setAcolyteToastText]}>
                                   <MortimerInitialScreenContext.Provider value={[mortimerInitialScreen, setMortimerInitialScreen]}>
                                     <ModalContext value={setModalMessage}>
-                                      <Main />
+                                      <Navigation />
                                       {user?.rol === 'acolyte' &&
                                         <AcolyteToast toastText={acolyteToastText} setAcolyteToastText={setAcolyteToastText} />
                                       }

@@ -1,12 +1,12 @@
 import React from "react";
-import ScreenContainer from "../../ScreenContainer";
 import { Images } from "../../../../helpers/constants/constants";
+import AcolyteScreenContainer from "../acolyte/AcolyteScreenContainer";
 
 function IstvanHome() {
 
   return (
     <>
-      <ScreenContainer backgroundImg={Images.ISTVAN_HOME} />
+      <AcolyteScreenContainer backgroundImage={Images.ISTVAN_HOME} />
     </>
   );
   

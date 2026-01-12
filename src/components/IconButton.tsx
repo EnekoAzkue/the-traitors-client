@@ -1,4 +1,5 @@
 import React from "react";
+import { useWindowDimensions } from "react-native";
 import DropShadow from "react-native-drop-shadow";
 import styled from "styled-components/native";
 
@@ -13,10 +14,10 @@ type IconButtonProps = {
   hasBorder?: boolean,
   backgrounOpacity?: number,
   shadowColor?: string,
+  iconText?: string,
 };
 
-export default function IconButton({ width, height, xPos, yPos, backgroundImage, buttonOnPress, hasBrightness = false, hasBorder = false, backgrounOpacity = 0.4, shadowColor = '#ffffffff' }: IconButtonProps) {
-
+export default function IconButton({ width, height, xPos, yPos, backgroundImage, buttonOnPress, hasBrightness = false, hasBorder = false, backgrounOpacity = 0.4, shadowColor = '#ffffffff', iconText = '' }: IconButtonProps) {
 
   const StyledButtonContainer = styled.View`
     width: ${width}px;
@@ -31,20 +32,20 @@ export default function IconButton({ width, height, xPos, yPos, backgroundImage,
 
 
   const StyledButton = styled.TouchableOpacity`
-  width: ${width}px;
-  height: ${height}px;
-
-  ${(hasBorder) ? 'border: 1px solid white;' : ''};
-  border-radius: 100%;
-
-  background: rgba(0,0,0, ${backgrounOpacity});
+    width: ${width}px;
+    height: ${height}px;
+  
+    ${(hasBorder) ? 'border: 1px solid white;' : ''};
+    border-radius: 100%;
+  
+    background: rgba(0,0,0, ${backgrounOpacity});
 
   `;
 
   const StyledImage = styled.Image`
-  width: ${width}px;
-  height: ${height}px;
-`;
+    width: ${width}px;
+    height: ${height}px;
+  `;
 
   const dropShadowStyles = {
     shadowColor: '#ffffffff',
@@ -55,6 +56,14 @@ export default function IconButton({ width, height, xPos, yPos, backgroundImage,
     shadowOpacity: 2,
     shadowRadius: 6,
   }
+
+  const IconText = styled.Text`
+    color: white;
+    font-family: KochAltschrift;
+    font-size: ${width * 0.5};
+    text-align: center;
+    border: 1px solid blue;
+    `
 
 
 
@@ -81,6 +90,9 @@ export default function IconButton({ width, height, xPos, yPos, backgroundImage,
           </DropShadow>
           :
           <IconButtonChildren />
+      }
+      {
+        (iconText) && <IconText>{iconText}</IconText>
       }
     </StyledButtonContainer>
 

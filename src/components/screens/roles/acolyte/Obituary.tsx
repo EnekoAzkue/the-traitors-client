@@ -2,9 +2,8 @@ import React, { useContext } from "react";
 import { Text, useWindowDimensions } from "react-native";
 import ScreenContainer from "../../ScreenContainer";
 import { Images } from "../../../../helpers/constants/constants";
-import IconButton from "../../IconButton";
+import IconButton from "../../../IconButton";
 import { AcolyteInitialScreenContext } from "../../../../helpers/contexts/contexts";
-import Rosette from "../../../Rosette";
 
 export default function Obituary() {
 

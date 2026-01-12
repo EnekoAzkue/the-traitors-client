@@ -12,7 +12,7 @@ interface AcolyteCurrentTabNavigationInterface {
 export const useAcolytesCurrentNavigationTabStore = create<AcolyteCurrentTabNavigationInterface>((set) => ({
 
   // --- STATE --- //
-  acolyteCurrentTabNavigation: Screens.ACOLYTE_MAP,
+  acolyteCurrentTabNavigation: Screens.MAP,
 
   // --- FUNCTIONS --- //
   setAcolyteCurrentTabNavigation: ((newCurrentTab) => { set( () => ({acolyteCurrentTabNavigation: newCurrentTab}) ) })

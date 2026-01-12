@@ -5,7 +5,7 @@ import { Text, useWindowDimensions } from 'react-native';
 import { Images, Screens, swampArtifactIcons } from '../helpers/constants/constants';
 import { useActivatedArtifactStore } from '../helpers/stores/useActivatedArtifactStore';
 import DropShadow from 'react-native-drop-shadow';
-import IconButton from './screens/IconButton';
+import IconButton from './IconButton';
 import { AcolyteInitialScreenContext } from '../helpers/contexts/contexts';
 
 

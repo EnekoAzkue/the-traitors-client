@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 import { Dimensions } from 'react-native';
-import IconButton from "../../IconButton";
+import IconButton from "../../../IconButton";
 import ScreenContainer from "../../ScreenContainer";
 import React, { PropsWithChildren, useContext } from "react";
 import { Images } from "../../../../helpers/constants/constants";

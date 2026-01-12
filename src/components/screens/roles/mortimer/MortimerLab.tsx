@@ -1,33 +1,29 @@
 import styled from "styled-components/native";
-import ScreenContainer from "../../ScreenContainer";
 import React, { useContext, useEffect } from "react";
 import AcolyteLabRegister from "./AcolyteLabRegister";
 import { Text, useWindowDimensions, View } from "react-native";
-import { Images, Screens, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
-import { AllAcolytesContext, LoyalAcolytesContext, MortimerInitialScreenContext } from "../../../../helpers/contexts/contexts";
+import { Images, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
+import { AllAcolytesContext, LoyalAcolytesContext } from "../../../../helpers/contexts/contexts";
 import { socket } from "../../../../helpers/socket/socket";
+import AcolyteScreenContainer from "../acolyte/AcolyteScreenContainer";
 
 function MortimerLab() {
 
   // --- CONTEXTS & COMPONENT CONSTANTS --- //
   const allAcolytesContext = useContext(AllAcolytesContext);
   const loyalAcolytesContext = useContext(LoyalAcolytesContext);
-  const initialScreenContext = useContext(MortimerInitialScreenContext);
 
   if (!allAcolytesContext) return;
   if (!loyalAcolytesContext) return;
-  if (!initialScreenContext) return;
 
   const acolytes = allAcolytesContext[0];
   const loyalAcolytes = loyalAcolytesContext[0];
-  const setInitialScreen = initialScreenContext[1];
 
   const { width, height } = useWindowDimensions();
 
   // --- EFFECTS --- //
   useEffect(() => {
     socket.emit(SocketClientToServerEvents.MORTIMER_IN_HALL, false)
-    setInitialScreen(Screens.MORTIMER_LAB);
   }, []);
 
   // --- STYLED COMPONENTS --- //
@@ -50,7 +46,7 @@ function MortimerLab() {
   `;
 
   return (
-    <ScreenContainer backgroundImg={Images.MORTIMER_LAB}>
+    <AcolyteScreenContainer backgroundImage={Images.MORTIMER_LAB}>
       <AcolytesRegisterScreenContainer>
         <AcolytesRegisterListContainer contentContainerStyle={{ alignItems: "center", justifyContent: "center" }}>
           {loyalAcolytes
@@ -62,7 +58,7 @@ function MortimerLab() {
             : <Text>NO USERS?</Text>}
         </AcolytesRegisterListContainer>
       </AcolytesRegisterScreenContainer>
-    </ScreenContainer>
+    </AcolyteScreenContainer>
   );
 
 }

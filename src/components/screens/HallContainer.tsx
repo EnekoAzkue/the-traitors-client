@@ -15,7 +15,7 @@ import { useActivatedArtifactStore } from "../../helpers/stores/useActivatedArti
 import { AritfactOnHall } from "./AritfactOnHall";
 import CircleSpinner from "../Spinner";
 import styled from "styled-components/native";
-import IconButton from "./IconButton";
+import IconButton from "../IconButton";
 import Button from "../Button";
 
 const { width, height } = Dimensions.get('window');
