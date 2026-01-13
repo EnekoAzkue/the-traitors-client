@@ -28,6 +28,7 @@ enum Images {
   SPLASH_SCREEN           = require('../../assets/images/SplashScreen.png'),
   HALL_OF_SAGES           = require('../../assets/images/HallOfSages.png'),
   OBITUARY                = require('../../assets/images/Obituary.png'),
+  STATUS                  = require('../../assets/images/status.png'),
 
   // --- ACOLYTE IMAGES --- //
   ACOLYTE_HOME            = require('../../assets/images/AcolyteHome.png'),
@@ -74,6 +75,8 @@ enum Images {
   INN_ICON                = require('../../assets/images/logos/inn_icon.png'),
   DUNGEON_ICON            = require('../../assets/images/logos/dungeon_icon.png'),
   HOLLOW_ICON             = require('../../assets/images/logos/hollow_icon.png'),
+  NAVIGATION_MAP_ICON     = require('../../assets/images/logos/Map_nav_icon.png'),
+  STATUS_ICON             = require('../../assets/images/logos/status_icon.png'),
 
   // --- GENERAL IMAGES --- //
   LOGO                    = require('../../assets/images/logo.png'),
@@ -86,8 +89,8 @@ enum Images {
   AVATAR_CONTAINER        = require('../../assets/images/AvatarContainer.png'),
   ROSETTE                 = require('../../assets/images/Roseta.png'),
   SCHOOL_DUNGEON          = require('../../assets/images/Dungeon.png'),
-  NAVIGATION_MAP_ICON     = require('../../assets/images/logos/Map_nav_icon.png'),
-
+  STATUS_MODAL            = require('../../assets/images/status_modal.png'),
+  
   // --- ARTIFACT ICONS --- //
   DRAGON_HEART_ICON       = require('../../assets/artifactImages/Dragon_heart_icon.png'),
   HUBRIS_ICON             = require('../../assets/artifactImages/Hubris_icon.png'),
@@ -134,15 +137,16 @@ enum Screens {
   VILLAIN_SETTINGS  = 'VillainSettings',
 
   // --- GENERAL --- //
-  HOME = 'Home',
-  LAB = 'Lab',
-  TOWER = 'Tower',
-  SCHOOL_MAP = 'SchoolMap',
-  MAP = 'Map',
-  SETTINGS = 'Settings',
+  HOME              = 'Home',
+  LAB               = 'Lab',
+  TOWER             = 'Tower',
+  SCHOOL_MAP        = 'SchoolMap',
+  MAP               = 'Map',
+  SETTINGS          = 'Settings',
   SWAMP             = 'Swamp',
   HALL_OF_SAGES     = 'HallOfSages',
-  DUNGEON           = 'Dungeon'
+  DUNGEON           = 'Dungeon',
+  STATUS            = 'Status'
 
 }
 

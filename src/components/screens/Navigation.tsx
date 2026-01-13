@@ -8,6 +8,7 @@ import { Images, Screens } from '../../helpers/constants/constants';
 import { useAcolytesCurrentNavigationTabStore } from '../../helpers/stores/useAcolytesCurrentNavigationTabStore';
 import Router from '../Router';
 import Settings from './Settings';
+import Status from './Status';
 
 const Stack = createBottomTabNavigator();
 
@@ -56,6 +57,10 @@ function RootNavigation({ }: any) {
               tabIconSource = Images.NAVIGATION_MAP_ICON;
               break;
 
+            case Screens.STATUS:
+              tabIconSource = Images.STATUS_ICON
+              break;
+
             case Screens.SETTINGS:
               tabIconSource = Images.SETTINGS_ICON;
               break;
@@ -67,6 +72,7 @@ function RootNavigation({ }: any) {
       })}
     >
       <Stack.Screen name={Screens.MAP} component={Router} />
+      <Stack.Screen name={Screens.STATUS} component={Status} />
       <Stack.Screen name={Screens.SETTINGS} component={Settings} />
     </Stack.Navigator>
   );

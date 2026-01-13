@@ -35,7 +35,11 @@ interface KaotikaPlayer {
   gold: number;
   created_date: string;
   isBetrayer: boolean;
+  resistance: number,
+  disease: string[],
+  isCursed: boolean,
   skills: Skill[];
+
 }
 
 interface CommonAttributes {
