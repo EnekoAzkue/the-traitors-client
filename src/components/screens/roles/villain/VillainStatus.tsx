@@ -6,11 +6,14 @@ import styled from "styled-components/native";
 import { LoyalAcolytesContext } from "../../../../helpers/contexts/contexts";
 import LoyalsStatus from "../../LoyalsStatus";
 import StatusModal from "../../../StatusModal";
+import KaotikaPlayer from "../../../../helpers/interfaces/KaotikaPlayer";
 
 function VillainStatus() {
 
   const loyalsContext = useContext(LoyalAcolytesContext)
   const [showModal, setShowModal] = useState<boolean>(false)
+  const [selectedAcolyte, setSelectedAcolyte] = useState<KaotikaPlayer | null>(null)
+
 
 
   if (!loyalsContext) return null
@@ -37,12 +40,12 @@ function VillainStatus() {
           {loyalAcolytes
             && loyalAcolytes.map((acolyte, index) => (
               <View key={index}>
-                <LoyalsStatus key={index} acolyte={acolyte} setShowModal={setShowModal} />
+                <LoyalsStatus key={index} acolyte={acolyte} setShowModal={setShowModal} setSelectedAcolyte={setSelectedAcolyte}/>
               </View>
             ))}
         </AcolyteContainer>
       </View>
-      {showModal && <StatusModal setShowModal={setShowModal} />}
+      {showModal && <StatusModal acolyte={selectedAcolyte} setShowModal={setShowModal} />}
 
     </ScreenContainer>
   );
