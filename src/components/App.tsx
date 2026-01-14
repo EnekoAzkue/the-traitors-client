@@ -33,6 +33,9 @@ import { useScreenDimensions } from '../helpers/stores/useScreenDimensionsStore'
 import { useWindowDimensions } from 'react-native';
 import { useUserStore } from '../helpers/stores/useUserStore';
 import Navigation from './screens/Navigation';
+import CurseBlock from './screens/CurseBlock';
+import IllnessBlock from './screens/IllnessBlock';
+import TiredBlock from './screens/TiredBlock';
 
 function App() {
 
@@ -86,7 +89,7 @@ function App() {
     setLoyals(acolytes[1])
 
     setBetrayers(acolytes[2])
-    
+
 
   }
 
@@ -165,9 +168,10 @@ function App() {
         setBetrayers(acolyteGroups[0])
         setLoyals(acolyteGroups[1])
       })
-      
-      setacolyteInitialScreen(user?.homeLocation)
 
+      setacolyteInitialScreen(user?.homeLocation)
+      console.log(user)
+      console.log('is user cursed', user.isCursed)
 
     }
 
@@ -201,37 +205,43 @@ function App() {
                 {isLoading ? <CircleSpinner /> : null}
               </>
             ) : (
-              <ScrollContext.Provider value={[scrollActive, setScrollActive]}>
-                <MortimerInitialScreenContext.Provider value={[mortimerInitialScreen, setMortimerInitialScreen]}>
-                  <AcolyteInitialScreenContext.Provider value={[acolyteInitialScreen, setacolyteInitialScreen]}>
-                    <IstvanInitialScreenContext.Provider value={[istvanInitialScreen, setistvanInitialScreen]}>
-                      <VillainInitialScreenContext.Provider value={[villainInitialScreen, setvillainInitialScreen]}>
-                        <AllAcolytesContext.Provider value={[allAcolytes, setAllAcolytes]}>
-                          <LoyalAcolytesContext.Provider value={[loyals, setLoyals]}>
-                            <BetrayerAcolytesContext.Provider value={[betrayers, setBetrayers]}>
-                              <MortimerToastTextContext.Provider value={[mortimerToastText, setMortimerToastText]}>
-                                <AcolyteToastTextContext.Provider value={[acolyteToastText, setAcolyteToastText]}>
-                                  <MortimerInitialScreenContext.Provider value={[mortimerInitialScreen, setMortimerInitialScreen]}>
-                                    <ModalContext value={setModalMessage}>
-                                      <Navigation />
-                                      {user?.rol === 'acolyte' &&
-                                        <AcolyteToast toastText={acolyteToastText} setAcolyteToastText={setAcolyteToastText} />
-                                      }
-                                      {user?.rol === 'mortimer' &&
-                                        <Toast toastText={mortimerToastText} setMortimerToastText={setMortimerToastText} />
-                                      }
-                                    </ModalContext>
-                                  </MortimerInitialScreenContext.Provider>
-                                </AcolyteToastTextContext.Provider>
-                              </MortimerToastTextContext.Provider>
-                            </BetrayerAcolytesContext.Provider>
-                          </LoyalAcolytesContext.Provider>
-                        </AllAcolytesContext.Provider>
-                      </VillainInitialScreenContext.Provider>
-                    </IstvanInitialScreenContext.Provider>
-                  </AcolyteInitialScreenContext.Provider>
-                </MortimerInitialScreenContext.Provider>
-              </ScrollContext.Provider>
+              <>
+                {user?.isCursed && <CurseBlock />}
+                {user?.disease.length > 0 && <IllnessBlock />}
+                {user?.resistance < 30 && <TiredBlock />}
+                <ScrollContext.Provider value={[scrollActive, setScrollActive]}>
+                  <MortimerInitialScreenContext.Provider value={[mortimerInitialScreen, setMortimerInitialScreen]}>
+                    <AcolyteInitialScreenContext.Provider value={[acolyteInitialScreen, setacolyteInitialScreen]}>
+                      <IstvanInitialScreenContext.Provider value={[istvanInitialScreen, setistvanInitialScreen]}>
+                        <VillainInitialScreenContext.Provider value={[villainInitialScreen, setvillainInitialScreen]}>
+                          <AllAcolytesContext.Provider value={[allAcolytes, setAllAcolytes]}>
+                            <LoyalAcolytesContext.Provider value={[loyals, setLoyals]}>
+                              <BetrayerAcolytesContext.Provider value={[betrayers, setBetrayers]}>
+                                <MortimerToastTextContext.Provider value={[mortimerToastText, setMortimerToastText]}>
+                                  <AcolyteToastTextContext.Provider value={[acolyteToastText, setAcolyteToastText]}>
+                                    <MortimerInitialScreenContext.Provider value={[mortimerInitialScreen, setMortimerInitialScreen]}>
+                                      <ModalContext value={setModalMessage}>
+                                        <Navigation />
+                                        {user?.rol === 'acolyte' &&
+                                          <AcolyteToast toastText={acolyteToastText} setAcolyteToastText={setAcolyteToastText} />
+                                        }
+                                        {user?.rol === 'mortimer' &&
+                                          <Toast toastText={mortimerToastText} setMortimerToastText={setMortimerToastText} />
+                                        }
+
+                                      </ModalContext>
+                                    </MortimerInitialScreenContext.Provider>
+                                  </AcolyteToastTextContext.Provider>
+                                </MortimerToastTextContext.Provider>
+                              </BetrayerAcolytesContext.Provider>
+                            </LoyalAcolytesContext.Provider>
+                          </AllAcolytesContext.Provider>
+                        </VillainInitialScreenContext.Provider>
+                      </IstvanInitialScreenContext.Provider>
+                    </AcolyteInitialScreenContext.Provider>
+                  </MortimerInitialScreenContext.Provider>
+                </ScrollContext.Provider>
+              </>
             )
           ) : (
             <Splash />
