@@ -169,21 +169,17 @@ export default function AcolyteMap() {
         backgroundImage={Images.INN_ICON}
         buttonOnPress={selectInitialInnScreen}
         iconText="Inn"
-
       />
-      {user.isBetrayer &&
       <IconButton
         width={screenDimensions.width * 0.1}
         height={screenDimensions.width * 0.1}
-        xPos={screenDimensions.width * 0.33}
-        yPos={screenDimensions.height * 0.35}
+        xPos={screenDimensions.width * 0.1}
+        yPos={screenDimensions.height * 0.45}
         hasBorder={true}
         backgroundImage={Images.HOLLOW_ICON}
         buttonOnPress={selectInitialHollowScreen}
         iconText="Hollow"
-
       />
-    }
       <Animated.View
         style={[
           styles.cloudOverlay,

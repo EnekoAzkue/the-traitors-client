@@ -1,9 +1,12 @@
 import React from "react";
 import { Image, Text, useWindowDimensions, View } from "react-native";
-import { Images } from "../../../../helpers/constants/constants";
+import { Images, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
 import ScreenContainer from "../../ScreenContainer";
 import { useUserStore } from "../../../../helpers/stores/useUserStore";
 import styled from "styled-components/native";
+import IconButton from "../../../IconButton";
+import { socket } from "../../../../helpers/socket/socket";
+import { Socket } from "socket.io-client";
 
 function AcolyteStatus() {
 
@@ -49,6 +52,10 @@ function AcolyteStatus() {
     alignItems: center;
   `
 
+  const rest = () => {
+    socket.emit(SocketClientToServerEvents.REST, user)
+  }
+
   return (
     <ScreenContainer backgroundImg={Images.STATUS} >
       <View style={{ flex: 1, alignItems: 'center' }}>
@@ -57,8 +64,18 @@ function AcolyteStatus() {
           <Nickname>{user.nickname}</Nickname>
         </NameContainer>
         <StatusContainer>
-          <StatusText>Resistance: {user.resistance}%</StatusText> 
+          <Text style={{color: 'white', fontFamily: 'KochAltschrift', fontSize: 35}}>STATS</Text>
+          <StatusText>Int: {user.attributes.intelligence}</StatusText>
+          <StatusText>Dex: {user.attributes.dexterity}</StatusText>
+          <StatusText>Cha: {user.attributes.charisma}</StatusText>
+          <StatusText>Con: {user.attributes.constitution}</StatusText>
+          <StatusText>Str: {user.attributes.strength}</StatusText>
+          <StatusText>Ins: {user.attributes.insanity}</StatusText>
+          <StatusText>Resist: {user.resistance}</StatusText>
         </StatusContainer>
+        {user.resistance > 30 &&
+        <IconButton backgroundImage={Images.REST_ICON} buttonOnPress={rest} height={width * 0.2} width={width * 0.2} xPos={width * 0.4} yPos={height * 0.77} hasBorder={true} iconText="Rest"/>
+        }
       </View>
     </ScreenContainer>
   );

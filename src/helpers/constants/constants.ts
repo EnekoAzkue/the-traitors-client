@@ -77,6 +77,7 @@ enum Images {
   HOLLOW_ICON             = require('../../assets/images/logos/hollow_icon.png'),
   NAVIGATION_MAP_ICON     = require('../../assets/images/logos/Map_nav_icon.png'),
   STATUS_ICON             = require('../../assets/images/logos/status_icon.png'),
+  REST_ICON               = require('../../assets/images/logos/rest_icon.png'),
 
   // --- GENERAL IMAGES --- //
   LOGO                    = require('../../assets/images/logo.png'),
@@ -90,6 +91,9 @@ enum Images {
   ROSETTE                 = require('../../assets/images/Roseta.png'),
   SCHOOL_DUNGEON          = require('../../assets/images/Dungeon.png'),
   STATUS_MODAL            = require('../../assets/images/status_modal.png'),
+  TIRED_BLOCK             = require('../../assets/images/tiredBlock.png'),
+  ILLNESS_BLOCK           = require('../../assets/images/illnessBlock.png'),
+  CURSED_BLOCK            = require('../../assets/images/CurseBlock.png'),
   
   // --- ARTIFACT ICONS --- //
   DRAGON_HEART_ICON       = require('../../assets/artifactImages/Dragon_heart_icon.png'),
@@ -218,6 +222,11 @@ enum SocketServerToClientEvents {
   MORTIMER_ENTERED_EXITED_HALL    = 'mortimer entered/exited hall',
   SHOWING_ARTIFACS                = 'showing artifacts',
   UPDATE_TRAITORS                 = 'update traitors',
+  RESTED                          = 'rested',
+  HEALED                          = 'healed',
+  CURSED                          = 'cursed',
+  INFECTED                        = 'infect',
+
 
 
 }
@@ -244,6 +253,11 @@ enum SocketClientToServerEvents {
   MORTIMER_IN_HALL              = 'mortimer in hall',
   SEARCH_FOR_MORTIMER_IN_HALL   = 'search for mortimer in hall',
   BETRAYAL                      = 'betrayal',
+  REST                          = 'rest',
+  HEAL                          = 'heal',
+  CURSE                         = 'curse',
+  INFECT                        = 'infect',
+
 
 }
 

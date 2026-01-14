@@ -133,8 +133,16 @@ const StatusText = styled(CompactText)`
     setShowModal(false)
   }
 
-  const curseAcolyte = () => {
+  const healAcolyte = (cure: string) => {
+    socket.emit(SocketClientToServerEvents.HEAL, acolyte, cure)
+  }
 
+  const curseAcolyte = () => {
+    socket.emit(SocketClientToServerEvents.CURSE, acolyte)
+  }
+
+  const infectAcolyte = (illness: string) => {
+    socket.emit(SocketClientToServerEvents.INFECT, acolyte, illness)
   }
 
   useEffect(() => {
@@ -179,13 +187,13 @@ const StatusText = styled(CompactText)`
                   })}
                 </IllnessContainer>
                 <ButtonsContainer>
-                  <AcceptButton onPress={modalToggle}>
+                  <AcceptButton onPress={() => {infectAcolyte('Putrid Plague')}}>
                     <AcceptButtonText>Set PP</AcceptButtonText>
                   </AcceptButton>
-                  <AcceptButton onPress={modalToggle}>
+                  <AcceptButton onPress={() => {infectAcolyte('Epic Weakness')}}>
                     <AcceptButtonText>Set EW</AcceptButtonText>
                   </AcceptButton>
-                  <AcceptButton onPress={modalToggle}>
+                  <AcceptButton onPress={() => {infectAcolyte('Medular Apocalypse')}}>
                     <AcceptButtonText>Set MA</AcceptButtonText>
                   </AcceptButton>
                 </ButtonsContainer>
@@ -198,7 +206,7 @@ const StatusText = styled(CompactText)`
 
                   <IllnessContainer>
                     <IllnessText>Is ill?</IllnessText>
-                    <StatusText>{acolyte.disease ? 'YES' : 'NO'}</StatusText>
+                    <StatusText>{acolyte.disease.length > 0 ? 'YES' : 'NO'}</StatusText>
                   </IllnessContainer>
 
                   <IllnessContainer>
@@ -214,13 +222,13 @@ const StatusText = styled(CompactText)`
                 </MortimerContainer>
 
                 <ButtonsContainer>
-                  <AcceptButton onPress={modalToggle}>
+                  <AcceptButton onPress={() => {healAcolyte('illness')}}>
                     <AcceptButtonText>Cleanse</AcceptButtonText>
                   </AcceptButton>
-                  <AcceptButton onPress={modalToggle}>
+                  <AcceptButton onPress={() => {healAcolyte('curse')}}>
                     <AcceptButtonText>Dispell</AcceptButtonText>
                   </AcceptButton>
-                  <AcceptButton onPress={modalToggle}>
+                  <AcceptButton onPress={() => {healAcolyte('resistance')}}>
                     <AcceptButtonText>Rest</AcceptButtonText>
                   </AcceptButton>
                 </ButtonsContainer>

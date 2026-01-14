@@ -20,8 +20,10 @@ interface ServerToClientEvents {
   [SocketServerToClientEvents.MORTIMER_ENTERED_EXITED_HALL]     : (inHall: boolean) => void;
   [SocketServerToClientEvents.SHOWING_ARTIFACS]                 : () => void;
   [SocketServerToClientEvents.UPDATE_TRAITORS]                  : (acolyteGroups: KaotikaPlayer [][]) => void
-
-  
+  [SocketServerToClientEvents.RESTED]                           : ( restedPlayer: KaotikaPlayer) => void;
+  [SocketServerToClientEvents.HEALED]                           : ( healededPlayer: KaotikaPlayer) => void;
+  [SocketServerToClientEvents.CURSED]                           : ( cursedPlayer: KaotikaPlayer) => void;
+  [SocketServerToClientEvents.INFECTED]                         : ( infectedPlayer: KaotikaPlayer) => void;
 
 };
   
@@ -40,7 +42,8 @@ interface ClientToServerEvents {
   [SocketClientToServerEvents.SEND_ACOLYTES_COORDS]             : ( userCoords: UserCoords ) => void;
   [SocketClientToServerEvents.UPDATE_USER]                      : ( acolyteEmail: string, changes: any ) => void;
   [SocketClientToServerEvents.UPDATE_INTOWER]                   : ( userEmail: string, inTower: boolean ) => void;
-  [SocketClientToServerEvents.ENTER_EXIT_HALL]                 : ( acolyteMail: string, inHall: any ) => void;
+  [SocketClientToServerEvents.ENTER_EXIT_HALL]                  : ( acolyteMail: string, inHall: any ) => void;
+
 
 
 
@@ -70,25 +73,29 @@ interface AcolyteDataAfterAccessExitTower {
 
 // Declaration of the events used when sending events to the server
 interface ClientToServerEvents {
-  [SocketClientToServerEvents.CONNECTION_OPEN]: (userEmail: string) => void;
-  [SocketClientToServerEvents.CONNECTION_CLOSE]: (userEmail: string) => void;
-  [SocketClientToServerEvents.ACCESS_TO_EXIT_FROM_LAB]: (acolyteEmail: string) => void;
-  [SocketClientToServerEvents.UPDATE_USER]: (acolyteEmail: string, changes: any) => void;
-  [SocketClientToServerEvents.UPDATE_INTOWER]: (userEmail: string, inTower: boolean) => void;
-  [SocketClientToServerEvents.SEND_NOTIFICATION_TO_MORTIMER]: (messsage: {}) => void;
-  [SocketClientToServerEvents.SCROLL_VANISH]: (messsage: {}) => void;
-  [SocketClientToServerEvents.SEND_FOUND_SCROLL]: () => void;
-  [SocketClientToServerEvents.REQUEST_ARTIFACTS]: (userRol: string) => void;
-  [SocketClientToServerEvents.REQUEST_SWAMP_ACOLYTES] : () => void;
-  [SocketClientToServerEvents.COLLECT]: (artifactName: string) => void;
-  [SocketClientToServerEvents.ENTER_EXIT_HALL]: (acolyteMail: string, inHall: any) => void;
-  [SocketClientToServerEvents.SHOW_ARTIFACTS]: () => void;
-  [SocketClientToServerEvents.SEARCH_FOR_ACOLYTES_IN_HALL]: () => void;
-  [SocketClientToServerEvents.DISCARD_ARTIFACTS]: () => void;
-  [SocketClientToServerEvents.ACCEPT_ARTIFACTS]: () => void;
-  [SocketClientToServerEvents.MORTIMER_IN_HALL]: (inHall: boolean) => void;
-  [SocketClientToServerEvents.SEARCH_FOR_MORTIMER_IN_HALL]: () => void;
-  [SocketClientToServerEvents.BETRAYAL]: () => void;
+  [SocketClientToServerEvents.CONNECTION_OPEN]                : (userEmail: string) => void;
+  [SocketClientToServerEvents.CONNECTION_CLOSE]               : (userEmail: string) => void;
+  [SocketClientToServerEvents.ACCESS_TO_EXIT_FROM_LAB]        : (acolyteEmail: string) => void;
+  [SocketClientToServerEvents.UPDATE_USER]                    : (acolyteEmail: string, changes: any) => void;
+  [SocketClientToServerEvents.UPDATE_INTOWER]                 : (userEmail: string, inTower: boolean) => void;
+  [SocketClientToServerEvents.SEND_NOTIFICATION_TO_MORTIMER]  : (messsage: {}) => void;
+  [SocketClientToServerEvents.SCROLL_VANISH]                  : (messsage: {}) => void;
+  [SocketClientToServerEvents.SEND_FOUND_SCROLL]              : () => void;
+  [SocketClientToServerEvents.REQUEST_ARTIFACTS]              : (userRol: string) => void;
+  [SocketClientToServerEvents.REQUEST_SWAMP_ACOLYTES]         : () => void;
+  [SocketClientToServerEvents.COLLECT]                        : (artifactName: string) => void;
+  [SocketClientToServerEvents.ENTER_EXIT_HALL]                : (acolyteMail: string, inHall: any) => void;
+  [SocketClientToServerEvents.SHOW_ARTIFACTS]                 : () => void;
+  [SocketClientToServerEvents.SEARCH_FOR_ACOLYTES_IN_HALL]    : () => void;
+  [SocketClientToServerEvents.DISCARD_ARTIFACTS]              : () => void;
+  [SocketClientToServerEvents.ACCEPT_ARTIFACTS]               : () => void;
+  [SocketClientToServerEvents.MORTIMER_IN_HALL]               : (inHall: boolean) => void;
+  [SocketClientToServerEvents.SEARCH_FOR_MORTIMER_IN_HALL]    : () => void;
+  [SocketClientToServerEvents.BETRAYAL]                       : () => void;
+  [SocketClientToServerEvents.REST]                           : (acolyte: KaotikaPlayer) => void;
+  [SocketClientToServerEvents.HEAL]                           : (acolyte: KaotikaPlayer, cure: string) => void;
+  [SocketClientToServerEvents.CURSE]                          : (acolyte: KaotikaPlayer) => void;
+  [SocketClientToServerEvents.INFECT]                         : (acolyte: KaotikaPlayer, illness: string) => void;
 
 
 
