@@ -22,22 +22,14 @@ export default function IconButton({ width, height, xPos, yPos, backgroundImage,
   const StyledButtonContainer = styled.View`
     width: ${width}px;
     height: ${height}px;
-    position: absolute; 
-
-    top: ${yPos}px;
-    left: ${xPos}px;
-    
-    zIndex: 600;
   `;
 
 
   const StyledButton = styled.TouchableOpacity`
     width: ${width}px;
     height: ${height}px;
-  
     ${(hasBorder) ? 'border: 1px solid white;' : ''};
     border-radius: 100%;
-  
     background: rgba(0,0,0, ${backgrounOpacity});
 
   `;
@@ -60,14 +52,21 @@ export default function IconButton({ width, height, xPos, yPos, backgroundImage,
   const IconText = styled.Text`
     color: white;
     font-family: KochAltschrift;
-    font-size: ${width * 0.5};
+    font-size: ${width * 0.5}px;
     text-align: center;
-    border: 1px solid blue;
-    `
+  `;
+
+  const Root = styled.View`
+    position: absolute;
+    top: ${yPos}px;
+    left: ${xPos}px;
+    z-index: 600;
+    align-items: center;
+  `;
 
 
 
-  const mergedDropShadowStyles = {...dropShadowStyles, shadowColor: shadowColor}
+  const mergedDropShadowStyles = { ...dropShadowStyles, shadowColor: shadowColor }
 
 
   const IconButtonChildren = () => {
@@ -79,22 +78,24 @@ export default function IconButton({ width, height, xPos, yPos, backgroundImage,
   }
 
   return (
+    <Root>
+      <StyledButtonContainer>
+        {
+          hasBrightness
+            ? <DropShadow style={mergedDropShadowStyles}>
+              <IconButtonChildren />
+            </DropShadow>
+            : <IconButtonChildren />
+        }
+      </StyledButtonContainer>
 
-    <StyledButtonContainer>
+      {iconText && (
+        <IconText>
+          {iconText}
+        </IconText>
+      )}
+    </Root>
 
-      {
-        (hasBrightness) ?
-          <DropShadow style={mergedDropShadowStyles}>
-            <IconButtonChildren />
-
-          </DropShadow>
-          :
-          <IconButtonChildren />
-      }
-      {
-        (iconText) && <IconText>{iconText}</IconText>
-      }
-    </StyledButtonContainer>
 
 
   );
