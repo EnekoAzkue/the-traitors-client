@@ -62,6 +62,7 @@ export default function StatusModal({ acolyte, setShowModal }: AcolyteStatusProp
     background-color: rgba(0, 0, 0, 0.65);
     position: relative;
     border: 1px solid white;
+    marginBottom: 10px;
   `;
 
   const AcceptButtonText = styled(Message)`
@@ -85,6 +86,12 @@ export default function StatusModal({ acolyte, setShowModal }: AcolyteStatusProp
   const ModalText = styled(Message)`
   font-size: ${Math.min(width * 0.2, 30)}px;
   color: black;
+  `
+
+    const VillainText = styled(Message)`
+  font-size: ${Math.min(width * 0.2, 30)}px;
+  color: black;
+  top: ${height * 0.13}
   `
 
   const MortimerContainer = styled.View`
@@ -164,8 +171,8 @@ const StatusText = styled(CompactText)`
             }
             {user.rol === Roles.VILLAIN &&
               <>
-                <ModalText>{acolyte?.nickname}</ModalText>
-                <ModalText>List of illnesses:</ModalText>
+                <VillainText>{acolyte?.nickname}</VillainText>
+                <VillainText>List of illnesses:</VillainText>
                 <IllnessContainer>
                   {acolyte?.disease.map((illness, index) => {
                     return <IllnessText key={index}>{illness}</IllnessText>
