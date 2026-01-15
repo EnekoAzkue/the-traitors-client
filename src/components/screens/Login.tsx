@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ImageBackground } from "react-native";
 import styled from "styled-components/native";
 import Button from "../Button";
-import { ApiEndpoints, Images } from "../../helpers/constants/constants";
+import { ApiEndpoints, Images, Screens } from "../../helpers/constants/constants";
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { LoginProps } from "../../helpers/interfaces/components/LoginProps";
 import { GoogleAuthProvider, getAuth, signInWithCredential } from '@react-native-firebase/auth';
 import { authenticatePlayer } from "../../helpers/serverRequests/authenticatePlayer";
 import { signOut } from "../../helpers/googleSignInUtils/googleSignInUtils";
+import { useAcolytesCurrentNavigationTabStore } from "../../helpers/stores/useAcolytesCurrentNavigationTabStore";
 
 const LoginScreen = styled.View`
   width: 100%;
@@ -16,6 +17,13 @@ const LoginScreen = styled.View`
 `
 
 function Login({ setUser, setModalMessage, setIsLoading }: LoginProps) {
+
+  const setInitialRouteScreen = useAcolytesCurrentNavigationTabStore(state => state.setAcolyteCurrentTabNavigation);
+  
+      useEffect(() => {
+      setInitialRouteScreen(Screens.MAP)
+    }, [])
+
 
   async function onGoogleButtonPress() {
 
@@ -41,7 +49,7 @@ function Login({ setUser, setModalMessage, setIsLoading }: LoginProps) {
       if (!userAuthResponse.player) {
         signOut();
         setModalMessage("You are not worthy to be inside!");
-      }else{
+      } else {
         setUser(userAuthResponse.player);
       }
     }

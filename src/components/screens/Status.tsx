@@ -1,15 +1,22 @@
-import React from "react";
-import { Roles } from "../../helpers/constants/constants";
+import React, { useEffect } from "react";
+import { Roles, Screens } from "../../helpers/constants/constants";
 import { useUserStore } from "../../helpers/stores/useUserStore";
 import AcolyteStatus from "./roles/acolyte/AcolyteStatus";
 import IstvanStatus from "./roles/istvan/IstvanStatus";
 import MortimerStatus from "./roles/mortimer/MortimerStatus";
 import VillainStatus from "./roles/villain/VillainStatus";
+import { useAcolytesCurrentNavigationTabStore } from "../../helpers/stores/useAcolytesCurrentNavigationTabStore";
 
 export default function Status() {
     const user = useUserStore(state => state.user);
+    const setInitialRouteScreen = useAcolytesCurrentNavigationTabStore(state => state.setAcolyteCurrentTabNavigation);
+    
 
     if (!user) return;
+
+    useEffect(() => {
+      setInitialRouteScreen(Screens.STATUS)
+    }, [])
 
 
     switch (user.rol) {

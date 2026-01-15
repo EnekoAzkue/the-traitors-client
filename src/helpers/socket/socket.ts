@@ -17,7 +17,6 @@ const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
 function initSocket(user: KaotikaPlayer) {
 
   socket.connect();
-
   // Conecta el cliente con el server por medio de SokcetID
   handleConnection(user.email);
 

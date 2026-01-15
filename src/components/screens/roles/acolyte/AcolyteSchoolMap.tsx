@@ -25,7 +25,7 @@ export default function AcolyteSchoolMap() {
   const areAllArtifactsCollected = useCollectionStore(state => state.areAllArtifactsCollected)
   
   // --- FUNCTIONS --- //
-  const selectInitialHomeScreen = () => setInitialScreen(Screens.HOME);
+  const selectInitialHomeScreen = () => setInitialScreen(null);
   const selectInitialLabScreen = () => setInitialScreen(Screens.LAB);
   const selectInitialSettingsScreen = () => setInitialScreen(Screens.ACOLYTE_SETTINGS);
   const selectInitialHallScreen = () => setInitialScreen(Screens.HALL_OF_SAGES);
@@ -56,7 +56,7 @@ export default function AcolyteSchoolMap() {
         height={80}
         hasBrightness={true}
         backgroundImage={Images.MAP_ICON}
-        buttonOnPress={() => setInitialScreen(null)}
+        buttonOnPress={() => setInitialScreen(Screens.MAP)}
         xPos={20}
         yPos={20}
         hasBorder={false}

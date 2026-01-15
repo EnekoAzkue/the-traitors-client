@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Text, useWindowDimensions } from "react-native";
 import styled from "styled-components/native";
-import { AllAcolytesContext, InventoryContext, MortimerInitialScreenContext } from "../helpers/contexts/contexts";
+import { InventoryContext, MortimerInitialScreenContext } from "../helpers/contexts/contexts";
 import Artifact from "../helpers/interfaces/Artifact";
 import IndividualArtifactContainer from "./IndividualArtifactContainer";
 import { useUserStore } from "../helpers/stores/useUserStore";
@@ -12,12 +12,10 @@ export default function InventoryContainer(artifacts: any) {
   // --- CONTEXTS && CONSTANTS --- ///
   const { width, height }     = useWindowDimensions();
   const user                  = useUserStore( state => state.user)
-  const allAcolytesContext    = useContext(AllAcolytesContext);
   const inventoryContext      = useContext(InventoryContext);
   const initialScreenContext  = useContext(MortimerInitialScreenContext);
 
   if (!user)                  return <Text>User context is null at Home Component!!!"</Text>; 
-  if (!allAcolytesContext)    return <Text>null at Home Component!!!"</Text>;
   if (!inventoryContext)      return <Text>Not valid inventory context!!!"</Text>;
   if (!initialScreenContext)  return <Text>Not valid initial Screen context!!!"</Text>;
 

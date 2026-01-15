@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Text, useWindowDimensions } from "react-native";
 import ScreenContainer from "../../ScreenContainer";
-import { Images } from "../../../../helpers/constants/constants";
+import { Images, Screens } from "../../../../helpers/constants/constants";
 import IconButton from "../../../IconButton";
 import { AcolyteInitialScreenContext } from "../../../../helpers/contexts/contexts";
 
@@ -26,7 +26,7 @@ export default function Obituary() {
             height={height * 0.07}
             hasBrightness={true}
             backgroundImage={Images.BACK_ARROW}
-            buttonOnPress={() => setInitialScreen(null)}
+            buttonOnPress={() => setInitialScreen(Screens.MAP)}
             xPos={20}
             yPos={20}
             hasBorder={false}

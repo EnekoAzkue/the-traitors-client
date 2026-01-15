@@ -4,23 +4,20 @@ import AcolyteTowerRegister from "./AcolyteTowerRegister";
 import React, { useContext, useEffect, useState } from "react";
 import { Images, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
 import { Text, Dimensions, useWindowDimensions, View } from "react-native";
-import { AllAcolytesContext, MortimerInitialScreenContext } from "../../../../helpers/contexts/contexts";
+import { MortimerInitialScreenContext } from "../../../../helpers/contexts/contexts";
 import { socket } from "../../../../helpers/socket/socket";
+import { useLoyalsStore } from "../../../../helpers/stores/useLoyalsStore";
+import AcolyteTowerContainer from "../acolyte/AcolyteTowerContainer";
 
 function MortimerTower() {
 
   // --- STATES & CONTEXTS --- //
   const [screen, setScreen] = useState(useWindowDimensions());
-  const allAcolytesContext = useContext(AllAcolytesContext);
-  const loyalAcolytesContext = useContext(AllAcolytesContext);
   const initialScreenContext = useContext(MortimerInitialScreenContext);
 
-  if (!allAcolytesContext) return;
-  if (!loyalAcolytesContext) return;
   if (!initialScreenContext) return;
 
-  const [acolytes] = allAcolytesContext;
-  const [loyalAcolytes] = loyalAcolytesContext;
+  const loyalAcolytes = useLoyalsStore(state => state.loyals);
   const setInitialScreen = initialScreenContext[1];
 
   // --- EFFECTS --- //
@@ -60,7 +57,7 @@ function MortimerTower() {
   `;
 
   return (
-    <ScreenContainer backgroundImg={Images.MORTIMER_TOWER}>
+    <AcolyteTowerContainer backgroundImage={Images.MORTIMER_TOWER}>
       <>
         <AcolytesRegisterScreenContainer>
           <AcolytesRegisterListContainer contentContainerStyle={{ alignItems: "center" }}>
@@ -74,7 +71,7 @@ function MortimerTower() {
           </AcolytesRegisterListContainer>
         </AcolytesRegisterScreenContainer>
       </>
-    </ScreenContainer>
+    </AcolyteTowerContainer>
   );
   
 }

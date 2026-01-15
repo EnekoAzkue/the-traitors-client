@@ -1,23 +1,18 @@
 import styled from "styled-components/native";
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import AcolyteLabRegister from "./AcolyteLabRegister";
 import { Text, useWindowDimensions, View } from "react-native";
 import { Images, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
-import { AllAcolytesContext, LoyalAcolytesContext } from "../../../../helpers/contexts/contexts";
 import { socket } from "../../../../helpers/socket/socket";
 import AcolyteScreenContainer from "../acolyte/AcolyteScreenContainer";
+import { useAcolytesStore } from "../../../../helpers/stores/useAcolytesStore";
+import { useLoyalsStore } from "../../../../helpers/stores/useLoyalsStore";
 
 function MortimerLab() {
 
   // --- CONTEXTS & COMPONENT CONSTANTS --- //
-  const allAcolytesContext = useContext(AllAcolytesContext);
-  const loyalAcolytesContext = useContext(LoyalAcolytesContext);
-
-  if (!allAcolytesContext) return;
-  if (!loyalAcolytesContext) return;
-
-  const acolytes = allAcolytesContext[0];
-  const loyalAcolytes = loyalAcolytesContext[0];
+  const acolytes = useAcolytesStore(state => state.allAcolytes);
+  const loyalAcolytes = useLoyalsStore(state => state.loyals);
 
   const { width, height } = useWindowDimensions();
 

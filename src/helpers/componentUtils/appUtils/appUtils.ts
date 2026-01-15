@@ -27,14 +27,9 @@ export const getAcolytes = async () => {
   }
 }
 
+export const updateUserStateWithPushToken = async ( user : KaotikaPlayer) => {
 
-interface appUserState {
-  user: KaotikaPlayer,
-  setUser: (newUser: KaotikaPlayer | null) => void
-}
-
-export const updateUserStateWithPushToken = async ({ user, setUser }: appUserState) => {
   const userPushToken = user;
   if (userPushToken) userPushToken.pushToken = await getFCMToken();
-  setUser(userPushToken);
+  return userPushToken;
 };

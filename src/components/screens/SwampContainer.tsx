@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, useContext } from "react";
-import { Images, Roles } from "../../helpers/constants/constants";
+import { Images, Roles, Screens } from "../../helpers/constants/constants";
 import { Text, View, useWindowDimensions } from "react-native";
 import ScreenContainer from "./ScreenContainer";
 import IconButton from "../IconButton";
@@ -48,7 +48,7 @@ export default function SwampContainer({ user, backgroundImage, children }: Prop
               height={height * 0.07}
               hasBrightness={true}
               backgroundImage={Images.BACK_ARROW}
-              buttonOnPress={() => setInitialScreen(null)}
+              buttonOnPress={() => setInitialScreen(Screens.MAP)}
               xPos={width * 0.02}
               yPos={height * 0.02}
               hasBorder={false}
@@ -61,7 +61,7 @@ export default function SwampContainer({ user, backgroundImage, children }: Prop
               height={height * 0.07}
               hasBrightness={true}
               backgroundImage={Images.BACK_ARROW}
-              buttonOnPress={() => setInitialScreen(null)}
+              buttonOnPress={() => setInitialScreen(Screens.MAP)}
               xPos={width * 0.02}
               yPos={height * 0.02}
               hasBorder={false}

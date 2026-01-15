@@ -5,7 +5,6 @@ function handleConnection(userEmail: string) {
 
   // Una vez hecho socket.connect(), actualiza el usuario logeado en cliente para tener su propiedad socketID actualizada.
   socket.emit(SocketClientToServerEvents.CONNECTION_OPEN, userEmail);
-  
 }
 
 function handleDisconnection(userEmail: string){

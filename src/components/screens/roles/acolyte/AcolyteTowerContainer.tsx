@@ -2,7 +2,7 @@ import { Text, useWindowDimensions, View } from "react-native";
 import IconButton from "../../../IconButton";
 import ScreenContainer from "../../ScreenContainer";
 import React, { PropsWithChildren, useContext } from "react";
-import { Images } from "../../../../helpers/constants/constants";
+import { Images, Screens } from "../../../../helpers/constants/constants";
 import { useUserStore } from "../../../../helpers/stores/useUserStore";
 import { AcolyteInitialScreenContext } from "../../../../helpers/contexts/contexts";
 
@@ -33,7 +33,7 @@ export default function AcolyteTowerContainer({ backgroundImage, children }: Pro
             height={height * 0.07}
             hasBrightness={true}
             backgroundImage={Images.BACK_ARROW}
-            buttonOnPress={() => setInitialScreen(null)}
+            buttonOnPress={() => setInitialScreen(Screens.MAP)}
             xPos={20}
             yPos={20}
             hasBorder={false}

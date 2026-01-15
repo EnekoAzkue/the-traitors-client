@@ -12,7 +12,7 @@ import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-c
 import KaotikaPlayer from '../helpers/interfaces/KaotikaPlayer';
 
 // --- Contexts ---
-import { ModalContext, AllAcolytesContext, AcolyteInitialScreenContext, ScrollContext, MortimerToastTextContext, MortimerInitialScreenContext, AcolyteToastTextContext, CollectionContext, IstvanInitialScreenContext, VillainInitialScreenContext, LoyalAcolytesContext, BetrayerAcolytesContext } from '../helpers/contexts/contexts';
+import { ModalContext, AcolyteInitialScreenContext, ScrollContext, MortimerToastTextContext, MortimerInitialScreenContext, AcolyteToastTextContext, CollectionContext, IstvanInitialScreenContext, VillainInitialScreenContext } from '../helpers/contexts/contexts';
 
 // --- Functions & Hooks ---
 import { useEffect, useState } from "react";
@@ -36,13 +36,13 @@ import Navigation from './screens/Navigation';
 import CurseBlock from './screens/CurseBlock';
 import IllnessBlock from './screens/IllnessBlock';
 import TiredBlock from './screens/TiredBlock';
+import { useAcolytesStore } from '../helpers/stores/useAcolytesStore';
+import { useLoyalsStore } from '../helpers/stores/useLoyalsStore';
+import { useBetrayersStore } from '../helpers/stores/useBetrayersStore';
 
 function App() {
 
   const { user, setUser } = useUserStore(state => state);
-  const [allAcolytes, setAllAcolytes] = useState<KaotikaPlayer[] | undefined>(undefined);
-  const [loyals, setLoyals] = useState<KaotikaPlayer[] | undefined>(undefined);
-  const [betrayers, setBetrayers] = useState<KaotikaPlayer[] | undefined>(undefined);
   const [initialConf, setInitialConf] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string>('');
   const [scrollModalMessage, setScrollModalMessage] = useState<string>('');
@@ -58,6 +58,10 @@ function App() {
 
   const { screenDimensions, setScreenDimensions } = useScreenDimensions();
   const screenDimensionsValue = useWindowDimensions();
+  const { allAcolytes, setAllAcolytes } = useAcolytesStore()
+  const { loyals, setLoyals } = useLoyalsStore()
+  const { betrayers, setBetrayers } = useBetrayersStore()
+
 
 
   const userHandler = (newUser: KaotikaPlayer | null) => {
@@ -129,11 +133,11 @@ function App() {
       const initializeSocketConnection = async () => {
 
         // Actualizar el estado user de la aplicación para que contenga el tokenID que concede permisos de FCM 
-        await updateUserStateWithPushToken({ user, setUser });
-
+        const updatedUser = await updateUserStateWithPushToken(user);
+        setUser(updatedUser)
         // Inicializar la conexión con SocketIO.
-        if (user?.email) {
-          initSocket(user);
+        if (updatedUser?.email) {
+          initSocket(updatedUser);
         }
 
       }
@@ -169,6 +173,45 @@ function App() {
         setLoyals(acolyteGroups[1])
       })
 
+      socket.on(SocketServerToClientEvents.RESTED, (player: KaotikaPlayer) => {
+        const afterRest: KaotikaPlayer[] = allAcolytes.map((item) => {
+          if (item.email === player.email) item = player
+          return item
+        })
+        setAllAcolytes(afterRest)
+        setLoyals(afterRest)
+      })
+
+      socket.on(SocketServerToClientEvents.HEALED, (player: KaotikaPlayer) => {
+        console.log('healing acolyte')
+        const afterHeal: KaotikaPlayer[] = allAcolytes.map((item) => {
+          if (item.email === player.email) item = player
+          return item
+        })
+        setAllAcolytes(afterHeal)
+        setLoyals(afterHeal)
+      })
+
+      socket.on(SocketServerToClientEvents.CURSED, (player: KaotikaPlayer) => {
+        const afterCurse: KaotikaPlayer[] = allAcolytes.map((item) => {
+          if (item.email === player.email) item = player
+          return item
+        })
+        setAllAcolytes(afterCurse)
+        setLoyals(afterCurse)
+      })
+
+      socket.on(SocketServerToClientEvents.INFECTED, (player: KaotikaPlayer) => {
+        const afterInfect: KaotikaPlayer[] = allAcolytes.map((item) => {
+          if (item.email === player.email) item = player
+          return item
+        })
+        setAllAcolytes(afterInfect)
+        setLoyals(afterInfect)
+      })
+
+
+
       setacolyteInitialScreen(user?.homeLocation)
       console.log(user)
       console.log('is user cursed', user.isCursed)
@@ -180,6 +223,11 @@ function App() {
       socket.off(SocketServerToClientEvents.SEND_UPDATED_PLAYER_TO_MORTIMER);
       socket.off(SocketServerToClientEvents.UPDATE_USER_IN_CLIENT);
       socket.off(SocketServerToClientEvents.RECIEVED_FOUND_SCROLL);
+      socket.off(SocketServerToClientEvents.UPDATE_TRAITORS)
+      socket.off(SocketServerToClientEvents.RESTED);
+      socket.off(SocketServerToClientEvents.HEALED);
+      socket.off(SocketServerToClientEvents.CURSED);
+      socket.off(SocketServerToClientEvents.INFECTED);
     });
 
   }, [user]);
@@ -214,28 +262,22 @@ function App() {
                     <AcolyteInitialScreenContext.Provider value={[acolyteInitialScreen, setacolyteInitialScreen]}>
                       <IstvanInitialScreenContext.Provider value={[istvanInitialScreen, setistvanInitialScreen]}>
                         <VillainInitialScreenContext.Provider value={[villainInitialScreen, setvillainInitialScreen]}>
-                          <AllAcolytesContext.Provider value={[allAcolytes, setAllAcolytes]}>
-                            <LoyalAcolytesContext.Provider value={[loyals, setLoyals]}>
-                              <BetrayerAcolytesContext.Provider value={[betrayers, setBetrayers]}>
-                                <MortimerToastTextContext.Provider value={[mortimerToastText, setMortimerToastText]}>
-                                  <AcolyteToastTextContext.Provider value={[acolyteToastText, setAcolyteToastText]}>
-                                    <MortimerInitialScreenContext.Provider value={[mortimerInitialScreen, setMortimerInitialScreen]}>
-                                      <ModalContext value={setModalMessage}>
-                                        <Navigation />
-                                        {user?.rol === 'acolyte' &&
-                                          <AcolyteToast toastText={acolyteToastText} setAcolyteToastText={setAcolyteToastText} />
-                                        }
-                                        {user?.rol === 'mortimer' &&
-                                          <Toast toastText={mortimerToastText} setMortimerToastText={setMortimerToastText} />
-                                        }
+                          <MortimerToastTextContext.Provider value={[mortimerToastText, setMortimerToastText]}>
+                            <AcolyteToastTextContext.Provider value={[acolyteToastText, setAcolyteToastText]}>
+                              <MortimerInitialScreenContext.Provider value={[mortimerInitialScreen, setMortimerInitialScreen]}>
+                                <ModalContext value={setModalMessage}>
+                                  <Navigation />
+                                  {user?.rol === 'acolyte' &&
+                                    <AcolyteToast toastText={acolyteToastText} setAcolyteToastText={setAcolyteToastText} />
+                                  }
+                                  {user?.rol === 'mortimer' &&
+                                    <Toast toastText={mortimerToastText} setMortimerToastText={setMortimerToastText} />
+                                  }
 
-                                      </ModalContext>
-                                    </MortimerInitialScreenContext.Provider>
-                                  </AcolyteToastTextContext.Provider>
-                                </MortimerToastTextContext.Provider>
-                              </BetrayerAcolytesContext.Provider>
-                            </LoyalAcolytesContext.Provider>
-                          </AllAcolytesContext.Provider>
+                                </ModalContext>
+                              </MortimerInitialScreenContext.Provider>
+                            </AcolyteToastTextContext.Provider>
+                          </MortimerToastTextContext.Provider>
                         </VillainInitialScreenContext.Provider>
                       </IstvanInitialScreenContext.Provider>
                     </AcolyteInitialScreenContext.Provider>

@@ -14,12 +14,15 @@ import SchoolDungeon from "./screens/SchoolDungeon";
 import Home from "./screens/Home";
 import Lab from "./screens/Lab";
 import Tower from "./screens/Tower";
+import { useAcolytesCurrentNavigationTabStore } from "../helpers/stores/useAcolytesCurrentNavigationTabStore";
 
-export default function Acolyte() {
+export default function Router() {
 
   // --- CONTEXTS && STORES --- //
   const initialScreenContext = useContext( AcolyteInitialScreenContext );
   const user = useUserStore( state => state.user );
+  const setInitialRouteScreen = useAcolytesCurrentNavigationTabStore(state => state.setAcolyteCurrentTabNavigation);
+  
 
   if ( !initialScreenContext ) return;
   if ( !user ) return;
@@ -42,14 +45,14 @@ export default function Acolyte() {
   }, [initialScreen])
 
   useEffect(() => {
-    console.log('initial screen', initialScreen)
+    setInitialRouteScreen(Screens.MAP)    
   }, [])
 
   return (
     <>
-      {initialScreen === null                     && <AcolyteMap />}
+      {initialScreen === Screens.MAP                     && <AcolyteMap />}
       {initialScreen === Screens.SCHOOL_MAP       && <AcolyteSchoolMap />}
-      {initialScreen === Screens.HOME             && <Home />}
+      {initialScreen === null             && <Home />}
       {initialScreen === Screens.LAB              && <Lab />}
       {initialScreen === Screens.ACOLYTE_TOWER    && <Tower />}
       {initialScreen === Screens.HALL_OF_SAGES    && <HallOfSages />}

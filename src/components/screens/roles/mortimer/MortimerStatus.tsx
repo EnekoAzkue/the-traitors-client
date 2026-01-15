@@ -3,22 +3,17 @@ import React, { useContext, useState } from "react";
 import { Images } from "../../../../helpers/constants/constants";
 import { useWindowDimensions, View } from "react-native";
 import styled from "styled-components/native";
-import { LoyalAcolytesContext } from "../../../../helpers/contexts/contexts";
 import LoyalsStatus from "../../LoyalsStatus";
 import StatusModal from "../../../StatusModal";
 import KaotikaPlayer from "../../../../helpers/interfaces/KaotikaPlayer";
+import { useLoyalsStore } from "../../../../helpers/stores/useLoyalsStore";
 
 function MortimerStatus() {
 
-  const loyalsContext = useContext(LoyalAcolytesContext)
   const [showModal, setShowModal] = useState<boolean>(false)
   const [selectedAcolyte, setSelectedAcolyte] = useState<KaotikaPlayer | null>(null)
 
-
-
-  if (!loyalsContext) return null
-
-  const loyalAcolytes = loyalsContext[0]
+  const loyalAcolytes = useLoyalsStore(state => state.loyals);
 
   const { width, height } = useWindowDimensions()
 
