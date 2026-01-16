@@ -262,9 +262,6 @@ function App() {
               </>
             ) : (
               <>
-                {user?.isCursed && <CurseBlock />}
-                {user?.disease.length > 0 && <IllnessBlock />}
-                {user?.resistance < 30 && <TiredBlock />}
                 <ScrollContext.Provider value={[scrollActive, setScrollActive]}>
                   <MortimerInitialScreenContext.Provider value={[mortimerInitialScreen, setMortimerInitialScreen]}>
                     <AcolyteInitialScreenContext.Provider value={[acolyteInitialScreen, setacolyteInitialScreen]}>
