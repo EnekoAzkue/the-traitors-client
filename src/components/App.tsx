@@ -188,6 +188,9 @@ function App() {
           if (item.email === player.email) item = player
           return item
         })
+
+        if (user.email === player.email) setUser(player); 
+
         setAllAcolytes(afterHeal)
         setLoyals(afterHeal)
       })
@@ -197,6 +200,8 @@ function App() {
           if (item.email === player.email) item = player
           return item
         })
+        if (user.email === player.email) setUser(player); 
+
         setAllAcolytes(afterCurse)
         setLoyals(afterCurse)
       })
@@ -206,6 +211,9 @@ function App() {
           if (item.email === player.email) item = player
           return item
         })
+
+        if (user.email === player.email) setUser(player); 
+
         setAllAcolytes(afterInfect)
         setLoyals(afterInfect)
       })
