@@ -3,9 +3,12 @@ import styled from "styled-components/native";
 import { Button, useWindowDimensions } from "react-native";
 import { AcolyteStatusProps } from "../../helpers/interfaces/components/AcolyteStatusProps";
 import IconButton from "../IconButton";
-import { Images } from "../../helpers/constants/constants";
+import { Images, Roles } from "../../helpers/constants/constants";
+import { useUserStore } from "../../helpers/stores/useUserStore";
 
 const AcolyteTowerRegister = ({ acolyte, setShowModal, setSelectedAcolyte }: AcolyteStatusProps) => {
+
+  const user = useUserStore(state => state.user)
 
   if(!acolyte) return null
 
@@ -75,9 +78,19 @@ const AcolyteTowerRegister = ({ acolyte, setShowModal, setSelectedAcolyte }: Aco
       <AcolyteImage source={acolytePhoto} />
       <StyledAcolyteName>{acolyte.nickname}</StyledAcolyteName>
       <ButtonContainer>
+        {user?.rol === Roles.MORTIMER &&
+        <>
         <IconButton backgroundImage={Images.ILLNESS_ICON} width={width * 0.1} height={width * 0.1} xPos={width * 0}    yPos={-height * 0.01} buttonOnPress={modalToggle} hasBorder={true} hasBrightness={acolyte.disease.length > 0} iconText="Ill"/>
         <IconButton backgroundImage={Images.CURSED_ICON}  width={width * 0.1} height={width * 0.1} xPos={width * 0.15} yPos={-height * 0.01} buttonOnPress={modalToggle} hasBorder={true} hasBrightness={acolyte.isCursed}           iconText="Cursed"/>
-        <IconButton backgroundImage={Images.TIRED_ICON}   width={width * 0.1} height={width * 0.1} xPos={width * 0.30} yPos={-height * 0.01} buttonOnPress={modalToggle} hasBorder={true} hasBrightness={acolyte.resistance < 30}    iconText="Tired"/>
+        <IconButton backgroundImage={Images.TIRED_ICON}   width={width * 0.1} height={width * 0.1} xPos={width * 0.30} yPos={-height * 0.01} buttonOnPress={modalToggle} hasBorder={true} hasBrightness={acolyte.resistance < 30}    iconText="Tired"/>   
+        </>
+        }
+        {user?.rol === Roles.ISTVAN &&
+        <IconButton backgroundImage={Images.CURSED_ICON}  width={width * 0.2} height={width * 0.2} xPos={componentWidth * 0.1} yPos={-componentHeight * 0.1} buttonOnPress={modalToggle} hasBorder={true}/>
+        }
+        {user?.rol === Roles.VILLAIN &&
+        <IconButton backgroundImage={Images.ILLNESS_ICON}  width={width * 0.2} height={width * 0.2} xPos={componentWidth * 0.1} yPos={-componentHeight * 0.1} buttonOnPress={modalToggle} hasBorder={true}/>
+        }
       </ButtonContainer>
     </ComponentContainer> 
   );
