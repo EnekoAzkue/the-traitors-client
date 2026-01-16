@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components/native";
 import { Button, useWindowDimensions } from "react-native";
 import { AcolyteStatusProps } from "../../helpers/interfaces/components/AcolyteStatusProps";
+import IconButton from "../IconButton";
+import { Images } from "../../helpers/constants/constants";
 
 const AcolyteTowerRegister = ({ acolyte, setShowModal, setSelectedAcolyte }: AcolyteStatusProps) => {
 
@@ -18,7 +20,7 @@ const AcolyteTowerRegister = ({ acolyte, setShowModal, setSelectedAcolyte }: Aco
   const componentWidth = Math.min(width * 0.9, 400); 
   const componentHeight = height * 0.25;
   const imageSize = componentHeight * 0.5;
-  const baseFont = componentHeight * 0.12;
+  const baseFont = componentHeight * 0.2;
 
   const ComponentContainer = styled.View`
     border: 1px solid rgba(255, 255, 255, 1);
@@ -48,7 +50,6 @@ const AcolyteTowerRegister = ({ acolyte, setShowModal, setSelectedAcolyte }: Aco
     color: white;
     font-family: "KochAltschrift";
     font-size: ${baseFont}px;
-    font-weight: bold;
   `;
 
   const ButtonContainer = styled.View`
@@ -74,9 +75,11 @@ const AcolyteTowerRegister = ({ acolyte, setShowModal, setSelectedAcolyte }: Aco
       <AcolyteImage source={acolytePhoto} />
       <StyledAcolyteName>{acolyte.nickname}</StyledAcolyteName>
       <ButtonContainer>
-        <Button title="Details" onPress={modalToggle} />
+        <IconButton backgroundImage={Images.ILLNESS_ICON} width={width * 0.1} height={width * 0.1} xPos={width * 0}    yPos={-height * 0.01} buttonOnPress={modalToggle} hasBorder={true} hasBrightness={acolyte.disease.length > 0} iconText="Ill"/>
+        <IconButton backgroundImage={Images.CURSED_ICON}  width={width * 0.1} height={width * 0.1} xPos={width * 0.15} yPos={-height * 0.01} buttonOnPress={modalToggle} hasBorder={true} hasBrightness={acolyte.isCursed}           iconText="Cursed"/>
+        <IconButton backgroundImage={Images.TIRED_ICON}   width={width * 0.1} height={width * 0.1} xPos={width * 0.30} yPos={-height * 0.01} buttonOnPress={modalToggle} hasBorder={true} hasBrightness={acolyte.resistance < 30}    iconText="Tired"/>
       </ButtonContainer>
-    </ComponentContainer>
+    </ComponentContainer> 
   );
 
 };

@@ -78,6 +78,9 @@ enum Images {
   NAVIGATION_MAP_ICON     = require('../../assets/images/logos/Map_nav_icon.png'),
   STATUS_ICON             = require('../../assets/images/logos/status_icon.png'),
   REST_ICON               = require('../../assets/images/logos/rest_icon.png'),
+  TIRED_ICON             = require('../../assets/images/logos/tired_icon.png'),
+  CURSED_ICON            = require('../../assets/images/logos/cursed_icon.png'),
+  ILLNESS_ICON           = require('../../assets/images/logos/illness_icon.png'),
 
   // --- GENERAL IMAGES --- //
   LOGO                    = require('../../assets/images/logo.png'),
@@ -172,7 +175,7 @@ enum Routes {
 
 }
 
-export const CURRENT_DOMAIN   = Domains.LOCALHOST;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN)
+export const CURRENT_DOMAIN   = Domains.RENDER;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN)
 export const CURRENT_ROUTE    = `${CURRENT_DOMAIN}player/`;
 
 enum Roles {
