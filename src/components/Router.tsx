@@ -15,9 +15,6 @@ import Home from "./screens/Home";
 import Lab from "./screens/Lab";
 import Tower from "./screens/Tower";
 import { useAcolytesCurrentNavigationTabStore } from "../helpers/stores/useAcolytesCurrentNavigationTabStore";
-import CurseBlock from "./screens/CurseBlock";
-import IllnessBlock from "./screens/IllnessBlock";
-import TiredBlock from "./screens/TiredBlock";
 
 export default function Router() {
 
@@ -53,9 +50,6 @@ export default function Router() {
 
   return (
     <>
-      {user?.isCursed && <CurseBlock />}
-      {user?.disease.length > 0 && <IllnessBlock />}
-      {user?.resistance < 30 && <TiredBlock />}
       {initialScreen === Screens.MAP && <AcolyteMap />}
       {initialScreen === Screens.SCHOOL_MAP && <AcolyteSchoolMap />}
       {initialScreen === null && <Home />}
