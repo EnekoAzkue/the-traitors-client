@@ -24,6 +24,9 @@ interface ServerToClientEvents {
   [SocketServerToClientEvents.HEALED]                           : ( healededPlayer: KaotikaPlayer) => void;
   [SocketServerToClientEvents.CURSED]                           : ( cursedPlayer: KaotikaPlayer) => void;
   [SocketServerToClientEvents.INFECTED]                         : ( infectedPlayer: KaotikaPlayer) => void;
+  [SocketServerToClientEvents.CAPTURED_ANGELO]                 : () => void;
+  [SocketServerToClientEvents.DELIVERED_ANGELO]                 : () => void;
+  [SocketServerToClientEvents.RELEASED_ANGELO]                 : () => void;
 
 };
   
@@ -96,6 +99,10 @@ interface ClientToServerEvents {
   [SocketClientToServerEvents.HEAL]                           : (acolyte: KaotikaPlayer, cure: string) => void;
   [SocketClientToServerEvents.CURSE]                          : (acolyte: KaotikaPlayer) => void;
   [SocketClientToServerEvents.INFECT]                         : (acolyte: KaotikaPlayer, illness: string) => void;
+  [SocketClientToServerEvents.CAPTURE_ANGELO]                 : () => void;
+  [SocketClientToServerEvents.DELIVER_ANGELO]                 : () => void;
+  [SocketClientToServerEvents.RELEASE_ANGELO]                 : () => void;
+
 
 
 

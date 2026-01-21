@@ -131,6 +131,14 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
     socket.emit(SocketClientToServerEvents.ACCEPT_ARTIFACTS);
   }
 
+  const notifyMortimer = () => {
+    socket.emit(SocketClientToServerEvents.SEND_NOTIFICATION_TO_MORTIMER, { notification: { title: "Entrega de Angelo", body: "Los acolitos le esperan para entregar al traidor." } } );
+  }
+
+  const deliverAngelo = () => {
+    socket.emit(SocketClientToServerEvents.DELIVER_ANGELO);
+  }
+
   // --- STYLED COMPONENTS --- //
   const AcolytesRegisterScreenContainer = styled.View`
     align-items: center; 
@@ -191,6 +199,16 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
               hasBorder={false}
               backgrounOpacity={0}
             />
+            {!mortimerInHall && (
+              <View style={{ width: width, height: height, alignItems: "center" }}>
+                <Button buttonText="Notify Mortimer" onPress={notifyMortimer} />
+              </View>
+            )}
+            {mortimerInHall && (
+              <View style={{ width: width, height: height, alignItems: "center" }}>
+                <Button buttonText="Deliver Angelo" onPress={deliverAngelo} />
+              </View>
+            )}
             {(areAllArtifactsCollected && mortimerInHall) && (
               <View style={{ width: width, height: height, alignItems: "center" }}>
                 <Button buttonText="Show artifacts" onPress={showArtifacts} />

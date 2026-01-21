@@ -229,7 +229,9 @@ enum SocketServerToClientEvents {
   HEALED                          = 'healed',
   CURSED                          = 'cursed',
   INFECTED                        = 'infect',
-
+  CAPTURED_ANGELO                = "captured angelo",
+  DELIVERED_ANGELO                = "delivered angelo",
+  RELEASED_ANGELO                = "released angelo",
 
 
 }
@@ -260,6 +262,10 @@ enum SocketClientToServerEvents {
   HEAL                          = 'heal',
   CURSE                         = 'curse',
   INFECT                        = 'infect',
+  CAPTURE_ANGELO                = "capture angelo",
+  DELIVER_ANGELO                = "deliver angelo",
+  RELEASE_ANGELO                = "release angelo",
+
 
 
 }
