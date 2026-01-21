@@ -1,7 +1,9 @@
+import NpcInterface from "../Npc";
+
 export interface AngeloStore {
   // --- GLOBAL STATE --- //
-  isAngeloCaptured: boolean,
+  angelo: NpcInterface | null,
 
   // --- FUNCTIONS --- //
-  setAngeloCaptured: (isAngeloCaptured: boolean) => void,
+  setAngelo: (angelo: NpcInterface) => void,
 };

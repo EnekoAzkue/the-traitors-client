@@ -6,9 +6,9 @@ import { AngeloStore } from "../interfaces/stores/useAngeloStore.Interfaces";
 export const useAngeloStore = create<AngeloStore>((set) => ({
 
   // --- STATE --- //
-  isAngeloCaptured: false,
+  angelo: null,
 
   // --- FUNCTIONS --- //
-  setAngeloCaptured: ((isAngeloCaptured) => { set( () => ({isAngeloCaptured: isAngeloCaptured}) ) })
+  setAngelo: ((newAngelo) => { set( () => ({angelo: newAngelo}) ) })
   
 }));

@@ -84,6 +84,10 @@ function App() {
     // Initial acolytes JSON for app state 
     setAcolytes()
 
+
+    // get Angelo from DB
+    setAngelo();
+
   }, []);
 
   const setAcolytes = async () => {

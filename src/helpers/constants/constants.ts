@@ -153,9 +153,24 @@ enum Screens {
   SWAMP             = 'Swamp',
   HALL_OF_SAGES     = 'HallOfSages',
   DUNGEON           = 'Dungeon',
-  STATUS            = 'Status'
+  INN               = 'Inn of the Forgotten',
+  STATUS            = 'Status',
 
 }
+
+export enum Locations {
+  HOME              = 'The Old School Home',
+  LAB               = 'The Old School Lab',
+  DUNGEON           = 'The Old School Dungeon',
+  TRIAL             = 'The Old School Trial',
+  HALL_OF_SAGES     = 'Hall Of Sages',
+  TOWER             = 'Tower',
+  SWAMP             = 'Swamp',
+  INN               = 'Inn of the Forgotten',
+  OBITUARY          = 'Obituary',
+  HOLLOW            = 'The Hollow of the Lost',
+};
+
 
 /* --- For local testing, watch: https://docs.google.com/document/d/13t7nvg5CSuUsB5qj1wBU4TsW03_TMxP_6RhYqBUEwcI/edit?tab=t.0 --- */
 enum Domains {
@@ -301,4 +316,11 @@ export {
   SocketGeneralEvents,
   INN_STATES,
   
+};
+
+export enum KaotikaCharacters {
+  VILLAIN     = "Villain",
+  MORTIMER    = "Mortimer",
+  ISTVAN      = "Istvan",
+  ANGELO      = "Angelo Di Mortis",
 };

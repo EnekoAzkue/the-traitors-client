@@ -52,7 +52,7 @@ function AcolyteInn() {
       break;      
       
       case (INN_STATES.INSIDE_INN_LOYAL):    // 2
-      
+        console.log("Acolyte stays loyal.");
       break;
 
     }
