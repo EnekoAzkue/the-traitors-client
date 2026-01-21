@@ -84,7 +84,6 @@ function App() {
     // Initial acolytes JSON for app state 
     setAcolytes()
 
-
     // get Angelo from DB
     setAngelo();
 
@@ -97,7 +96,10 @@ function App() {
     setLoyals(acolytes[1])
 
     setBetrayers(acolytes[2])
+  }
 
+
+  const setAngelo = () => {
 
   }
 
