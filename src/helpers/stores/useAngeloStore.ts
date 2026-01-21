@@ -1,9 +1,9 @@
 import { create } from "zustand";
 
 // --- INTERFACES --- //
-import { AngeloStore } from "../interfaces/stores/useStoreInterfaces copy";
+import { AngeloStore } from "../interfaces/stores/useAngeloStore.Interfaces";
 
-export const useUserStore = create<AngeloStore>((set) => ({
+export const useAngeloStore = create<AngeloStore>((set) => ({
 
   // --- STATE --- //
   isAngeloCaptured: false,
