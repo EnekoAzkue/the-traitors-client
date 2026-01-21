@@ -1,5 +1,5 @@
 import { Text, useWindowDimensions, View } from "react-native";
-import { Images, INN_STATES, Roles, Screens, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
+import { Images, INN_STATES, Locations, Roles, Screens, SocketClientToServerEvents } from "../../../../helpers/constants/constants";
 import { socket } from "../../../../helpers/socket/socket";
 import { useInnStore } from "../../../../helpers/stores/useInnStateStore";
 import { useUserStore } from "../../../../helpers/stores/useUserStore";
@@ -9,6 +9,7 @@ import AcolyteTowerContainer from "./AcolyteTowerContainer";
 import React, { useContext, useEffect, useState } from "react";
 import { AcolyteInitialScreenContext } from "../../../../helpers/contexts/contexts";
 import { useAcolytesCurrentNavigationTabStore } from "../../../../helpers/stores/useAcolytesCurrentNavigationTabStore";
+import { useAngeloStore } from "../../../../helpers/stores/useAngeloStore";
 
 function AcolyteInn() {
 
@@ -18,6 +19,7 @@ function AcolyteInn() {
   const { width, height } = useWindowDimensions();
   const initialRouterScreen = useContext(AcolyteInitialScreenContext);
   const setInitialRouteScreen = useAcolytesCurrentNavigationTabStore(state => state.setAcolyteCurrentTabNavigation);
+  const angelo = useAngeloStore(state => state.angelo);
 
   
   if (!initialRouterScreen) return (<Text>ERROR! Initial Router Context not got</Text>);
@@ -28,6 +30,7 @@ function AcolyteInn() {
   const [backgroundImage, setBackgroundImage] = useState(Images.ACOLYTE_INN_BASE);
   
   if (!user) return null;
+  if (!angelo) return null;
   
   // --- EFFECTS --- //
   useEffect(() => {
@@ -44,15 +47,15 @@ function AcolyteInn() {
     console.log(innState);
     switch (innState) {
       case (INN_STATES.SHOW_BETRAYER_MODAL): // 0
-
+        setBackgroundImage(Images.ACOLYTE_INN_BASE);
         break;
 
       case (INN_STATES.INSIDE_INN_BETRAYER): // 1
-      
+        setBackgroundImage(Images.ACOLYTE_INN_TRAITORS);
       break;      
       
       case (INN_STATES.INSIDE_INN_LOYAL):    // 2
-        console.log("Acolyte stays loyal.");
+        setBackgroundImage(Images.ACOLYTE_INN_LOYAL);
       break;
 
     }
@@ -72,7 +75,7 @@ function AcolyteInn() {
         <BetrayerModal />
       )}
       <AcolyteTowerContainer backgroundImage={backgroundImage} >
-      {user.rol === Roles.ACOLYTE && !user.isBetrayer && innState === INN_STATES.INSIDE_INN_LOYAL && (
+      {user.rol === Roles.ACOLYTE && !user.isBetrayer && innState === INN_STATES.INSIDE_INN_LOYAL && angelo.location === Locations.INN  && (
         <View style={{ width: width, height: height, alignItems: "center" }}>
           <Button buttonText={"Capture Angelo"} onPress={captureAngelo} />
         </View>

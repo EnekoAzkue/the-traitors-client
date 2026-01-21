@@ -1,6 +1,6 @@
 // --- Constants ---
 import React from 'react';
-import { Screens, SocketServerToClientEvents } from '../helpers/constants/constants';
+import { Locations, Screens, SocketServerToClientEvents } from '../helpers/constants/constants';
 
 // --- Components ---
 import Login from './screens/Login';
@@ -231,12 +231,17 @@ function App() {
         setLoyals(afterInfect)
       })
 
-      socket.on(SocketServerToClientEvents.CAPTURED_ANGELO, () => {
+      socket.on(SocketServerToClientEvents.CAPTURED_ANGELO, (capturedAngelo) => {
+        console.log("Angelo now is:");
+        console.log(capturedAngelo);
+        setAngelo(capturedAngelo);
       })
 
-      socket.on(SocketServerToClientEvents.RELEASED_ANGELO, () => {
+      socket.on(SocketServerToClientEvents.RELEASED_ANGELO, (releasedAngelo) => {
+        console.log("Angelo now is:");
+        console.log(releasedAngelo);
+        setAngelo(releasedAngelo);
       })
-
 
       setacolyteInitialScreen(user?.homeLocation)
       console.log(user)

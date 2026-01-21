@@ -2,6 +2,7 @@ import Artifact from './Artifact';
 import KaotikaPlayer from './KaotikaPlayer';
 import { GeolacationCoords, UserCoords } from './Geolocation';
 import { SocketClientToServerEvents, SocketClientToServerEventsForTesting, SocketServerToClientEvents } from '../constants/constants';
+import NpcInterface from './Npc';
 
 // --- SERVER TO CLIENT SOCKECT EVENT DECLARATION --- //
 interface ServerToClientEvents {
@@ -13,21 +14,20 @@ interface ServerToClientEvents {
   [SocketServerToClientEvents.SENDING_ARTIFACTS]                : ( artifacts: Artifact[] ) => void;
   [SocketServerToClientEvents.GET_IN_SWAMP_ACOLYTES]            : ( inSwampAcolytes: KaotikaPlayer[] ) => void;
   [SocketServerToClientEvents.GET_ACOLYTE_NEW_COORDS]           : ( newCoords: {email: string, coords: GeolacationCoords} ) => void;
-  [SocketServerToClientEvents.SENDING_ACOLYTES_IN_HALL]         : (acolytesInHall: KaotikaPlayer[]) => void;
+  [SocketServerToClientEvents.SENDING_ACOLYTES_IN_HALL]         : ( acolytesInHall: KaotikaPlayer[]) => void;
   [SocketServerToClientEvents.ACOLYTE_ENTERED_EXITED_HALL]      : () => void;
-  [SocketServerToClientEvents.END_VALIDATION]                   : (request: {accepted: boolean}) => void;
-  [SocketServerToClientEvents.SENDING_MORTIMER_IN_HALL]         : (inHall: boolean) => void;
-  [SocketServerToClientEvents.MORTIMER_ENTERED_EXITED_HALL]     : (inHall: boolean) => void;
+  [SocketServerToClientEvents.END_VALIDATION]                   : ( request: {accepted: boolean}) => void;
+  [SocketServerToClientEvents.SENDING_MORTIMER_IN_HALL]         : ( inHall: boolean) => void;
+  [SocketServerToClientEvents.MORTIMER_ENTERED_EXITED_HALL]     : ( inHall: boolean) => void;
   [SocketServerToClientEvents.SHOWING_ARTIFACS]                 : () => void;
-  [SocketServerToClientEvents.UPDATE_TRAITORS]                  : (acolyteGroups: KaotikaPlayer [][]) => void
+  [SocketServerToClientEvents.UPDATE_TRAITORS]                  : ( acolyteGroups: KaotikaPlayer [][]) => void
   [SocketServerToClientEvents.RESTED]                           : ( restedPlayer: KaotikaPlayer) => void;
   [SocketServerToClientEvents.HEALED]                           : ( healededPlayer: KaotikaPlayer) => void;
   [SocketServerToClientEvents.CURSED]                           : ( cursedPlayer: KaotikaPlayer) => void;
   [SocketServerToClientEvents.INFECTED]                         : ( infectedPlayer: KaotikaPlayer) => void;
-  [SocketServerToClientEvents.CAPTURED_ANGELO]                 : () => void;
-  [SocketServerToClientEvents.DELIVERED_ANGELO]                 : () => void;
-  [SocketServerToClientEvents.RELEASED_ANGELO]                 : () => void;
-
+  [SocketServerToClientEvents.CAPTURED_ANGELO]                  : ( capturedAngelo: NpcInterface ) => void;
+  [SocketServerToClientEvents.DELIVERED_ANGELO]                 : ( deliveredAngelo: NpcInterface) => void;
+  [SocketServerToClientEvents.RELEASED_ANGELO]                  : ( releasedAngelo: NpcInterface) => void;
 };
   
 // --- CLIENT TO SERVER SOCKECT EVENT DECLARATION --- //
@@ -47,9 +47,6 @@ interface ClientToServerEvents {
   [SocketClientToServerEvents.UPDATE_INTOWER]                   : ( userEmail: string, inTower: boolean ) => void;
   [SocketClientToServerEvents.ENTER_EXIT_HALL]                  : ( acolyteMail: string, inHall: any ) => void;
 
-
-
-
   // --- FOR TEST PURPOUSE --- //
   [SocketClientToServerEventsForTesting.GET_FCM_MESSAGE]        : ( getSuccesfully: boolean ) => void;
 
@@ -65,12 +62,10 @@ interface AcolyteDataAfterAccessExitLab {
 }
 
 interface AcolyteDataAfterAccessExitTower {
-
   email     : string;
   inTower   : boolean;
   nickname  : string;
   avatar    : string;
-
 }
 
 
