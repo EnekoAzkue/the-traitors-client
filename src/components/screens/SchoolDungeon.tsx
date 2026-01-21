@@ -9,17 +9,21 @@ import React, { useContext, useEffect, useState } from "react";
 function SchoolDungen() {
 
   // --- CONTEXTS && STORES --- //
-    const isAngeloCaptured = useAngeloStore(state => state.angelo?.isCaptured)
+    const angelo = useAngeloStore(state => state.angelo)
   // --- STATES --- //
   const [backgroundImage, setBackgroundImage] = useState(Images.SCHOOL_DUNGEON);
+
+  if (!angelo) return null;
   
   // --- EFFECTS --- //
     useEffect(() => {
-      console.log(isAngeloCaptured)
+      if(angelo.isCaptured){
+        setBackgroundImage(Images.SCHOOL_DUNGEON_ANGELO);
+      }
     }, [])
   // --- FUNCTIONS --- // 
   const releaseAngelo = () => {
-    socket.emit(SocketClientToServerEvents.RELEASE_ANGELO)
+    socket.emit(SocketClientToServerEvents.RELEASE_ANGELO);
   }
 
   return (

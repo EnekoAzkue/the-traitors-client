@@ -93,6 +93,7 @@ enum Images {
   AVATAR_CONTAINER        = require('../../assets/images/AvatarContainer.png'),
   ROSETTE                 = require('../../assets/images/Roseta.png'),
   SCHOOL_DUNGEON          = require('../../assets/images/Dungeon.png'),
+  SCHOOL_DUNGEON_ANGELO   = require('../../assets/images/Angelo_dungeon.png'),
   STATUS_MODAL            = require('../../assets/images/status_modal.png'),
   TIRED_BLOCK             = require('../../assets/images/tiredBlock.png'),
   ILLNESS_BLOCK           = require('../../assets/images/illnessBlock.png'),

@@ -25,8 +25,7 @@ function MortimerStatus() {
     width: ${width * 0.9};
     alignItems: center;
     border: 3px solid white;
-
-  `
+  `;
 
   return (
     <ScreenContainer backgroundImg={Images.STATUS} >
