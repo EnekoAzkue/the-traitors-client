@@ -15,6 +15,7 @@ import Home from "./screens/Home";
 import Lab from "./screens/Lab";
 import Tower from "./screens/Tower";
 import { useAcolytesCurrentNavigationTabStore } from "../helpers/stores/useAcolytesCurrentNavigationTabStore";
+import Trial from "./screens/Trial";
 
 export default function Router() {
 
@@ -60,8 +61,8 @@ export default function Router() {
       {initialScreen === Screens.OBITUARY && <Obituary />}
       {initialScreen === Screens.ACOLYTE_INN && <Inn />}
       {initialScreen === Screens.ACOLYTE_HOLLOW && <Hollow />}
-      {initialScreen === Screens.DUNGEON && <SchoolDungeon />}
-
+      {initialScreen === Screens.DUNGEON && <Trial />}
+      {initialScreen === Screens.TRIAL && <Trial/>}
     </>
   );
 
