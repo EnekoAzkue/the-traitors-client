@@ -40,7 +40,8 @@ import { useAcolytesStore } from '../helpers/stores/useAcolytesStore';
 import { useLoyalsStore } from '../helpers/stores/useLoyalsStore';
 import { useBetrayersStore } from '../helpers/stores/useBetrayersStore';
 import { useAngeloStore } from '../helpers/stores/useAngeloStore';
-import Trial from './screens/Trial';
+import { getAngelo } from '../helpers/serverRequests/getAngelo';
+// import Trial from './screens/Trial';
 
 function App() {
 
@@ -85,7 +86,11 @@ function App() {
     callMessageReceiverListener(setMortimerToastText, setAcolyteToastText);
 
     // Initial acolytes JSON for app state 
-    setAcolytes()
+    setAcolytes();
+
+    // Get Angelo DB 
+    setAngeloFromDB();
+    
   }, []);
 
   const setAcolytes = async () => {
@@ -95,6 +100,10 @@ function App() {
     setLoyals(acolytes[1])
 
     setBetrayers(acolytes[2])
+  }
+
+  const setAngeloFromDB = async () => {
+    await getAngelo();
   }
 
   useEffect(() => {
@@ -273,7 +282,7 @@ function App() {
                 {user?.isCursed && <CurseBlock />}
                 {user?.disease.length > 0 && <IllnessBlock />}
                 {user?.resistance < 30 && <TiredBlock />}
-                <Trial />
+                {/* <Trial /> */}
                 <ScrollContext.Provider value={[scrollActive, setScrollActive]}>
                   <MortimerInitialScreenContext.Provider value={[mortimerInitialScreen, setMortimerInitialScreen]}>
                     <AcolyteInitialScreenContext.Provider value={[acolyteInitialScreen, setacolyteInitialScreen]}>
