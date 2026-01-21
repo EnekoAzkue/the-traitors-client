@@ -39,6 +39,8 @@ import TiredBlock from './screens/TiredBlock';
 import { useAcolytesStore } from '../helpers/stores/useAcolytesStore';
 import { useLoyalsStore } from '../helpers/stores/useLoyalsStore';
 import { useBetrayersStore } from '../helpers/stores/useBetrayersStore';
+import { useAngeloStore } from '../helpers/stores/useAngeloStore';
+import Trial from './screens/Trial';
 
 function App() {
 
@@ -61,6 +63,7 @@ function App() {
   const { allAcolytes, setAllAcolytes } = useAcolytesStore()
   const { loyals, setLoyals } = useLoyalsStore()
   const { betrayers, setBetrayers } = useBetrayersStore()
+  const {angelo, setAngelo} = useAngeloStore(state => state)
 
 
 
@@ -83,10 +86,6 @@ function App() {
 
     // Initial acolytes JSON for app state 
     setAcolytes()
-
-    // get Angelo from DB
-    setAngelo();
-
   }, []);
 
   const setAcolytes = async () => {
@@ -96,11 +95,6 @@ function App() {
     setLoyals(acolytes[1])
 
     setBetrayers(acolytes[2])
-  }
-
-
-  const setAngelo = () => {
-
   }
 
   useEffect(() => {
@@ -224,6 +218,11 @@ function App() {
         setLoyals(afterInfect)
       })
 
+      socket.on(SocketServerToClientEvents.CAPTURED_ANGELO, () => {
+      })
+
+      socket.on(SocketServerToClientEvents.RELEASED_ANGELO, () => {
+      })
 
 
       setacolyteInitialScreen(user?.homeLocation)
@@ -242,6 +241,9 @@ function App() {
       socket.off(SocketServerToClientEvents.HEALED);
       socket.off(SocketServerToClientEvents.CURSED);
       socket.off(SocketServerToClientEvents.INFECTED);
+      socket.off(SocketServerToClientEvents.CAPTURED_ANGELO);
+      socket.off(SocketServerToClientEvents.RELEASED_ANGELO);
+
     });
 
   }, [user]);
@@ -271,6 +273,7 @@ function App() {
                 {user?.isCursed && <CurseBlock />}
                 {user?.disease.length > 0 && <IllnessBlock />}
                 {user?.resistance < 30 && <TiredBlock />}
+                <Trial />
                 <ScrollContext.Provider value={[scrollActive, setScrollActive]}>
                   <MortimerInitialScreenContext.Provider value={[mortimerInitialScreen, setMortimerInitialScreen]}>
                     <AcolyteInitialScreenContext.Provider value={[acolyteInitialScreen, setacolyteInitialScreen]}>

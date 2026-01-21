@@ -21,6 +21,7 @@ import Button from "../Button";
 const { width, height } = Dimensions.get('window');
 import { useShowRosetteStore } from "../../helpers/stores/useShowRosetteStore";
 import Rosette from "../Rosette";
+import { useAngeloStore } from "../../helpers/stores/useAngeloStore";
 
 type AcolyteScreenContainer = {
   backgroundImage?: Images,
@@ -34,6 +35,7 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
   const setIsRosetteShown                                       = useShowRosetteStore( state => state.setIsRosetteShown );
   const activatedArtifacts                                      = useActivatedArtifactStore(state => state.activatedArtifacts);
   const {areAllArtifactsCollected, setAreAllArtifactsCollected} = useCollectionStore(state => state);
+  const {angelo, setAngelo}                   = useAngeloStore(state => state)
 
   const initialRouterScreen = useContext(AcolyteInitialScreenContext);
   const collectionContext   = useContext(CollectionContext);
@@ -41,6 +43,8 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
   if (!user) return;
   if (!initialRouterScreen) return (<Text>ERROR! Initial Router Context not got</Text>);
   if (!collectionContext) return;
+  if (!angelo) return (<Text>ERROR! Angelo is null</Text>);
+
 
   const setInitialScreen = initialRouterScreen[1];
 
@@ -199,12 +203,12 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
               hasBorder={false}
               backgrounOpacity={0}
             />
-            {!mortimerInHall && (
+            {!mortimerInHall && angelo?.isCaptured && (
               <View style={{ width: width, height: height, alignItems: "center" }}>
                 <Button buttonText="Notify Mortimer" onPress={notifyMortimer} />
               </View>
             )}
-            {mortimerInHall && (
+            {mortimerInHall && angelo?.isCaptured && (
               <View style={{ width: width, height: height, alignItems: "center" }}>
                 <Button buttonText="Deliver Angelo" onPress={deliverAngelo} />
               </View>
