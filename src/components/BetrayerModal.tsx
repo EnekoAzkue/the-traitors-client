@@ -23,12 +23,11 @@ export default function BetrayerModal() {
       user.isBetrayer = true;
       socket.emit(SocketClientToServerEvents.UPDATE_USER, user.email, {"isBetrayer" : "true"} );
       socket.emit(SocketClientToServerEvents.BETRAYAL)  
-      setInnState(INN_STATES.INSIDE_INN);
-      console.log("BETRAY");
+      setInnState(INN_STATES.INSIDE_INN_BETRAYER);
     }
   }
     function stayLoyal(): void {
-      setInnState(INN_STATES.INSIDE_INN);
+      setInnState(INN_STATES.INSIDE_INN_LOYAL);
 
   }
 

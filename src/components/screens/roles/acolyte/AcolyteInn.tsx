@@ -32,7 +32,7 @@ function AcolyteInn() {
   // --- EFFECTS --- //
   useEffect(() => {
     if (user.isBetrayer) {
-      setInnState(INN_STATES.INSIDE_INN);
+      setInnState(INN_STATES.INSIDE_INN_BETRAYER);
     } else {
       setInnState(INN_STATES.SHOW_BETRAYER_MODAL);
     }
@@ -47,9 +47,13 @@ function AcolyteInn() {
 
         break;
 
-      case (INN_STATES.INSIDE_INN): // 1
-
-        break;
+      case (INN_STATES.INSIDE_INN_BETRAYER): // 1
+      
+      break;      
+      
+      case (INN_STATES.INSIDE_INN_LOYAL):    // 2
+      
+      break;
 
     }
 
@@ -68,7 +72,7 @@ function AcolyteInn() {
         <BetrayerModal />
       )}
       <AcolyteTowerContainer backgroundImage={backgroundImage} >
-      {user.rol === Roles.ACOLYTE && !user.isBetrayer && (
+      {user.rol === Roles.ACOLYTE && !user.isBetrayer && innState === INN_STATES.INSIDE_INN_LOYAL && (
         <View style={{ width: width, height: height, alignItems: "center" }}>
           <Button buttonText={"Capture Angelo"} onPress={captureAngelo} />
         </View>

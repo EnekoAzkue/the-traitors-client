@@ -278,8 +278,9 @@ enum SocketClientToServerEventsForTesting {
 
 
 enum INN_STATES {
-  SHOW_BETRAYER_MODAL= 0,
-  INSIDE_INN = 1,
+  SHOW_BETRAYER_MODAL = 0,
+  INSIDE_INN_BETRAYER = 1,
+  INSIDE_INN_LOYAL    = 2,
 };
 
 export {
