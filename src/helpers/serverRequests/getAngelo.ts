@@ -1,7 +1,8 @@
 import { CURRENT_DOMAIN } from "../constants/constants";
 
 export const getAngelo = async () => {
-  const FETCH_ROUTE = `${CURRENT_DOMAIN}/angelo/get-angelo`;
+  const endpoint = `angelo/get-angelo`;
+  const FETCH_ROUTE = `${CURRENT_DOMAIN}${endpoint}`;
   const response = await fetch(
     FETCH_ROUTE, 
     {

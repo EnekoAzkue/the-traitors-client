@@ -40,7 +40,7 @@ import { useAcolytesStore } from '../helpers/stores/useAcolytesStore';
 import { useLoyalsStore } from '../helpers/stores/useLoyalsStore';
 import { useBetrayersStore } from '../helpers/stores/useBetrayersStore';
 import { useAngeloStore } from '../helpers/stores/useAngeloStore';
-import { getAngelo } from '../helpers/serverRequests/getAngelo';
+import { getAngeloJSON } from '../helpers/componentUtils/appUtils/appUtils';
 // import Trial from './screens/Trial';
 
 function App() {
@@ -64,9 +64,7 @@ function App() {
   const { allAcolytes, setAllAcolytes } = useAcolytesStore()
   const { loyals, setLoyals } = useLoyalsStore()
   const { betrayers, setBetrayers } = useBetrayersStore()
-  const {angelo, setAngelo} = useAngeloStore(state => state)
-
-
+  const { angelo, setAngelo} = useAngeloStore(state => state)
 
   const userHandler = (newUser: KaotikaPlayer | null) => {
     setUser(newUser);
@@ -103,8 +101,14 @@ function App() {
   }
 
   const setAngeloFromDB = async () => {
-    await getAngelo();
+    const angelo = await getAngeloJSON();
+    if(angelo) setAngelo(angelo);
   }
+
+  useEffect(() => {
+    console.log("ANGELO NOW:");
+    console.log(angelo);
+  }, [angelo])
 
   useEffect(() => {
 
