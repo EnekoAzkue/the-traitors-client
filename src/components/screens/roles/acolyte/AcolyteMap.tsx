@@ -11,6 +11,7 @@ import { useShowRosetteStore } from "../../../../helpers/stores/useShowRosetteSt
 import { useScreenDimensions } from "../../../../helpers/stores/useScreenDimensionsStore";
 import { AcolyteInitialScreenContext, CollectionContext } from "../../../../helpers/contexts/contexts";
 import { Images, Screens, SocketClientToServerEvents, SocketServerToClientEvents } from "../../../../helpers/constants/constants";
+import { useAcolytesCurrentNavigationTabStore } from "../../../../helpers/stores/useAcolytesCurrentNavigationTabStore";
 
 export default function AcolyteMap() {
 
@@ -22,13 +23,14 @@ export default function AcolyteMap() {
   const {artifacts, setArtifacts} = useArtifactsStore(state => state);
   const setAreAllArtifactsCollected = useCollectionStore(state => state.setAreAllArtifactsCollected);
   const isRosetteShown = useShowRosetteStore( state => state.isRosetteShown );
+  const setInitialRouteScreen = useAcolytesCurrentNavigationTabStore(state => state.setAcolyteCurrentTabNavigation);
   
   
   if (!screenDimensions) return;
   if (!initialRouterScreen) return <Text>ERROR! Initial Router Context not got</Text>;
   if (!collectionContext) return
   if (!user) return
-
+  
   const setInitialScreen = initialRouterScreen[1];
   const areAllArtifactsCollected = useCollectionStore(state => state.areAllArtifactsCollected)
 
@@ -49,7 +51,6 @@ export default function AcolyteMap() {
   // --- EFFECTS --- //
   useEffect(() => {
 
-    console.log(user)
     Animated.parallel([
       Animated.timing(cloudOpacity, {
         toValue: 0,
@@ -71,6 +72,9 @@ export default function AcolyteMap() {
       socket.emit(SocketClientToServerEvents.REQUEST_ARTIFACTS, user.rol)
     })
   });
+
+  setInitialRouteScreen(Screens.MAP)
+
   }, []);
 
   // --- STYLES --- //

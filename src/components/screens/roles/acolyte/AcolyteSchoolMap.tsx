@@ -6,6 +6,7 @@ import { Images, Screens } from "../../../../helpers/constants/constants";
 import { useCollectionStore } from "../../../../helpers/stores/useCollectionStore";
 import { useShowRosetteStore } from "../../../../helpers/stores/useShowRosetteStore";
 import { AcolyteInitialScreenContext, CollectionContext, ScrollContext } from "../../../../helpers/contexts/contexts";
+import { useAcolytesCurrentNavigationTabStore } from "../../../../helpers/stores/useAcolytesCurrentNavigationTabStore";
 
 export default function AcolyteSchoolMap() {
 
@@ -15,6 +16,8 @@ export default function AcolyteSchoolMap() {
   const scrollContext = useContext(ScrollContext);
   const collectionContext = useContext(CollectionContext);
   const isRosetteShown = useShowRosetteStore( state => state.isRosetteShown );
+  const setInitialRouteScreen = useAcolytesCurrentNavigationTabStore(state => state.setAcolyteCurrentTabNavigation);
+
   let hallOfSagesDropShadowColor = '#ffffffff';
   
   if (!initialRouterScreen) return <Text>ERROR! Initial Router Context not got</Text>;
@@ -30,11 +33,12 @@ export default function AcolyteSchoolMap() {
   const selectInitialSettingsScreen = () => setInitialScreen(Screens.ACOLYTE_SETTINGS);
   const selectInitialHallScreen = () => setInitialScreen(Screens.HALL_OF_SAGES);
   const selectInitialDungeonScreen = () => setInitialScreen(Screens.DUNGEON);
-
+  
   // --- EFFECTS --- //
   useEffect( () => {
     if (!isRosetteShown) hallOfSagesDropShadowColor = '#ffd000ff';
     console.log(hallOfSagesDropShadowColor);
+    setInitialRouteScreen(Screens.MAP)
   }, [] );
 
   // --- STYLES --- //
@@ -84,7 +88,6 @@ export default function AcolyteSchoolMap() {
 
       />
       { /* Si la rosetta se muestra el areAllArtifacts collected se cambia haciendo que este icono desaparezca, entonces para evitar eso, se pone el isRosetteShown */}
-      { (isRosetteShown || areAllArtifactsCollected) &&
       <IconButton
         width={width * 0.1}
         height={width * 0.1}
@@ -98,7 +101,6 @@ export default function AcolyteSchoolMap() {
         iconText="Hall"
 
       />
-      }
       <IconButton
         width={width * 0.1}
         height={width * 0.1}

@@ -19,10 +19,10 @@ import { useAcolytesCurrentNavigationTabStore } from "../helpers/stores/useAcoly
 export default function Router() {
 
   // --- CONTEXTS && STORES --- //
-  const initialScreenContext = useContext(AcolyteInitialScreenContext);
-  const user = useUserStore(state => state.user);
-  const setInitialRouteScreen = useAcolytesCurrentNavigationTabStore(state => state.setAcolyteCurrentTabNavigation);
-
+  const initialScreenContext = useContext( AcolyteInitialScreenContext );
+  const user = useUserStore( state => state.user );
+  const { acolyteCurrentTabNavigation , setAcolyteCurrentTabNavigation} = useAcolytesCurrentNavigationTabStore();
+  
 
   if (!initialScreenContext) return;
   if (!user) return;
@@ -45,8 +45,8 @@ export default function Router() {
   }, [initialScreen])
 
   useEffect(() => {
-    setInitialRouteScreen(Screens.MAP)
-  }, [])
+    setAcolyteCurrentTabNavigation(Screens.MAP)    
+  }, [acolyteCurrentTabNavigation])
 
   return (
     <>

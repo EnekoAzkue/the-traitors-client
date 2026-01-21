@@ -1,7 +1,6 @@
 import { create } from "zustand";
 
 // --- INTERFACES --- //
-import { activatedArtifactStore } from "../interfaces/stores/activatedArtifactStoreInterface";
 import { Screens } from "../constants/constants";
 
 interface AcolyteCurrentTabNavigationInterface {
