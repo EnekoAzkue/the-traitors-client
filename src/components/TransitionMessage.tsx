@@ -21,7 +21,6 @@ export default function TransitionMessage () {
   const [componentState, setComponentState] = useState(TransitionMessageComponentStates.HIDDEN);
 
   useEffect(() => {
-    console.log("Component loaded");
     if (isTransitionMessageShowing) {
       setComponentState(TransitionMessageComponentStates.SHOWING);
       // Inicia la animación fadeIn del texto

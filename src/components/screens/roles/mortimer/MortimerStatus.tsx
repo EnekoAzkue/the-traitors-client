@@ -1,7 +1,7 @@
 import ScreenContainer from "../../ScreenContainer";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Images } from "../../../../helpers/constants/constants";
-import { useWindowDimensions, View } from "react-native";
+import { Text, useWindowDimensions, View } from "react-native";
 import styled from "styled-components/native";
 import LoyalsStatus from "../../LoyalsStatus";
 import StatusModal from "../../../StatusModal";
@@ -16,6 +16,8 @@ function MortimerStatus() {
   const loyalAcolytes = useLoyalsStore(state => state.loyals);
 
   const { width, height } = useWindowDimensions()
+
+  if(!loyalAcolytes) return null;
 
   const AcolyteContainer = styled.View`
     background: rgba(0,0,0,0.9);
