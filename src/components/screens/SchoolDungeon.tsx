@@ -31,9 +31,11 @@ function SchoolDungen() {
 
   return (
     <AcolyteScreenContainer backgroundImage={backgroundImage} >
+      {angelo.isCaptured && 
       <View style={{ width: width, height: height, alignItems: "center" }}>
         <Button buttonText={"Send to Trial"} onPress={startTrial} />
       </View>
+      }
 
     </AcolyteScreenContainer>
   );
