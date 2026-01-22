@@ -59,13 +59,19 @@ function AcolyteInn() {
         setBackgroundImage(Images.ACOLYTE_INN_LOYAL);
       break;
 
+      case (INN_STATES.INSIDE_INN_LOYAL_WITHOUT_ANGELO): 
+        setBackgroundImage(Images.INN_LOYAL_NO_ANGELO);
+      break;
+
     }
 
   }, [innState]);
 
   // --- FUNCTIONS --- // 
   const captureAngelo = () => {
+
     console.log("Capture Angelo button pressed");
+    console.log(angelo);
     socket.emit(SocketClientToServerEvents.CAPTURE_ANGELO);
     setIsTransitionMessageShowing(true);
     setInitialScreen(Screens.SCHOOL_MAP);

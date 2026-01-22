@@ -3,10 +3,11 @@ import styled from 'styled-components/native';
 import { socket } from '../helpers/socket/socket';
 import { Modal, useWindowDimensions } from 'react-native';
 import { ModalProps } from '../helpers/interfaces/components/Modal';
-import { Images, INN_STATES, SocketClientToServerEvents } from '../helpers/constants/constants';
+import { Images, INN_STATES, Locations, SocketClientToServerEvents } from '../helpers/constants/constants';
 import { useUserStore } from '../helpers/stores/useUserStore';
 import { useInnStore } from '../helpers/stores/useInnStateStore';
 import { InnerScreen } from 'react-native-screens';
+import { useAngeloStore } from '../helpers/stores/useAngeloStore';
 
 export default function BetrayerModal() {
 
@@ -14,8 +15,10 @@ export default function BetrayerModal() {
   const { width, height } = useWindowDimensions();
   const user = useUserStore(state => state.user);
   const setInnState = useInnStore(state => state.setInnState);
+  const angelo = useAngeloStore(state => state.angelo);
 
   if (!user) return null;
+  if(!angelo) return null;
 
   // --- FUNCTIONS --- //
   function betray(): void {
@@ -27,7 +30,8 @@ export default function BetrayerModal() {
     }
   }
     function stayLoyal(): void {
-      setInnState(INN_STATES.INSIDE_INN_LOYAL);
+      if (angelo?.location !== Locations.INN ) setInnState(INN_STATES.INSIDE_INN_LOYAL_WITHOUT_ANGELO);
+      else setInnState(INN_STATES.INSIDE_INN_LOYAL);
 
   }
 

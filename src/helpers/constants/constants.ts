@@ -42,6 +42,7 @@ enum Images {
   TOWER_INSIDE            = require('../../assets/images/TowerInside.png'),
   ACOLYTE_INN_BASE        = require('../../assets/images/AcolyteInnBase.png'),
   ACOLYTE_INN_LOYAL       = require('../../assets/images/AcolyteInnLoyals.png'),
+  INN_LOYAL_NO_ANGELO     = require('../../assets/images/Inn_Without_Angelo.png'),
   ACOLYTE_INN_TRAITORS    = require('../../assets/images/AcolyteInnTraitors.png'),
   ACOLYTE_HOLLOW          = require('../../assets/images/AcolyteHollow.png'),
 
@@ -294,9 +295,10 @@ enum SocketClientToServerEventsForTesting {
 
 
 enum INN_STATES {
-  SHOW_BETRAYER_MODAL = 0,
-  INSIDE_INN_BETRAYER = 1,
-  INSIDE_INN_LOYAL    = 2,
+  SHOW_BETRAYER_MODAL             = 0,
+  INSIDE_INN_BETRAYER             = 1,
+  INSIDE_INN_LOYAL                = 2,
+  INSIDE_INN_LOYAL_WITHOUT_ANGELO = 3,
 };
 
 export {
