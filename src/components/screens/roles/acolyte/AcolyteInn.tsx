@@ -35,36 +35,38 @@ function AcolyteInn() {
   
   // --- EFFECTS --- //
   useEffect(() => {
-    if (user.isBetrayer) {
-      setInnState(INN_STATES.INSIDE_INN_BETRAYER);
-    } else {
-      setInnState(INN_STATES.SHOW_BETRAYER_MODAL);
+    if(user.rol === Roles.ACOLYTE){
+      if (user.isBetrayer) {
+        setInnState(INN_STATES.INSIDE_INN_BETRAYER);
+      } else {
+        setInnState(INN_STATES.SHOW_BETRAYER_MODAL);
+      }
+    }else{
+      setInnState(INN_STATES.INSIDE_INN_LOYAL);
     }
-    setInitialRouteScreen(Screens.MAP)
+    setInitialRouteScreen(Screens.MAP);
   }, []);
 
   useEffect(() => {
     console.log("Current Inn State: ");
     console.log(innState);
     switch (innState) {
-      case (INN_STATES.SHOW_BETRAYER_MODAL): // 0
+      case (INN_STATES.SHOW_BETRAYER_MODAL):              // 0
         setBackgroundImage(Images.ACOLYTE_INN_BASE);
         break;
 
-      case (INN_STATES.INSIDE_INN_BETRAYER): // 1
+      case (INN_STATES.INSIDE_INN_BETRAYER):              // 1
         setBackgroundImage(Images.ACOLYTE_INN_TRAITORS);
       break;      
       
-      case (INN_STATES.INSIDE_INN_LOYAL):    // 2
+      case (INN_STATES.INSIDE_INN_LOYAL):                 // 2
         setBackgroundImage(Images.ACOLYTE_INN_LOYAL);
       break;
 
-      case (INN_STATES.INSIDE_INN_LOYAL_WITHOUT_ANGELO): 
+      case (INN_STATES.INSIDE_INN_LOYAL_WITHOUT_ANGELO):  // 3
         setBackgroundImage(Images.INN_LOYAL_NO_ANGELO);
       break;
-
     }
-
   }, [innState]);
 
   // --- FUNCTIONS --- // 
@@ -74,8 +76,13 @@ function AcolyteInn() {
     console.log(angelo);
     socket.emit(SocketClientToServerEvents.CAPTURE_ANGELO);
     setIsTransitionMessageShowing(true);
+    setInnState(INN_STATES.INSIDE_INN_LOYAL_WITHOUT_ANGELO);
     setInitialScreen(Screens.SCHOOL_MAP);
   };
+
+  const isAngeloAvailableToCapture = () => {
+    return user.rol === Roles.ACOLYTE && !user.isBetrayer && innState === INN_STATES.INSIDE_INN_LOYAL && angelo.location === Locations.INN;
+  }
 
   return (
     <>
@@ -83,7 +90,7 @@ function AcolyteInn() {
         <BetrayerModal />
       )}
       <AcolyteTowerContainer backgroundImage={backgroundImage} >
-      {user.rol === Roles.ACOLYTE && !user.isBetrayer && innState === INN_STATES.INSIDE_INN_LOYAL && angelo.location === Locations.INN  && (
+      {isAngeloAvailableToCapture()  && (
         <View style={{ width: width, height: height, alignItems: "center" }}>
           <Button buttonText={"Capture Angelo"} onPress={captureAngelo} />
         </View>

@@ -1,11 +1,15 @@
-import { Images, Locations } from "../../helpers/constants/constants";
+import { useWindowDimensions, View } from "react-native";
+import { Images, Locations, SocketClientToServerEvents } from "../../helpers/constants/constants";
+import { socket } from "../../helpers/socket/socket";
 import { useAngeloStore } from "../../helpers/stores/useAngeloStore";
 import AcolyteScreenContainer from "./roles/acolyte/AcolyteScreenContainer";
 import React, { useEffect, useState } from "react";
+import Button from "../Button";
 
 function SchoolDungen() {
 
   // --- CONTEXTS && STORES --- //
+  const {width, height} = useWindowDimensions();
   const angelo = useAngeloStore(state => state.angelo)
   
   // --- STATES --- //
@@ -21,7 +25,7 @@ function SchoolDungen() {
   }, []);
   // --- FUNCTIONS --- // 
 
-    const startTrial = () => {
+  const startTrial = () => {
     socket.emit(SocketClientToServerEvents.START_TRIAL)
   }
 
