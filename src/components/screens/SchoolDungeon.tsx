@@ -30,9 +30,11 @@ function SchoolDungen() {
 
   return (
     <AcolyteScreenContainer backgroundImage={backgroundImage} >
-      <View style={{ width: width, height: height, alignItems: "center" }}>
-        <Button buttonText={"Send to Trial"} onPress={releaseAngelo} />
-      </View>
+      {angelo.location === Locations.DUNGEON &&
+        <View style={{ width: width, height: height, alignItems: "center" }}>
+          <Button buttonText={"Send to Trial"} onPress={releaseAngelo} />
+        </View>
+      }
 
     </AcolyteScreenContainer>
   );

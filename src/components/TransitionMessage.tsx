@@ -1,9 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Text, useWindowDimensions, View } from "react-native";
+import React, { useEffect, useState, useRef } from "react";
+import { useWindowDimensions, Animated } from "react-native";
 import styled from "styled-components/native";
-import { AcolyteInitialScreenContext } from "../helpers/contexts/contexts";
 import Button from "./Button";
-import { Screens } from "../helpers/constants/constants";
 import { useTransitionMessageShowingStore } from "../helpers/stores/useTransitionMessageVisibilityStore";
 
 const TransitionMessageComponentStates = {
@@ -18,14 +16,26 @@ export default function TransitionMessage () {
   // --- CONSTANTS && COMPONENTS --- //
   const {width, height} = useWindowDimensions();
   const [opacity, setOpacity] = useState(1);
+  const textOpacity = useRef(new Animated.Value(0)).current;
   const {isTransitionMessageShowing, setIsTransitionMessageShowing} = useTransitionMessageShowingStore(state => state);
   const [componentState, setComponentState] = useState(TransitionMessageComponentStates.HIDDEN);
 
   useEffect(() => {
     console.log("Component loaded");
-    if (isTransitionMessageShowing) setComponentState(TransitionMessageComponentStates.SHOWING);
-    else setComponentState(TransitionMessageComponentStates.HIDDEN);
-  } , []);
+    if (isTransitionMessageShowing) {
+      setComponentState(TransitionMessageComponentStates.SHOWING);
+      // Inicia la animación fadeIn del texto
+      Animated.timing(textOpacity, {
+        toValue: 1,
+        duration: 800,
+        delay: 300,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      setComponentState(TransitionMessageComponentStates.HIDDEN);
+      textOpacity.setValue(0);
+    }
+  }, []);
 
   function changeToSchoolMap(){
     setComponentState(TransitionMessageComponentStates.HIDDEN);
@@ -47,7 +57,7 @@ export default function TransitionMessage () {
   const StyledMessageContainer = styled.View`
     width: ${width * 0.8}px;
     height: ${height * 0.4}px;
-    background-color: rgb(21, 107, 71);
+    background-color: rgb(8, 77, 48);
     border : 1px solid white;
     position: absolute;
     top: ${height * 0.2}px;
@@ -56,7 +66,7 @@ export default function TransitionMessage () {
     border-radius: ${width*0.1}px;
   `;
 
-  const StyledText = styled.Text`
+  const StyledText = styled(Animated.Text)`
     color: white;
     padding-top: ${height * 0.06};
     padding-left: ${width * 0.05};
@@ -66,7 +76,6 @@ export default function TransitionMessage () {
     text-align: center;
     font-size: ${width* 0.075}px;
     font-family: 'KochAltschrift';
-    
   `;
 
   const StyledCenterButton = styled.View`
@@ -77,20 +86,21 @@ export default function TransitionMessage () {
 
   return (
     <>
-
-    {(componentState !== TransitionMessageComponentStates.HIDDEN) &&
-      <>
-        <StyledFullScreenView />
-        {opacity > 0 && 
-          <StyledMessageContainer>
-          <StyledText>Angelo was imprisoned by the acolytes and taken from the tavern to the dungeon</StyledText>
+      {(componentState !== TransitionMessageComponentStates.HIDDEN) &&
+        <>
+          <StyledFullScreenView />
+          {opacity > 0 && 
+            <StyledMessageContainer>
+              <StyledText style={{ opacity: textOpacity }}>
+                Angelo was imprisoned by the acolytes and taken from the tavern to the dungeon
+              </StyledText>
               <StyledCenterButton>
                 <Button buttonText="Go see Angelo" onPress={changeToSchoolMap} />
               </StyledCenterButton>
             </StyledMessageContainer>
           }
-      </>
-    }
+        </>
+      }
     </>
   );
 }
