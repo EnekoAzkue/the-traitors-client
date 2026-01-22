@@ -20,11 +20,13 @@ export async function authenticatePlayer(endpoint: string, idToken: string): Pro
   const authenticationAttemptResult: AuthenticatePlayerReturnValue = {
     statusCode: response.status,
     player: null,
+    token: null,
   };
 
   if (response.ok) {
-    const { player } = await response.json();
+    const { player, JWtoken } = await response.json();
     authenticationAttemptResult.player = player;
+    authenticationAttemptResult.token = JWtoken;
   }
 
   return authenticationAttemptResult;

@@ -42,6 +42,8 @@ import { useBetrayersStore } from '../helpers/stores/useBetrayersStore';
 import { useAngeloStore } from '../helpers/stores/useAngeloStore';
 import { getAngeloJSON } from '../helpers/componentUtils/appUtils/appUtils';
 // import Trial from './screens/Trial';
+import Trial from './screens/Trial';
+import { useTrialStore } from '../helpers/stores/useTrialStore';
 
 function App() {
 
@@ -64,6 +66,7 @@ function App() {
   const { allAcolytes, setAllAcolytes } = useAcolytesStore()
   const { loyals, setLoyals } = useLoyalsStore()
   const { betrayers, setBetrayers } = useBetrayersStore()
+  const {isTrialActive, setTrialActive} = useTrialStore(state => state)
   const { angelo, setAngelo} = useAngeloStore(state => state)
 
   const userHandler = (newUser: KaotikaPlayer | null) => {
@@ -243,6 +246,13 @@ function App() {
         setAngelo(releasedAngelo);
       })
 
+
+    socket.on(SocketServerToClientEvents.TRIAL_STARTED, () => {
+      console.log('starting trial')
+      setTrialActive(true)
+    })
+
+
       setacolyteInitialScreen(user?.homeLocation)
       console.log(user)
       console.log('is user cursed', user.isCursed)
@@ -291,7 +301,7 @@ function App() {
                 {user?.isCursed && <CurseBlock />}
                 {user?.disease.length > 0 && <IllnessBlock />}
                 {user?.resistance < 30 && <TiredBlock />}
-                {/* <Trial /> */}
+                {isTrialActive && <Trial />}
                 <ScrollContext.Provider value={[scrollActive, setScrollActive]}>
                   <MortimerInitialScreenContext.Provider value={[mortimerInitialScreen, setMortimerInitialScreen]}>
                     <AcolyteInitialScreenContext.Provider value={[acolyteInitialScreen, setacolyteInitialScreen]}>

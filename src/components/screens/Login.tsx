@@ -45,12 +45,16 @@ function Login({ setUser, setModalMessage, setIsLoading }: LoginProps) {
     if (idToken) {
       // if you are using older versions of google-signin, try old style result
       const userAuthResponse = await authenticatePlayer(ApiEndpoints.LOG_IN, idToken);
-
+      console.log("Respuesta de autenticación del usuario:", userAuthResponse);
       if (!userAuthResponse.player) {
         signOut();
         setModalMessage("You are not worthy to be inside!");
       } else {
         setUser(userAuthResponse.player);
+      
+        // const jwtToken = userAuthResponse.JWtoken;
+        // console.log("JWT recibido del backend:", jwtToken);
+      
       }
     }
     setIsLoading(false);

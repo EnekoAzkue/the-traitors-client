@@ -24,14 +24,15 @@ function SchoolDungen() {
     }
   }, [])
   // --- FUNCTIONS --- // 
-  const releaseAngelo = () => {
-    socket.emit(SocketClientToServerEvents.RELEASE_ANGELO);
+
+    const startTrial = () => {
+    socket.emit(SocketClientToServerEvents.START_TRIAL)
   }
 
   return (
     <AcolyteScreenContainer backgroundImage={backgroundImage} >
       <View style={{ width: width, height: height, alignItems: "center" }}>
-        <Button buttonText={"Send to Trial"} onPress={releaseAngelo} />
+        <Button buttonText={"Send to Trial"} onPress={startTrial} />
       </View>
 
     </AcolyteScreenContainer>
