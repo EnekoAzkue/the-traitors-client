@@ -61,7 +61,7 @@ export default function Router() {
       {initialScreen === Screens.OBITUARY && <Obituary />}
       {initialScreen === Screens.ACOLYTE_INN && <Inn />}
       {initialScreen === Screens.ACOLYTE_HOLLOW && <Hollow />}
-      {initialScreen === Screens.DUNGEON && <Trial />}
+      {initialScreen === Screens.DUNGEON && <SchoolDungeon />}
       {initialScreen === Screens.TRIAL && <Trial/>}
     </>
   );

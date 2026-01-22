@@ -18,13 +18,14 @@ function SchoolDungen() {
       console.log(isAngeloCaptured)
     }, [])
   // --- FUNCTIONS --- // 
-  const releaseAngelo = () => {
-    socket.emit(SocketClientToServerEvents.RELEASE_ANGELO)
+
+    const startTrial = () => {
+    socket.emit(SocketClientToServerEvents.START_TRIAL)
   }
 
   return (
     <AcolyteScreenContainer backgroundImage={backgroundImage} >
-      <Button buttonText={"release"} onPress={releaseAngelo} />
+                <Button buttonText="Start trial" onPress={startTrial} />
     </AcolyteScreenContainer>
   );
 }

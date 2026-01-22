@@ -41,6 +41,7 @@ import { useLoyalsStore } from '../helpers/stores/useLoyalsStore';
 import { useBetrayersStore } from '../helpers/stores/useBetrayersStore';
 import { useAngeloStore } from '../helpers/stores/useAngeloStore';
 import Trial from './screens/Trial';
+import { useTrialStore } from '../helpers/stores/useTrialStore';
 
 function App() {
 
@@ -64,6 +65,7 @@ function App() {
   const { loyals, setLoyals } = useLoyalsStore()
   const { betrayers, setBetrayers } = useBetrayersStore()
   const {angelo, setAngelo} = useAngeloStore(state => state)
+  const {isTrialActive, setTrialActive} = useTrialStore(state => state)
 
 
 
@@ -224,6 +226,11 @@ function App() {
       socket.on(SocketServerToClientEvents.RELEASED_ANGELO, () => {
       })
 
+    socket.on(SocketServerToClientEvents.TRIAL_STARTED, () => {
+      console.log('starting trial')
+      setTrialActive(true)
+    })
+
 
       setacolyteInitialScreen(user?.homeLocation)
       console.log(user)
@@ -273,7 +280,7 @@ function App() {
                 {user?.isCursed && <CurseBlock />}
                 {user?.disease.length > 0 && <IllnessBlock />}
                 {user?.resistance < 30 && <TiredBlock />}
-                <Trial />
+                {isTrialActive && <Trial />}
                 <ScrollContext.Provider value={[scrollActive, setScrollActive]}>
                   <MortimerInitialScreenContext.Provider value={[mortimerInitialScreen, setMortimerInitialScreen]}>
                     <AcolyteInitialScreenContext.Provider value={[acolyteInitialScreen, setacolyteInitialScreen]}>

@@ -179,6 +179,7 @@ export enum Locations {
   INN               = 'Inn of the Forgotten',
   OBITUARY          = 'Obituary',
   HOLLOW            = 'The Hollow of the Lost',
+  UNKNOWN           = '',
 };
 
 
@@ -257,7 +258,8 @@ enum SocketServerToClientEvents {
   CAPTURED_ANGELO                = "captured angelo",
   DELIVERED_ANGELO                = "delivered angelo",
   RELEASED_ANGELO                = "released angelo",
-
+  VOTATION                       = "votation",
+  TRIAL_STARTED                  = 'trial started',
 
 }
 
@@ -290,7 +292,8 @@ enum SocketClientToServerEvents {
   CAPTURE_ANGELO                = "capture angelo",
   DELIVER_ANGELO                = "deliver angelo",
   RELEASE_ANGELO                = "release angelo",
-
+  VOTE                          = "vote",
+  START_TRIAL                   = 'start trial',
 
 
 }

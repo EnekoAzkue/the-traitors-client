@@ -27,6 +27,9 @@ interface ServerToClientEvents {
   [SocketServerToClientEvents.CAPTURED_ANGELO]                 : () => void;
   [SocketServerToClientEvents.DELIVERED_ANGELO]                 : () => void;
   [SocketServerToClientEvents.RELEASED_ANGELO]                 : () => void;
+  [SocketServerToClientEvents.VOTATION]                         : (vote: boolean) => void;
+  [SocketServerToClientEvents.TRIAL_STARTED]                    : () => void;
+
 
 };
   
@@ -102,6 +105,9 @@ interface ClientToServerEvents {
   [SocketClientToServerEvents.CAPTURE_ANGELO]                 : () => void;
   [SocketClientToServerEvents.DELIVER_ANGELO]                 : () => void;
   [SocketClientToServerEvents.RELEASE_ANGELO]                 : () => void;
+  [SocketClientToServerEvents.VOTE]                           : (vote: boolean) => void;
+  [SocketClientToServerEvents.START_TRIAL]                    : () => void;
+
 
 
 

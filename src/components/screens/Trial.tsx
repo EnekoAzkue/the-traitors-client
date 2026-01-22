@@ -1,32 +1,66 @@
 import React, { useEffect, useState } from "react";
 import { useWindowDimensions, View } from "react-native";
-import { Images, Roles } from "../../helpers/constants/constants";
+import { Images, Roles, SocketClientToServerEvents, SocketServerToClientEvents } from "../../helpers/constants/constants";
 import ScreenContainer from "./ScreenContainer";
 import styled from "styled-components/native";
 import Button from "../Button";
 import { useUserStore } from "../../helpers/stores/useUserStore";
+import { socket } from "../../helpers/socket/socket";
+import { useInnocentStore } from "../../helpers/stores/useInnocentStore";
+import { useGuiltyStore } from "../../helpers/stores/useGuiltyStore";
+import { useTrialStore } from "../../helpers/stores/useTrialStore";
 
 function Trial() {
   const [isVoted, setIsVoted] = useState<boolean>(false)
-  const [isTrialActive, setTrialActive] = useState<boolean>(false)
-  const [innocentVotes, setInnocentVotes] = useState<number>(1)
-  const [guiltyVotes, setGuitlyVotes] = useState<number>(0)
+  const { isTrialActive, setTrialActive } = useTrialStore(state => state)
+  let { innocentVotes, setInnocentVotes } = useInnocentStore(state => state)
+  let { guiltyVotes, setGuiltyVotes } = useGuiltyStore(state => state)
+  const [endTrialText , setEndTrialText] = useState<string>('Reset trial')
 
   const user = useUserStore(state => state.user)
 
   const { width, height } = useWindowDimensions()
 
-  const vote = () => {
+  useEffect(() => {
+
+    socket.on(SocketServerToClientEvents.VOTATION, (vote: boolean) => {
+      if (vote) {
+        setInnocentVotes(innocentVotes++)
+      } else if (!vote) {
+        setGuiltyVotes(guiltyVotes++)
+      }
+
+    })
+  }, [])
+
+  useEffect(() => {
+    if(innocentVotes !== guiltyVotes) {
+      setEndTrialText('End trial')
+    }
+  }, [innocentVotes || guiltyVotes])
+
+  const vote = (vote: boolean) => {
+    socket.emit(SocketClientToServerEvents.VOTE, vote)
     setIsVoted(true)
   }
 
-  const startTrial = () => {
-    setTrialActive(true)
+  const endTrial = () => {
+    if (innocentVotes > guiltyVotes) {
+      setTrialActive(false)
+      socket.emit(SocketClientToServerEvents.RELEASE_ANGELO)
+    } else if(innocentVotes < guiltyVotes) {
+      setTrialActive(false)
+    } else {
+      setTrialActive(false)
+    }
   }
+
+
 
   const ButtonContainer = styled.View`
     width: ${width * 0.5};
     height: ${height};
+    border: 
   `
 
   const Text = styled.Text`
@@ -86,7 +120,14 @@ function Trial() {
   const VoteImage = styled.Image`
     width: ${width * 0.3};
     height: ${width * 0.3};
-    top: ${height * 0.65};
+    top: ${height * 0.15};
+    position: absolute;
+  `
+  const ResultText = styled.Text`
+    color: white;
+    font-family: KochAltschrift;
+    font-size: ${Math.min(width * 0.5, 60)}px;
+    top: ${height * 0.3};
     position: absolute;
   `
 
@@ -97,10 +138,10 @@ function Trial() {
           {!isVoted ?
             <>
               <ButtonContainer>
-                <Button buttonText="Guilty" onPress={vote} />
+                <Button buttonText="Guilty" onPress={() => { vote(false) }} />
               </ButtonContainer>
               <ButtonContainer>
-                <Button buttonText="Innocent" onPress={vote} />
+                <Button buttonText="Innocent" onPress={() => { vote(true) }} />
               </ButtonContainer>
             </> :
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -111,30 +152,27 @@ function Trial() {
         :
         <>
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            {!isTrialActive ?
+            {isTrialActive &&
               <>
-                <Button buttonText="Start trial" onPress={startTrial} />
-              </>
-              :
-              <>
-                {innocentVotes > guiltyVotes && 
-                <>
-                <Text>Innocent</Text>
-                <VoteImage source={Images.VOTE} />
-                </>
+                {innocentVotes > guiltyVotes &&
+                  <>
+                    <ResultText>Innocent</ResultText>
+                    <VoteImage source={Images.VOTE} />
+                  </>
                 }
-                {innocentVotes === guiltyVotes && 
-                <>
-                <Text>Draw</Text>
-                <VoteImage style={{transform: [{rotate: '-90deg'}]}} source={Images.VOTE} />
-                </>                
+                {innocentVotes === guiltyVotes &&
+                  <>
+                    <ResultText>Draw</ResultText>
+                    <VoteImage style={{ transform: [{ rotate: '-90deg' }] }} source={Images.VOTE} />
+                  </>
                 }
-                {innocentVotes < guiltyVotes && 
-                <>
-                <Text>Guilty</Text>
-                <VoteImage style={{transform: [{rotate: '180deg'}]}} source={Images.VOTE} />
-                </>
-              }
+                {innocentVotes < guiltyVotes &&
+                  <>
+                    <ResultText>Guilty</ResultText>
+                    <VoteImage style={{ transform: [{ rotate: '180deg' }] }} source={Images.VOTE} />
+                  </>
+                }
+                  <Button buttonText={`${endTrialText}`} onPress={endTrial} />
 
               </>
             }
