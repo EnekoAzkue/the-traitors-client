@@ -10,6 +10,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AcolyteInitialScreenContext } from "../../../../helpers/contexts/contexts";
 import { useAcolytesCurrentNavigationTabStore } from "../../../../helpers/stores/useAcolytesCurrentNavigationTabStore";
 import { useAngeloStore } from "../../../../helpers/stores/useAngeloStore";
+import { useTransitionMessageShowingStore } from "../../../../helpers/stores/useTransitionMessageVisibilityStore";
 
 function AcolyteInn() {
 
@@ -20,8 +21,8 @@ function AcolyteInn() {
   const initialRouterScreen = useContext(AcolyteInitialScreenContext);
   const setInitialRouteScreen = useAcolytesCurrentNavigationTabStore(state => state.setAcolyteCurrentTabNavigation);
   const angelo = useAngeloStore(state => state.angelo);
+  const setIsTransitionMessageShowing = useTransitionMessageShowingStore(state => state.setIsTransitionMessageShowing);
 
-  
   if (!initialRouterScreen) return (<Text>ERROR! Initial Router Context not got</Text>);
   
   const setInitialScreen = initialRouterScreen[1];
@@ -66,7 +67,8 @@ function AcolyteInn() {
   const captureAngelo = () => {
     console.log("Capture Angelo button pressed");
     socket.emit(SocketClientToServerEvents.CAPTURE_ANGELO);
-    setInitialScreen(Screens.SCHOOL_MAP)
+    setIsTransitionMessageShowing(true);
+    setInitialScreen(Screens.SCHOOL_MAP);
   };
 
   return (

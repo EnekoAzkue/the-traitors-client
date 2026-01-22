@@ -41,6 +41,7 @@ import { useLoyalsStore } from '../helpers/stores/useLoyalsStore';
 import { useBetrayersStore } from '../helpers/stores/useBetrayersStore';
 import { useAngeloStore } from '../helpers/stores/useAngeloStore';
 import { getAngeloJSON } from '../helpers/componentUtils/appUtils/appUtils';
+import TransitionMessage from './TransitionMessage';
 // import Trial from './screens/Trial';
 
 function App() {
@@ -273,12 +274,17 @@ function App() {
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <StyledView>
+        
+
+
         <GeneralModal
           message={modalMessage}
           setMessage={setModalMessage}
-        />
-        {
+          />
+        
 
+        {
+          
           initialConf ? (
             !user ? (
               <>
@@ -301,6 +307,7 @@ function App() {
                             <AcolyteToastTextContext.Provider value={[acolyteToastText, setAcolyteToastText]}>
                               <MortimerInitialScreenContext.Provider value={[mortimerInitialScreen, setMortimerInitialScreen]}>
                                 <ModalContext value={setModalMessage}>
+                                  <TransitionMessage/>
                                   <Navigation />
                                   {user?.rol === 'acolyte' &&
                                     <AcolyteToast toastText={acolyteToastText} setAcolyteToastText={setAcolyteToastText} />
