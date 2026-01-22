@@ -13,9 +13,9 @@ import { useTrialStore } from "../../helpers/stores/useTrialStore";
 function Trial() {
   const [isVoted, setIsVoted] = useState<boolean>(false)
   const { isTrialActive, setTrialActive } = useTrialStore(state => state)
-  let { innocentVotes, setInnocentVotes } = useInnocentStore(state => state)
-  let { guiltyVotes, setGuiltyVotes } = useGuiltyStore(state => state)
-  const [endTrialText , setEndTrialText] = useState<string>('Reset trial')
+  let { innocentVotes, setInnocentVotes, incrementInnocentVotes, resetInnocentVotes } = useInnocentStore(state => state)
+  let { guiltyVotes, setGuiltyVotes, incrementGuiltyVotes, resetGuiltyVotes } = useGuiltyStore(state => state)
+  const [endTrialText, setEndTrialText] = useState<string>('Reset trial')
 
   const user = useUserStore(state => state.user)
 
@@ -23,21 +23,36 @@ function Trial() {
 
   useEffect(() => {
 
-    socket.on(SocketServerToClientEvents.VOTATION, (vote: boolean) => {
-      if (vote) {
-        setInnocentVotes(innocentVotes++)
-      } else if (!vote) {
-        setGuiltyVotes(guiltyVotes++)
-      }
 
+    socket.on(SocketServerToClientEvents.VOTATION, (vote: boolean) => {
+      console.log('vote received')
+
+      if (vote) {
+        incrementInnocentVotes()
+      } else {
+        incrementGuiltyVotes()
+      }
+    })
+
+    socket.on(SocketServerToClientEvents.TRIAL_RESETED, () => {
+      resetGuiltyVotes()
+      resetInnocentVotes()
+      setIsVoted(false)
+    })
+
+    return (() => {
+      socket.off(SocketServerToClientEvents.VOTATION);
+      socket.off(SocketServerToClientEvents.TRIAL_RESETED);
     })
   }, [])
 
   useEffect(() => {
-    if(innocentVotes !== guiltyVotes) {
+    console.log(innocentVotes, '/', guiltyVotes)
+    console.log('votes changed')
+    if (innocentVotes !== guiltyVotes) {
       setEndTrialText('End trial')
     }
-  }, [innocentVotes || guiltyVotes])
+  }, [innocentVotes, guiltyVotes])
 
   const vote = (vote: boolean) => {
     socket.emit(SocketClientToServerEvents.VOTE, vote)
@@ -48,10 +63,10 @@ function Trial() {
     if (innocentVotes > guiltyVotes) {
       setTrialActive(false)
       socket.emit(SocketClientToServerEvents.RELEASE_ANGELO)
-    } else if(innocentVotes < guiltyVotes) {
+    } else if (innocentVotes < guiltyVotes) {
       setTrialActive(false)
     } else {
-      setTrialActive(false)
+      socket.emit(SocketClientToServerEvents.RESET_TRIAL)
     }
   }
 
@@ -172,7 +187,7 @@ function Trial() {
                     <VoteImage style={{ transform: [{ rotate: '180deg' }] }} source={Images.VOTE} />
                   </>
                 }
-                  <Button buttonText={`${endTrialText}`} onPress={endTrial} />
+                <Button buttonText={`${endTrialText}`} onPress={endTrial} />
 
               </>
             }

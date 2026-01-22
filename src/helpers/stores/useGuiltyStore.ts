@@ -1,14 +1,23 @@
-import { create } from "zustand";
+import { create } from "zustand"
 
-// --- INTERFACES --- //
-import { UseGuiltyInterface } from "../interfaces/stores/useGuiltyInterface";
+export interface UseGuiltyInterface {
+  guiltyVotes: number
+
+  setGuiltyVotes: (newVote: number) => void
+
+  incrementGuiltyVotes: () => void
+  resetGuiltyVotes: () => void
+}
 
 export const useGuiltyStore = create<UseGuiltyInterface>((set) => ({
-
-  // --- STATE --- //
   guiltyVotes: 0,
 
-  // --- FUNCTIONS --- //
-  setGuiltyVotes: ((newVote) => { set( () => ({guiltyVotes: newVote}) ) })
-  
-}));
+  setGuiltyVotes: (newVote: number) =>
+    set({ guiltyVotes: newVote }),
+
+  incrementGuiltyVotes: () =>
+    set(state => ({ guiltyVotes: state.guiltyVotes + 1 })),
+
+  resetGuiltyVotes: () =>
+    set({ guiltyVotes: 0 }),
+}))

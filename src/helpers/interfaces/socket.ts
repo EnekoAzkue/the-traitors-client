@@ -29,6 +29,7 @@ interface ServerToClientEvents {
   [SocketServerToClientEvents.RELEASED_ANGELO]                 : () => void;
   [SocketServerToClientEvents.VOTATION]                         : (vote: boolean) => void;
   [SocketServerToClientEvents.TRIAL_STARTED]                    : () => void;
+  [SocketServerToClientEvents.TRIAL_RESETED]                    : () => void;
 
 
 };
@@ -107,6 +108,7 @@ interface ClientToServerEvents {
   [SocketClientToServerEvents.RELEASE_ANGELO]                 : () => void;
   [SocketClientToServerEvents.VOTE]                           : (vote: boolean) => void;
   [SocketClientToServerEvents.START_TRIAL]                    : () => void;
+  [SocketClientToServerEvents.RESET_TRIAL]                    : () => void;
 
 
 

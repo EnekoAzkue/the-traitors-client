@@ -1,14 +1,24 @@
-import { create } from "zustand";
+import { create } from "zustand"
 
-// --- INTERFACES --- //
-import { UseInnocentInterface } from "../interfaces/stores/useInnocentInterface";
+export interface UseInnocentInterface {
+  innocentVotes: number
+  setInnocentVotes: (newVote: number) => void
+  incrementInnocentVotes: () => void
+  resetInnocentVotes: () => void
+}
 
 export const useInnocentStore = create<UseInnocentInterface>((set) => ({
-
   // --- STATE --- //
   innocentVotes: 0,
 
-  // --- FUNCTIONS --- //
-  setInnocentVotes: ((newVote) => { set( () => ({innocentVotes: newVote}) ) })
-  
-}));
+  // --- SETTERS --- //
+  setInnocentVotes: (newVote: number) =>
+    set({ innocentVotes: newVote }),
+
+  // --- ACTIONS --- //
+  incrementInnocentVotes: () =>
+    set(state => ({ innocentVotes: state.innocentVotes + 1 })),
+
+  resetInnocentVotes: () =>
+    set({ innocentVotes: 0 }),
+}))

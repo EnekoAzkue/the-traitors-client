@@ -260,6 +260,7 @@ enum SocketServerToClientEvents {
   RELEASED_ANGELO                = "released angelo",
   VOTATION                       = "votation",
   TRIAL_STARTED                  = 'trial started',
+  TRIAL_RESETED                  = 'trial reseted',
 
 }
 
@@ -294,7 +295,7 @@ enum SocketClientToServerEvents {
   RELEASE_ANGELO                = "release angelo",
   VOTE                          = "vote",
   START_TRIAL                   = 'start trial',
-
+  RESET_TRIAL                   = 'reset trial',
 
 }
 
