@@ -31,6 +31,7 @@ interface ServerToClientEvents {
   [SocketServerToClientEvents.CAPTURED_ANGELO]                  : ( capturedAngelo: NpcInterface ) => void;
   [SocketServerToClientEvents.DELIVERED_ANGELO]                 : ( deliveredAngelo: NpcInterface) => void;
   [SocketServerToClientEvents.RELEASED_ANGELO]                  : ( releasedAngelo: NpcInterface) => void;
+  [SocketServerToClientEvents.TRIAL_ENDED]                      : () => void;
 };
   
 // --- CLIENT TO SERVER SOCKECT EVENT DECLARATION --- //
@@ -103,6 +104,7 @@ interface ClientToServerEvents {
   [SocketClientToServerEvents.VOTE]                           : (vote: boolean) => void;
   [SocketClientToServerEvents.START_TRIAL]                    : () => void;
   [SocketClientToServerEvents.RESET_TRIAL]                    : () => void;
+  [SocketClientToServerEvents.END_TRIAL]                      : () => void;
 
 
 

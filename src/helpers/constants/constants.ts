@@ -264,6 +264,7 @@ enum SocketServerToClientEvents {
   VOTATION                       = "votation",
   TRIAL_STARTED                  = 'trial started',
   TRIAL_RESETED                  = 'trial reseted',
+  TRIAL_ENDED                    = 'trial ended',
 
 }
 
@@ -299,6 +300,7 @@ enum SocketClientToServerEvents {
   VOTE                          = "vote",
   START_TRIAL                   = 'start trial',
   RESET_TRIAL                   = 'reset trial',
+  END_TRIAL                     = 'end trial',
 
 }
 

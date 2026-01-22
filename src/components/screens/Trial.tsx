@@ -9,6 +9,8 @@ import { socket } from "../../helpers/socket/socket";
 import { useInnocentStore } from "../../helpers/stores/useInnocentStore";
 import { useGuiltyStore } from "../../helpers/stores/useGuiltyStore";
 import { useTrialStore } from "../../helpers/stores/useTrialStore";
+import NpcInterface from "../../helpers/interfaces/Npc";
+import { useAngeloStore } from "../../helpers/stores/useAngeloStore";
 
 function Trial() {
   const [isVoted, setIsVoted] = useState<boolean>(false)
@@ -16,6 +18,7 @@ function Trial() {
   let { innocentVotes, setInnocentVotes, incrementInnocentVotes, resetInnocentVotes } = useInnocentStore(state => state)
   let { guiltyVotes, setGuiltyVotes, incrementGuiltyVotes, resetGuiltyVotes } = useGuiltyStore(state => state)
   const [endTrialText, setEndTrialText] = useState<string>('Reset trial')
+  const setAngelo = useAngeloStore(state => state.setAngelo)
 
   const user = useUserStore(state => state.user)
 
@@ -40,6 +43,15 @@ function Trial() {
       setIsVoted(false)
     })
 
+    socket.on(SocketServerToClientEvents.RELEASED_ANGELO, (angelo: NpcInterface) => {
+      setTrialActive(false)
+      setAngelo(angelo)
+    })
+
+    socket.on(SocketServerToClientEvents.TRIAL_ENDED, () => {
+      setTrialActive(false)
+    })
+
     return (() => {
       socket.off(SocketServerToClientEvents.VOTATION);
       socket.off(SocketServerToClientEvents.TRIAL_RESETED);
@@ -61,11 +73,9 @@ function Trial() {
 
   const endTrial = () => {
     if (innocentVotes > guiltyVotes) {
-      //TODO: emit socket to end trial
-      setTrialActive(false)
       socket.emit(SocketClientToServerEvents.RELEASE_ANGELO)
     } else if (innocentVotes < guiltyVotes) {
-      setTrialActive(false)
+      socket.emit(SocketClientToServerEvents.END_TRIAL)
     } else {
       socket.emit(SocketClientToServerEvents.RESET_TRIAL)
     }
@@ -148,7 +158,7 @@ function Trial() {
 
   return (
     <ScreenContainer backgroundImg={Images.TRIAL}>
-      {user?.rol === Roles.MORTIMER ?
+      {user?.rol !== Roles.MORTIMER ?
         <View style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
           {!isVoted ?
             <>
