@@ -25,6 +25,9 @@ interface ServerToClientEvents {
   [SocketServerToClientEvents.HEALED]                           : ( healededPlayer: KaotikaPlayer) => void;
   [SocketServerToClientEvents.CURSED]                           : ( cursedPlayer: KaotikaPlayer) => void;
   [SocketServerToClientEvents.INFECTED]                         : ( infectedPlayer: KaotikaPlayer) => void;
+  [SocketServerToClientEvents.VOTATION]                         : (vote: boolean) => void;
+  [SocketServerToClientEvents.TRIAL_STARTED]                    : () => void;
+  [SocketServerToClientEvents.TRIAL_RESETED]                    : () => void;
   [SocketServerToClientEvents.CAPTURED_ANGELO]                  : ( capturedAngelo: NpcInterface ) => void;
   [SocketServerToClientEvents.DELIVERED_ANGELO]                 : ( deliveredAngelo: NpcInterface) => void;
   [SocketServerToClientEvents.RELEASED_ANGELO]                  : ( releasedAngelo: NpcInterface) => void;
@@ -97,6 +100,10 @@ interface ClientToServerEvents {
   [SocketClientToServerEvents.CAPTURE_ANGELO]                 : () => void;
   [SocketClientToServerEvents.DELIVER_ANGELO]                 : () => void;
   [SocketClientToServerEvents.RELEASE_ANGELO]                 : () => void;
+  [SocketClientToServerEvents.VOTE]                           : (vote: boolean) => void;
+  [SocketClientToServerEvents.START_TRIAL]                    : () => void;
+  [SocketClientToServerEvents.RESET_TRIAL]                    : () => void;
+
 
 
 

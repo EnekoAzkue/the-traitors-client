@@ -1,3 +1,4 @@
+import Trial from "../../components/screens/Trial";
 
 enum ModalMessages {
   ERROR_USER_COULD_NOT_VERIFY = 'You usurper! You have been spelled from this land.',
@@ -99,6 +100,8 @@ enum Images {
   TIRED_BLOCK             = require('../../assets/images/tiredBlock.png'),
   ILLNESS_BLOCK           = require('../../assets/images/illnessBlock.png'),
   CURSED_BLOCK            = require('../../assets/images/CurseBlock.png'),
+  TRIAL                   = require('../../assets/images/trial_screen.png'),
+  VOTE                    = require('../../assets/images/vote.png'),
   
   // --- ARTIFACT ICONS --- //
   DRAGON_HEART_ICON       = require('../../assets/artifactImages/Dragon_heart_icon.png'),
@@ -108,6 +111,12 @@ enum Images {
   PROWLERS_CLAW_ICON      = require('../../assets/artifactImages/Prowlers_claw_icon.png'),
   HEMOMANCERS_HELM_ICON   = require('../../assets/artifactImages/Hemomancers_helm_icon.png'),
   DEMON_KINGS_CROWN_ICON  = require('../../assets/artifactImages/Demon_kings_crown_icon.png'),
+
+  // --- AVATARS --- //
+  ANGELO_AVATAR   = require('../../assets/images/angelo_avatar.png'),
+  MORTIMER_AVATAR = require('../../assets/images/mortimer_avatar.png'),
+  ISTVAN_AVATAR   = require('../../assets/images/istvan_avatar.png'),
+  VILLAIN_AVATAR  = require('../../assets/images/villain_avatar.png'),
 
 }
 
@@ -155,8 +164,9 @@ enum Screens {
   SWAMP             = 'Swamp',
   HALL_OF_SAGES     = 'HallOfSages',
   DUNGEON           = 'Dungeon',
-  INN               = 'Inn of the Forgotten',
   STATUS            = 'Status',
+  TRIAL             = 'Trial',
+  INN               = 'Inn of the Forgotten',
 
 }
 
@@ -171,6 +181,7 @@ export enum Locations {
   INN               = 'Inn of the Forgotten',
   OBITUARY          = 'Obituary',
   HOLLOW            = 'The Hollow of the Lost',
+  UNKNOWN           = '',
 };
 
 
@@ -179,6 +190,7 @@ enum Domains {
 
   LOCALHOST = 'http://10.70.0.113:3000/',  // Ignacio - clase
   // LOCALHOST = 'http://192.168.0.24:3000/',    // Ignacio - x
+  // LOCALHOST = 'http://10.70.0.41:3000/',      // Eneko - clase
   RENDER    = 'https://the-traitors-server.onrender.com/',
   PORTAINER = 'http://10.50.0.50:6001/',
 
@@ -249,7 +261,9 @@ enum SocketServerToClientEvents {
   CAPTURED_ANGELO                = "captured angelo",
   DELIVERED_ANGELO                = "delivered angelo",
   RELEASED_ANGELO                = "released angelo",
-
+  VOTATION                       = "votation",
+  TRIAL_STARTED                  = 'trial started',
+  TRIAL_RESETED                  = 'trial reseted',
 
 }
 
@@ -282,8 +296,9 @@ enum SocketClientToServerEvents {
   CAPTURE_ANGELO                = "capture angelo",
   DELIVER_ANGELO                = "deliver angelo",
   RELEASE_ANGELO                = "release angelo",
-
-
+  VOTE                          = "vote",
+  START_TRIAL                   = 'start trial',
+  RESET_TRIAL                   = 'reset trial',
 
 }
 

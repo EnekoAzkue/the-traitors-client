@@ -19,6 +19,12 @@ function SchoolDungen() {
       setBackgroundImage(Images.SCHOOL_DUNGEON_ANGELO);
     }
   }, []);
+  // --- FUNCTIONS --- // 
+
+    const startTrial = () => {
+    socket.emit(SocketClientToServerEvents.START_TRIAL)
+  }
+
   
   // --- FUNCTIONS --- //
   const isAngeloCaptured = () => {
@@ -27,6 +33,10 @@ function SchoolDungen() {
 
   return (
     <AcolyteScreenContainer backgroundImage={backgroundImage} >
+      <View style={{ width: width, height: height, alignItems: "center" }}>
+        <Button buttonText={"Send to Trial"} onPress={startTrial} />
+      </View>
+
     </AcolyteScreenContainer>
   );
 }
