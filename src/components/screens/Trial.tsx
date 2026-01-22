@@ -61,6 +61,7 @@ function Trial() {
 
   const endTrial = () => {
     if (innocentVotes > guiltyVotes) {
+      //TODO: emit socket to end trial
       setTrialActive(false)
       socket.emit(SocketClientToServerEvents.RELEASE_ANGELO)
     } else if (innocentVotes < guiltyVotes) {
@@ -75,7 +76,6 @@ function Trial() {
   const ButtonContainer = styled.View`
     width: ${width * 0.5};
     height: ${height};
-    border: 
   `
 
   const Text = styled.Text`
@@ -148,7 +148,7 @@ function Trial() {
 
   return (
     <ScreenContainer backgroundImg={Images.TRIAL}>
-      {user?.rol !== Roles.MORTIMER ?
+      {user?.rol === Roles.MORTIMER ?
         <View style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
           {!isVoted ?
             <>
