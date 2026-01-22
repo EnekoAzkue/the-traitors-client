@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, useContext, useEffect, useRef, useState } from "react";
 import { Animated, Text, View } from "react-native";
 import { Dimensions } from 'react-native';
-import { Images, Roles, SocketClientToServerEvents, SocketServerToClientEvents, swampArtifactIcons } from "../../helpers/constants/constants";
+import { Images, Locations, Roles, SocketClientToServerEvents, SocketServerToClientEvents, swampArtifactIcons } from "../../helpers/constants/constants";
 import { AcolyteInitialScreenContext, CollectionContext } from "../../helpers/contexts/contexts";
 import ScreenContainer from "./ScreenContainer";
 import AcolytesInHall from "./AcolytesInHallList";
@@ -20,8 +20,8 @@ import Button from "../Button";
 
 const { width, height } = Dimensions.get('window');
 import { useShowRosetteStore } from "../../helpers/stores/useShowRosetteStore";
-import Rosette from "../Rosette";
 import { useAngeloStore } from "../../helpers/stores/useAngeloStore";
+import { useLoyalsStore } from "../../helpers/stores/useLoyalsStore";
 
 type AcolyteScreenContainer = {
   backgroundImage?: Images,
@@ -30,15 +30,16 @@ type AcolyteScreenContainer = {
 export default function HallContainer({ backgroundImage, children }: PropsWithChildren<AcolyteScreenContainer>) {
 
   // --- CONTEXTS --- //
-  const {width, height}                                         = useWindowDimensions(); 
-  const user                                                    = useUserStore(state => state.user);
-  const setIsRosetteShown                                       = useShowRosetteStore( state => state.setIsRosetteShown );
-  const activatedArtifacts                                      = useActivatedArtifactStore(state => state.activatedArtifacts);
-  const {areAllArtifactsCollected, setAreAllArtifactsCollected} = useCollectionStore(state => state);
-  const {angelo, setAngelo}                   = useAngeloStore(state => state)
+  const { width, height } = useWindowDimensions();
+  const user = useUserStore(state => state.user);
+  const setIsRosetteShown = useShowRosetteStore(state => state.setIsRosetteShown);
+  const activatedArtifacts = useActivatedArtifactStore(state => state.activatedArtifacts);
+  const { areAllArtifactsCollected, setAreAllArtifactsCollected } = useCollectionStore(state => state);
+  const loyalAcolytes = useLoyalsStore(state => state.loyals);
+  const { angelo, setAngelo } = useAngeloStore(state => state)
 
   const initialRouterScreen = useContext(AcolyteInitialScreenContext);
-  const collectionContext   = useContext(CollectionContext);
+  const collectionContext = useContext(CollectionContext);
 
   if (!user) return;
   if (!initialRouterScreen) return (<Text>ERROR! Initial Router Context not got</Text>);
@@ -83,6 +84,10 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
       socket.emit(SocketClientToServerEvents.SEARCH_FOR_ACOLYTES_IN_HALL);
     });
 
+    socket.on(SocketServerToClientEvents.DELIVERED_ANGELO, (deliveredAngelo) => {
+      setAngelo(deliveredAngelo);
+    });
+
     socket.on(SocketServerToClientEvents.SENDING_ARTIFACTS, (artifacts) => {
       const collectedArtifacts = artifacts.filter(artifact => artifact.state === 'collected');
       setArtifactsToShow(collectedArtifacts);
@@ -92,14 +97,14 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
 
     socket.on(SocketServerToClientEvents.SHOWING_ARTIFACS, () => {
       setIsSpinnerShowing(true)
-    }) 
+    })
 
     socket.on(SocketServerToClientEvents.END_VALIDATION, (request) => {
       console.log('end validation, accepted: ', request.accepted)
       setIsSpinnerShowing(false);
       setArtifactsToShow([]);
       setAreArtifactsShowing(false);
-      if(request?.accepted) {
+      if (request?.accepted) {
         console.log("accepted rosette");
         setIsRosetteShown(true);
       }
@@ -110,6 +115,7 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
       socket.off(SocketServerToClientEvents.ACOLYTE_ENTERED_EXITED_HALL);
       socket.off(SocketServerToClientEvents.SENDING_ARTIFACTS);
       socket.off(SocketServerToClientEvents.END_VALIDATION);
+      socket.off(SocketServerToClientEvents.DELIVERED_ANGELO);
 
     };
   }, []);
@@ -136,11 +142,17 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
   }
 
   const notifyMortimer = () => {
-    socket.emit(SocketClientToServerEvents.SEND_NOTIFICATION_TO_MORTIMER, { notification: { title: "Entrega de Angelo", body: "Los acolitos le esperan para entregar al traidor." } } );
+    socket.emit(SocketClientToServerEvents.SEND_NOTIFICATION_TO_MORTIMER, { notification: { title: "Entrega de Angelo", body: "Los acolitos le esperan para entregar al traidor." } });
   }
 
   const deliverAngelo = () => {
     socket.emit(SocketClientToServerEvents.DELIVER_ANGELO);
+  }
+
+  const areAngeloAndAcolytesReady = () => {
+    // TODO: Quitar el fake
+    return (angelo.location === Locations.HALL_OF_SAGES);
+    // return (angelo.location === Locations.HALL_OF_SAGES) && (acolytesInHall.length === loyalAcolytes.length);
   }
 
   // --- STYLED COMPONENTS --- //
@@ -149,7 +161,7 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
     flex: 1; 
     width: ${width}px;
     position: absolute;
-    ${user.rol === Roles.ACOLYTE ? `margin-top: ${height * 0.11}px;` : `margin-top: ${height * 0.05}px;`}
+    margin-top: ${height * 0.11}px;
   `;
 
   const AcolytesRegisterListContainer = styled.View`
@@ -183,41 +195,47 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
   return (
     <View>
       <ScreenContainer backgroundImg={backgroundImage}>
-        { (isSpinnerShowing && user.rol === Roles.ACOLYTE) &&
+        {(isSpinnerShowing && user.rol === Roles.ACOLYTE) &&
           <>
             <CircleSpinner>
               <Text style={{ color: 'white', fontFamily: 'KochAltschrift', fontSize: width * 0.08, justifyContent: 'center', alignItems: 'center' }}>Waiting for validation...</Text>
             </CircleSpinner>
           </>
         }
+      <IconButton
+        width={width * 0.3}
+        height={height * 0.07}
+        hasBrightness={true}
+        backgroundImage={Images.BACK_ARROW}
+        buttonOnPress={returnToMap}
+        xPos={20}
+        yPos={20}
+        hasBorder={false}
+        backgrounOpacity={0}
+      />
         {user.rol === Roles.ACOLYTE && (
           <>
-            <IconButton
-              width={width * 0.3}
-              height={height * 0.07}
-              hasBrightness={true}
-              backgroundImage={Images.BACK_ARROW}
-              buttonOnPress={returnToMap}
-              xPos={20}
-              yPos={20}
-              hasBorder={false}
-              backgrounOpacity={0}
-            />
-            {!mortimerInHall && angelo?.isCaptured && (
+
+            {(areAngeloAndAcolytesReady()) &&
               <View style={{ width: width, height: height, alignItems: "center" }}>
-                <Button buttonText="Notify Mortimer" onPress={notifyMortimer} />
+                {(!mortimerInHall) && <Button buttonText="Notify Mortimer" onPress={notifyMortimer} />}
               </View>
-            )}
-            {mortimerInHall && angelo?.isCaptured && (
-              <View style={{ width: width, height: height, alignItems: "center" }}>
-                <Button buttonText="Deliver Angelo" onPress={deliverAngelo} />
-              </View>
-            )}
+            }
+
+
             {(areAllArtifactsCollected && mortimerInHall) && (
               <View style={{ width: width, height: height, alignItems: "center" }}>
                 <Button buttonText="Show artifacts" onPress={showArtifacts} />
               </View>
             )}
+          </>
+        )}
+
+        {user.rol === Roles.MORTIMER && areAngeloAndAcolytesReady() &&(
+          <>
+            <View style={{ width: width, height: height, alignItems: "center" }}>
+              <Button buttonText="Deliver Angelo" onPress={deliverAngelo} />
+            </View>
           </>
         )}
         <>
@@ -236,7 +254,7 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
             <ArtifactContainer>
               <ArtifactIconContainer>
                 {artifactsToShow.map((artifact, index) => (
-                  <AritfactOnHall key={index}icon={{ uri: artifact.image }} delay={500 * index} />
+                  <AritfactOnHall key={index} icon={{ uri: artifact.image }} delay={500 * index} />
                 ))}
               </ArtifactIconContainer>
               <View style={{ top: height * 0.2 }}>

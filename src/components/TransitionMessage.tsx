@@ -60,7 +60,7 @@ export default function TransitionMessage () {
     background-color: rgb(8, 77, 48);
     border : 1px solid white;
     position: absolute;
-    top: ${height * 0.2}px;
+    top: ${height * 0.3}px;
     left: ${width * 0.1}px;
     z-index: 9996;
     border-radius: ${width*0.1}px;
@@ -68,7 +68,7 @@ export default function TransitionMessage () {
 
   const StyledText = styled(Animated.Text)`
     color: white;
-    padding-top: ${height * 0.06};
+    padding-top: ${height * 0.03};
     padding-left: ${width * 0.05};
     padding-right: ${width * 0.05};
     justify-content: center;
@@ -80,7 +80,7 @@ export default function TransitionMessage () {
 
   const StyledCenterButton = styled.View`
     position: relative;
-    top: ${height * 0.05};
+    top: ${height * 0.01};
     left: ${width * 0.15};
   `;
 
@@ -92,7 +92,7 @@ export default function TransitionMessage () {
           {opacity > 0 && 
             <StyledMessageContainer>
               <StyledText style={{ opacity: textOpacity }}>
-                Angelo was imprisoned by the acolytes and taken from the tavern to the dungeon
+                Angelo was captured by the acolytes and taken to the Hall of Sages, waiting Mortimer to send him to the Dungeon
               </StyledText>
               <StyledCenterButton>
                 <Button buttonText="Go see Angelo" onPress={changeToSchoolMap} />

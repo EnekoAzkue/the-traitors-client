@@ -95,10 +95,13 @@ function App() {
   const setAcolytes = async () => {
     const acolytes = await getAcolytes();
     setAllAcolytes(acolytes[0]);
-
+    
     setLoyals(acolytes[1])
-
+    
     setBetrayers(acolytes[2])
+
+    console.log("ACOLYTES:");
+    console.log(acolytes);
   }
 
   const setAngeloFromDB = async () => {
@@ -274,15 +277,10 @@ function App() {
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <StyledView>
-        
-
-
         <GeneralModal
           message={modalMessage}
           setMessage={setModalMessage}
           />
-        
-
         {
           
           initialConf ? (
