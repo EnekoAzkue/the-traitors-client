@@ -1,20 +1,23 @@
 import { useWindowDimensions, View } from "react-native";
-import { Images, Locations, SocketClientToServerEvents } from "../../helpers/constants/constants";
+import { Images, Locations, Roles, SocketClientToServerEvents } from "../../helpers/constants/constants";
 import { socket } from "../../helpers/socket/socket";
 import { useAngeloStore } from "../../helpers/stores/useAngeloStore";
 import AcolyteScreenContainer from "./roles/acolyte/AcolyteScreenContainer";
 import React, { useEffect, useState } from "react";
 import Button from "../Button";
+import { useUserStore } from "../../helpers/stores/useUserStore";
 
 function SchoolDungen() {
 
   // --- CONTEXTS && STORES --- //
   const {width, height} = useWindowDimensions();
-  const angelo = useAngeloStore(state => state.angelo)
+  const user = useUserStore(state => state.user);
+  const angelo = useAngeloStore(state => state.angelo);
   
   // --- STATES --- //
   const [backgroundImage, setBackgroundImage] = useState(Images.SCHOOL_DUNGEON);
 
+  if (!user) return null;
   if (!angelo) return null;
   
   // --- EFFECTS --- //
@@ -37,7 +40,7 @@ function SchoolDungen() {
 
   return (
     <AcolyteScreenContainer backgroundImage={backgroundImage} >
-      { (isAngeloCaptured()) && 
+      { user.rol === Roles.MORTIMER && (isAngeloCaptured()) && 
       <View style={{ width: width, height: height, alignItems: "center" }}>
         <Button buttonText={"Send to Trial"} onPress={startTrial} />
       </View>

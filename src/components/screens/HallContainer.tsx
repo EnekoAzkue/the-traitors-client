@@ -151,8 +151,8 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
 
   const areAngeloAndAcolytesReady = () => {
     // TODO: Quitar el fake
-    return (angelo.location === Locations.HALL_OF_SAGES);
-    // return (angelo.location === Locations.HALL_OF_SAGES) && (acolytesInHall.length === loyalAcolytes.length);
+    // return (angelo.location === Locations.HALL_OF_SAGES);
+    return (angelo.location === Locations.HALL_OF_SAGES) && (acolytesInHall.length === loyalAcolytes.length);
   }
 
   // --- STYLED COMPONENTS --- //
