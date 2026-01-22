@@ -188,8 +188,8 @@ export enum Locations {
 /* --- For local testing, watch: https://docs.google.com/document/d/13t7nvg5CSuUsB5qj1wBU4TsW03_TMxP_6RhYqBUEwcI/edit?tab=t.0 --- */
 enum Domains {
 
-  LOCALHOST = 'http://10.70.0.113:3000/',  // Ignacio - clase
-  // LOCALHOST = 'http://192.168.0.24:3000/',    // Ignacio - x
+  // LOCALHOST = 'http://10.70.0.113:3000/',  // Ignacio - clase
+  LOCALHOST = 'http://192.168.0.24:3000/',    // Ignacio - x
   // LOCALHOST = 'http://10.70.0.41:3000/',      // Eneko - clase
   RENDER    = 'https://the-traitors-server.onrender.com/',
   PORTAINER = 'http://10.50.0.50:6001/',
@@ -204,7 +204,7 @@ enum Routes {
 
 }
 
-export const CURRENT_DOMAIN   = Domains.RENDER;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN)
+export const CURRENT_DOMAIN   = Domains.LOCALHOST;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN)
 export const CURRENT_ROUTE    = `${CURRENT_DOMAIN}player/`;
 
 enum Roles {

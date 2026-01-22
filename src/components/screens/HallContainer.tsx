@@ -202,26 +202,16 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
             </CircleSpinner>
           </>
         }
-      <IconButton
-        width={width * 0.3}
-        height={height * 0.07}
-        hasBrightness={true}
-        backgroundImage={Images.BACK_ARROW}
-        buttonOnPress={returnToMap}
-        xPos={20}
-        yPos={20}
-        hasBorder={false}
-        backgrounOpacity={0}
-      />
+        <IconButton width={width * 0.3} height={height * 0.07} hasBrightness={true} backgroundImage={Images.BACK_ARROW} buttonOnPress={returnToMap} xPos={20} yPos={20} hasBorder={false} backgrounOpacity={0} />
+
         {user.rol === Roles.ACOLYTE && (
           <>
 
             {(areAngeloAndAcolytesReady()) &&
               <View style={{ width: width, height: height, alignItems: "center" }}>
-                {(!mortimerInHall) && <Button buttonText="Notify Mortimer" onPress={notifyMortimer} />}
+                {!mortimerInHall && <Button buttonText="Notify Mortimer" onPress={notifyMortimer} /> }
               </View>
             }
-
 
             {(areAllArtifactsCollected && mortimerInHall) && (
               <View style={{ width: width, height: height, alignItems: "center" }}>
@@ -231,13 +221,12 @@ export default function HallContainer({ backgroundImage, children }: PropsWithCh
           </>
         )}
 
-        {user.rol === Roles.MORTIMER && areAngeloAndAcolytesReady() &&(
-          <>
-            <View style={{ width: width, height: height, alignItems: "center" }}>
-              <Button buttonText="Deliver Angelo" onPress={deliverAngelo} />
-            </View>
-          </>
+        {user.rol === Roles.MORTIMER && areAngeloAndAcolytesReady() && (
+          <View style={{ width: width, height: height, alignItems: "center" }}>
+            <Button buttonText="Deliver Angelo" onPress={deliverAngelo} />
+          </View>
         )}
+
         <>
           <AcolytesRegisterScreenContainer>
             <AcolytesRegisterListContainer >

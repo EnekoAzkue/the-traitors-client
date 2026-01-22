@@ -32,7 +32,6 @@ export default function BetrayerModal() {
     function stayLoyal(): void {
       if (angelo?.location !== Locations.INN ) setInnState(INN_STATES.INSIDE_INN_LOYAL_WITHOUT_ANGELO);
       else setInnState(INN_STATES.INSIDE_INN_LOYAL);
-
   }
 
   // --- STYLED COMPONENTS --- //
