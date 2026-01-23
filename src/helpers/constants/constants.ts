@@ -204,7 +204,7 @@ enum Routes {
 
 }
 
-export const CURRENT_DOMAIN   = Domains.LOCALHOST;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN)
+export const CURRENT_DOMAIN   = Domains.RENDER;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN)
 export const CURRENT_ROUTE    = `${CURRENT_DOMAIN}player/`;
 
 enum Roles {
@@ -302,6 +302,7 @@ enum SocketClientToServerEvents {
   START_TRIAL                   = 'start trial',
   RESET_TRIAL                   = 'reset trial',
   END_TRIAL                     = 'end trial',
+  SEARCH_FOR_PLAYERS_IN_TRIAL   = "search for players in trial",
 
 }
 

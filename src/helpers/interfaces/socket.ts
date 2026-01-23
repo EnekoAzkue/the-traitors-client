@@ -106,10 +106,7 @@ interface ClientToServerEvents {
   [SocketClientToServerEvents.START_TRIAL]                    : () => void;
   [SocketClientToServerEvents.RESET_TRIAL]                    : () => void;
   [SocketClientToServerEvents.END_TRIAL]                      : () => void;
-
-
-
-
+  [SocketClientToServerEvents.SEARCH_FOR_PLAYERS_IN_TRIAL]    : () => void
 
   // TEST ONES
   [SocketClientToServerEventsForTesting.GET_FCM_MESSAGE]: (getSuccesfully: boolean) => void;

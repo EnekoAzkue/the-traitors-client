@@ -30,6 +30,7 @@ function Trial() {
 
   useEffect(() => {
 
+    socket.emit(SocketClientToServerEvents.SEARCH_FOR_PLAYERS_IN_TRIAL);
 
     socket.on(SocketServerToClientEvents.VOTATION, (vote: boolean) => {
       console.log('vote received')
@@ -57,8 +58,31 @@ function Trial() {
     })
 
     socket.on(SocketServerToClientEvents.SENDING_PLAYERS_IN_TRIAL, (playersInTrial)=>{
-      const [villain,istvan] = playersInTrial.slice(-2);
-      const loyals = playersInTrial.slice(0, -2);
+      // const [villain,istvan] = playersInTrial.slice(-2);
+      // const loyals = playersInTrial.slice(0, -2);
+      let villain = null;
+      let istvan = null;
+      const loyals: KaotikaPlayer[] = [];
+
+      console.log("SENDING PLAYERS TO TRIAL");
+      console.log(playersInTrial[0]);
+      
+      playersInTrial.forEach( (player) => {
+        switch (player.rol){
+          case (Roles.ISTVAN) : 
+            istvan = player;
+          break;
+
+          case (Roles.VILLAIN) : 
+          villain = player;
+          break;
+          
+          case (Roles.ACOLYTE) : 
+            loyals.push(player);
+          break;
+        }
+      });
+
       if(villain)setVillain(villain);
       if(istvan)setIstvan(istvan);
       if(loyals)setLoyals(loyals);
@@ -106,7 +130,9 @@ function Trial() {
 
 
   function renderLoyals (){
+    console.log("RENDER LOYALS");
     if(loyals){
+      console.log(loyals);
       const componets = loyals.map((loyal, i) => {
         return <SecondaryAvatar key={i} source={{uri: loyal.avatar}} />
       });
@@ -180,7 +206,7 @@ function Trial() {
     width: ${width * 0.25};
     height: ${width * 0.25};
     top: ${height * 0.25};
-    left: ${width * 0.1};
+    left: ${width * 0};
     align-items: center;
     justify-content: center;
     flex-direction: row;
