@@ -95,6 +95,15 @@ function Trial() {
     }
   }
 
+  const guilty = () => {
+    socket.emit(SocketClientToServerEvents.END_TRIAL)
+
+  }
+
+  const innocent = () => {
+    socket.emit(SocketClientToServerEvents.RELEASE_ANGELO)
+  }
+
 
   function renderLoyals (){
     if(loyals){
@@ -214,30 +223,39 @@ function Trial() {
         :
         <>
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            {isTrialActive &&
-              <>
-                {innocentVotes > guiltyVotes &&
-                  <>
-                    <ResultText>Innocent</ResultText>
-                    <VoteImage source={Images.VOTE} />
-                  </>
-                }
-                {innocentVotes === guiltyVotes &&
-                  <>
-                    <ResultText>Draw</ResultText>
-                    <VoteImage style={{ transform: [{ rotate: '-90deg' }] }} source={Images.VOTE} />
-                  </>
-                }
-                {innocentVotes < guiltyVotes &&
-                  <>
-                    <ResultText>Guilty</ResultText>
-                    <VoteImage style={{ transform: [{ rotate: '180deg' }] }} source={Images.VOTE} />
-                  </>
-                }
-                <Button buttonText={`${endTrialText}`} onPress={endTrial} />
+            <>
+              {innocentVotes > guiltyVotes &&
+                <>
+                  <ResultText>Innocent</ResultText>
+                  <VoteImage source={Images.VOTE} />
+                </>
+              }
+              {innocentVotes === guiltyVotes &&
+                <>
+                  <ResultText>Draw</ResultText>
+                  <VoteImage style={{ transform: [{ rotate: '-90deg' }] }} source={Images.VOTE} />
+                </>
+              }
+              {innocentVotes < guiltyVotes &&
+                <>
+                  <ResultText>Guilty</ResultText>
+                  <VoteImage style={{ transform: [{ rotate: '180deg' }] }} source={Images.VOTE} />
+                </>
+              }
+              <View style={{ position: 'absolute', width: width * 0.5, height: height * 0.5 }}>
+                  <Button buttonText={endTrialText} onPress={endTrial} />
+              </View>
+              <View style={{ flexDirection: 'row' }}>
+              <ButtonContainer>
+                <Button buttonText="Guilty" onPress={guilty} />
+              </ButtonContainer>
+              <ButtonContainer>
+                <Button buttonText="Innocent" onPress={innocent} />
+              </ButtonContainer>
+              </View>
 
-              </>
-            }
+
+            </>
           </View>
         </>
       }
