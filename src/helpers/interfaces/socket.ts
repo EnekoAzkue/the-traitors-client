@@ -25,13 +25,14 @@ interface ServerToClientEvents {
   [SocketServerToClientEvents.HEALED]                           : ( healededPlayer: KaotikaPlayer) => void;
   [SocketServerToClientEvents.CURSED]                           : ( cursedPlayer: KaotikaPlayer) => void;
   [SocketServerToClientEvents.INFECTED]                         : ( infectedPlayer: KaotikaPlayer) => void;
-  [SocketServerToClientEvents.VOTATION]                         : (vote: boolean) => void;
+  [SocketServerToClientEvents.VOTATION]                         : ( vote: boolean) => void;
   [SocketServerToClientEvents.TRIAL_STARTED]                    : () => void;
   [SocketServerToClientEvents.TRIAL_RESETED]                    : () => void;
   [SocketServerToClientEvents.CAPTURED_ANGELO]                  : ( capturedAngelo: NpcInterface ) => void;
   [SocketServerToClientEvents.DELIVERED_ANGELO]                 : ( deliveredAngelo: NpcInterface) => void;
   [SocketServerToClientEvents.RELEASED_ANGELO]                  : ( releasedAngelo: NpcInterface) => void;
   [SocketServerToClientEvents.TRIAL_ENDED]                      : () => void;
+  [SocketServerToClientEvents.SENDING_PLAYERS_IN_TRIAL]         : ( playersInTrial: KaotikaPlayer[]) => void     
 };
   
 // --- CLIENT TO SERVER SOCKECT EVENT DECLARATION --- //

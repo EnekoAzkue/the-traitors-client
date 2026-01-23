@@ -11,6 +11,7 @@ import { useGuiltyStore } from "../../helpers/stores/useGuiltyStore";
 import { useTrialStore } from "../../helpers/stores/useTrialStore";
 import NpcInterface from "../../helpers/interfaces/Npc";
 import { useAngeloStore } from "../../helpers/stores/useAngeloStore";
+import KaotikaPlayer from "../../helpers/interfaces/KaotikaPlayer";
 
 function Trial() {
   const [isVoted, setIsVoted] = useState<boolean>(false)
@@ -18,7 +19,10 @@ function Trial() {
   let { innocentVotes, setInnocentVotes, incrementInnocentVotes, resetInnocentVotes } = useInnocentStore(state => state)
   let { guiltyVotes, setGuiltyVotes, incrementGuiltyVotes, resetGuiltyVotes } = useGuiltyStore(state => state)
   const [endTrialText, setEndTrialText] = useState<string>('Reset trial')
-  const setAngelo = useAngeloStore(state => state.setAngelo)
+  const setAngelo = useAngeloStore(state => state.setAngelo);
+  const [villain, setVillain] = useState<KaotikaPlayer|null>(null);
+  const [istvan, setIstvan] = useState<KaotikaPlayer|null>(null);
+  const [loyals, setLoyals] = useState<KaotikaPlayer[]|null>(null);
 
   const user = useUserStore(state => state.user)
 
@@ -52,9 +56,19 @@ function Trial() {
       setTrialActive(false)
     })
 
+    socket.on(SocketServerToClientEvents.SENDING_PLAYERS_IN_TRIAL, (playersInTrial)=>{
+      const [villain,istvan] = playersInTrial.slice(-2);
+      const loyals = playersInTrial.slice(0, -2);
+      if(villain)setVillain(villain);
+      if(istvan)setIstvan(istvan);
+      if(loyals)setLoyals(loyals);
+
+    });
+
     return (() => {
       socket.off(SocketServerToClientEvents.VOTATION);
       socket.off(SocketServerToClientEvents.TRIAL_RESETED);
+      socket.off(SocketServerToClientEvents.SENDING_PLAYERS_IN_TRIAL);
     })
   }, [])
 
@@ -81,6 +95,15 @@ function Trial() {
     }
   }
 
+
+  function renderLoyals (){
+    if(loyals){
+      const componets = loyals.map((loyal, i) => {
+        return <SecondaryAvatar key={i} source={{uri: loyal.avatar}} />
+      });
+      return componets;
+    }
+  }
 
 
   const ButtonContainer = styled.View`
@@ -142,6 +165,20 @@ function Trial() {
     align-items: center;
     justify-content: center;
   `
+
+  const LoyalsContainer = styled.View`
+    position: absolute;
+    width: ${width * 0.25};
+    height: ${width * 0.25};
+    top: ${height * 0.25};
+    left: ${width * 0.1};
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px;
+  `;
+
   const VoteImage = styled.Image`
     width: ${width * 0.3};
     height: ${width * 0.3};
@@ -215,10 +252,13 @@ function Trial() {
         </MortimerContainer>
 
         <VillainsContainer>
-          <SecondaryAvatar source={Images.ISTVAN_AVATAR} />
-          <SecondaryAvatar source={Images.VILLAIN_AVATAR} />
-
+          {istvan && <SecondaryAvatar source={Images.ISTVAN_AVATAR} />}
+          {villain && <SecondaryAvatar source={Images.VILLAIN_AVATAR} />}
         </VillainsContainer>
+
+          <LoyalsContainer>
+            {renderLoyals()}
+          </LoyalsContainer>
 
       </AvatarContainer>
     </ScreenContainer>

@@ -204,7 +204,7 @@ enum Routes {
 
 }
 
-export const CURRENT_DOMAIN   = Domains.RENDER;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN)
+export const CURRENT_DOMAIN   = Domains.LOCALHOST;           // Change value for testing in develop (LOCALHOST), render (STAGING) or production (MAIN)
 export const CURRENT_ROUTE    = `${CURRENT_DOMAIN}player/`;
 
 enum Roles {
@@ -258,13 +258,14 @@ enum SocketServerToClientEvents {
   HEALED                          = 'healed',
   CURSED                          = 'cursed',
   INFECTED                        = 'infect',
-  CAPTURED_ANGELO                = "captured angelo",
+  CAPTURED_ANGELO                 = "captured angelo",
   DELIVERED_ANGELO                = "delivered angelo",
-  RELEASED_ANGELO                = "released angelo",
-  VOTATION                       = "votation",
-  TRIAL_STARTED                  = 'trial started',
-  TRIAL_RESETED                  = 'trial reseted',
-  TRIAL_ENDED                    = 'trial ended',
+  RELEASED_ANGELO                 = "released angelo",
+  VOTATION                        = "votation",
+  TRIAL_STARTED                   = 'trial started',
+  TRIAL_RESETED                   = 'trial reseted',
+  TRIAL_ENDED                     = 'trial ended',
+  SENDING_PLAYERS_IN_TRIAL        = 'sending players in trial',
 
 }
 
