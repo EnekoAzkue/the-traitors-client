@@ -6,6 +6,7 @@ import AcolyteScreenContainer from "./roles/acolyte/AcolyteScreenContainer";
 import React, { useEffect, useState } from "react";
 import Button from "../Button";
 import { useUserStore } from "../../helpers/stores/useUserStore";
+import { useTrialDoneStore } from "../../helpers/stores/useTrialDoneStore";
 
 function SchoolDungen() {
 
@@ -13,6 +14,8 @@ function SchoolDungen() {
   const {width, height} = useWindowDimensions();
   const user = useUserStore(state => state.user);
   const angelo = useAngeloStore(state => state.angelo);
+  const isTrialDone = useTrialDoneStore(state => state.isTrialDone)
+  
   
   // --- STATES --- //
   const [backgroundImage, setBackgroundImage] = useState(Images.SCHOOL_DUNGEON);
@@ -40,7 +43,7 @@ function SchoolDungen() {
 
   return (
     <AcolyteScreenContainer backgroundImage={backgroundImage} >
-      { user.rol === Roles.MORTIMER && (isAngeloCaptured()) && 
+      { user.rol === Roles.MORTIMER && (isAngeloCaptured()) && !isTrialDone &&
       <View style={{ width: width, height: height, alignItems: "center" }}>
         <Button buttonText={"Send to Trial"} onPress={startTrial} />
       </View>

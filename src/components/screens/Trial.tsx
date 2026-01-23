@@ -12,6 +12,7 @@ import { useTrialStore } from "../../helpers/stores/useTrialStore";
 import NpcInterface from "../../helpers/interfaces/Npc";
 import { useAngeloStore } from "../../helpers/stores/useAngeloStore";
 import KaotikaPlayer from "../../helpers/interfaces/KaotikaPlayer";
+import { useTrialDoneStore } from "../../helpers/stores/useTrialDoneStore";
 
 function Trial() {
   const [isVoted, setIsVoted] = useState<boolean>(false)
@@ -25,6 +26,7 @@ function Trial() {
   const [loyals, setLoyals] = useState<KaotikaPlayer[]|null>(null);
 
   const user = useUserStore(state => state.user)
+  const setIsTrialDone = useTrialDoneStore(state => state.setTrialDone)
 
   const { width, height } = useWindowDimensions()
 
@@ -33,7 +35,6 @@ function Trial() {
     socket.emit(SocketClientToServerEvents.SEARCH_FOR_PLAYERS_IN_TRIAL);
 
     socket.on(SocketServerToClientEvents.VOTATION, (vote: boolean) => {
-      console.log('vote received')
 
       if (vote) {
         incrementInnocentVotes()
@@ -97,8 +98,6 @@ function Trial() {
   }, [])
 
   useEffect(() => {
-    console.log(innocentVotes, '/', guiltyVotes)
-    console.log('votes changed')
     if (innocentVotes !== guiltyVotes) {
       setEndTrialText('End trial')
     }
@@ -117,6 +116,8 @@ function Trial() {
     } else {
       socket.emit(SocketClientToServerEvents.RESET_TRIAL)
     }
+
+    setIsTrialDone(true)
   }
 
   const guilty = () => {
@@ -268,17 +269,10 @@ function Trial() {
                   <VoteImage style={{ transform: [{ rotate: '180deg' }] }} source={Images.VOTE} />
                 </>
               }
-              <View style={{ position: 'absolute', width: width * 0.5, height: height * 0.5 }}>
-                  <Button buttonText={endTrialText} onPress={endTrial} />
-              </View>
-              <View style={{ flexDirection: 'row' }}>
-              <ButtonContainer>
-                <Button buttonText="Guilty" onPress={guilty} />
-              </ButtonContainer>
-              <ButtonContainer>
-                <Button buttonText="Innocent" onPress={innocent} />
-              </ButtonContainer>
-              </View>
+              <>
+                <Button buttonText={`${endTrialText}`} onPress={endTrial} />
+
+              </>
 
 
             </>
